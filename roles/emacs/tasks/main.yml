@@ -10,7 +10,7 @@
 
 - name: Install emacs service
   ansible.builtin.copy:
-    src: "{{ item }}"
+    src: "systemd/{{ item }}"
     dest: "{{ SYSTEMD_USER }}/"
   loop:
     - my-emacs.service

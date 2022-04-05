@@ -1,0 +1,5 @@
+[Unit]
+Description=Sync ~/Notes with Dropbox
+
+[Service]
+ExecStart=rclone sync ./Notes dropbox:Notes
