@@ -1,0 +1,8 @@
+---
+- name: Configuring {{ PROFILE }}
+  hosts: localhost
+  roles:
+    - misc-packages
+    - emacs
+    - window-manager
+    - mpd

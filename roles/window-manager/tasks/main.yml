@@ -1,0 +1,11 @@
+--- 
+
+- name: Install packages for awesomewm
+  ansible.builtin.apt:
+    - awesome
+    - flameshot
+
+- name: Copy configuration
+  ansible.builtin.copy:
+    src: awesome
+    dest: "{{ CONFIG_DIR }}/awesome"
