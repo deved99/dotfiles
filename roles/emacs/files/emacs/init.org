@@ -149,10 +149,6 @@ This wraps everything up in the modeline:
 		 " (%m)"))
 #+end_src
 * org mode
-Load only export backends I need:
-#+begin_src emacs-lisp
-  (setq org-export-backends '(html latex ox-gfm))
-#+end_src
 Some visual options
 #+begin_src emacs-lisp
   (setq org-hide-leading-stars t
@@ -161,6 +157,7 @@ Some visual options
 Github flavored Markdown exporter:
 #+begin_src emacs-lisp
   (use-package ox-gfm)
+  (setq org-export-backends '(html latex ox-gfm))
 #+end_src
 * evil-mode
 ** ~evil~ package:
@@ -230,9 +227,10 @@ This is the undo system I use; it also provides a nice visualization of the undo
   (use-package undo-tree
 #+end_src
 Set where should it save files:
-#+begin_src emacs-lisp :padline no
-    ;; :init
-    ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
+#+begin_src emacs-lisp :tangle no
+  :init
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist `((".*" . (concat user-emacs-directory "undo"))))
 #+end_src
 Enable global mode:
 #+begin_src emacs-lisp :padline no

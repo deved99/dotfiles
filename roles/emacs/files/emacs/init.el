@@ -114,8 +114,6 @@
   :init (evil-indent-plus-default-bindings))
 
 (use-package undo-tree
-;; :init
-;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
 :config (global-undo-tree-mode))
 
 (use-package lsp-mode
