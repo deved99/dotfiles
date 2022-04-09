@@ -1,8 +1,10 @@
 ---
 - name: Configuring {{ PROFILE }}
   hosts: localhost
+  vars:
+    PROFILE: testing
   roles:
     - misc-packages
     - emacs
-    - window-manager
-    - mpd
+    # - window-manager
+    # - mpd

@@ -1,7 +1,9 @@
 ---
 
 - name: Install Emacs
-  ansible.builtin.apt: emacs
+  ansible.builtin.apt:
+    name: emacs
+  become: yes
 
 - name: Copy configuration
   ansible.builtin.copy:
@@ -10,9 +12,5 @@
 
 - name: Install emacs service
   ansible.builtin.copy:
-    src: "systemd/{{ item }}"
+    src: systemd/
     dest: "{{ SYSTEMD_USER }}/"
-  loop:
-    - my-emacs.service
-    - sync-notes.service
-    - sync-notes.timer
