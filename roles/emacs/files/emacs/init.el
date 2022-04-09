@@ -1,23 +1,17 @@
 (setq gc-cons-threshold 100000000)
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(require 'package) (setq package-enable-at-startup nil)
 
-(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-(straight-use-package 'use-package)
+(package-initialize)
 
-(setq straight-use-package-by-default t)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 (add-hook 'emacs-startup-hook
   (lambda ()
@@ -114,6 +108,8 @@
   :init (evil-indent-plus-default-bindings))
 
 (use-package undo-tree
+;; :init
+;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
 :config (global-undo-tree-mode))
 
 (use-package lsp-mode

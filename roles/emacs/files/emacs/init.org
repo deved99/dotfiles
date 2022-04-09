@@ -7,33 +7,29 @@ How frequently does Emacs garbage collect:
 #+begin_src emacs-lisp
   (setq gc-cons-threshold 100000000)
 #+end_src
-** plugins setup
-Install ~straight.el~:
+** use-package setup
+Load ~package.el~:
 #+begin_src emacs-lisp
-  (defvar bootstrap-version)
-  (let ((bootstrap-file
-         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-        (bootstrap-version 5))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
+  (require 'package) (setq package-enable-at-startup nil)
 #+end_src
-Don't load packages on startup:
+Add Melpa repository:
 #+begin_src emacs-lisp
-  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+#+end_src
+Initialize packages:
+#+begin_src emacs-lisp
+  (package-initialize)
 #+end_src
 If not present, install ~use-package~:
 #+begin_src emacs-lisp
-  (straight-use-package 'use-package)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
 #+end_src
 If a package is specified, install it:
 #+begin_src emacs-lisp
-  (setq straight-use-package-by-default t)
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
@@ -149,6 +145,10 @@ This wraps everything up in the modeline:
 		 " (%m)"))
 #+end_src
 * org mode
+Load only export backends I need:
+#+begin_src emacs-lisp
+  (setq org-export-backends '(html latex ox-gfm))
+#+end_src
 Some visual options
 #+begin_src emacs-lisp
   (setq org-hide-leading-stars t
@@ -157,7 +157,6 @@ Some visual options
 Github flavored Markdown exporter:
 #+begin_src emacs-lisp
   (use-package ox-gfm)
-  (setq org-export-backends '(html latex ox-gfm))
 #+end_src
 * evil-mode
 ** ~evil~ package:
@@ -227,10 +226,9 @@ This is the undo system I use; it also provides a nice visualization of the undo
   (use-package undo-tree
 #+end_src
 Set where should it save files:
-#+begin_src emacs-lisp :tangle no
-  :init
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist `((".*" . (concat user-emacs-directory "undo"))))
+#+begin_src emacs-lisp :padline no
+    ;; :init
+    ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
 #+end_src
 Enable global mode:
 #+begin_src emacs-lisp :padline no
