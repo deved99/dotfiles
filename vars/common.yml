@@ -1,0 +1,13 @@
+---
+
+DEBUGGING: "{{ CONFIG_DIR }}"
+
+CONFIG_DIR: >-
+  {{
+  lookup('env', 'XDG_CONFIG_DIR')
+  | default(HOME+'/.config', true)
+  }}
+
+SYSTEMD_USER: "{{ CONFIG_DIR }}/systemd/user"
+
+HOME: "{{ lookup('env', 'HOME') }}"
