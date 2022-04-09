@@ -1,3 +1,6 @@
 #+title: dotfiles
 
-These are my dotfiles.
+* Overview
+This contains an Ansible playbook that deploys my configuration.
+Each role configure something specific, with each role to some degree
+indipendent of the other.
