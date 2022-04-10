@@ -13,3 +13,26 @@ CONFIG_DIR: >-
 SYSTEMD_USER: "{{ CONFIG_DIR }}/systemd/user"
 
 HOME: "{{ lookup('env', 'HOME') }}"
+
+CS:
+  - "#1d1f21"
+  - "#cc342b"
+  - "#198844"
+  - "#fba922"
+  - "#3971ed"
+  - "#a36ac7"
+  - "#3971ed"
+  - "#c5c8c6"
+  - "#969896"
+  - "#cc342b"
+  - "#198844"
+  - "#fba922"
+  - "#3971ed"
+  - "#a36ac7"
+  - "#3971ed"
+  - "#ffffff"
+
+CS_N: 1
+CS_ACC: "{{ CS[CS_N] }}"
+CS_BG: "{{ CS[0] }}"
+CS_FG: "{{ CS[15] }}"
