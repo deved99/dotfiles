@@ -3,4 +3,21 @@
 * Overview
 This contains an Ansible playbook that deploys my configuration.
 Each role configure something specific, with each role to some degree
-indipendent of the other.
+indipendent of the other: you can see it as a module.
+
+* Roles
+This section is kind of a todo-list.
+
+Planned roles:
+- Brave browser
+- shell configuration
+
+** misc-packages
+- Add auto
+** awesome
+- Rewrite configuration to literate programming
+** emacs
+- Move to straight-el
+- Auto-tangle for org-files?
+** mpd
+- mpdscribble?
