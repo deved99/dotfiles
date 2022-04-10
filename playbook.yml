@@ -4,5 +4,5 @@
   roles:
     - misc-packages
     - emacs
-    # - window-manager
-    # - mpd
+    - awesome
+    - mpd

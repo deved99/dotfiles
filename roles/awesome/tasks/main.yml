@@ -1,6 +1,6 @@
 --- 
 
-- name: Install packages for awesomewm
+- name: Install packages for awesome
   ansible.builtin.apt:
     - awesome
     - flameshot
@@ -9,3 +9,7 @@
   ansible.builtin.copy:
     src: awesome
     dest: "{{ CONFIG_DIR }}/awesome"
+
+- name: Restart awesome
+  ansible.builtin.command: >-
+    awesome-client 'awesome.restart()'
