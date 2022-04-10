@@ -2,7 +2,6 @@
 
 run() {
     PROFILE=$1
-
     ansible-playbook \
       --extra-vars @vars/common.yml \
       --extra-vars @vars/$PROFILE.yml \
@@ -15,4 +14,4 @@ usage() {
     exit 1
 }
 
-[ -z ${1+x} ] && usage || run
+[ -z ${1+x} ] && usage || run $1
