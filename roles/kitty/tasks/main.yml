@@ -1,0 +1,12 @@
+---
+
+- name: Ensure config dir exists
+  ansible.builtin.file:
+    name: "{{ CONFIG_DIR }}/kitty"
+    state: directory
+
+- name: Template config file
+  ansible.builtin.template:
+    src: kitty.conf
+    dest: "{{ CONFIG_DIR }}/kitty/kitty.conf"
+    
