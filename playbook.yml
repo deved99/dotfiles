@@ -1,6 +1,10 @@
 ---
 - name: Configuring {{ PROFILE }}
   hosts: localhost
+  # tasks:
+  #   - name: Test
+  #     ansible.builtin.debug:
+  #       msg: "{{ PROFILE }}"
   roles:
     - misc-packages
     - emacs

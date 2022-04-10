@@ -1,5 +1,7 @@
 ---
 
+PROFILE: "COMMON"
+
 DEBUGGING: "{{ CONFIG_DIR }}"
 
 CONFIG_DIR: >-
