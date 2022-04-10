@@ -11,6 +11,11 @@
     src: awesome
     dest: "{{ CONFIG_DIR }}/awesome"
 
+- name: Generate template for colors
+  ansible.builtin.template:
+    src: colors.lua
+    dest: "{{ CONFIG_DIR }}/awesome/colors.lua"
+
 - name: Restart awesome
   ignore_errors: yes
   ansible.builtin.command: >-
