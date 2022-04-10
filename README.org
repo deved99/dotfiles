@@ -16,8 +16,10 @@ Planned roles:
 - Add auto
 ** awesome
 - Rewrite configuration to literate programming
+- Reload throws an error?
 ** emacs
 - Move to straight-el
 - Auto-tangle for org-files?
 ** mpd
 - mpdscribble?
+** kitty

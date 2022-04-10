@@ -2,8 +2,9 @@
 
 - name: Install packages for awesome
   ansible.builtin.apt:
-    - awesome
-    - flameshot
+    name:
+      - awesome
+      - flameshot
 
 - name: Copy configuration
   ansible.builtin.copy:
@@ -11,5 +12,6 @@
     dest: "{{ CONFIG_DIR }}/awesome"
 
 - name: Restart awesome
+  ignore_errors: yes
   ansible.builtin.command: >-
     awesome-client 'awesome.restart()'
