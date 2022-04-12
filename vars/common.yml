@@ -1,18 +1,14 @@
 ---
 
-PROFILE: "COMMON"
-
-DEBUGGING: "{{ CONFIG_DIR }}"
-
+HOME: "{{ lookup('env', 'HOME') }}"
 CONFIG_DIR: >-
   {{
   lookup('env', 'XDG_CONFIG_DIR')
   | default(HOME+'/.config', true)
   }}
-
-SYSTEMD_USER: "{{ CONFIG_DIR }}/systemd/user"
-
-HOME: "{{ lookup('env', 'HOME') }}"
+SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
+LOCAL_BIN: "{{ HOME }}/.local/bin"
+MUSIC_DIR: "{{ HOME }}/Music"
 
 CS:
   - "#1d1f21"

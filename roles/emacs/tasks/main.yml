@@ -13,7 +13,13 @@
 - name: Install emacs related services service
   ansible.builtin.copy:
     src: systemd/
-    dest: "{{ SYSTEMD_USER }}/"
+    dest: "{{ SYSTEMD_DIR }}/"
+
+- name: Copy notes-sync to .local/bin
+  ansible.builtin.copy:
+    src: notes-sync
+    dest: "{{ LOCAL_BIN }}/notes-sync"
+    mode: u+x
 
 - name: Enable and start emacs service
   ansible.builtin.systemd:
