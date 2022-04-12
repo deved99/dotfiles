@@ -1,4 +1,15 @@
 ---
 
-- name: MPD
-  ansible.builtin.apt: mpd
+- name: install MPD
+  ansible.builtin.apt:
+    name: mpd
+
+- name: Ensure mpd folder exists
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/mpd"
+    state: directory
+
+- name: Copy configuration
+  ansible.builtin.template:
+    src: mpd.conf
+    dest: "{{ CONFIG_DIR }}/mpd/mpd.conf"
