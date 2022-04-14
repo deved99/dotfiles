@@ -2,4 +2,4 @@
 Description=Sync ~/Notes with Dropbox
 
 [Service]
-ExecStart=sh -c "$HOME/.local/bin/notes-sync"
+ExecStart=sh -c '~/.local/bin/notes-sync'
