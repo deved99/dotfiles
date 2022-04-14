@@ -40,7 +40,7 @@
 (use-package base16-theme
   :config
   (setq base16-distinct-fringe-background nil)
-  (load-theme 'base16-dracula t))
+  (load-theme 'base16-google-dark t))
 
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)

@@ -78,7 +78,7 @@ This generates themes from a base16 theme:
 (use-package base16-theme
   :config
   (setq base16-distinct-fringe-background nil)
-  (load-theme 'base16-dracula t))
+  (load-theme 'base16-google-dark t))
 #+end_src
 ** indent guides
 This shows indentations guides in programming languages:
