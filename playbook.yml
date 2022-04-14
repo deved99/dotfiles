@@ -7,7 +7,8 @@
   #       msg: "{{ PROFILE }}"
   roles:
     - misc-packages
-    - emacs
-    - awesome
-    - kitty
-    - mpd
+    - awesome # WM
+    - menu # Well, I guess you can tell
+    - kitty # Terminal
+    - emacs # Editor
+    - mpd # Music

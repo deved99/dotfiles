@@ -1,0 +1,12 @@
+---
+
+- name: Install rofi
+  ansible.builtin.apt:
+    name:
+      - rofi
+
+- name: Copy dmenu's like script to local bin
+  ansible.bultin.copy:
+    src: dmenu
+    dest: "{{ LOCAL_BIN }}/dmenu"
+    mode: u+x
