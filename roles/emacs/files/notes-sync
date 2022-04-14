@@ -1,8 +1,8 @@
 #!/bin/sh
 
-REMOTE=dropbox:Notes
-LOCAL=$HOME/Notes
-TEMP=/tmp/Notes.tmp
+REMOTE=dropbox:Notes/
+LOCAL=$HOME/Notes/
+TEMP=/tmp/Notes.tmp/
 
 echo Syncing remote and local notes
 # Print variables
