@@ -1,22 +1,22 @@
-- [Overview](#org8d5070c)
-- [Roles](#orgd67fb32)
-  - [misc-packages](#orga86a343)
-  - [awesome](#org1367020)
-  - [menu](#org8b71b96)
-  - [kitty](#orga7fd808)
-  - [emacs](#orgadb65d0)
-  - [mpd](#org8c4f90e)
+- [Overview](#orgfa1eb1b)
+- [Roles](#orgf473509)
+  - [misc-packages](#orgec2207f)
+  - [awesome](#org00e258c)
+  - [menu](#org6a38c13)
+  - [kitty](#org5fa57a0)
+  - [emacs](#org6b5edc9)
+  - [mpd](#orgf5cdbcb)
 
 
 
-<a id="org8d5070c"></a>
+<a id="orgfa1eb1b"></a>
 
 # Overview
 
 This contains an Ansible playbook that deploys my configuration. Each role configure something specific, with each role to some degree indipendent of the other: you can see it as a module.
 
 
-<a id="orgd67fb32"></a>
+<a id="orgf473509"></a>
 
 # Roles
 
@@ -26,16 +26,17 @@ Planned roles:
 
 -   Brave browser
 -   shell configuration
+-   Pipewire and Pulseaudio masking
 
 
-<a id="orga86a343"></a>
+<a id="orgec2207f"></a>
 
 ## misc-packages
 
 -   Add autojump
 
 
-<a id="org1367020"></a>
+<a id="org00e258c"></a>
 
 ## awesome
 
@@ -43,7 +44,7 @@ Planned roles:
 -   Reload throws an error?
 
 
-<a id="org8b71b96"></a>
+<a id="org6a38c13"></a>
 
 ## menu
 
@@ -51,14 +52,14 @@ Planned roles:
 -   Theme rofi.
 
 
-<a id="orga7fd808"></a>
+<a id="org5fa57a0"></a>
 
 ## kitty
 
 -   In the end, this will be my backup
 
 
-<a id="orgadb65d0"></a>
+<a id="org6b5edc9"></a>
 
 ## emacs
 
@@ -67,7 +68,7 @@ Planned roles:
 -   vterm with multiple instances and shell integration
 
 
-<a id="org8c4f90e"></a>
+<a id="orgf5cdbcb"></a>
 
 ## mpd
 
