@@ -1,20 +1,22 @@
-- [Overview](#org40ba7bc)
-- [Roles](#orgd91ace6)
-  - [misc-packages](#org2e5ce60)
-  - [awesome](#orgfd17024)
-  - [emacs](#org12dbf1e)
-  - [mpd](#orgc790e1e)
+- [Overview](#org8d5070c)
+- [Roles](#orgd67fb32)
+  - [misc-packages](#orga86a343)
+  - [awesome](#org1367020)
+  - [menu](#org8b71b96)
+  - [kitty](#orga7fd808)
+  - [emacs](#orgadb65d0)
+  - [mpd](#org8c4f90e)
 
 
 
-<a id="org40ba7bc"></a>
+<a id="org8d5070c"></a>
 
 # Overview
 
 This contains an Ansible playbook that deploys my configuration. Each role configure something specific, with each role to some degree indipendent of the other: you can see it as a module.
 
 
-<a id="orgd91ace6"></a>
+<a id="orgd67fb32"></a>
 
 # Roles
 
@@ -26,29 +28,46 @@ Planned roles:
 -   shell configuration
 
 
-<a id="org2e5ce60"></a>
+<a id="orga86a343"></a>
 
 ## misc-packages
 
--   Add auto
+-   Add autojump
 
 
-<a id="orgfd17024"></a>
+<a id="org1367020"></a>
 
 ## awesome
 
 -   Rewrite configuration to literate programming
+-   Reload throws an error?
 
 
-<a id="org12dbf1e"></a>
+<a id="org8b71b96"></a>
+
+## menu
+
+-   Add the menuing part: right now it just install a dmenu script.
+-   Theme rofi.
+
+
+<a id="orga7fd808"></a>
+
+## kitty
+
+-   In the end, this will be my backup
+
+
+<a id="orgadb65d0"></a>
 
 ## emacs
 
 -   Move to straight-el
 -   Auto-tangle for org-files?
+-   vterm with multiple instances and shell integration
 
 
-<a id="orgc790e1e"></a>
+<a id="org8c4f90e"></a>
 
 ## mpd
 

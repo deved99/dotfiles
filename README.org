@@ -13,13 +13,18 @@ Planned roles:
 - shell configuration
 
 ** misc-packages
-- Add auto
+- Add autojump
 ** awesome
 - Rewrite configuration to literate programming
 - Reload throws an error?
+** menu
+- Add the menuing part: right now it just install a dmenu script.
+- Theme rofi.
+** kitty
+- In the end, this will be my backup
 ** emacs
 - Move to straight-el
 - Auto-tangle for org-files?
+- vterm with multiple instances and shell integration
 ** mpd
 - mpdscribble?
-** kitty
