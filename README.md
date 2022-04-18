@@ -1,20 +1,30 @@
-- [Overview](#org40ba7bc)
-- [Roles](#orgd91ace6)
-  - [misc-packages](#org2e5ce60)
-  - [awesome](#orgfd17024)
-  - [emacs](#org12dbf1e)
-  - [mpd](#orgc790e1e)
+- [Overview](#org6816692)
+  - [Next](#org3859e12)
+- [Roles](#orgc077571)
+  - [misc-packages](#org4ef45a7)
+  - [awesome](#org5ef8fdd)
+  - [menu](#org67ffc2d)
+  - [kitty](#org6e543e6)
+  - [emacs](#org7af1d85)
+  - [mpd](#orgfe7f403)
 
 
 
-<a id="org40ba7bc"></a>
+<a id="org6816692"></a>
 
 # Overview
 
 This contains an Ansible playbook that deploys my configuration. Each role configure something specific, with each role to some degree indipendent of the other: you can see it as a module.
 
 
-<a id="orgd91ace6"></a>
+<a id="org3859e12"></a>
+
+## Next
+
+-   Gray generation with 3-grade polynomial.
+
+
+<a id="orgc077571"></a>
 
 # Roles
 
@@ -24,31 +34,49 @@ Planned roles:
 
 -   Brave browser
 -   shell configuration
+-   Pipewire and Pulseaudio masking
 
 
-<a id="org2e5ce60"></a>
+<a id="org4ef45a7"></a>
 
 ## misc-packages
 
--   Add auto
+-   Add autojump
 
 
-<a id="orgfd17024"></a>
+<a id="org5ef8fdd"></a>
 
 ## awesome
 
 -   Rewrite configuration to literate programming
+-   Reload throws an error?
 
 
-<a id="org12dbf1e"></a>
+<a id="org67ffc2d"></a>
+
+## menu
+
+-   Add the menuing part: right now it just install a dmenu script.
+-   Theme rofi.
+
+
+<a id="org6e543e6"></a>
+
+## kitty
+
+-   In the end, this will be my backup
+
+
+<a id="org7af1d85"></a>
 
 ## emacs
 
 -   Move to straight-el
 -   Auto-tangle for org-files?
+-   vterm with multiple instances and shell integration
 
 
-<a id="orgc790e1e"></a>
+<a id="orgfe7f403"></a>
 
 ## mpd
 

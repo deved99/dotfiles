@@ -27,6 +27,7 @@ CS:
   - "#a36ac7"
   - "#3971ed"
   - "#ffffff"
+GREYS: "{{ CS | generate_grays }}"
 
 CS_N: 1
 CS_ACC: "{{ CS[CS_N] }}"

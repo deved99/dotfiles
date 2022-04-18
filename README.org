@@ -5,21 +5,30 @@ This contains an Ansible playbook that deploys my configuration.
 Each role configure something specific, with each role to some degree
 indipendent of the other: you can see it as a module.
 
+** Next
+- Gray generation with 3-grade polynomial.
+
 * Roles
 This section is kind of a todo-list.
 
 Planned roles:
 - Brave browser
 - shell configuration
+- Pipewire and Pulseaudio masking
 
 ** misc-packages
-- Add auto
+- Add autojump
 ** awesome
 - Rewrite configuration to literate programming
 - Reload throws an error?
+** menu
+- Add the menuing part: right now it just install a dmenu script.
+- Theme rofi.
+** kitty
+- In the end, this will be my backup
 ** emacs
 - Move to straight-el
 - Auto-tangle for org-files?
+- vterm with multiple instances and shell integration
 ** mpd
 - mpdscribble?
-** kitty
