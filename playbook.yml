@@ -4,7 +4,7 @@
   # tasks:
   #   - name: Test
   #     ansible.builtin.debug:
-  #       msg: "{{ PROFILE }}"
+  #       msg: "{{ GREYS }}"
   roles:
     - misc-packages
     - awesome # WM

@@ -5,7 +5,7 @@ class FilterModule(object):
         return {
             "generate_grays": self.generate_grays
         }
-    def generate_grays(black: str, white: str):
+    def generate_grays(self, colorscheme: dict):
         """Main function, takes to colors, give greys between them.
     
         Args:
@@ -16,6 +16,8 @@ class FilterModule(object):
             list of 8 colors, the first element is black, the last
             is white and between them the greys.
         """
+        black = colorscheme[0]
+        white = colorscheme[15]
         # convert to tuples
         black_dec = rgb_to_dec(black)
         white_dec = rgb_to_dec(white)
@@ -71,10 +73,10 @@ def dec_to_rgb(color: tuple):
     (r,g,b) = color
     return f"#{r:02X}{g:02X}{b:02X}"
 
-def main():
-    greys = generate_grays("#1d1f21", "#ffffff")
-    for g in greys:
-        print(g)
+# def main():
+#     greys = generate_grays("#1d1f21", "#ffffff")
+#     for g in greys:
+#         print(g)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
