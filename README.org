@@ -5,6 +5,9 @@ This contains an Ansible playbook that deploys my configuration.
 Each role configure something specific, with each role to some degree
 indipendent of the other: you can see it as a module.
 
+** Next
+- Gray generation with 3-grade polynomial.
+
 * Roles
 This section is kind of a todo-list.
 
