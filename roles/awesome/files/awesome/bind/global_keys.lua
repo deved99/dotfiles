@@ -125,6 +125,8 @@ local media = gears.table.join(
               {description = "Raise volume", group = "media"}),
     awful.key({}, "XF86AudioLowerVolume", exec("pactl set-sink-volume @DEFAULT_SINK@ -10%"),
               {description = "Decrease volume", group = "media"}),
+    awful.key({ modkey }, "m", exec("btmic"),
+              {description = "Toggle mic", group = "media"}),
     -- MPD
     awful.key({}, "XF86AudioPlay", exec("song toggle"),
               {description = "Pause/play music", group = "media"}),
