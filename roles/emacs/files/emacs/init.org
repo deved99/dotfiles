@@ -325,6 +325,10 @@ Rust, added to lsp hook:
   (use-package rust-mode
     :hook (rust-mode . lsp))
 #+end_src
+Lua:
+#+begin_src emacs-lisp
+  (use-package lua-mode)
+#+end_src
 Miscellanous syntax highlight:
 #+begin_src emacs-lisp
   (use-package json-mode)

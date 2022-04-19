@@ -151,6 +151,8 @@
 (use-package rust-mode
   :hook (rust-mode . lsp))
 
+(use-package lua-mode)
+
 (use-package json-mode)
 (use-package yaml-mode)
 (use-package dockerfile-mode)
