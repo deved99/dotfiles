@@ -82,12 +82,13 @@ This generates themes from a base16 theme:
 #+end_src
 ** indent guides
 This shows indentations guides in programming languages:
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'column))
 #+end_src
+Right now disabled: doesn't show on empty lines.
 ** ligatures
 These are the used ligatures, disabled 'cause errors:
 #+begin_src emacs-lisp :tangle no
