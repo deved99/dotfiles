@@ -41,11 +41,6 @@
   :config
   (setq base16-distinct-fringe-background nil)
   (load-theme 'base16-google-dark t))
-
-(use-package highlight-indent-guides
-  :hook (prog-mode . highlight-indent-guides-mode)
-  :config
-  (setq highlight-indent-guides-method 'column))
 (use-package rainbow-mode)
 
 (defun get_current_state ()
