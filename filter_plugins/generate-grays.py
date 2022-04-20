@@ -47,20 +47,19 @@ def get_function(black, dgrey, lgrey, white):
         matrixes["red"].append( equation_from(x, color[0]) )
         matrixes["green"].append( equation_from(x, color[1]) )
         matrixes["blue"].append( equation_from(x, color[2]) )
-    fs = {}
-    for matrix in matrixes.values():
-        for row in matrix:
-            print(row)
-        print("")
-    exit
-    for part,matrix in matrixes.items():
-        coeffs = solve_system(matrix)
-        # TODO This needs absolutely splitting
-        fs[part] = lambda x: round(sum([
-            coeffs[i]*x**i
-            for i in range(len(coeffs))
-        ]))
-    return lambda x: ( fs["red"](x), fs["green"](x), fs["blue"](x) )
+    solutions = {
+        p: solve_system(matrixes[p])
+        for p in ["red","green","blue"]
+    }
+    def fs(part):
+        coeffs = solutions[part]
+        def f(x):
+            ret = 0
+            for i,coeff in enumerate(coeffs):
+                ret += coeff * ( x**i )
+            return round(ret)
+        return f
+    return lambda x: ( fs("red")(x), fs("green")(x), fs("blue")(x) )
 
 def solve_system(matrix):
     i = 0
@@ -87,8 +86,10 @@ def solve_system(matrix):
             matrix[j] = [ j-eq[i]*k for j,k in zip(eq,cur) ]
             j += 1
         i -= 1
-    # Return solutions
-    return [ row[-1] for row in matrix ]
+    # Return solutions: reversed, this way we have [x0,x1,x2..]
+    ret = [ row[-1] for row in matrix ]
+    ret.reverse()
+    return ret
 
 # HELPERS
 def rgb_to_dec(color: str):
@@ -139,11 +140,11 @@ CS = [
     "#ffffff",
 ]
 
-def main():
-    m = FilterModule()
-    greys = m.generate_grays(CS)
-    for g in greys:
-        print(g)
+# def main():
+#     m = FilterModule()
+#     greys = m.generate_grays(CS)
+#     for g in greys:
+#         print(g)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
