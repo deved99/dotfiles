@@ -5,7 +5,7 @@ class FilterModule(object):
         return {
             "generate_grays": self.generate_grays
         }
-    def generate_grays(self, colorscheme: dict):
+    def generate_grays(self, colorscheme: list):
         """Main function, takes to colors, give greys between them.
     
         Args:
@@ -16,34 +16,81 @@ class FilterModule(object):
             list of 8 colors, the first element is black, the last
             is white and between them the greys.
         """
-        black = colorscheme[0]
-        white = colorscheme[15]
-        # convert to tuples
-        black_dec = rgb_to_dec(black)
-        white_dec = rgb_to_dec(white)
-        # to coordinates
-        black_xy = tuple([ (0,i) for i in black_dec ])
-        white_xy = tuple([ (7,i) for i in white_dec ])
-        coordinates = zip(black_xy, white_xy)
-        # lines for each color
-        r,g,b = [ get_line(a,b) for a,b in coordinates ]
+        get_and_convert = lambda i: rgb_to_dec( colorscheme[i] )
+        black = get_and_convert(0)
+        dgrey = get_and_convert(8)
+        lgrey = get_and_convert(7)
+        white = get_and_convert(15)
+        # get function
+        f = get_function(black,dgrey,lgrey,white)
         # greys in dec
-        greys_dec = [ (r(i), g(i), b(i)) for i in range(8) ]
+        greys_dec = [ f(i) for i in range(8) ]
         # greys in rgb
         greys_rgb = [ dec_to_rgb(g) for g in greys_dec ]
         return greys_rgb
-        
+
+# Linear System
+def get_function(black, dgrey, lgrey, white):
+    equation_from = lambda x,y: [ x**3, x**2, x, 1, y ]
+    colors_to_xs = [
+        (white, 7),
+        (lgrey, 5),
+        (dgrey, 3),
+        (black, 0)
+    ]
+    matrixes = {
+        "red": [],
+        "green": [],
+        "blue": []
+    }
+    for color,x in colors_to_xs:
+        matrixes["red"].append( equation_from(x, color[0]) )
+        matrixes["green"].append( equation_from(x, color[1]) )
+        matrixes["blue"].append( equation_from(x, color[2]) )
+    fs = {}
+    for matrix in matrixes.values():
+        for row in matrix:
+            print(row)
+        print("")
+    exit
+    for part,matrix in matrixes.items():
+        coeffs = solve_system(matrix)
+        # TODO This needs absolutely splitting
+        fs[part] = lambda x: round(sum([
+            coeffs[i]*x**i
+            for i in range(len(coeffs))
+        ]))
+    return lambda x: ( fs["red"](x), fs["green"](x), fs["blue"](x) )
+
+def solve_system(matrix):
+    i = 0
+    NUM_ROW = len(matrix)
+    # Make the system triangular
+    while i < NUM_ROW:
+        # Pivot to 1, then store to temporary variable
+        pivot = matrix[i][i]
+        cur = matrix[i] = [ v/pivot for v in matrix[i] ]
+        j = i+1
+        while j < NUM_ROW:
+            eq = matrix[j]
+            matrix[j] = [ j-eq[i]*k for j,k in zip(eq,cur) ]
+            j += 1
+        i += 1
+    # Substitute
+    i = NUM_ROW - 1
+    while i >= 0:
+        # matrix[i][i] should == 1
+        cur = matrix[i]
+        j = 0
+        while j < i:
+            eq = matrix[j]
+            matrix[j] = [ j-eq[i]*k for j,k in zip(eq,cur) ]
+            j += 1
+        i -= 1
+    # Return solutions
+    return [ row[-1] for row in matrix ]
 
 # HELPERS
-def get_line(a, b):
-    """Find line passing from a and b
-    """
-    x0,y0 = a
-    x1,y1 = b
-    m = (y1-y0)/(x1-x0)
-    q = y0 - m*x0
-    return lambda x: round(m*x+q)
-
 def rgb_to_dec(color: str):
     """Converts rgb string to decimal tuple.
     
@@ -73,10 +120,30 @@ def dec_to_rgb(color: tuple):
     (r,g,b) = color
     return f"#{r:02X}{g:02X}{b:02X}"
 
-# def main():
-#     greys = generate_grays("#1d1f21", "#ffffff")
-#     for g in greys:
-#         print(g)
+CS = [
+    "#1d1f21",
+    "#cc342b",
+    "#198844",
+    "#fba922",
+    "#3971ed",
+    "#a36ac7",
+    "#3971ed",
+    "#c5c8c6",
+    "#969896",
+    "#cc342b",
+    "#198844",
+    "#fba922",
+    "#3971ed",
+    "#a36ac7",
+    "#3971ed",
+    "#ffffff",
+]
 
-# if __name__ == "__main__":
-#     main()
+def main():
+    m = FilterModule()
+    greys = m.generate_grays(CS)
+    for g in greys:
+        print(g)
+
+if __name__ == "__main__":
+    main()

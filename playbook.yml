@@ -1,14 +1,14 @@
 ---
 - name: Configuring {{ PROFILE }}
   hosts: localhost
-  # tasks:
-  #   - name: Test
-  #     ansible.builtin.debug:
-  #       msg: "{{ GREYS }}"
-  roles:
-    - misc-packages
-    - awesome # WM
-    - menu # Well, I guess you can tell
-    - kitty # Terminal
-    - emacs # Editor
-    - mpd # Music
+  tasks:
+    - name: Test
+      ansible.builtin.debug:
+        msg: "{{ GREYS }}"
+  # roles:
+  #   - misc-packages
+  #   - awesome # WM
+  #   - menu # Well, I guess you can tell
+  #   - kitty # Terminal
+  #   - emacs # Editor
+  #   - mpd # Music
