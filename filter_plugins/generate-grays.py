@@ -31,7 +31,11 @@ class FilterModule(object):
 
 # Linear System
 def get_function(black, dgrey, lgrey, white):
-    equation_from = lambda x,y: [ x**3, x**2, x, 1, y ]
+    # Vars
+    N = 5 # Deg + 1 of the polynomial
+    K = 0.5 # Derivative at 1
+    # This generates the values of the coefficients.
+    equation_from = lambda x,y: [ x**i for i in range(N) ] + [ y ]
     colors_to_xs = [
         (white, 7),
         (lgrey, 5),
@@ -47,6 +51,9 @@ def get_function(black, dgrey, lgrey, white):
         matrixes["red"].append( equation_from(x, color[0]) )
         matrixes["green"].append( equation_from(x, color[1]) )
         matrixes["blue"].append( equation_from(x, color[2]) )
+    for part in ["red", "green", "blue"]:
+        eq = [ i for i in range(N) ] + [ K ]
+        matrixes[part].append(eq)
     solutions = {
         p: solve_system(matrixes[p])
         for p in ["red","green","blue"]
