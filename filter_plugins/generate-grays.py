@@ -31,42 +31,34 @@ class FilterModule(object):
 
 # Linear System
 def get_function(black, dgrey, lgrey, white):
+    ## Matrix generation
+    fs = [
+        get_function_part( black[i], dgrey[i], lgrey[i], white[i] )
+        for i in range(3)
+    ]
+    return lambda x: tuple([ f(x) for f in fs ])
+
+def get_function_part(black, dgrey, lgrey, white):
     # Vars
     N = 5 # Deg + 1 of the polynomial
-    K = 0.5 # Derivative at 1
-    # This generates the values of the coefficients.
+    K = -30 # Derivative at 0
     equation_from = lambda x,y: [ x**i for i in range(N) ] + [ y ]
-    colors_to_xs = [
-        (white, 7),
-        (lgrey, 5),
-        (dgrey, 3),
-        (black, 0)
+    matrix = [
+        equation_from(7, white),
+        equation_from(5, lgrey),
+        equation_from(3, dgrey),
+        equation_from(0, black)
     ]
-    matrixes = {
-        "red": [],
-        "green": [],
-        "blue": []
-    }
-    for color,x in colors_to_xs:
-        matrixes["red"].append( equation_from(x, color[0]) )
-        matrixes["green"].append( equation_from(x, color[1]) )
-        matrixes["blue"].append( equation_from(x, color[2]) )
-    for part in ["red", "green", "blue"]:
-        eq = [ i for i in range(N) ] + [ K ]
-        matrixes[part].append(eq)
-    solutions = {
-        p: solve_system(matrixes[p])
-        for p in ["red","green","blue"]
-    }
-    def fs(part):
-        coeffs = solutions[part]
-        def f(x):
-            ret = 0
-            for i,coeff in enumerate(coeffs):
-                ret += coeff * ( x**i )
-            return round(ret)
-        return f
-    return lambda x: ( fs("red")(x), fs("green")(x), fs("blue")(x) )
+    # Derivative equation
+    eq = [ 0, 1, 0, 0, 0 ] + [ K ]
+    matrix.append(eq)
+    coeffs = solve_system(matrix)
+    def f(x):
+        ret = 0
+        for i,coeff in enumerate(coeffs):
+            ret += coeff * ( x**i )
+        return round(ret)
+    return f
 
 def solve_system(matrix):
     i = 0
@@ -94,9 +86,7 @@ def solve_system(matrix):
             j += 1
         i -= 1
     # Return solutions: reversed, this way we have [x0,x1,x2..]
-    ret = [ row[-1] for row in matrix ]
-    ret.reverse()
-    return ret
+    return [ row[-1] for row in matrix ]
 
 # HELPERS
 def rgb_to_dec(color: str):
@@ -146,12 +136,24 @@ CS = [
     "#3971ed",
     "#ffffff",
 ]
+WANTED = [
+    "#1D1F21",
+    "#282A2E",
+    "#373B41",
+    "#969896",
+    "#B4B7B4",
+    "#C5C8C6",
+    "#E0E0E0",
+    "#FFFFFF"
+]
 
-# def main():
-#     m = FilterModule()
-#     greys = m.generate_grays(CS)
-#     for g in greys:
-#         print(g)
+def main():
+    m = FilterModule()
+    greys = m.generate_grays(CS)
+    print("| WANTED  | GOTTEN  |")
+    print("|---------+---------|")
+    for w,g in zip(WANTED, greys):
+        print(f"| {w} | {g} |")
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
