@@ -3,9 +3,10 @@
 class FilterModule(object):
     def filters(self):
         return {
-            "generate_grays": self.generate_grays
+            "generate_greys": self.generate_greys,
+            "middle_color": self.middle_color
         }
-    def generate_grays(self, colorscheme: list):
+    def generate_greys(self, colorscheme: list):
         """Main function, takes to colors, give greys between them.
     
         Args:
@@ -28,6 +29,14 @@ class FilterModule(object):
         # greys in rgb
         greys_rgb = [ dec_to_rgb(g) for g in greys_dec ]
         return greys_rgb
+    def middle_color(self, a, b):
+        a_dec = rgb_to_dec(a)
+        b_dec = rgb_to_dec(b)
+        res_dec = tuple([
+            round( (i+j)/2 )
+            for i,j in zip(a_dec, b_dec)
+        ])
+        return dec_to_rgb(res_dec)
 
 # Linear System
 def get_function(black, dgrey, lgrey, white):
