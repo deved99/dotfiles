@@ -29,13 +29,12 @@ class FilterModule(object):
         # greys in rgb
         greys_rgb = [ dec_to_rgb(g) for g in greys_dec ]
         return greys_rgb
-    def middle_color(self, a, b):
+    def middle_color(self, a, b, ratio=0.5):
+        """ """
         a_dec = rgb_to_dec(a)
         b_dec = rgb_to_dec(b)
-        res_dec = tuple([
-            round( (i+j)/2 )
-            for i,j in zip(a_dec, b_dec)
-        ])
+        diff = [ ratio*(j-i) for i,j in zip(a_dec, b_dec) ]
+        res_dec = tuple([ round(i+j) for i,j in zip(a_dec, diff) ])
         return dec_to_rgb(res_dec)
 
 # Linear System

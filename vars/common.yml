@@ -10,54 +10,54 @@ SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
 LOCAL_BIN: "{{ HOME }}/.local/bin"
 MUSIC_DIR: "{{ HOME }}/Music"
 
-CS:
-  - "#1d1f21"
-  - "#cc342b"
-  - "#198844"
-  - "#fba922"
-  - "#3971ed"
-  - "#a36ac7"
-  - "#3971ed"
-  - "#c5c8c6"
-  - "#969896"
-  - "#cc342b"
-  - "#198844"
-  - "#fba922"
-  - "#3971ed"
-  - "#a36ac7"
-  - "#3971ed"
-  - "#ffffff"
-BASE16_GREYS: "{{ CS | generate_greys }}"
-BASE16_COLORS:
-  - "{{ CS.1 }}"
-  - "{{ CS.1 | middle_color(CS.3) }}"
-  - "{{ CS.3 }}"
-  - "{{ CS.2 }}"
-  - "{{ CS.4 }}"
-  - "{{ CS.4 }}"
-  - "{{ CS.5 }}"
-  - "{{ CS.4 }}"
-BASE16: "{{ BASE16_GREYS + BASE16_COLORS }}"
 
-## BASE16 TEST
-#  #1d1f21 #1D1F21
-#  #282a2e #282A2B
-#  #373b41 #5F6060
-#  #969896 #969896
-#  #b4b7b4 #B9BBB9
-#  #c5c8c6 #C5C8C6
-#  #e0e0e0 #CFD2D1
-#  #ffffff #FFFFFF
-#  #cc342b #cc342b
-#  #f96a38 #E46E26
-#  #fba922 #fba922
-#  #198844 #198844
-#  #3971ed #3971ed
-#  #3971ed #3971ed
-#  #a36ac7 #a36ac7
-#  #3971ed #3971ed
+############################################################
+# COLORSCHEME
 
+# CS is the choosen colorscheme, which will update CS_TERM and CS_BASE16
+CS: "{{ COLORSCHEME_GOOGLE }}"
+CS_TERM: "{{ CS.TERM}}" 
+CS_BASE16: "{{ CS.BASE16 }}"
+
+# These are the chosen accent, background and foreground color
 CS_N: 1
-CS_ACC: "{{ CS[CS_N] }}"
-CS_BG: "{{ CS[0] }}"
-CS_FG: "{{ CS[15] }}"
+CS_ACC: "{{ CS_TERM[CS_N] }}"
+CS_BG: "{{ CS_TERM[0] }}"
+CS_FG: "{{ CS_TERM[15] }}"
+
+# These are the possible values for CS
+COLORSCHEME_GOOGLE:
+  TERM:
+    - "#1d1f21"
+    - "#cc342b"
+    - "#198844"
+    - "#fba922"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
+    - "#c5c8c6"
+    - "#969896"
+    - "#cc342b"
+    - "#198844"
+    - "#fba922"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
+    - "#ffffff"
+  BASE16:
+    - "#1d1f21"
+    - "#282a2e"
+    - "#373b41"
+    - "#969896"
+    - "#b4b7b4"
+    - "#c5c8c6"
+    - "#e0e0e0"
+    - "#ffffff"
+    - "#cc342b"
+    - "#f96a38"
+    - "#fba922"
+    - "#198844"
+    - "#3971ed"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
