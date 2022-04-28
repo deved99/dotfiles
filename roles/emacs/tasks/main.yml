@@ -5,9 +5,9 @@
     name: emacs
   become: yes
 
-- name: Copy configuration
+- name: Clone configuration
   ansible.builtin.git:
-    repo: https://github.com/deved99/dotfiles-emacs
+    repo: git@github.com:deved99/dotfiles-emacs.git
     dest: "{{ CONFIG_DIR }}/emacs"
 
 - name: Install emacs related services service
