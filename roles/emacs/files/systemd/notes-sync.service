@@ -1,5 +1,0 @@
-[Unit]
-Description=Sync ~/Notes with Dropbox
-
-[Service]
-ExecStart=sh -c '~/.local/bin/notes-sync'
