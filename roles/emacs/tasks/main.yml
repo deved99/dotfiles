@@ -6,18 +6,18 @@
   become: yes
 
 - name: Copy configuration
-  ansible.builtin.copy:
-    src: emacs
-    dest: "{{ CONFIG_DIR }}"
+  ansible.builtin.git:
+    repo: https://github.com/deved99/dotfiles-emacs
+    dest: "{{ CONFIG_DIR }}/emacs"
 
 - name: Install emacs related services service
   ansible.builtin.copy:
-    src: systemd/
+    src: systemd/user
     dest: "{{ SYSTEMD_DIR }}/"
 
 - name: Copy notes-sync to .local/bin
   ansible.builtin.copy:
-    src: notes-sync
+    src: scripts/notes-sync
     dest: "{{ LOCAL_BIN }}/notes-sync"
     mode: u+x
 
