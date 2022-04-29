@@ -6,24 +6,18 @@ local wibox = require("wibox")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
+function get_tags()
+    local awful = require("awful")
 
-do
-    local in_error = false
-    local notify_error = function (e)
-        if in_error then return end
-        in_error = true
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = tostring(err) })
-        in_error = false
-    end
-    awesome.connect_signal("debug::error", notify_error)
+    local tags = { "1", "2", "3", "4" }
+    awful.screen.connect_for_each_screen(function(s)
+        -- Each screen has its own tag table.
+        awful.tag(tags, s, awful.layout.layouts[1])
+    end)
+
+    return tags
 end
+RC.tags = get_tags()
 
 function set_bar()
   local taglist_buttons = RC.binds.tags

@@ -1,9 +1,25 @@
 #+TITLE: Awesome Config
 #+PROPERTY: header-args :tangle no
 
-* Libraries
+* Summary
+So, ~init.lua~ is tangled from this fragment.
+#+begin_src lua :tangle rc.lua :noweb yes
+<<prepare>>
+<<decorations>>
+<<workflow>>
+#+end_src
+* Preparation
+In this section there are preparation steps, as follows:
+#+name: prepare
+#+begin_src lua :tangle foo.lua :noweb yes
+<<prepare/libs>>
+<<prepare/errors>>
+<<prepare/vars>>
+#+end_src
+** Libraries
 These libraries are used throughout the configuration:
-#+begin_src lua :tangle yes
+#+name: prepare/libs
+#+begin_src lua
 local naughty = require("naughty")
 local fs = require("gears.filesystem")
 local awful = require("awful")
@@ -12,19 +28,14 @@ local wibox = require("wibox")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 #+end_src
-* Error handling
-Check if awesome encountered an error during startup and fell back to
-another config (This code will only ever execute for the fallback
-config, so maybe I can remove it, should test though)
-#+begin_src lua :tangle yes
+** Error handling
+#+name: prepare/errors
+#+begin_src lua
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
                      text = awesome.startup_errors })
 end
-#+end_src
-Handle runtime errors after startup:
-#+begin_src lua :tangle yes
 do
     local in_error = false
     local notify_error = function (e)
@@ -38,10 +49,10 @@ do
     awesome.connect_signal("debug::error", notify_error)
 end
 #+end_src
-* Variables
+** Variables
 I'm collecting variables in a tables, ~RC~; actually, I should how I
 do this, ~RC.beautiful~ uses a variable from ~RC~.
-#+begin_src lua
+#+begin_src lua :name prepare/variables
 <<variables/get_variables>>
 <<variables/get_colorscheme>>
 <<variables/get_theme>>
@@ -208,9 +219,9 @@ awful.screen.connect_for_each_screen(function(s)
     }
 end)
 #+end_src
-* Keybindings
-** Global
-*** Keys
+* Workflow
+** Keybindings
+*** Global keys
 As usual, wrap everything in a function.
 #+begin_src lua
 function set_global_keys()
@@ -389,7 +400,7 @@ Close the function then call it:
 end
 set_global_keys()
 #+end_src
-*** Buttons
+*** Global buttons
 As usual, wrap everything in a function.
 #+begin_src lua
 function set_global_keys()
@@ -411,4 +422,6 @@ Close function and execute it:
 end
 set_global_buttons()
 #+end_src
-* Rules & signals
+** Rules
+** Signals
+* Theme
