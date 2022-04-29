@@ -2,7 +2,7 @@
 #+PROPERTY: header-args :tangle no
 
 * Summary
-So, ~init.lua~ is tangled from this fragment.
+So, ~rc.lua~ is pretty much in these sections:
 #+begin_src lua :tangle rc.lua :noweb yes
 <<prepare>>
 <<decorations>>
