@@ -145,20 +145,6 @@ This wraps everything up in the modeline:
 		 '(:eval (is_modified))
 		 " (%m)"))
 #+end_src
-* org mode
-Load only export backends I need:
-#+begin_src emacs-lisp
-  (setq org-export-backends '(html latex ox-gfm))
-#+end_src
-Some visual options
-#+begin_src emacs-lisp
-  (setq org-hide-leading-stars t
-	org-startup-folded t)
-#+end_src
-Github flavored Markdown exporter:
-#+begin_src emacs-lisp
-  (use-package ox-gfm)
-#+end_src
 * evil-mode
 ** ~evil~ package:
 The main piece, ~evil~:
@@ -198,9 +184,8 @@ This is a collections of various integrations:
   :init (evil-collection-init))
 #+end_src
 And this is specific for Org-mode, disabled for now:
-#+begin_src emacs-lisp :tangle no
-(use-package org-evil
-  :after evil)
+#+begin_src emacs-lisp
+(use-package org-evil)
 #+end_src
 ** vim plugins
 This is for a way faster way to change surrounding like parenthesis:
@@ -234,6 +219,20 @@ Set where should it save files:
 Enable global mode:
 #+begin_src emacs-lisp :padline no
     :config (global-undo-tree-mode))
+#+end_src
+* org mode
+Load only export backends I need:
+#+begin_src emacs-lisp
+  (setq org-export-backends '(html latex ox-gfm))
+#+end_src
+Some visual options
+#+begin_src emacs-lisp
+  (setq org-hide-leading-stars t
+	org-startup-folded t)
+#+end_src
+Github flavored Markdown exporter:
+#+begin_src emacs-lisp
+  (use-package ox-gfm)
 #+end_src
 * lsp-mode
 ** main package
