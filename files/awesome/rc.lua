@@ -63,6 +63,28 @@ RC.colorscheme = get_colorscheme()
 RC.beautiful = get_theme()
 RC.tags = get_tags()
 RC.binds = {}
+function get_menu()
+local beautiful = RC.beautiful
+local terminal = RC.vars.terminal
+local browser = RC.vars.browser
+local editor_cmd = RC.vars.editor_cmd
+local awesomemenu = {
+    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+    { "manual", terminal .. " -e man awesome" },
+    { "edit config", editor_cmd .. " " .. awesome.conffile },
+    { "restart", awesome.restart },
+    { "quit", function() awesome.quit() end },
+}
+
+local menu_items = {
+    { "open terminal", terminal },
+    { "open browser", browser },
+    { "awesome", awesomemenu, beautiful.awesome_icon },
+}
+
+return awful.menu({ items = menu_items } )
+end
+RC.menu = get_menu()
 function set_global_keys()
   local modkey = RC.vars.modkey
   local N = #RC.tags
@@ -391,28 +413,6 @@ function set_signals()
   end)
 end
 set_signals()
-function get_menu()
-local beautiful = RC.beautiful
-local terminal = RC.vars.terminal
-local browser = RC.vars.browser
-local editor_cmd = RC.vars.editor_cmd
-local awesomemenu = {
-    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-    { "manual", terminal .. " -e man awesome" },
-    { "edit config", editor_cmd .. " " .. awesome.conffile },
-    { "restart", awesome.restart },
-    { "quit", function() awesome.quit() end },
-}
-
-local menu_items = {
-    { "open terminal", terminal },
-    { "open browser", browser },
-    { "awesome", awesomemenu, beautiful.awesome_icon },
-}
-
-return awful.menu({ items = menu_items } )
-end
-RC.menu = get_menu()
 function set_bar()
   local taglist_buttons = RC.binds.tags
   local tasklist_buttons = RC.binds.task

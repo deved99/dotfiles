@@ -1,3 +1,4 @@
+local cs = RC.colorscheme
 local function merge(v)
     local r = {}
     for _,t in pairs(v) do
@@ -8,8 +9,6 @@ local function merge(v)
     return r
 end
 local function get_general()
-  local cs = RC.colorscheme
-
   local r = {
           font          = "Noto Sans 10",
           bg_normal     = cs.transparent,
@@ -41,7 +40,6 @@ function get_menu()
   local gfs = require("gears.filesystem")
   local themes_path = gfs.get_themes_dir()
 
-  local cs = rc.colorscheme
   local height = dpi(25)
   local taglist_square_size = dpi(4)
 
@@ -71,8 +69,6 @@ function get_menu()
   return r
 end
 local function get_notifications()  
-  local cs = RC.colorscheme
-
   local r = {
           notification_font = "Noto Sans 18",
           notification_bg = cs.black,
@@ -84,8 +80,6 @@ local function get_notifications()
   return r
 end
 local function get_bar()
-  local cs = RC.colorscheme
-
   local r = {
           taglist_fg_focus = cs.black,
           taglist_bg_focus = cs.accent,
@@ -98,8 +92,6 @@ local function get_bar()
   return r
 end
 local function get_layouts()
-  local cs = RC.colorscheme
-
   local r = {
           taglist_fg_focus = cs.black,
           taglist_bg_focus = cs.accent,
@@ -111,11 +103,12 @@ local function get_layouts()
 
   return r
 end
+
 v = {
-  get_general(),
-  get_menu(),
-  get_notifications(),
-  get_bar(),
-  get_layouts(),
+  general = get_general(),
+  menu = get_menu(),
+  notifications = get_notifications(),
+  bar = get_bar(),
+  layouts = get_layouts(),
 }
 return merge(v)

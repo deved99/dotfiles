@@ -6,11 +6,11 @@ So, ~rc.lua~ is divided in tree sections:
   <<prepare/libraries>>
   <<prepare/errors>>
   <<prepare/variables>>
+  <<decorations/menu>>
   <<workflow/kb>>
   <<workflow/layouts>>
   <<workflow/rules>>
   <<workflow/signals>>
-  <<decorations/menu>>
   <<decorations/bar>>
 #+end_src
 Furthermore, on tangle, this document generates a ~theme.lua~.
@@ -608,8 +608,10 @@ end)
 #+end_src
 * Theme
 #+begin_src lua :tangle theme.lua :noweb yes
+  local cs = RC.colorscheme
   <<misc/merge>>
   <<theme/parts>>
+  
   v = {
     general = get_general(),
     menu = get_menu(),
@@ -623,8 +625,6 @@ This is function ~merge~:
 ** general
 #+begin_src lua :noweb yes :noweb-ref theme/parts
   local function get_general()
-    local cs = RC.colorscheme
-
     local r = {
             font          = "Noto Sans 10",
             bg_normal     = cs.transparent,
@@ -659,7 +659,6 @@ This is function ~merge~:
     local gfs = require("gears.filesystem")
     local themes_path = gfs.get_themes_dir()
 
-    local cs = rc.colorscheme
     local height = dpi(25)
     local taglist_square_size = dpi(4)
 
@@ -692,8 +691,6 @@ This is function ~merge~:
 ** notifications
 #+begin_src lua :noweb-ref theme/parts
   local function get_notifications()  
-    local cs = RC.colorscheme
-
     local r = {
             notification_font = "Noto Sans 18",
             notification_bg = cs.black,
@@ -708,8 +705,6 @@ This is function ~merge~:
 ** bar
 #+begin_src lua :noweb-ref theme/parts
   local function get_bar()
-    local cs = RC.colorscheme
-
     local r = {
             taglist_fg_focus = cs.black,
             taglist_bg_focus = cs.accent,
@@ -725,8 +720,6 @@ This is function ~merge~:
 ** layouts
 #+begin_src lua :noweb-ref theme/parts
   local function get_layouts()
-    local cs = RC.colorscheme
-
     local r = {
             taglist_fg_focus = cs.black,
             taglist_bg_focus = cs.accent,
