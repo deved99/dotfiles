@@ -339,6 +339,7 @@ function set_rules()
         properties = { tag = "3" } },
   }
 end
+set_rules()
 function set_signals()
   local beautiful = RC.beautiful
 
@@ -389,6 +390,7 @@ function set_signals()
           set_wallpaper(s)
   end)
 end
+set_signals()
 function get_menu()
 local beautiful = RC.beautiful
 local terminal = RC.vars.terminal

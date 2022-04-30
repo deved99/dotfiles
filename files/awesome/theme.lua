@@ -112,10 +112,10 @@ local function get_layouts()
   return r
 end
 v = {
-  general = get_general(),
-  menu = get_menu(),
-  notifications = get_notifications(),
-  bar = get_bar(),
-  layouts = get_layouts(),
+  get_general(),
+  get_menu(),
+  get_notifications(),
+  get_bar(),
+  get_layouts(),
 }
 return merge(v)

@@ -431,6 +431,7 @@ Actual buttons:
           properties = { tag = "3" } },
     }
   end
+  set_rules()
 #+end_src
 ** Signals
 #+name: workflow/signals
@@ -485,6 +486,7 @@ Actual buttons:
             set_wallpaper(s)
     end)
   end
+  set_signals()
 #+end_src
 * Decorations
 ** Menu
