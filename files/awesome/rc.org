@@ -3,23 +3,18 @@
 * Summary
 So, ~rc.lua~ is divided in tree sections:
 #+begin_src lua :tangle rc.lua :noweb yes
-  <<prepare>>
-  <<decorations>>
-  <<workflow>>
-#+end_src
-Furthermore, on tangle, this document generates a ~theme.lua~.
-* Preparation
-In this section there are preparation steps, as follows:
-#+name: prepare
-#+begin_src lua :noweb yes
   <<prepare/libraries>>
   <<prepare/errors>>
   <<prepare/variables>>
+  <<workflow/kb>>
+  <<workflow/layouts>>
+  <<workflow/rules>>
+  <<workflow/signals>>
+  <<decorations/menu>>
+  <<decorations/bar>>
 #+end_src
-Where:
-- ~prepare/libraries~: imports needed libraries.
-- ~prepare/errors~: manages error at and after startup.
-- ~prepare/variables~: sets variables used throught the configuration.
+Furthermore, on tangle, this document generates a ~theme.lua~.
+* Preparation
 ** Libraries
 These libraries are used throughout the configuration:
 #+name: prepare/libraries
@@ -81,7 +76,6 @@ This function collects variables:
       editor = editor,
       editor_cmd = terminal .. " -e " .. editor,
       modkey = "Mod4",
-      accent = "4"
     }
   end
 #+end_src
@@ -113,124 +107,18 @@ This defines the tags and connect them to each screen:
     return tags
   end
 #+end_src
-* Decorations
-This section is dedicated to decorations.
-#+name: decorations
-#+begin_src lua :noweb yes
-  <<decorations/menu>>
-  <<decorations/bar>>
-#+end_src
-** Menu
-Wrap everything in a function:
-#+name: decorations/menu
-#+begin_src lua :noweb yes
-  function get_menu()
-  <<decorations/menu/f>>
-  end
-  RC.menu = get_menu()
-#+end_src
-It depend on this variables:
-#+begin_src lua :noweb-ref decorations/menu/f
-  local beautiful = RC.beautiful
-  local terminal = RC.vars.terminal
-  local browser = RC.vars.browser
-  local editor_cmd = RC.vars.editor_cmd
-#+end_src
-Create a launcher widget and a main menu:
-#+begin_src lua :noweb-ref decorations/menu/f
-  local awesomemenu = {
-      { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-      { "manual", terminal .. " -e man awesome" },
-      { "edit config", editor_cmd .. " " .. awesome.conffile },
-      { "restart", awesome.restart },
-      { "quit", function() awesome.quit() end },
-  }
-
-  local menu_items = {
-      { "open terminal", terminal },
-      { "open browser", browser },
-      { "awesome", awesomemenu, beautiful.awesome_icon },
-  }
-
-  return awful.menu({ items = menu_items } )
-#+end_src
-** Bar
-Wrap everything into a function:
-#+name: decorations/bar
-#+begin_src lua :noweb yes
-  function set_bar()
-    <<decorations/bar/f>>
-  end
-  set_bar()
-#+end_src
-Needed variables:
-#+begin_src lua :noweb-ref decorations/bar/f
-local taglist_buttons = RC.binds.tags
-local tasklist_buttons = RC.binds.task
-local beautiful = RC.beautiful
-local mymainmenu = RC.menu
-#+end_src
-Actual bar, I should split it in more manageable bits:
-#+begin_src lua :noweb-ref decorations/bar/f
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
-
-awful.screen.connect_for_each_screen(function(s)
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
-    }
-
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "transparent" })
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-	    mpd,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-        },
-    }
-end)
-#+end_src
 * Workflow
 ** Keybindings
 *** Global keys
 As usual, wrap everything in a function.
-#+begin_src lua
-function set_global_keys()
+#+begin_src lua :noweb yes :noweb-ref workflow/kb
+  function set_global_keys()
+    <<workflow/kb/global-keys>>
+  end
+  set_global_keys()
 #+end_src
 These are the used variables:
-#+begin_src lua
+#+begin_src lua :noweb-ref workflow/kb/global-keys
 local modkey = RC.vars.modkey
 local N = #RC.tags
 local browser = RC.vars.browser
@@ -240,7 +128,7 @@ local terminal = RC.vars.terminal
 local terminal_fallback = RC.vars.terminal_fb
 #+end_src
 And this is the actual function:
-#+begin_src lua
+#+begin_src lua :noweb-ref workflow/kb/global-keys
 local function exec(s)
   return function () awful.spawn(s) end
 end
@@ -398,33 +286,303 @@ end
 local global_keys = gears.table.join(misc,layout,programs,media,notifications,ws)
 root.keys(global_keys)
 #+end_src
-Close the function then call it:
-#+begin_src lua
-end
-set_global_keys()
-#+end_src
 *** Global buttons
 As usual, wrap everything in a function.
-#+begin_src lua
-function set_global_keys()
+#+begin_src lua :noweb yes :noweb-ref workflow/kb
+  function set_global_keys()
+    <<workflow/kb/global-buttons>>
+  end
+  set_global_buttons()
 #+end_src
 These are the used variables:
-#+begin_src lua
+#+begin_src lua :noweb-ref workflow/kb/global-buttons
 local mymainmenu = RC.menu
 local modkey = RC.vars.modkey
 #+end_src
 Actual function
-#+begin_src lua
+#+begin_src lua :noweb-ref workflow/kb/global-buttons
 local r = gears.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end)
 )
 root.buttons(r)
 #+end_src
-Close function and execute it:
+*** Client keys
+Wrap everything in a function:
+#+begin_src lua :noweb yes :noweb-ref workflow/kb
+  function set_client_keys()
+    <<workflow/kb/client_keys>>
+  end
+  RC.binds.ck = set_client_keys()
+#+end_src
+Actual keybindings:
+#+begin_src lua :noweb-ref workflow/kb/client_keys
+  local modkey = RC.vars.modkey
+
+  local r = gears.table.join(
+      awful.key({ modkey }, "f",
+          function (c)
+              c.fullscreen = not c.fullscreen
+              c:raise()
+          end,
+          {description = "toggle fullscreen", group = "client"}),
+      awful.key({ modkey, "Shift" }, "q", function (c) c:kill() end,
+                {description = "close", group = "client"}),
+      awful.key({ modkey }, "o", function (c) c:move_to_screen() end,
+                {description = "move to screen", group = "client"}),
+      awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle,
+                {description = "toggle floating", group = "client"}),
+      awful.key({ modkey }, "n",
+          function (c)
+              -- The client currently has the input focus, so it cannot be
+              -- minimized, since minimized clients can't have the focus.
+              c.minimized = true
+          end ,
+          {description = "minimize", group = "client"})
+  )
+
+  return r
+#+end_src
+*** Client buttons
+Wrap everything in a function:
+#+begin_src lua :noweb yes :noweb-ref workflow/kb
+  function set_client_buttons()
+    <<workflow/kb/client_buttons>>
+  end
+  RC.binds.cb = set_client_buttons()
+#+end_src
+Actual buttons:
+#+begin_src lua :noweb-ref workflow/kb/client_buttons
+  local modkey = RC.vars.modkey
+
+  local r = gears.table.join(
+      awful.button({ }, 1, function (c)
+          c:emit_signal("request::activate", "mouse_click", {raise = true})
+      end),
+      awful.button({ modkey }, 1, function (c)
+          c:emit_signal("request::activate", "mouse_click", {raise = true})
+          awful.mouse.client.move(c)
+      end),
+      awful.button({ modkey }, 3, function (c)
+          c:emit_signal("request::activate", "mouse_click", {raise = true})
+          awful.mouse.client.resize(c)
+      end)
+  )
+
+  return r
+#+end_src
+** Layouts
+#+name: workflow/layouts
 #+begin_src lua
-end
-set_global_buttons()
+  function set_layouts()
+    awful.layout.layouts = {
+        awful.layout.suit.tile,
+        awful.layout.suit.floating,
+    }
+  end
+  set_layouts()
 #+end_src
 ** Rules
+#+name: workflow/rules
+#+begin_src lua :noweb yes
+  local beautiful = RC.beautiful
+  local clientbuttons = RC.binds.cb
+  local clientkeys = RC.binds.ck
+
+  -- Rules to apply to new clients (through the "manage" signal).
+  awful.rules.rules = {
+      -- All clients will match this rule.
+      { rule = { },
+        properties = { border_width = beautiful.border_width,
+                       border_color = beautiful.border_normal,
+                       focus = awful.client.focus.filter,
+                       raise = true,
+                       keys = clientkeys,
+                       buttons = clientbuttons,
+                       screen = awful.screen.preferred,
+                       placement = awful.placement.no_overlap+awful.placement.no_offscreen
+          }
+      },
+
+      -- Popups -> floating
+      { rule_any = {
+          role = {
+            "AlarmWindow",  -- Thunderbird's calendar.
+            "ConfigManager",  -- Thunderbird's about:config.
+            "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+          },
+          class = { "Gcr-prompter" },
+        }, properties = { floating = true, placement = awful.placement.centered }},
+
+      ---- Program -> tags
+      -- Tag 1
+      { rule = { class = "kitty" },
+        properties = { tag = "1" } },
+      -- Tag 2
+      { rule = { role = "browser" },
+        properties = { tag = "2" } },
+      { rule = { class = "qutebrowser" },
+        properties = { tag = "2" } },
+      -- Tag 3
+      { rule = { class = "Thunderbird" },
+        properties = { tag = "3" } },
+      { rule = { class = "Pavucontrol" },
+        properties = { tag = "3" } },
+  }
+
+#+end_src
 ** Signals
+#+name: workflow/signals
+#+begin_src lua :noweb yes
+  local beautiful = RC.beautiful
+
+  require("awful.autofocus")
+  require("awful.remote")
+
+  -- Signal function to execute when a new client appears.
+  client.connect_signal("manage", function (c)
+      -- Set the windows at the slave,
+      -- i.e. put it at the end of others instead of setting it master.
+      if not awesome.startup then awful.client.setslave(c) end
+
+      if awesome.startup
+        and not c.size_hints.user_position
+        and not c.size_hints.program_position then
+          -- Prevent clients from being unreachable after screen count changes.
+          awful.placement.no_offscreen(c)
+      end
+
+      -- c.shape = gears.shape.rounded_rect
+  end)
+
+  -- Enable sloppy focus, so that focus follows mouse.
+  client.connect_signal("mouse::enter", function(c)
+      c:emit_signal("request::activate", "mouse_enter", {raise = false})
+  end)
+
+  client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+  client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+  ------ WALLPAPER
+
+  local function set_wallpaper(s)
+      -- Wallpaper
+      if beautiful.wallpaper then
+          local wallpaper = beautiful.wallpaper
+          -- If wallpaper is a function, call it with the screen
+          if type(wallpaper) == "function" then
+              wallpaper = wallpaper(s)
+          end
+          gears.wallpaper.maximized(wallpaper, s, false)
+      end
+  end
+
+  screen.connect_signal("property::geometry", set_wallpaper)
+
+  awful.screen.connect_for_each_screen(function(s)
+          set_wallpaper(s)
+  end)
+#+end_src
+* Decorations
+** Menu
+Wrap everything in a function:
+#+name: decorations/menu
+#+begin_src lua :noweb yes
+  function get_menu()
+  <<decorations/menu/functions>>
+  end
+  RC.menu = get_menu()
+#+end_src
+It depend on this variables:
+#+begin_src lua :noweb-ref decorations/menu/functions
+  local beautiful = RC.beautiful
+  local terminal = RC.vars.terminal
+  local browser = RC.vars.browser
+  local editor_cmd = RC.vars.editor_cmd
+#+end_src
+Create a launcher widget and a main menu:
+#+begin_src lua :noweb-ref decorations/menu/functions
+  local awesomemenu = {
+      { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+      { "manual", terminal .. " -e man awesome" },
+      { "edit config", editor_cmd .. " " .. awesome.conffile },
+      { "restart", awesome.restart },
+      { "quit", function() awesome.quit() end },
+  }
+
+  local menu_items = {
+      { "open terminal", terminal },
+      { "open browser", browser },
+      { "awesome", awesomemenu, beautiful.awesome_icon },
+  }
+
+  return awful.menu({ items = menu_items } )
+#+end_src
+** Bar
+Wrap everything into a function:
+#+name: decorations/bar
+#+begin_src lua :noweb yes
+  function set_bar()
+    <<decorations/bar/f>>
+  end
+  set_bar()
+#+end_src
+Needed variables:
+#+begin_src lua :noweb-ref decorations/bar/f
+local taglist_buttons = RC.binds.tags
+local tasklist_buttons = RC.binds.task
+local beautiful = RC.beautiful
+local mymainmenu = RC.menu
+#+end_src
+Actual bar, I should split it in more manageable bits:
+#+begin_src lua :noweb-ref decorations/bar/f
+-- Keyboard map indicator and switcher
+mykeyboardlayout = awful.widget.keyboardlayout()
+-- Create a textclock widget
+mytextclock = wibox.widget.textclock()
+
+awful.screen.connect_for_each_screen(function(s)
+    -- Create a promptbox for each screen
+    s.mypromptbox = awful.widget.prompt()
+    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
+    -- We need one layoutbox per screen.
+    s.mylayoutbox = awful.widget.layoutbox(s)
+    s.mylayoutbox:buttons(gears.table.join(
+                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
+                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist {
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = taglist_buttons
+    }
+
+    s.mytasklist = awful.widget.tasklist {
+        screen  = s,
+        filter  = awful.widget.tasklist.filter.currenttags,
+        buttons = tasklist_buttons
+    }
+    -- Create the wibox
+    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "transparent" })
+
+    -- Add widgets to the wibox
+    s.mywibox:setup {
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+            s.mytaglist,
+            s.mypromptbox,
+        },
+        s.mytasklist, -- Middle widget
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+	    mpd,
+            wibox.widget.systray(),
+            mytextclock,
+            s.mylayoutbox,
+        },
+    }
+end)
+#+end_src
 * Theme
