@@ -1,30 +1,22 @@
-- [Overview](#org6816692)
-  - [Next](#org3859e12)
-- [Roles](#orgc077571)
-  - [misc-packages](#org4ef45a7)
-  - [awesome](#org5ef8fdd)
-  - [menu](#org67ffc2d)
-  - [kitty](#org6e543e6)
-  - [emacs](#org7af1d85)
-  - [mpd](#orgfe7f403)
+- [Overview](#orga442aac)
+- [Roles](#org4e981d5)
+  - [misc-packages](#org0314559)
+  - [awesome](#org7cc3e81)
+  - [menu](#org1854fe6)
+  - [kitty](#org054d61b)
+  - [emacs](#org307a047)
+  - [mpd](#org531ec67)
 
 
 
-<a id="org6816692"></a>
+<a id="orga442aac"></a>
 
 # Overview
 
 This contains an Ansible playbook that deploys my configuration. Each role configure something specific, with each role to some degree indipendent of the other: you can see it as a module.
 
 
-<a id="org3859e12"></a>
-
-## Next
-
--   Gray generation with 3-grade polynomial.
-
-
-<a id="orgc077571"></a>
+<a id="org4e981d5"></a>
 
 # Roles
 
@@ -37,14 +29,14 @@ Planned roles:
 -   Pipewire and Pulseaudio masking
 
 
-<a id="org4ef45a7"></a>
+<a id="org0314559"></a>
 
 ## misc-packages
 
 -   Add autojump
 
 
-<a id="org5ef8fdd"></a>
+<a id="org7cc3e81"></a>
 
 ## awesome
 
@@ -52,7 +44,7 @@ Planned roles:
 -   Reload throws an error?
 
 
-<a id="org67ffc2d"></a>
+<a id="org1854fe6"></a>
 
 ## menu
 
@@ -60,14 +52,14 @@ Planned roles:
 -   Theme rofi.
 
 
-<a id="org6e543e6"></a>
+<a id="org054d61b"></a>
 
 ## kitty
 
 -   In the end, this will be my backup
 
 
-<a id="org7af1d85"></a>
+<a id="org307a047"></a>
 
 ## emacs
 
@@ -76,8 +68,8 @@ Planned roles:
 -   vterm with multiple instances and shell integration
 
 
-<a id="orgfe7f403"></a>
+<a id="org531ec67"></a>
 
 ## mpd
 
--   mpdscribble?
+-   mpdscribble: why isn't it starting? Maybe it is waiting for mpd, which on start fails since ~/Music is not mounted

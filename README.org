@@ -4,10 +4,6 @@
 This contains an Ansible playbook that deploys my configuration.
 Each role configure something specific, with each role to some degree
 indipendent of the other: you can see it as a module.
-
-** Next
-- Gray generation with 3-grade polynomial.
-
 * Roles
 This section is kind of a todo-list.
 
@@ -15,7 +11,6 @@ Planned roles:
 - Brave browser
 - shell configuration
 - Pipewire and Pulseaudio masking
-
 ** misc-packages
 - Add autojump
 ** awesome
@@ -31,4 +26,6 @@ Planned roles:
 - Auto-tangle for org-files?
 - vterm with multiple instances and shell integration
 ** mpd
-- mpdscribble?
+- mpdscribble: why isn't it starting?
+  Maybe it is waiting for mpd, which on start fails since ~/Music is
+  not mounted
