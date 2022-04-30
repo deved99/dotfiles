@@ -6,11 +6,11 @@
   become: yes
 
 - name: Symlink configuration
-  ansible.builtin.shell: >-
-    ln -s {{ src }} {{ dest }}
-  vars:
-    src: "{{ REPO_FILES }}/emacs/*"
-    dest: "{{ CONFIG_DIR }}/emacs"
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
+    state: link
+  with_fileglob: "{{ REPO_FILES }}/emacs/*"
 
 - name: Install emacs related services service
   ansible.builtin.copy:
