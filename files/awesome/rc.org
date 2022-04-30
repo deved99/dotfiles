@@ -58,9 +58,9 @@ do this, ~RC.beautiful~ uses a variable from ~RC~.
     awesome_dir = fs.get_configuration_dir(),
     config_dir = fs.get_dir("config")
   }
-  RC.vars = get_variables(),
-  RC.colorscheme = get_colorscheme(),
-  RC.beautiful = get_theme(),
+  RC.vars = get_variables()
+  RC.colorscheme = get_colorscheme()
+  RC.beautiful = get_theme()
   RC.tags = get_tags()
 #+end_src
 This function collects variables:
@@ -289,7 +289,7 @@ root.keys(global_keys)
 *** Global buttons
 As usual, wrap everything in a function.
 #+begin_src lua :noweb yes :noweb-ref workflow/kb
-  function set_global_keys()
+  function set_global_buttons()
     <<workflow/kb/global-buttons>>
   end
   set_global_buttons()
@@ -585,21 +585,9 @@ awful.screen.connect_for_each_screen(function(s)
     }
 end)
 #+end_src
-* Theme
-#+begin_src lua :tangle theme.lua :noweb yes
-  <<theme/merge>>
-  <<theme/parts>>
-  v = {
-    general = get_general(),
-    theme = get_theme(),
-    notifications = get_notifications(),
-    bar = get_bar(),
-    layouts = get_layouts(),
-  }
-  return merge(v)
-#+end_src
-This is function ~merge~:
-#+name: theme/merge
+* Miscellanous
+** merge()
+#+name: misc/merge
 #+begin_src lua
   local function merge(v)
       local r = {}
@@ -611,6 +599,137 @@ This is function ~merge~:
       return r
   end
 #+end_src
-**  general
+#+end_src
+* Theme
+#+begin_src lua :tangle theme.lua :noweb yes
+  <<misc/merge>>
+  <<theme/parts>>
+  v = {
+    general = get_general(),
+    menu = get_menu(),
+    notifications = get_notifications(),
+    bar = get_bar(),
+    layouts = get_layouts(),
+  }
+  return merge(v)
+#+end_src
+This is function ~merge~:
+** general
 #+begin_src lua :noweb yes :noweb-ref theme/parts
+  local function get_general()
+    local cs = RC.colorscheme
+
+    local r = {
+            font          = "Noto Sans 10",
+            bg_normal     = cs.transparent,
+            bg_focus      = cs.transparent,
+            bg_urgent     = cs.red,
+            bg_minimize   = cs.grey,
+            bg_systray    = cs.black,
+            fg_normal     = cs.white,
+            fg_focus      = cs.accent,
+            fg_urgent     = cs.white,
+            fg_minimize   = cs.white,
+            -- Gap & border
+            useless_gap   = 5,
+            border_width  = 3,
+            border_normal = cs.grey,
+            border_focus  = cs.accent,
+            border_marked = cs.red,
+            wallpaper = "~/bg.jpg",
+            icon_theme = nil
+    }
+
+    return r
+  end
+#+end_src
+** menu
+#+begin_src lua :noweb-ref theme/parts
+  function get_menu()
+    local theme_assets = require("beautiful.theme_assets")
+    local xresources = require("beautiful.xresources")
+    local dpi = xresources.apply_dpi
+
+    local gfs = require("gears.filesystem")
+    local themes_path = gfs.get_themes_dir()
+
+    local cs = rc.colorscheme
+    local height = dpi(25)
+    local taglist_square_size = dpi(4)
+
+    local r = {
+            menu_font = "noto 18",
+            menu_submenu_icon = themes_path.."default/submenu.png",
+            -- colors
+            menu_bg_normal = cs.black_semi,
+            menu_bg_focus = cs.accent_semi,
+            menu_fg_normal = cs.white,
+            menu_fg_focus = cs.white,
+            menu_border_color = cs.accent,
+            -- geometry
+            menu_height = height,
+            menu_width  = dpi(200),
+            taglist_squares_sel = theme_assets.taglist_squares_sel(
+                taglist_square_size, cs.accent
+            ),
+            taglist_squares_unsel = theme_assets.taglist_squares_unsel(
+                taglist_square_size, cs.white
+            ),
+            awesome_icon = theme_assets.awesome_icon(
+                height, cs.transparent, cs.accent
+            ),
+    }
+
+    return r
+  end
+#+end_src
+** notifications
+#+begin_src lua :noweb-ref theme/parts
+  local function get_notifications()  
+    local cs = RC.colorscheme
+
+    local r = {
+            notification_font = "Noto Sans 18",
+            notification_bg = cs.black,
+            notification_fg = cs.accent,
+            notification_border_color = cs.accent,
+            --notification_border_width = 10
+    }
+
+    return r
+  end
+#+end_src
+** bar
+#+begin_src lua :noweb-ref theme/parts
+  local function get_bar()
+    local cs = RC.colorscheme
+
+    local r = {
+            taglist_fg_focus = cs.black,
+            taglist_bg_focus = cs.accent,
+            tasklist_fg_normal = cs.grey,
+            tasklist_fg_focus = cs.white,
+            tasklist_bg_minimize = cs.black_semi,
+            tasklist_fg_minimize = cs.grey,
+    }
+
+    return r
+  end
+#+end_src
+** layouts
+#+begin_src lua :noweb-ref theme/parts
+  local function get_layouts()
+    local cs = RC.colorscheme
+
+    local r = {
+            taglist_fg_focus = cs.black,
+            taglist_bg_focus = cs.accent,
+            tasklist_fg_normal = cs.grey,
+            tasklist_fg_focus = cs.white,
+            tasklist_bg_minimize = cs.black_semi,
+            tasklist_fg_minimize = cs.grey,
+    }
+
+    return r
+  end
 #+end_src

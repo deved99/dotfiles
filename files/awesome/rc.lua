@@ -40,7 +40,7 @@ function get_colorscheme()
 end
 function get_theme()
   local beautiful = require("beautiful")
-  beautiful.init(RC.awesome_dir .. "theme/init.lua")
+  beautiful.init(RC.awesome_dir .. "theme.lua")
   return beautiful
 end
 function get_tags()
@@ -58,9 +58,9 @@ RC = {
   awesome_dir = fs.get_configuration_dir(),
   config_dir = fs.get_dir("config")
 }
-RC.vars = get_variables(),
-RC.colorscheme = get_colorscheme(),
-RC.beautiful = get_theme(),
+RC.vars = get_variables()
+RC.colorscheme = get_colorscheme()
+RC.beautiful = get_theme()
 RC.tags = get_tags()
 function set_global_keys()
   local modkey = RC.vars.modkey
@@ -228,7 +228,7 @@ function set_global_keys()
   root.keys(global_keys)
 end
 set_global_keys()
-function set_global_keys()
+function set_global_buttons()
   local mymainmenu = RC.menu
   local modkey = RC.vars.modkey
   local r = gears.table.join(
