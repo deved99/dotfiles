@@ -7,10 +7,10 @@
       - flameshot
   become: true
 
-- name: Copy configuration
+- name: Symlink configuration
   ansible.builtin.shell: >-
     ln -s {{ src }} {{ dest }}
-  variables:
+  vars:
     src: "{{ REPO_FILES }}/awesome/*"
     dest: "{{ CONFIG_DIR }}/awesome"
 

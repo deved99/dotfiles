@@ -5,10 +5,10 @@
     name: emacs
   become: yes
 
-- name: Clone configuration
+- name: Symlink configuration
   ansible.builtin.shell: >-
     ln -s {{ src }} {{ dest }}
-  variables:
+  vars:
     src: "{{ REPO_FILES }}/emacs/*"
     dest: "{{ CONFIG_DIR }}/emacs"
 
