@@ -6,13 +6,15 @@
   become: yes
 
 - name: Clone configuration
-  ansible.builtin.git:
-    repo: git@github.com:deved99/dotfiles-emacs.git
+  ansible.builtin.shell: >-
+    ln -s {{ src }} {{ dest }}
+  variables:
+    src: "{{ REPO_FILES }}/emacs/*"
     dest: "{{ CONFIG_DIR }}/emacs"
 
 - name: Install emacs related services service
   ansible.builtin.copy:
-    src: systemd/user
+    src: systemd-user
     dest: "{{ SYSTEMD_DIR }}/"
 
 - name: Copy notes-sync to .local/bin

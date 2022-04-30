@@ -5,10 +5,13 @@
     name:
       - awesome
       - flameshot
+  become: true
 
 - name: Copy configuration
-  ansible.builtin.copy:
-    src: awesome
+  ansible.builtin.shell: >-
+    ln -s {{ src }} {{ dest }}
+  variables:
+    src: "{{ REPO_FILES }}/awesome/*"
     dest: "{{ CONFIG_DIR }}/awesome"
 
 - name: Generate template for colors

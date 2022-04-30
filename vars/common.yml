@@ -6,6 +6,8 @@ CONFIG_DIR: >-
   lookup('env', 'XDG_CONFIG_DIR')
   | default(HOME+'/.config', true)
   }}
+REPO_DIR: "{{ HOME }}/.dotfiles"
+REPO_FILES: "{{ REPO_DIR }}/files"
 SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
 LOCAL_BIN: "{{ HOME }}/.local/bin"
 MUSIC_DIR: "{{ HOME }}/Music"
