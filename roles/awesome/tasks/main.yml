@@ -8,11 +8,11 @@
   become: true
 
 - name: Symlink configuration
-  ansible.builtin.shell: >-
-    ln -s {{ src }} {{ dest }}
-  vars:
-    src: "{{ REPO_FILES }}/awesome/*"
-    dest: "{{ CONFIG_DIR }}/awesome"
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
+    state: link
+  with_fileglob: "{{ REPO_FILES }}/awesome/*"
 
 - name: Generate template for colors
   ansible.builtin.template:

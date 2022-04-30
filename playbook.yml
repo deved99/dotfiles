@@ -6,7 +6,7 @@
   #     ansible.builtin.debug:
   #       msg: "{{ BASE16 }}"
   roles:
-    - clone-repo
+    # - clone-repo
     - misc-packages
     - awesome # WM
     - menu # Well, I guess you can tell
