@@ -1,4 +1,0 @@
-[submodule "roles/emacs/files"]
-	path = roles/emacs/files
-	url = git@github.com:deved99/dotfiles-emacs.git
-	branch = main

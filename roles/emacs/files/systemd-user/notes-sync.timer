@@ -1,0 +1,8 @@
+[Unit]
+Description=Sync ~/Notes every hour
+
+[Timer]
+OnCalendar=hourly
+
+[Install]
+WantedBy=default.target
