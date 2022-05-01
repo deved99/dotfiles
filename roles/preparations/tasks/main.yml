@@ -1,3 +1,5 @@
+---
+
 - name: Install miscellaneous packages
   ansible.builtin.apt:
     name:
