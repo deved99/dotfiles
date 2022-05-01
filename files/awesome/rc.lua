@@ -308,6 +308,56 @@ function set_client_buttons()
   return r
 end
 RC.binds.cb = set_client_buttons()
+function set_taglist_buttons()
+  local modkey = RC.vars.modkey
+  
+  -- Create a wibox for each screen and add it
+  local r = gears.table.join(
+                      awful.button({ }, 1, function(t) t:view_only() end),
+                      awful.button({ modkey }, 1, function(t)
+                                                if client.focus then
+                                                    client.focus:move_to_tag(t)
+                                                end
+                                            end),
+                      awful.button({ }, 3, awful.tag.viewtoggle),
+                      awful.button({ modkey }, 3, function(t)
+                                                if client.focus then
+                                                    client.focus:toggle_tag(t)
+                                                end
+                                            end),
+                      awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
+                      awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+                  )
+  
+  return r
+end
+RC.binds.tags = set_taglist_buttons()
+function set_tasklist_buttons()
+  local r = gears.table.join(
+                       awful.button({ }, 1, function (c)
+                                                if c == client.focus then
+                                                    c.minimized = true
+                                                else
+                                                    c:emit_signal(
+                                                        "request::activate",
+                                                        "tasklist",
+                                                        {raise = true}
+                                                    )
+                                                end
+                                            end),
+                       awful.button({ }, 3, function()
+                                                awful.menu.client_list({ theme = { width = 250 } })
+                                            end),
+                       awful.button({ }, 4, function ()
+                                                awful.client.focus.byidx(1)
+                                            end),
+                       awful.button({ }, 5, function ()
+                                                awful.client.focus.byidx(-1)
+                                            end))
+  
+  return r
+end
+RC.binds.task = set_tasklist_buttons()
 function set_layouts()
   awful.layout.layouts = {
       awful.layout.suit.tile,
@@ -315,104 +365,99 @@ function set_layouts()
   }
 end
 set_layouts()
-function set_rules()
-  local beautiful = RC.beautiful
-  local clientbuttons = RC.binds.cb
-  local clientkeys = RC.binds.ck
+local beautiful = RC.beautiful
+local clientbuttons = RC.binds.cb
+local clientkeys = RC.binds.ck
 
-  -- Rules to apply to new clients (through the "manage" signal).
-  awful.rules.rules = {
-      -- All clients will match this rule.
-      { rule = { },
-        properties = { border_width = beautiful.border_width,
-                       border_color = beautiful.border_normal,
-                       focus = awful.client.focus.filter,
-                       raise = true,
-                       keys = clientkeys,
-                       buttons = clientbuttons,
-                       screen = awful.screen.preferred,
-                       placement = awful.placement.no_overlap+awful.placement.no_offscreen
-          }
-      },
+-- Rules to apply to new clients (through the "manage" signal).
+awful.rules.rules = {
+    -- All clients will match this rule.
+    { rule = { },
+      properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
+                     raise = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons,
+                     screen = awful.screen.preferred,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+        }
+    },
 
-      -- Popups -> floating
-      { rule_any = {
-          role = {
-            "AlarmWindow",  -- Thunderbird's calendar.
-            "ConfigManager",  -- Thunderbird's about:config.
-            "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-          },
-          class = { "Gcr-prompter" },
-        }, properties = { floating = true, placement = awful.placement.centered }},
+    -- Popups -> floating
+    { rule_any = {
+        role = {
+          "AlarmWindow",  -- Thunderbird's calendar.
+          "ConfigManager",  -- Thunderbird's about:config.
+          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+        },
+        class = { "Gcr-prompter" },
+      }, properties = { floating = true, placement = awful.placement.centered }},
 
-      ---- Program -> tags
-      -- Tag 1
-      { rule = { class = "kitty" },
-        properties = { tag = "1" } },
-      -- Tag 2
-      { rule = { role = "browser" },
-        properties = { tag = "2" } },
-      { rule = { class = "qutebrowser" },
-        properties = { tag = "2" } },
-      -- Tag 3
-      { rule = { class = "Thunderbird" },
-        properties = { tag = "3" } },
-      { rule = { class = "Pavucontrol" },
-        properties = { tag = "3" } },
-  }
+    ---- Program -> tags
+    -- Tag 1
+    { rule = { class = "kitty" },
+      properties = { tag = "1" } },
+    -- Tag 2
+    { rule = { role = "browser" },
+      properties = { tag = "2" } },
+    { rule = { class = "qutebrowser" },
+      properties = { tag = "2" } },
+    -- Tag 3
+    { rule = { class = "Thunderbird" },
+      properties = { tag = "3" } },
+    { rule = { class = "Pavucontrol" },
+      properties = { tag = "3" } },
+}
+
+local beautiful = RC.beautiful
+
+require("awful.autofocus")
+require("awful.remote")
+
+-- Signal function to execute when a new client appears.
+client.connect_signal("manage", function (c)
+    -- Set the windows at the slave,
+    -- i.e. put it at the end of others instead of setting it master.
+    if not awesome.startup then awful.client.setslave(c) end
+
+    if awesome.startup
+      and not c.size_hints.user_position
+      and not c.size_hints.program_position then
+        -- Prevent clients from being unreachable after screen count changes.
+        awful.placement.no_offscreen(c)
+    end
+
+    -- c.shape = gears.shape.rounded_rect
+end)
+
+-- Enable sloppy focus, so that focus follows mouse.
+client.connect_signal("mouse::enter", function(c)
+    c:emit_signal("request::activate", "mouse_enter", {raise = false})
+end)
+
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+------ WALLPAPER
+
+local function set_wallpaper(s)
+    -- Wallpaper
+    if beautiful.wallpaper then
+        local wallpaper = beautiful.wallpaper
+        -- If wallpaper is a function, call it with the screen
+        if type(wallpaper) == "function" then
+            wallpaper = wallpaper(s)
+        end
+        gears.wallpaper.maximized(wallpaper, s, false)
+    end
 end
-set_rules()
-function set_signals()
-  local beautiful = RC.beautiful
 
-  require("awful.autofocus")
-  require("awful.remote")
+screen.connect_signal("property::geometry", set_wallpaper)
 
-  -- Signal function to execute when a new client appears.
-  client.connect_signal("manage", function (c)
-      -- Set the windows at the slave,
-      -- i.e. put it at the end of others instead of setting it master.
-      if not awesome.startup then awful.client.setslave(c) end
-
-      if awesome.startup
-        and not c.size_hints.user_position
-        and not c.size_hints.program_position then
-          -- Prevent clients from being unreachable after screen count changes.
-          awful.placement.no_offscreen(c)
-      end
-
-      -- c.shape = gears.shape.rounded_rect
-  end)
-
-  -- Enable sloppy focus, so that focus follows mouse.
-  client.connect_signal("mouse::enter", function(c)
-      c:emit_signal("request::activate", "mouse_enter", {raise = false})
-  end)
-
-  client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-  client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-
-  ------ WALLPAPER
-
-  local function set_wallpaper(s)
-      -- Wallpaper
-      if beautiful.wallpaper then
-          local wallpaper = beautiful.wallpaper
-          -- If wallpaper is a function, call it with the screen
-          if type(wallpaper) == "function" then
-              wallpaper = wallpaper(s)
-          end
-          gears.wallpaper.maximized(wallpaper, s, false)
-      end
-  end
-
-  screen.connect_signal("property::geometry", set_wallpaper)
-
-  awful.screen.connect_for_each_screen(function(s)
-          set_wallpaper(s)
-  end)
-end
-set_signals()
+awful.screen.connect_for_each_screen(function(s)
+        set_wallpaper(s)
+end)
 function set_bar()
   local taglist_buttons = RC.binds.tags
   local tasklist_buttons = RC.binds.task
