@@ -1,17 +1,34 @@
 #+title: dotfiles
 
 * Overview
-This contains an Ansible playbook that deploys my configuration.
-Each role configure something specific, with each role to some degree
-indipendent of the other: you can see it as a module.
-* Roles
-This section is kind of a todo-list.
+This repo contains my dotfiles and an Ansible playbook.
+
+My dotfiles are in the ~files/~ directory, which is structured like this:
+#+begin_src
+files
+├── awesome
+│   ├── rc.lua
+│   ├── rc.org
+│   └── theme.lua
+└── emacs
+    ├── init.el
+    └── init.org
+#+end_src
+Files ending with ~.org~ are [[orgmode.org][org]] files. These files can contain code
+blocks, which can be extracted using [[orgmode.org/worg/org-contrib/babel/][Babel]] to create the configuration
+files.
+
+The Ansible playbook configures the machine and is further described
+in its section. I usually run it using the included ~configure~
+script.
+* Ansible playbook
+The playbook is splitted into roles, each role dedicated to a program.
 
 Planned roles:
 - Brave browser
 - shell configuration
 - Pipewire and Pulseaudio masking
-** misc-packages
+** preparations
 - Add autojump
 ** awesome
 - Rewrite configuration to literate programming
