@@ -514,3 +514,6 @@ function set_bar()
   end)
 end
 set_bar()
+RC.autostart = RC.config_dir .. "autostart"
+require("awful.util").spawn("chmod +x " .. RC.autostart)
+require("awful.util").spawn(RC.autostart)

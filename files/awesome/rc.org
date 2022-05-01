@@ -12,6 +12,7 @@ So, ~rc.lua~ is divided in tree sections:
   <<workflow/rules>>
   <<workflow/signals>>
   <<decorations/bar>>
+  <<workflow/autostart>>
 #+end_src
 Furthermore, on tangle, this document generates a ~theme.lua~.
 * Preparation
@@ -550,6 +551,24 @@ This the actual code:
   awful.screen.connect_for_each_screen(function(s)
           set_wallpaper(s)
   end)
+#+end_src
+** Autostart
+#+name: workflow/autostart
+#+begin_src lua
+  RC.autostart = RC.config_dir .. "autostart"
+  require("awful.util").spawn("chmod +x " .. RC.autostart)
+  require("awful.util").spawn(RC.autostart)
+#+end_src
+This is the autostart script:
+#+begin_src bash :tangle autostart
+  #!/bin/bash
+  while read -r line; do
+  PROGRAM=$(echo $line | cut -d" " -f1)
+  pidof -q $PROGRAM || $line &
+  done <<EOF
+  picom --experimental-backends
+  flameshot
+  EOF
 #+end_src
 * Decorations
 ** Menu
