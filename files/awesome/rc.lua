@@ -1,3 +1,5 @@
+-- [[file:rc.org::*Summary][Summary:1]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::prepare/libraries][prepare/libraries]]][prepare/libraries]]
 local naughty = require("naughty")
 local fs = require("gears.filesystem")
 local awful = require("awful")
@@ -5,6 +7,8 @@ local gears = require("gears")
 local wibox = require("wibox")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
+-- prepare/libraries ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::prepare/errors][prepare/errors]]][prepare/errors]]
 if awesome.startup_errors then
   naughty.notify({ preset = naughty.config.presets.critical,
                    title = "Oops, there were errors during startup!",
@@ -22,6 +26,8 @@ do
   end
   awesome.connect_signal("debug::error", notify_error)
 end
+-- prepare/errors ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::prepare/variables][prepare/variables]]][prepare/variables]]
 function get_variables()
   local terminal = "kitty"
   local editor = "nvim"
@@ -63,6 +69,8 @@ RC.colorscheme = get_colorscheme()
 RC.beautiful = get_theme()
 RC.tags = get_tags()
 RC.binds = {}
+-- prepare/variables ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::decorations/menu][decorations/menu]]][decorations/menu]]
 function get_menu()
 local beautiful = RC.beautiful
 local terminal = RC.vars.terminal
@@ -85,6 +93,8 @@ local menu_items = {
 return awful.menu({ items = menu_items } )
 end
 RC.menu = get_menu()
+-- decorations/menu ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_global_keys()
   local modkey = RC.vars.modkey
   local N = #RC.tags
@@ -251,6 +261,8 @@ function set_global_keys()
   root.keys(global_keys)
 end
 set_global_keys()
+-- ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_global_buttons()
   local mymainmenu = RC.menu
   local modkey = RC.vars.modkey
@@ -260,6 +272,8 @@ function set_global_buttons()
   root.buttons(r)
 end
 set_global_buttons()
+-- ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_client_keys()
   local modkey = RC.vars.modkey
   
@@ -288,6 +302,8 @@ function set_client_keys()
   return r
 end
 RC.binds.ck = set_client_keys()
+-- ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_client_buttons()
   local modkey = RC.vars.modkey
   
@@ -308,6 +324,8 @@ function set_client_buttons()
   return r
 end
 RC.binds.cb = set_client_buttons()
+-- ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_taglist_buttons()
   local modkey = RC.vars.modkey
   
@@ -332,6 +350,8 @@ function set_taglist_buttons()
   return r
 end
 RC.binds.tags = set_taglist_buttons()
+-- ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_tasklist_buttons()
   local r = gears.table.join(
                        awful.button({ }, 1, function (c)
@@ -358,6 +378,8 @@ function set_tasklist_buttons()
   return r
 end
 RC.binds.task = set_tasklist_buttons()
+-- ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/layouts][workflow/layouts]]][workflow/layouts]]
 function set_layouts()
   awful.layout.layouts = {
       awful.layout.suit.tile,
@@ -365,6 +387,8 @@ function set_layouts()
   }
 end
 set_layouts()
+-- workflow/layouts ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/rules][workflow/rules]]][workflow/rules]]
 local beautiful = RC.beautiful
 local clientbuttons = RC.binds.cb
 local clientkeys = RC.binds.ck
@@ -410,6 +434,8 @@ awful.rules.rules = {
       properties = { tag = "3" } },
 }
 
+-- workflow/rules ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/signals][workflow/signals]]][workflow/signals]]
 local beautiful = RC.beautiful
 
 require("awful.autofocus")
@@ -458,6 +484,8 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
         set_wallpaper(s)
 end)
+-- workflow/signals ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::decorations/bar][decorations/bar]]][decorations/bar]]
 function set_bar()
   local taglist_buttons = RC.binds.tags
   local tasklist_buttons = RC.binds.task
@@ -514,6 +542,10 @@ function set_bar()
   end)
 end
 set_bar()
+-- decorations/bar ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/autostart][workflow/autostart]]][workflow/autostart]]
 RC.autostart = RC.config_dir .. "autostart"
 require("awful.util").spawn("chmod +x " .. RC.autostart)
 require("awful.util").spawn(RC.autostart)
+-- workflow/autostart ends here
+-- Summary:1 ends here

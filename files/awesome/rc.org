@@ -2,7 +2,7 @@
 
 * Summary
 So, ~rc.lua~ is divided in tree sections:
-#+begin_src lua :tangle rc.lua :noweb yes
+#+begin_src lua :tangle rc.lua :noweb yes :comments noweb
   <<prepare/libraries>>
   <<prepare/errors>>
   <<prepare/variables>>
