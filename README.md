@@ -1,26 +1,43 @@
-- [Overview](#orga442aac)
-- [Roles](#org4e981d5)
-  - [misc-packages](#org0314559)
-  - [awesome](#org7cc3e81)
-  - [menu](#org1854fe6)
-  - [kitty](#org054d61b)
-  - [emacs](#org307a047)
-  - [mpd](#org531ec67)
+- [Overview](#org98e829d)
+- [Ansible playbook](#org38dac77)
+  - [preparations](#org5739b48)
+  - [awesome](#org0aee80a)
+  - [menu](#org01c0a17)
+  - [kitty](#orgcbed480)
+  - [emacs](#org072786c)
+  - [mpd](#orgf9c3a17)
 
 
 
-<a id="orga442aac"></a>
+<a id="org98e829d"></a>
 
 # Overview
 
-This contains an Ansible playbook that deploys my configuration. Each role configure something specific, with each role to some degree indipendent of the other: you can see it as a module.
+This repo contains my dotfiles and an Ansible playbook.
+
+My dotfiles are in the `files/` directory, which is structured like this:
+
+```
+files
+├── awesome
+│   ├── rc.lua
+│   ├── rc.org
+│   └── theme.lua
+└── emacs
+    ├── init.el
+    └── init.org
+```
+
+Files ending with `.org` are [org](https://orgmode.org) files. These files can contain code blocks, which can be extracted using [Babel](https://orgmode.org/worg/org-contrib/babel/) to create the configuration files.
+
+The Ansible playbook configures the machine and is further described in its section. I usually run it using the included `configure` script.
 
 
-<a id="org4e981d5"></a>
+<a id="org38dac77"></a>
 
-# Roles
+# Ansible playbook
 
-This section is kind of a todo-list.
+The playbook is splitted into roles, each role dedicated to a program.
 
 Planned roles:
 
@@ -29,14 +46,14 @@ Planned roles:
 -   Pipewire and Pulseaudio masking
 
 
-<a id="org0314559"></a>
+<a id="org5739b48"></a>
 
-## misc-packages
+## preparations
 
 -   Add autojump
 
 
-<a id="org7cc3e81"></a>
+<a id="org0aee80a"></a>
 
 ## awesome
 
@@ -44,7 +61,7 @@ Planned roles:
 -   Reload throws an error?
 
 
-<a id="org1854fe6"></a>
+<a id="org01c0a17"></a>
 
 ## menu
 
@@ -52,14 +69,14 @@ Planned roles:
 -   Theme rofi.
 
 
-<a id="org054d61b"></a>
+<a id="orgcbed480"></a>
 
 ## kitty
 
 -   In the end, this will be my backup
 
 
-<a id="org307a047"></a>
+<a id="org072786c"></a>
 
 ## emacs
 
@@ -68,7 +85,7 @@ Planned roles:
 -   vterm with multiple instances and shell integration
 
 
-<a id="org531ec67"></a>
+<a id="orgf9c3a17"></a>
 
 ## mpd
 

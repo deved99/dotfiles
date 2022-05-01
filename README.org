@@ -14,8 +14,8 @@ files
     ├── init.el
     └── init.org
 #+end_src
-Files ending with ~.org~ are [[orgmode.org][org]] files. These files can contain code
-blocks, which can be extracted using [[orgmode.org/worg/org-contrib/babel/][Babel]] to create the configuration
+Files ending with ~.org~ are [[https://orgmode.org][org]] files. These files can contain code
+blocks, which can be extracted using [[https://orgmode.org/worg/org-contrib/babel/][Babel]] to create the configuration
 files.
 
 The Ansible playbook configures the machine and is further described
