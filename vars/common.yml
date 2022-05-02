@@ -12,9 +12,14 @@ SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
 LOCAL_BIN: "{{ HOME }}/.local/bin"
 MUSIC_DIR: "{{ HOME }}/Music"
 
+############################################################
+# Variables
+
+BROWSER: firefox
+BROWSER_FALLBACK: firefox
 
 ############################################################
-# COLORSCHEME
+# Colorscheme
 
 # CS is the choosen colorscheme, which will update CS_TERM and CS_BASE16
 CS: "{{ COLORSCHEME_GOOGLE }}"

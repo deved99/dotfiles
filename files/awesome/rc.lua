@@ -29,17 +29,7 @@ end
 -- prepare/errors ends here
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::prepare/variables][prepare/variables]]][prepare/variables]]
 function get_variables()
-  local terminal = "kitty"
-  local editor = "nvim"
-  return {
-    terminal = terminal,
-    terminal_fb = "gnome-terminal",
-    browser = "firefox",
-    browser_fb = "qutebrowser",
-    editor = editor,
-    editor_cmd = terminal .. " -e " .. editor,
-    modkey = "Mod4",
-  }
+    return require("vars")
 end
 function get_colorscheme()
     return require("colors")

@@ -14,10 +14,13 @@
     state: link
   with_fileglob: "{{ REPO_FILES }}/awesome/*"
 
-- name: Generate template for colors
+- name: Generate profile specific files
   ansible.builtin.template:
-    src: colors.lua
-    dest: "{{ CONFIG_DIR }}/awesome/colors.lua"
+    src: "{{ item }}"
+    dest: "{{ CONFIG_DIR }}/awesome/{{ item }}"
+  loop:
+    - colors.lua
+    - vars.lua
 
 - name: Restart awesome
   ignore_errors: yes

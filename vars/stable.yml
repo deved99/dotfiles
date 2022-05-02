@@ -1,3 +1,6 @@
 PROFILE: stable
 
+BROWSER: brave-browser
+BROWSER_FALLBACK: firefox
+
 CS_N: 4
