@@ -33,6 +33,9 @@ Planned roles:
 ** awesome
 - Rewrite configuration to literate programming
 - Reload throws an error?
+*** TODO Fix layouts mismatch
+On start, ~awesomewm~ uses the floating layout, probably due to tags
+being set before layouts.
 ** menu
 - Add the menuing part: right now it just install a dmenu script.
 - Theme rofi.

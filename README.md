@@ -1,15 +1,16 @@
-- [Overview](#org98e829d)
-- [Ansible playbook](#org38dac77)
-  - [preparations](#org5739b48)
-  - [awesome](#org0aee80a)
-  - [menu](#org01c0a17)
-  - [kitty](#orgcbed480)
-  - [emacs](#org072786c)
-  - [mpd](#orgf9c3a17)
+- [Overview](#orgfd1613e)
+- [Ansible playbook](#orgddd8962)
+  - [preparations](#org71f9c3e)
+  - [awesome](#orgb320e2c)
+    - [Fix layouts mismatch](#org2f90b34)
+  - [menu](#orgd995f8d)
+  - [kitty](#org029bbac)
+  - [emacs](#org41a212e)
+  - [mpd](#orgf8f5c6f)
 
 
 
-<a id="org98e829d"></a>
+<a id="orgfd1613e"></a>
 
 # Overview
 
@@ -33,7 +34,7 @@ Files ending with `.org` are [org](https://orgmode.org) files. These files can c
 The Ansible playbook configures the machine and is further described in its section. I usually run it using the included `configure` script.
 
 
-<a id="org38dac77"></a>
+<a id="orgddd8962"></a>
 
 # Ansible playbook
 
@@ -46,14 +47,14 @@ Planned roles:
 -   Pipewire and Pulseaudio masking
 
 
-<a id="org5739b48"></a>
+<a id="org71f9c3e"></a>
 
 ## preparations
 
 -   Add autojump
 
 
-<a id="org0aee80a"></a>
+<a id="orgb320e2c"></a>
 
 ## awesome
 
@@ -61,7 +62,14 @@ Planned roles:
 -   Reload throws an error?
 
 
-<a id="org01c0a17"></a>
+<a id="org2f90b34"></a>
+
+### TODO Fix layouts mismatch
+
+On start, `awesomewm` uses the floating layout, probably due to tags being set before layouts.
+
+
+<a id="orgd995f8d"></a>
 
 ## menu
 
@@ -69,14 +77,14 @@ Planned roles:
 -   Theme rofi.
 
 
-<a id="orgcbed480"></a>
+<a id="org029bbac"></a>
 
 ## kitty
 
 -   In the end, this will be my backup
 
 
-<a id="org072786c"></a>
+<a id="org41a212e"></a>
 
 ## emacs
 
@@ -85,7 +93,7 @@ Planned roles:
 -   vterm with multiple instances and shell integration
 
 
-<a id="orgf9c3a17"></a>
+<a id="orgf8f5c6f"></a>
 
 ## mpd
 
