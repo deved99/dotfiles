@@ -1,4 +1,4 @@
--- [[file:rc.org::*Summary][Summary:1]]
+-- [[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary:1]]
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::prepare/libraries][prepare/libraries]]][prepare/libraries]]
 local naughty = require("naughty")
 local fs = require("gears.filesystem")
@@ -94,7 +94,7 @@ return awful.menu({ items = menu_items } )
 end
 RC.menu = get_menu()
 -- decorations/menu ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Global keys][Global keys]]][]]
 function set_global_keys()
   local modkey = RC.vars.modkey
   local N = #RC.tags
@@ -262,7 +262,7 @@ function set_global_keys()
 end
 set_global_keys()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Global buttons][Global buttons]]][]]
 function set_global_buttons()
   local mymainmenu = RC.menu
   local modkey = RC.vars.modkey
@@ -273,7 +273,7 @@ function set_global_buttons()
 end
 set_global_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Client keys][Client keys]]][]]
 function set_client_keys()
   local modkey = RC.vars.modkey
   
@@ -303,7 +303,7 @@ function set_client_keys()
 end
 RC.binds.ck = set_client_keys()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Client buttons][Client buttons]]][]]
 function set_client_buttons()
   local modkey = RC.vars.modkey
   
@@ -325,7 +325,7 @@ function set_client_buttons()
 end
 RC.binds.cb = set_client_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Taglist buttons][Taglist buttons]]][]]
 function set_taglist_buttons()
   local modkey = RC.vars.modkey
   
@@ -351,7 +351,7 @@ function set_taglist_buttons()
 end
 RC.binds.tags = set_taglist_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Tasklist buttons][Tasklist buttons]]][]]
 function set_tasklist_buttons()
   local r = gears.table.join(
                        awful.button({ }, 1, function (c)
