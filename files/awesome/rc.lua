@@ -1,4 +1,4 @@
--- [[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary:1]]
+-- [[file:rc.org::*Summary][Summary:1]]
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::prepare/libraries][prepare/libraries]]][prepare/libraries]]
 local naughty = require("naughty")
 local fs = require("gears.filesystem")
@@ -49,17 +49,6 @@ function get_theme()
   beautiful.init(RC.awesome_dir .. "theme.lua")
   return beautiful
 end
-function get_tags()
-  local awful = require("awful")
-
-  local tags = { "1", "2", "3", "4" }
-  awful.screen.connect_for_each_screen(function(s)
-    -- Each screen has its own tag table.
-    awful.tag(tags, s, awful.layout.layouts[1])
-  end)
-
-  return tags
-end
 RC = {
   awesome_dir = fs.get_configuration_dir(),
   config_dir = fs.get_dir("config")
@@ -67,7 +56,6 @@ RC = {
 RC.vars = get_variables()
 RC.colorscheme = get_colorscheme()
 RC.beautiful = get_theme()
-RC.tags = get_tags()
 RC.binds = {}
 -- prepare/variables ends here
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::decorations/menu][decorations/menu]]][decorations/menu]]
@@ -94,7 +82,30 @@ return awful.menu({ items = menu_items } )
 end
 RC.menu = get_menu()
 -- decorations/menu ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Global keys][Global keys]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/layouts][workflow/layouts]]][workflow/layouts]]
+function set_layouts()
+  awful.layout.layouts = {
+      awful.layout.suit.tile,
+      awful.layout.suit.floating,
+  }
+end
+set_layouts()
+-- workflow/layouts ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/tags][workflow/tags]]][workflow/tags]]
+function get_tags()
+  local awful = require("awful")
+
+  local tags = { "1", "2", "3", "4" }
+  awful.screen.connect_for_each_screen(function(s)
+    -- Each screen has its own tag table.
+    awful.tag(tags, s, awful.layout.layouts[1])
+  end)
+
+  return tags
+end
+RC.tags = get_tags()
+-- workflow/tags ends here
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_global_keys()
   local modkey = RC.vars.modkey
   local N = #RC.tags
@@ -262,7 +273,7 @@ function set_global_keys()
 end
 set_global_keys()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Global buttons][Global buttons]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_global_buttons()
   local mymainmenu = RC.menu
   local modkey = RC.vars.modkey
@@ -273,7 +284,7 @@ function set_global_buttons()
 end
 set_global_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Client keys][Client keys]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_client_keys()
   local modkey = RC.vars.modkey
   
@@ -303,7 +314,7 @@ function set_client_keys()
 end
 RC.binds.ck = set_client_keys()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Client buttons][Client buttons]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_client_buttons()
   local modkey = RC.vars.modkey
   
@@ -325,7 +336,7 @@ function set_client_buttons()
 end
 RC.binds.cb = set_client_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Taglist buttons][Taglist buttons]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_taglist_buttons()
   local modkey = RC.vars.modkey
   
@@ -351,7 +362,7 @@ function set_taglist_buttons()
 end
 RC.binds.tags = set_taglist_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::*Tasklist buttons][Tasklist buttons]]][]]
+-- [[[[file:~/.dotfiles/files/awesome/rc.org::*Summary][Summary]]][]]
 function set_tasklist_buttons()
   local r = gears.table.join(
                        awful.button({ }, 1, function (c)
@@ -379,15 +390,6 @@ function set_tasklist_buttons()
 end
 RC.binds.task = set_tasklist_buttons()
 -- ends here
--- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/layouts][workflow/layouts]]][workflow/layouts]]
-function set_layouts()
-  awful.layout.layouts = {
-      awful.layout.suit.tile,
-      awful.layout.suit.floating,
-  }
-end
-set_layouts()
--- workflow/layouts ends here
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/rules][workflow/rules]]][workflow/rules]]
 local beautiful = RC.beautiful
 local clientbuttons = RC.binds.cb

@@ -7,8 +7,9 @@ So, ~rc.lua~ is divided in tree sections:
   <<prepare/errors>>
   <<prepare/variables>>
   <<decorations/menu>>
-  <<workflow/kb>>
   <<workflow/layouts>>
+  <<workflow/tags>>
+  <<workflow/kb>>
   <<workflow/rules>>
   <<workflow/signals>>
   <<decorations/bar>>
@@ -76,7 +77,6 @@ do this, ~RC.beautiful~ uses a variable from ~RC~.
   RC.vars = get_variables()
   RC.colorscheme = get_colorscheme()
   RC.beautiful = get_theme()
-  RC.tags = get_tags()
   RC.binds = {}
 #+end_src
 This function collects variables:
@@ -107,20 +107,6 @@ This sets the theme:
     local beautiful = require("beautiful")
     beautiful.init(RC.awesome_dir .. "theme.lua")
     return beautiful
-  end
-#+end_src
-This defines the tags and connect them to each screen:
-#+begin_src lua :noweb-ref variables/functions
-  function get_tags()
-    local awful = require("awful")
-
-    local tags = { "1", "2", "3", "4" }
-    awful.screen.connect_for_each_screen(function(s)
-      -- Each screen has its own tag table.
-      awful.tag(tags, s, awful.layout.layouts[1])
-    end)
-
-    return tags
   end
 #+end_src
 ** basic theming (borders, wallpaper, {fg,bg}_*)
@@ -533,6 +519,23 @@ This is the relevant code snippet for the theme::
 
     return r
   end
+#+end_src
+** Tags
+This defines the tags and connect them to each screen:
+#+name: workflow/tags
+#+begin_src lua
+  function get_tags()
+    local awful = require("awful")
+
+    local tags = { "1", "2", "3", "4" }
+    awful.screen.connect_for_each_screen(function(s)
+      -- Each screen has its own tag table.
+      awful.tag(tags, s, awful.layout.layouts[1])
+    end)
+
+    return tags
+  end
+  RC.tags = get_tags()
 #+end_src
 ** Rules
 #+name: workflow/rules
