@@ -572,9 +572,8 @@ This defines the tags and connect them to each screen:
       { rule = { class = "Thunderbird" },
         properties = { tag = "3" } },
       { rule = { class = "Pavucontrol" },
-        properties = { tag = "3" } },
+        properties = { tag = "4" } },
   }
-
 #+end_src
 ** Signals
 #+name: workflow/signals

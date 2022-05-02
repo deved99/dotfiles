@@ -423,9 +423,8 @@ awful.rules.rules = {
     { rule = { class = "Thunderbird" },
       properties = { tag = "3" } },
     { rule = { class = "Pavucontrol" },
-      properties = { tag = "3" } },
+      properties = { tag = "4" } },
 }
-
 -- workflow/rules ends here
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/signals][workflow/signals]]][workflow/signals]]
 local beautiful = RC.beautiful
