@@ -1,39 +1,69 @@
 #+TITLE: Emacs Config
-#+PROPERTY: header-args :tangle init.el
 
+* Summary
+This org file is used to generate my emacs config. It contains various
+named snippets (and their reasoning), which are organized by the
+following snippet. More specifically, it defines which snippets to
+include and where to put them.
+#+begin_src elisp :tangle init.el :noweb yes :comments noweb
+  <<prepare/garbage-collection>>
+  <<prepare/use-package>>
+  <<prepare/startup-time>>
+  <<visual/cleanup>>
+  <<visual/keeparound>>
+  <<visual/fonts>>
+  <<visual/theme>>
+  <<visual/modeline>>
+  <<evil/main>>
+  <<evil/integrations>>
+  <<evil/plugins>>
+  <<evil/undo>>
+  <<org>>
+  <<misc/startup-file>>
+  <<misc/autoclose-parenthesis>>
+  <<misc/backup-files>>
+  <<misc/expandtab>>
+  <<misc/filetype-support>>
+#+end_src
+The header arguments tell Emacs the following:
+- ~tangle~: defines where Emacs should generate the file.
+- ~noweb~: whether to use noweb syntax.
+- ~comments~: whether to add comments between snippets.
 * prepare
 ** garbage collect
 How frequently does Emacs garbage collect:
-#+begin_src emacs-lisp
+#+name: prepare/garbage-collection
+#+begin_src elisp
   (setq gc-cons-threshold 100000000)
 #+end_src
 ** use-package setup
 Load ~package.el~:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref prepare/use-package
   (require 'package) (setq package-enable-at-startup nil)
 #+end_src
 Add Melpa repository:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref prepare/use-package
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
-Initialize packages:
-#+begin_src emacs-lisp
+Then initialize packages:
+#+begin_src elisp :noweb-ref prepare/use-package
   (package-initialize)
 #+end_src
 If not present, install ~use-package~:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref prepare/use-package
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
 #+end_src
 If a package is specified, install it:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref prepare/use-package
   (require 'use-package-ensure)
   (setq use-package-always-ensure t)
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
-#+begin_src emacs-lisp
+#+name: prepare/startup-time
+#+begin_src elisp
 (add-hook 'emacs-startup-hook
   (lambda ()
     (message "Emacs ready in %s with %d garbage collections."
@@ -45,36 +75,39 @@ This just shows how much did it take for emacs to start and the number of garbag
 * visual
 ** cleanup
 I just want to see text, this disable decorations I don't need:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref visual/cleanup
   (tool-bar-mode 0)
   (menu-bar-mode 0)
   (scroll-bar-mode 0)
   (tooltip-mode 0)
 #+end_src
 But I want some space around text:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref visual/cleanup
   (fringe-mode 10)
 #+end_src
 This is equivalent to vim's ~set nowrap~:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref visual/cleanup
     (set-default 'truncate-lines t)
 #+end_src
 ** keep context around cursor
 This keeps 5 lines before and after the current line:
-#+begin_src emacs-lisp
+#+name: visual/keeparound
+#+begin_src elisp
   (setq scroll-margin 5
 	scroll-conservatively 10000)
 #+end_src
 ** fonts
-As for fonts, I use [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]]:
-#+begin_src emacs-lisp
+As for fonts, I use [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] and ~Noto Color Emoji~ for emojis:
+#+name: visual/fonts
+#+begin_src elisp
     (add-to-list 'default-frame-alist
 		 '(font . "JetBrains Mono 15"))
     (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
 #+end_src
 ** theme
 This generates themes from a base16 theme:
-#+begin_src emacs-lisp
+#+name visual/theme
+#+begin_src elisp
 (use-package base16-theme
   :config
   (setq base16-distinct-fringe-background nil)
@@ -82,7 +115,8 @@ This generates themes from a base16 theme:
 #+end_src
 ** indent guides
 This shows indentations guides in programming languages:
-#+begin_src emacs-lisp :tangle no
+#+name: visual/indent-guides
+#+begin_src elisp
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
   :config
@@ -91,7 +125,8 @@ This shows indentations guides in programming languages:
 Right now disabled: doesn't show on empty lines.
 ** ligatures
 These are the used ligatures, disabled 'cause errors:
-#+begin_src emacs-lisp :tangle no
+#+name: visual/ligatures
+#+begin_src elisp
   (use-package ligature
     :load-path "manual/ligature.el"
     :config
@@ -109,13 +144,25 @@ These are the used ligatures, disabled 'cause errors:
 			      "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
     (global-ligature-mode t))
 #+end_src
-This shows a color preview inside Emacs for strings like #FF0000
-#+begin_src emacs-lisp :padline no
-  (use-package rainbow-mode)
-#+end_src
 ** modeline
+This can be splitted in two parts, as follow:
+#+begin_src elisp :noweb yes
+  <<visual/modeline/functions>>
+  <<visual/modeline/main>>
+#+end_src
+This wraps everything up in the modeline:
+#+name: visual/modeline/main
+#+begin_src elisp
+  (setq-default mode-line-format
+		(list
+		 " "
+		 '(:eval (get_current_state))
+		 " | %b"
+		 '(:eval (is_modified))
+		 " (%m)"))
+#+end_src
 This outputs the current evil-state:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref visual/modeline/functions
   (defun get_current_state ()
     (cond
      ((eq evil-state 'normal) "NORMAL")
@@ -127,36 +174,25 @@ This outputs the current evil-state:
      (t "NOT_FOUND")))
 #+end_src
 This wheter the current buffer has been modified or in read only mode:
-#+begin_src emacs-lisp
+#+begin_src elisp :noweb-ref visual/modeline/functions
   (defun is_modified ()
     (cond
      ((buffer-modified-p) "+")
      ((buffer-read-only) "O")
      (t " ")))
-
-#+end_src
-This wraps everything up in the modeline:
-#+begin_src emacs-lisp
-  (setq-default mode-line-format
-		(list
-		 " "
-		 '(:eval (get_current_state))
-		 " | %b"
-		 '(:eval (is_modified))
-		 " (%m)"))
 #+end_src
 * evil-mode
 ** ~evil~ package:
 The main piece, ~evil~:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package evil
 #+end_src
 Load it after ~undo-tree~:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     :after undo-tree
 #+end_src
 Then set ~undo-tree~ as undo system:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     :init
     (require 'undo-tree)
     (setq evil-undo-system 'undo-tree)
@@ -164,173 +200,179 @@ Then set ~undo-tree~ as undo system:
     (setq evil-redo-function 'undo-tree-redo)
 #+end_src
 Set variables needed by evil-collections:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     (setq evil-want-keybinding nil
 	  evil-want-integration t)
 #+end_src
 Don't print the current mode:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     (setq evil-echo-state nil)
 #+end_src
 Finally, enable evil:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     :config (evil-mode 1))
 #+end_src
 ** evil integrations
 This is a collections of various integrations:
-#+begin_src emacs-lisp
+#+begin_src elisp
 (use-package evil-collection
   :after evil
   :init (evil-collection-init))
 #+end_src
 And this is specific for Org-mode, disabled for now:
-#+begin_src emacs-lisp
+#+begin_src elisp
 (use-package org-evil)
 #+end_src
 ** vim plugins
 This is for a way faster way to change surrounding like parenthesis:
-#+begin_src emacs-lisp
+#+begin_src elisp
 (use-package evil-surround
   :after evil
   :config (global-evil-surround-mode 1))
 #+end_src
 And this is for commenting portions of code:
-#+begin_src emacs-lisp
+#+begin_src elisp
 (use-package evil-commentary
   :after evil
   :config (evil-commentary-mode))
 #+end_src
 This adds indentation based text object:
-#+begin_src emacs-lisp
+#+begin_src elisp
 (use-package evil-indent-plus
   :after evil
   :init (evil-indent-plus-default-bindings))
 #+end_src
 ** undo
 This is the undo system I use; it also provides a nice visualization of the undo-tree.
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package undo-tree
 #+end_src
 Set where should it save files:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     ;; :init
     ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
 #+end_src
 Enable global mode:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     :config (global-undo-tree-mode))
 #+end_src
 * org mode
 Load only export backends I need:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (setq org-export-backends '(html latex ox-gfm))
 #+end_src
 Some visual options
-#+begin_src emacs-lisp
+#+begin_src elisp
   (setq org-hide-leading-stars t
 	org-startup-folded t)
 #+end_src
 Github flavored Markdown exporter:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package ox-gfm)
 #+end_src
 * lsp-mode
 ** main package
 This enables [[https://github.com/Microsoft/language-server-protocol][LSP]], which provides completions, diagnostics et cetera:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package lsp-mode
 #+end_src
 Hook it to any programming filetype:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     :hook prog-mode
 #+end_src
 Disable icons in completions:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     :init (setq lsp-headerline-breadcrumb-enable nil)
 #+end_src
 Disable diagnostics; I'd prefer to be able to toggle it or to disable it while in insert mode:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     (setq lsp-diagnostics-mode ":none"))
 #+end_src
 ** lsp-ui
 This manages the look of LSP:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package lsp-ui
     :config
 #+end_src
 Disable some stuff; I have to find an alternative solution in the future:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     (setq lsp-ui-doc-enable nil
 	  lsp-ui-sideline-show-code-actions nil)
 #+end_src
 Enable showing info on the right of the screen:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
     (setq lsp-ui-sideline-show-hover t
 	  lsp-ui-sideline-delay 1))
 #+end_src
 ** completion engine
 This is the completion engine, hooked up to lsp-mode:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package company
     :hook (lsp-mode . company-mode)
 #+end_src
 Loop after the last entry:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
   :config
   (setq company-selection-wrap-around t)
 #+end_src
 Then enable it:
-#+begin_src emacs-lisp :padline no
+#+begin_src elisp :padline no
   (company-tng-configure-default))
 #+end_src
 ** magit
 This is a git client I want to test:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package magit)
 #+end_src
 * misc
 ** todo file
 I like using a TODO file, which keeps track of what I'm doing and what I have to do:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (setq inhibit-startup-screen t
         initial-buffer-choice "~/current.org")
 #+end_src
 ** autoclose parenthesis
 Autoclose parenthesis, quotation marks, etc:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (electric-pair-mode)
 #+end_src
 ** backup
 Sets where to save backup files. Backup always gud.
-#+begin_src emacs-lisp
+#+begin_src elisp
   (setq backup-dir (concat user-emacs-directory "backups")
 	backup-directory-alist `(("." . ,backup-dir))
 	auto-save-file-name-transforms `((".*", backup-dir t)))
 #+end_src
 ** no tab please
 Never insert tabs:
-#+begin_src emacs-lisp
+#+begin_src elisp
 (setq-default indent-tabs-mode nil)
+#+end_src
+** rainbow-mode
+This shows a color preview inside Emacs for strings like #FF0000
+#+name: misc/rainbow-mode
+#+begin_src elisp
+  (use-package rainbow-mode)
 #+end_src
 ** additional filetypes
 Pyright, an LSP server for Python:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package lsp-pyright
   :hook (python-mode . (lambda ()
 			  (require 'lsp-pyright)
 			  (lsp))))
 #+end_src
 Rust, added to lsp hook:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package rust-mode
     :hook (rust-mode . lsp))
 #+end_src
 Lua:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package lua-mode)
 #+end_src
 Miscellanous syntax highlight:
-#+begin_src emacs-lisp
+#+begin_src elisp
   (use-package json-mode)
   (use-package yaml-mode)
   (use-package dockerfile-mode)
