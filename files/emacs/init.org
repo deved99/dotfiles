@@ -245,6 +245,14 @@ This adds indentation based text object:
   :after evil
   :init (evil-indent-plus-default-bindings))
 #+end_src
+Vi-like number controlling:
+#+begin_src elisp :noweb-ref evil/plugins
+  (use-package evil-numbers
+    :after evil
+    :config
+    (evil-define-key '(normal visual) 'global (kbd "SPC +") 'evil-numbers/inc-at-pt)
+    (evil-define-key '(normal visual) 'global (kbd "SPC -") 'evil-numbers/dec-at-pt))
+#+end_src
 ** undo
 This is the undo system I use; it also provides a nice visualization of the undo-tree.
 #+name: evil/undo
