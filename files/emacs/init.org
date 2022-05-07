@@ -23,7 +23,8 @@ include and where to put them.
   <<misc/autoclose-parenthesis>>
   <<misc/backup-files>>
   <<misc/expandtab>>
-  <<misc/filetype-support>>
+  <<misc/rainbow-mode>>
+  <<misc/filetypes>>
 #+end_src
 The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
@@ -106,7 +107,7 @@ As for fonts, I use [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] and ~
 #+end_src
 ** theme
 This generates themes from a base16 theme:
-#+name visual/theme
+#+name: visual/theme
 #+begin_src elisp
 (use-package base16-theme
   :config
@@ -146,6 +147,7 @@ These are the used ligatures, disabled 'cause errors:
 #+end_src
 ** modeline
 This can be splitted in two parts, as follow:
+#+name: visual/modeline
 #+begin_src elisp :noweb yes
   <<visual/modeline/functions>>
   <<visual/modeline/main>>
@@ -184,91 +186,84 @@ This wheter the current buffer has been modified or in read only mode:
 * evil-mode
 ** ~evil~ package:
 The main piece, ~evil~:
-#+begin_src elisp
+#+name: evil/main
+#+begin_src elisp :noweb yes
   (use-package evil
-#+end_src
-Load it after ~undo-tree~:
-#+begin_src elisp :padline no
     :after undo-tree
+    :init
+    <<evil/main/init>>
+    :config (evil-mode 1))
 #+end_src
 Then set ~undo-tree~ as undo system:
-#+begin_src elisp :padline no
-    :init
+#+begin_src elisp :noweb-ref evil/main/init
     (require 'undo-tree)
     (setq evil-undo-system 'undo-tree)
     (setq evil-undo-function 'undo-tree-undo)
     (setq evil-redo-function 'undo-tree-redo)
 #+end_src
 Set variables needed by evil-collections:
-#+begin_src elisp :padline no
+#+begin_src elisp :noweb-ref evil/main/init
     (setq evil-want-keybinding nil
 	  evil-want-integration t)
 #+end_src
 Don't print the current mode:
-#+begin_src elisp :padline no
+#+begin_src elisp :noweb-ref evil/main/init
     (setq evil-echo-state nil)
-#+end_src
-Finally, enable evil:
-#+begin_src elisp :padline no
-    :config (evil-mode 1))
 #+end_src
 ** evil integrations
 This is a collections of various integrations:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref evil/integrations
 (use-package evil-collection
   :after evil
   :init (evil-collection-init))
 #+end_src
-And this is specific for Org-mode, disabled for now:
-#+begin_src elisp
+And this is specific for Org-mode, I'd like to change this to
+~evil-org~, but I've encountered some problems last time I tried using it:
+#+begin_src elisp :noweb-ref evil/integrations
 (use-package org-evil)
 #+end_src
 ** vim plugins
 This is for a way faster way to change surrounding like parenthesis:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref evil/plugins
 (use-package evil-surround
   :after evil
   :config (global-evil-surround-mode 1))
 #+end_src
 And this is for commenting portions of code:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref evil/plugins
 (use-package evil-commentary
   :after evil
   :config (evil-commentary-mode))
 #+end_src
 This adds indentation based text object:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref evil/plugins
 (use-package evil-indent-plus
   :after evil
   :init (evil-indent-plus-default-bindings))
 #+end_src
 ** undo
 This is the undo system I use; it also provides a nice visualization of the undo-tree.
-#+begin_src elisp
+#+name: evil/undo
+#+begin_src elisp :noweb yes
   (use-package undo-tree
-#+end_src
-Set where should it save files:
-#+begin_src elisp :padline no
-    ;; :init
-    ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
-#+end_src
-Enable global mode:
-#+begin_src elisp :padline no
+    :init
+    <<evil/undo/init>>
     :config (global-undo-tree-mode))
 #+end_src
+Set where should it save files:
+#+begin_src elisp :noweb-ref evil/undo/init
+    ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
+#+end_src
 * org mode
-Load only export backends I need:
-#+begin_src elisp
+Download Github flavored Markdown exporter and define the exports backends I use:
+#+begin_src elisp :noweb-ref org
+  (use-package ox-gfm)
   (setq org-export-backends '(html latex ox-gfm))
 #+end_src
-Some visual options
-#+begin_src elisp
+Some visual options:
+#+begin_src elisp :noweb-ref org
   (setq org-hide-leading-stars t
 	org-startup-folded t)
-#+end_src
-Github flavored Markdown exporter:
-#+begin_src elisp
-  (use-package ox-gfm)
 #+end_src
 * lsp-mode
 ** main package
@@ -324,20 +319,28 @@ This is a git client I want to test:
 #+begin_src elisp
   (use-package magit)
 #+end_src
+** lsp servers
+Pyright, an LSP server for Python:
+#+begin_src elisp
+  (use-package lsp-pyright)
+#+end_src
 * misc
 ** todo file
 I like using a TODO file, which keeps track of what I'm doing and what I have to do:
+#+name: misc/startup-file
 #+begin_src elisp
   (setq inhibit-startup-screen t
         initial-buffer-choice "~/current.org")
 #+end_src
 ** autoclose parenthesis
 Autoclose parenthesis, quotation marks, etc:
+#+name: misc/autoclose-parenthesis
 #+begin_src elisp
   (electric-pair-mode)
 #+end_src
 ** backup
 Sets where to save backup files. Backup always gud.
+#+name: misc/backup-files
 #+begin_src elisp
   (setq backup-dir (concat user-emacs-directory "backups")
 	backup-directory-alist `(("." . ,backup-dir))
@@ -345,6 +348,7 @@ Sets where to save backup files. Backup always gud.
 #+end_src
 ** no tab please
 Never insert tabs:
+#+name: misc/expandtab
 #+begin_src elisp
 (setq-default indent-tabs-mode nil)
 #+end_src
@@ -355,24 +359,11 @@ This shows a color preview inside Emacs for strings like #FF0000
   (use-package rainbow-mode)
 #+end_src
 ** additional filetypes
-Pyright, an LSP server for Python:
-#+begin_src elisp
-  (use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-			  (require 'lsp-pyright)
-			  (lsp))))
-#+end_src
-Rust, added to lsp hook:
-#+begin_src elisp
-  (use-package rust-mode
-    :hook (rust-mode . lsp))
-#+end_src
-Lua:
-#+begin_src elisp
-  (use-package lua-mode)
-#+end_src
 Miscellanous syntax highlight:
+#+name: misc/filetypes
 #+begin_src elisp
+  (use-package rust-mode)
+  (use-package lua-mode)
   (use-package json-mode)
   (use-package yaml-mode)
   (use-package dockerfile-mode)
