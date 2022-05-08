@@ -222,7 +222,7 @@ This is a collections of various integrations:
   :init (evil-collection-init))
 #+end_src
 And this is an integration for Org-mode:
-#+begin_src elisp :noweb-ref evil/integrations
+#+begin_src elisp :noweb yes :noweb-ref evil/integrations
 (use-package evil-org
   :init
   <<evil/integrations/options>>
@@ -277,9 +277,10 @@ Set where should it save files:
 * org-mode
 Use org-mode from elpa:
 #+begin_src elisp :noweb-ref org :noweb yes
-  <<org/options>>
   (use-package org
     :after evil-org
+    :init
+    <<org/options>>
     :config (add-hook 'org-mode-hook 'evil-org-mode))
 #+end_src
 Download Github flavored Markdown exporter and define the exports backends I use:
@@ -290,7 +291,7 @@ Download Github flavored Markdown exporter and define the exports backends I use
 Some visual options:
 #+begin_src elisp :noweb-ref org/options
   (setq org-startup-indented t
-	org-startup-folded t)
+ 	  org-startup-folded t)
 #+end_src
 * lsp-mode
 ** main package
