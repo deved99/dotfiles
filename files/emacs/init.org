@@ -270,9 +270,11 @@ Set where should it save files:
 #+end_src
 * org mode
 Use org-mode from elpa:
-#+begin_src elisp :noweb-ref org
+#+begin_src elisp :noweb-ref org :noweb yes
   (use-package org
     :after evil-org
+    :init
+    <<org/options>>
     :config (add-hook 'org-mode-hook 'evil-org-mode))
 #+end_src
 Download Github flavored Markdown exporter and define the exports backends I use:
@@ -281,8 +283,8 @@ Download Github flavored Markdown exporter and define the exports backends I use
   (setq org-export-backends '(html latex ox-gfm))
 #+end_src
 Some visual options:
-#+begin_src elisp :noweb-ref org
-  (setq org-hide-leading-stars t
+#+begin_src elisp :noweb-ref org/options
+  (setq org-startup-indented t
 	org-startup-folded t)
 #+end_src
 * lsp-mode
