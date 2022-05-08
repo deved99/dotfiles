@@ -224,9 +224,15 @@ This is a collections of various integrations:
 And this is an integration for Org-mode:
 #+begin_src elisp :noweb-ref evil/integrations
 (use-package evil-org
+  :init
+  <<evil/integrations/options>>
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+#+end_src
+This options makes ~0~ ignore leading asterisks:
+#+begin_src elisp :noweb-ref evil/integrations/options
+(setq org-special-ctrl-a/e t)
 #+end_src
 ** vim plugins
 This is for a way faster way to change surrounding like parenthesis:
@@ -268,13 +274,12 @@ Set where should it save files:
 #+begin_src elisp :noweb-ref evil/undo/init
     ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
 #+end_src
-* org mode
+* org-mode
 Use org-mode from elpa:
 #+begin_src elisp :noweb-ref org :noweb yes
+  <<org/options>>
   (use-package org
     :after evil-org
-    :init
-    <<org/options>>
     :config (add-hook 'org-mode-hook 'evil-org-mode))
 #+end_src
 Download Github flavored Markdown exporter and define the exports backends I use:
