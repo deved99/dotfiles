@@ -31,21 +31,16 @@ Planned roles:
 ** preparations
 - Add autojump
 ** awesome
-- Rewrite configuration to literate programming
 - Reload throws an error?
-*** TODO Fix layouts mismatch
-On start, ~awesomewm~ uses the floating layout, probably due to tags
-being set before layouts.
 ** menu
 - Add the menuing part: right now it just install a dmenu script.
 - Theme rofi.
 ** kitty
-- In the end, this will be my backup
+In the end, this will be my backup
 ** emacs
-- Move to straight-el
 - Auto-tangle for org-files?
 - vterm with multiple instances and shell integration
 ** mpd
 - mpdscribble: why isn't it starting?
   Maybe it is waiting for mpd, which on start fails since ~/Music is
-  not mounted
+  not mounted?
