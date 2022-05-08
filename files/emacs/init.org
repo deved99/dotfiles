@@ -18,7 +18,8 @@ include and where to put them.
   <<evil/integrations>>
   <<evil/plugins>>
   <<evil/undo>>
-  <<org>>
+  <<org/main>>
+  <<org/plugins>>
   <<misc/startup-file>>
   <<misc/autoclose-parenthesis>>
   <<misc/backup-files>>
@@ -224,8 +225,8 @@ This is a collections of various integrations:
 And this is an integration for Org-mode:
 #+begin_src elisp :noweb yes :noweb-ref evil/integrations
 (use-package evil-org
-  :init
-  <<evil/integrations/options>>
+  :hook (org-mode . evil-org-mode)
+  :init <<evil/integrations/options>>
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -276,27 +277,31 @@ Set where should it save files:
 #+end_src
 * org-mode
 Use org-mode from elpa:
-#+begin_src elisp :noweb-ref org :noweb yes
-  (use-package org
-    :after evil-org
-    :init
-    <<org/options>>
-    :config (add-hook 'org-mode-hook 'evil-org-mode))
-#+end_src
-Download Github flavored Markdown exporter and define the exports backends I use:
-#+begin_src elisp :noweb-ref org
-  (use-package ox-gfm)
-  (setq org-export-backends '(html latex ox-gfm))
+#+begin_src elisp :noweb-ref org/main :noweb yes
+(use-package org
+  :init
+  <<org/options>>)
 #+end_src
 Some visual options:
 #+begin_src elisp :noweb-ref org/options
-  (setq org-startup-indented t
- 	  org-startup-folded t)
+(setq org-startup-indented t
+      org-startup-folded t)
 #+end_src
-Code block background:
+Code block background fills the whole line:
 #+begin_src elisp :noweb-ref org/options
 (set-face-attribute 'org-block nil :extend t)
 (set-face-attribute 'org-block-begin-line nil :extend t)
+#+end_src
+Download Github flavored Markdown exporter and define the exports backends I use:
+#+begin_src elisp :noweb-ref org/plugins
+(use-package ox-gfm)
+(setq org-export-backends '(html latex ox-gfm))
+#+end_src
+Conceal some stuff:
+#+begin_src elisp :noweb-ref org/plugins
+(use-package org-appear
+  :hook (org-mode . org-appear-mode)
+  :init (setq org-hide-emphasis-markers t))
 #+end_src
 * lsp-mode
 ** main package
