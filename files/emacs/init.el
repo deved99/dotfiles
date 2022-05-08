@@ -1,11 +1,11 @@
-;; [[file:init.org::*Summary][Summary:1]]
+;; [[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary:1]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/garbage-collection][prepare/garbage-collection]]][prepare/garbage-collection]]
 (setq gc-cons-threshold 100000000)
 ;; prepare/garbage-collection ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
 (setq package-enable-at-startup nil)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -19,10 +19,10 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
 (straight-use-package 'use-package)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
 (setq straight-use-package-by-default t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/startup-time][prepare/startup-time]]][prepare/startup-time]]
@@ -34,16 +34,16 @@
 	  (time-subtract after-init-time before-init-time)))
        gcs-done)))
 ;; prepare/startup-time ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*cleanup][cleanup]]][]]
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (tooltip-mode 0)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*cleanup][cleanup]]][]]
 (fringe-mode 10)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*cleanup][cleanup]]][]]
 (set-default 'truncate-lines t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/keeparound][visual/keeparound]]][visual/keeparound]]
@@ -97,12 +97,12 @@
   (setq evil-echo-state nil)
   :config (evil-mode 1))
 ;; evil/main ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*evil integrations][evil integrations]]][]]
 (use-package evil-collection
   :after evil
   :init (evil-collection-init))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*evil integrations][evil integrations]]][]]
 (use-package evil-org
   :init
   (setq org-special-ctrl-a/e t)
@@ -110,22 +110,22 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
 (use-package evil-surround
   :after evil
   :config (global-evil-surround-mode 1))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
 (use-package evil-commentary
   :after evil
   :config (evil-commentary-mode))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
 (use-package evil-indent-plus
   :after evil
   :init (evil-indent-plus-default-bindings))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
 (use-package evil-numbers
   :after evil
   :config
@@ -138,15 +138,17 @@
   ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*org-mode][org-mode]]][]]
 (use-package org
   :after evil-org
   :init
   (setq org-startup-indented t
    	org-startup-folded t)
+  (set-face-attribute 'org-block nil :extend t)
+  (set-face-attribute 'org-block-begin-line nil :extend t)
   :config (add-hook 'org-mode-hook 'evil-org-mode))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*org-mode][org-mode]]][]]
 (use-package ox-gfm)
 (setq org-export-backends '(html latex ox-gfm))
 ;; ends here
