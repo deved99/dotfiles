@@ -389,6 +389,7 @@ This shows a color preview inside Emacs for strings like #FF0000
 ** additional filetypes
 Miscellanous syntax highlight:
 #+begin_src elisp :noweb-ref misc
+  (use-package php-mode)
   (use-package rust-mode)
   (use-package lua-mode)
   (use-package json-mode)

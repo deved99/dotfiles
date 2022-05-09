@@ -174,6 +174,7 @@
 (use-package rainbow-mode)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package php-mode)
 (use-package rust-mode)
 (use-package lua-mode)
 (use-package json-mode)
