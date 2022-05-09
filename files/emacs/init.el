@@ -155,29 +155,32 @@
   :hook (org-mode . org-appear-mode)
   :init (setq org-hide-emphasis-markers t))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::misc/startup-file][misc/startup-file]]][misc/startup-file]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq inhibit-startup-screen t
       initial-buffer-choice "~/current.org")
-;; misc/startup-file ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::misc/autoclose-parenthesis][misc/autoclose-parenthesis]]][misc/autoclose-parenthesis]]
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (electric-pair-mode)
-;; misc/autoclose-parenthesis ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::misc/backup-files][misc/backup-files]]][misc/backup-files]]
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq backup-dir (concat user-emacs-directory "backups")
       backup-directory-alist `(("." . ,backup-dir))
       auto-save-file-name-transforms `((".*", backup-dir t)))
-;; misc/backup-files ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::misc/expandtab][misc/expandtab]]][misc/expandtab]]
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq-default indent-tabs-mode nil)
-;; misc/expandtab ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::misc/rainbow-mode][misc/rainbow-mode]]][misc/rainbow-mode]]
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package rainbow-mode)
-;; misc/rainbow-mode ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::misc/filetypes][misc/filetypes]]][misc/filetypes]]
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package rust-mode)
 (use-package lua-mode)
 (use-package json-mode)
 (use-package yaml-mode)
 (use-package dockerfile-mode)
-;; misc/filetypes ends here
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(setq vc-follow-symlinks t)
+;; ends here
 ;; Summary:1 ends here

@@ -20,12 +20,7 @@ include and where to put them.
   <<evil/undo>>
   <<org/main>>
   <<org/plugins>>
-  <<misc/startup-file>>
-  <<misc/autoclose-parenthesis>>
-  <<misc/backup-files>>
-  <<misc/expandtab>>
-  <<misc/rainbow-mode>>
-  <<misc/filetypes>>
+  <<misc>>
 #+end_src
 The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
@@ -365,44 +360,43 @@ Pyright, an LSP server for Python:
 * misc
 ** todo file
 I like using a TODO file, which keeps track of what I'm doing and what I have to do:
-#+name: misc/startup-file
-#+begin_src elisp
+#+begin_src elisp :noweb-ref misc
   (setq inhibit-startup-screen t
         initial-buffer-choice "~/current.org")
 #+end_src
 ** autoclose parenthesis
 Autoclose parenthesis, quotation marks, etc:
-#+name: misc/autoclose-parenthesis
-#+begin_src elisp
+#+begin_src elisp :noweb-ref misc
   (electric-pair-mode)
 #+end_src
 ** backup
 Sets where to save backup files. Backup always gud.
-#+name: misc/backup-files
-#+begin_src elisp
+#+begin_src elisp :noweb-ref misc
   (setq backup-dir (concat user-emacs-directory "backups")
 	backup-directory-alist `(("." . ,backup-dir))
 	auto-save-file-name-transforms `((".*", backup-dir t)))
 #+end_src
 ** no tab please
 Never insert tabs:
-#+name: misc/expandtab
-#+begin_src elisp
+#+begin_src elisp :noweb-ref misc
 (setq-default indent-tabs-mode nil)
 #+end_src
 ** rainbow-mode
 This shows a color preview inside Emacs for strings like #FF0000
-#+name: misc/rainbow-mode
-#+begin_src elisp
+#+begin_src elisp :noweb-ref misc
   (use-package rainbow-mode)
 #+end_src
 ** additional filetypes
 Miscellanous syntax highlight:
-#+name: misc/filetypes
-#+begin_src elisp
+#+begin_src elisp :noweb-ref misc
   (use-package rust-mode)
   (use-package lua-mode)
   (use-package json-mode)
   (use-package yaml-mode)
   (use-package dockerfile-mode)
+#+end_src
+** Visit symlinks to file under git
+Follow link by default
+#+begin_src elisp :noweb-ref misc
+  (setq vc-follow-symlinks t)
 #+end_src
