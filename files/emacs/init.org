@@ -396,6 +396,21 @@ Miscellanous syntax highlight:
   (use-package yaml-mode)
   (use-package dockerfile-mode)
 #+end_src
+Better pdf viewer, disabled since not optimal yet:
+#+begin_src elisp
+  (use-package pdf-tools)
+#+end_src
+Plantuml support, used to create nice graphs:
+#+begin_src elisp :noweb-ref misc
+  (use-package plantuml-mode
+  :init
+  (setq plantuml-executable-path "/usr/bin/plantuml"
+        plantuml-default-exec-mode 'executable)
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+  ;; Org-mode
+  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+  (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
+#+end_src
 ** Visit symlinks to file under git
 Follow link by default
 #+begin_src elisp :noweb-ref misc

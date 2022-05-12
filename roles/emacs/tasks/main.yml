@@ -2,7 +2,15 @@
 
 - name: Install Emacs
   ansible.builtin.apt:
-    name: emacs
+    name:
+      - emacs
+      ## pdf-tools dependencies
+      # - libpng-dev
+      # - zlib1g-dev
+      # - libpoppler-glib-dev
+      # - libpoppler-private-dev
+      ## plantuml-mode
+      - plantuml
   become: yes
 
 - name: Symlink configuration

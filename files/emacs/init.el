@@ -182,6 +182,14 @@
 (use-package dockerfile-mode)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package plantuml-mode
+:init
+(setq plantuml-executable-path "/usr/bin/plantuml"
+      plantuml-default-exec-mode 'executable)
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+(add-to-list 'org-src-lang-modes '("plantuml" . plantuml)))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq vc-follow-symlinks t)
 ;; ends here
 ;; Summary:1 ends here
