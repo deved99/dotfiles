@@ -197,6 +197,11 @@
 (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package markdown-mode
+:mode ("README\\.md\\'" . gfm-mode)
+:init (setq markdown-command "multimarkdown"))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq vc-follow-symlinks t)
 ;; ends here
 ;; Summary:1 ends here

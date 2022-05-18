@@ -417,6 +417,12 @@ Plantuml support, used to create nice graphs:
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 #+end_src
+Markdown syntax-higlight plus some functions:
+#+begin_src elisp :noweb-ref misc
+  (use-package markdown-mode
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+#+end_src
 ** Visit symlinks to file under git
 Follow link by default
 #+begin_src elisp :noweb-ref misc
