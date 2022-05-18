@@ -279,7 +279,7 @@ Use org-mode from elpa:
 #+end_src
 Some visual options:
 #+begin_src elisp :noweb-ref org/options
-(setq org-startup-indented t
+(setq org-hide-leading-stars t
       org-startup-folded t)
 #+end_src
 Code block background fills the whole line:
@@ -297,6 +297,12 @@ Conceal some stuff:
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
   :init (setq org-hide-emphasis-markers t))
+#+end_src
+Automatic preview of LaTeX fragments:
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package org-fragtog
+    :straight (:host github :repo "io12/org-fragtog")
+    :hook (org-mode . org-fragtog-mode))
 #+end_src
 * lsp-mode
 ** main package

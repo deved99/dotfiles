@@ -141,7 +141,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package org
   :init
-  (setq org-startup-indented t
+  (setq org-hide-leading-stars t
         org-startup-folded t)
   (set-face-attribute 'org-block nil :extend t)
   (set-face-attribute 'org-block-begin-line nil :extend t))
@@ -154,6 +154,11 @@
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
   :init (setq org-hide-emphasis-markers t))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package org-fragtog
+  :straight (:host github :repo "io12/org-fragtog")
+  :hook (org-mode . org-fragtog-mode))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq inhibit-startup-screen t
@@ -187,7 +192,9 @@
 (setq plantuml-executable-path "/usr/bin/plantuml"
       plantuml-default-exec-mode 'executable)
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-(add-to-list 'org-src-lang-modes '("plantuml" . plantuml)))
+;; Org-mode
+(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq vc-follow-symlinks t)
