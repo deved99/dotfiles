@@ -200,6 +200,7 @@
 (use-package markdown-mode
 :mode ("README\\.md\\'" . gfm-mode)
 :init (setq markdown-command "multimarkdown"))
+(use-package edit-indirect)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq vc-follow-symlinks t)

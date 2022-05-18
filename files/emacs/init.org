@@ -422,6 +422,7 @@ Markdown syntax-higlight plus some functions:
   (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown"))
+  (use-package edit-indirect)
 #+end_src
 ** Visit symlinks to file under git
 Follow link by default
