@@ -162,6 +162,7 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package org-superstar
+   :init (setq org-superstar-remove-leading-stars t)
    :hook (org-mode . org-superstar-mode))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]

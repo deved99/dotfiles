@@ -307,6 +307,7 @@ Automatic preview of LaTeX fragments:
 Change look of headers:
 #+begin_src elisp :noweb-ref org/plugins
   (use-package org-superstar
+     :init (setq org-superstar-remove-leading-stars t)
      :hook (org-mode . org-superstar-mode))
 #+end_src
 * lsp-mode
