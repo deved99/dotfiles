@@ -304,6 +304,11 @@ Automatic preview of LaTeX fragments:
     :straight (:host github :repo "io12/org-fragtog")
     :hook (org-mode . org-fragtog-mode))
 #+end_src
+Change look of headers:
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package org-superstar
+     :hook (org-mode . org-superstar-mode))
+#+end_src
 * lsp-mode
 ** main package
 This enables [[https://github.com/Microsoft/language-server-protocol][LSP]], which provides completions, diagnostics et cetera:

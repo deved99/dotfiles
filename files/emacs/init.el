@@ -161,6 +161,10 @@
   :hook (org-mode . org-fragtog-mode))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package org-superstar
+   :hook (org-mode . org-superstar-mode))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq inhibit-startup-screen t
       initial-buffer-choice "~/current.org")
 ;; ends here
