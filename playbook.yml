@@ -8,7 +8,8 @@
   roles:
     - preparations
     - awesome # WM
-    - menu # Well, I guess you can tell
+    - shell
     - kitty # Terminal
     - emacs # Editor
+    - menu # Well, I guess you can tell
     - mpd # Music

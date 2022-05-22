@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# I've splitted configuration in snippets.
+# This makes it easier for me to organize stuff.
+source "$HOME/.config/bash/history.sh"
+source "$HOME/.config/bash/aliases.sh"
+source "$HOME/.config/bash/prompt.sh"
+
+# This sets variables and stuff to enable usage of autojump
+source "/usr/share/autojump/autojump.sh"
+
+# Add rust commands to path
+source "$HOME/.cargo/env"
