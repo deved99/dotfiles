@@ -1,4 +1,6 @@
+temp
+secret
+
+# Emacs files
 *.~undo-tree~
 *~
-__pycache__
-temp
