@@ -34,9 +34,9 @@ Included roles:
 - *menu*: at the moment this just copies a wrapper around ~rofi~ to
   ~~/.local/bin~ and installs its deps. Soon, it will install a program
   which does the actual menu.
-- ~kitty~: the terminal I currently use. In the future I might use Emacs
+- *kitty*: the terminal I currently use. In the future I might use Emacs
   for the terminal and keep this as a backup.
-- ~emacs~: the text editor, which is mainly used for:
+- *emacs*: the text editor, which is mainly used for:
   * note taking and general writing, with Org mode.
   * code editing
   In the future I might use it also for:
@@ -45,7 +45,7 @@ Included roles:
   * RSS reader
   * git interface
   * zettelkasten
-- ~mpd~: install a ~mpd~, used for listening music, and ~mpdscribble~ used to
+- *mpd*: install a ~mpd~, used for listening music, and ~mpdscribble~ used to
   track what I listen.
 
 Planned roles:
