@@ -153,6 +153,7 @@
   :init
   (setq org-hide-leading-stars t
         org-startup-folded t)
+  :config
   (set-face-attribute 'org-block nil :extend t)
   (set-face-attribute 'org-block-begin-line nil :extend t))
 ;; ends here

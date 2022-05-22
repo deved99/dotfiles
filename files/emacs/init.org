@@ -293,9 +293,11 @@ Set where should it save files:
 * org-mode
 Use org-mode from elpa:
 #+begin_src elisp :noweb-ref org/main :noweb yes
-(use-package org
-  :init
-  <<org/options>>)
+  (use-package org
+    :init
+    <<org/options>>
+    :config
+    <<org/options/after>>)
 #+end_src
 Some visual options:
 #+begin_src elisp :noweb-ref org/options
@@ -303,7 +305,7 @@ Some visual options:
       org-startup-folded t)
 #+end_src
 Code block background fills the whole line:
-#+begin_src elisp :noweb-ref org/options
+#+begin_src elisp :noweb-ref org/options/after
 (set-face-attribute 'org-block nil :extend t)
 (set-face-attribute 'org-block-begin-line nil :extend t)
 #+end_src
