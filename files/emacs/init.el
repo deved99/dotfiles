@@ -59,7 +59,8 @@
 (use-package base16-theme
   :config
   (setq base16-distinct-fringe-background nil)
-  (load-theme 'base16-google-dark t))
+  (load (concat user-emacs-directory "base16-custom-theme.el"))
+  (load-theme 'base16-custom t))
 ;; visual/theme ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/modeline][visual/modeline]]][visual/modeline]]
 (defun get_current_state ()

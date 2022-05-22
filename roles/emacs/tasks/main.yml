@@ -20,6 +20,11 @@
     state: link
   with_fileglob: "{{ REPO_FILES }}/emacs/*"
 
+- name: Template theme
+  ansible.builtin.template:
+    src: "theme.el"
+    dest: "{{ CONFIG_DIR }}/emacs/base16-custom-theme.el"
+
 - name: Install emacs related services service
   ansible.builtin.copy:
     src: systemd-user
