@@ -84,6 +84,15 @@
 	       '(:eval (is_modified))
 	       " (%m)"))
 ;; visual/modeline ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config
+  (set-face-attribute 'rainbow-delimiters-unmatched-face nil
+                      :foreground "red"
+                      :inherit 'error
+                      :box t))
+;; visual/parenthesis ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][evil/main]]
 (use-package evil
   :after undo-tree

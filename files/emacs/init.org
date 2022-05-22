@@ -14,6 +14,7 @@ include and where to put them.
   <<visual/fonts>>
   <<visual/theme>>
   <<visual/modeline>>
+  <<visual/parenthesis>>
   <<evil/main>>
   <<evil/integrations>>
   <<evil/plugins>>
@@ -187,6 +188,18 @@ This wheter the current buffer has been modified or in read only mode:
      ((buffer-modified-p) "+")
      ((buffer-read-only) "O")
      (t " ")))
+#+end_src
+** Parenthesis coloring
+Color matching parenthesis in different colors:
+#+name: visual/parenthesis
+#+begin_src elisp
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode)
+    :config
+    (set-face-attribute 'rainbow-delimiters-unmatched-face nil
+                        :foreground "red"
+                        :inherit 'error
+                        :box t))
 #+end_src
 * evil-mode
 ** ~evil~ package:
