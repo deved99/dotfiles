@@ -19,14 +19,12 @@ blocks, which can be extracted using [[https://orgmode.org/worg/org-contrib/babe
 files.
 
 The Ansible playbook configures the machine and is further described
-in its section. I usually run it using the included ~configure~
-script.
+in its section. I usually run it using ~configure~ from this repo.
 * Ansible playbook
 The playbook is splitted into roles, each role dedicated to a program.
 
 Planned roles:
 - Brave browser
-- shell configuration
 - Pipewire and Pulseaudio masking
 ** preparations
 - Add autojump
