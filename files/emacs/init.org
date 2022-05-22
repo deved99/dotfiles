@@ -107,7 +107,8 @@ As for fonts, I use [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] and ~
     (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
 #+end_src
 ** theme
-This generates themes from a base16 theme:
+This sets the theme: it loads a file, which has been templated
+by Ansible. This way every program uses the same colorscheme.
 #+name: visual/theme
 #+begin_src elisp
   (use-package base16-theme
