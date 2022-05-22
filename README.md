@@ -1,15 +1,9 @@
-- [Overview](#orgd738075)
-- [Ansible playbook](#org9beb268)
-  - [preparations](#org0ffbad6)
-  - [awesome](#org4c89016)
-  - [menu](#org208c687)
-  - [kitty](#orgc219d7d)
-  - [emacs](#org47d073d)
-  - [mpd](#orgdbe833a)
+- [Overview](#orgbde7654)
+- [Ansible playbook](#org18031b6)
 
 
 
-<a id="orgd738075"></a>
+<a id="orgbde7654"></a>
 
 # Overview
 
@@ -30,61 +24,39 @@ files
 
 Files ending with `.org` are [org](https://orgmode.org) files. These files can contain code blocks, which can be extracted using [Babel](https://orgmode.org/worg/org-contrib/babel/) to create the configuration files.
 
-The Ansible playbook configures the machine and is further described in its section. I usually run it using the included `configure` script.
+The Ansible playbook configures the machine and is further described in its section. I usually run it using `configure` from this repo.
 
 
-<a id="org9beb268"></a>
+<a id="org18031b6"></a>
 
 # Ansible playbook
 
 The playbook is splitted into roles, each role dedicated to a program.
 
+Included roles:
+
+-   **prepare**: installs some these packages:
+    -   `rename`: a perl script to rename files.
+    -   `whois`: checks information about a given IP or domain.
+    -   `jq`: query and pretty print a json file.
+-   **awesome**: this is installs and configures `awesome`. Configuration files are in `files/awesome`. Ansible also templates `colors.lua`, which sets the used colors.
+-   **menu**: at the moment this just copies a wrapper around `rofi` to `~/.local/bin` and installs its deps. Soon, it will install a program which does the actual menu.
+-   `kitty`: the terminal I currently use. In the future I might use Emacs for the terminal and keep this as a backup.
+-   `emacs`: the text editor, which is mainly used for:
+    
+    -   note taking and general writing, with Org mode.
+    -   code editing
+    
+    In the future I might use it also for:
+    
+    -   mails
+    -   remote editing
+    -   RSS reader
+    -   git interface
+    -   zettelkasten
+-   `mpd`: install a `mpd`, used for listening music, and `mpdscribble` used to track what I listen.
+
 Planned roles:
 
 -   Brave browser
--   shell configuration
 -   Pipewire and Pulseaudio masking
-
-
-<a id="org0ffbad6"></a>
-
-## preparations
-
--   Add autojump
-
-
-<a id="org4c89016"></a>
-
-## awesome
-
--   Reload throws an error?
-
-
-<a id="org208c687"></a>
-
-## menu
-
--   Add the menuing part: right now it just install a dmenu script.
--   Theme rofi.
-
-
-<a id="orgc219d7d"></a>
-
-## kitty
-
-In the end, this will be my backup
-
-
-<a id="org47d073d"></a>
-
-## emacs
-
--   Auto-tangle for org-files?
--   vterm with multiple instances and shell integration
-
-
-<a id="orgdbe833a"></a>
-
-## mpd
-
--   mpdscribble: why isn't it starting? Maybe it is waiting for mpd, which on start fails since ~/Music is not mounted?

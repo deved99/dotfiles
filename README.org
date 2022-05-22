@@ -23,22 +23,31 @@ in its section. I usually run it using ~configure~ from this repo.
 * Ansible playbook
 The playbook is splitted into roles, each role dedicated to a program.
 
+Included roles:
+- *prepare*: installs some these packages:
+  * ~rename~: a perl script to rename files.
+  * ~whois~: checks information about a given IP or domain.
+  * ~jq~: query and pretty print a json file.
+- *awesome*: this is installs and configures ~awesome~. Configuration files
+  are in ~files/awesome~. Ansible also templates ~colors.lua~, which sets
+  the used colors.
+- *menu*: at the moment this just copies a wrapper around ~rofi~ to
+  ~~/.local/bin~ and installs its deps. Soon, it will install a program
+  which does the actual menu.
+- ~kitty~: the terminal I currently use. In the future I might use Emacs
+  for the terminal and keep this as a backup.
+- ~emacs~: the text editor, which is mainly used for:
+  * note taking and general writing, with Org mode.
+  * code editing
+  In the future I might use it also for:
+  * mails
+  * remote editing
+  * RSS reader
+  * git interface
+  * zettelkasten
+- ~mpd~: install a ~mpd~, used for listening music, and ~mpdscribble~ used to
+  track what I listen.
+
 Planned roles:
 - Brave browser
 - Pipewire and Pulseaudio masking
-** preparations
-- Add autojump
-** awesome
-- Reload throws an error?
-** menu
-- Add the menuing part: right now it just install a dmenu script.
-- Theme rofi.
-** kitty
-In the end, this will be my backup
-** emacs
-- Auto-tangle for org-files?
-- vterm with multiple instances and shell integration
-** mpd
-- mpdscribble: why isn't it starting?
-  Maybe it is waiting for mpd, which on start fails since ~/Music is
-  not mounted?
