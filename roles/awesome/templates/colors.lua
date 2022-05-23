@@ -30,6 +30,8 @@ local r = {
 }
 alpha = "80"
 r.black_semi = r.black .. alpha
+r.white_semi = r.white .. alpha
+r.white_semi = r.grey .. alpha
 r.accent_semi = r.accent .. alpha
 
 return r
