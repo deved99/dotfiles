@@ -7,3 +7,12 @@
       - whois
       - jq
   become: yes
+
+- name: Ensure folders exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ BUILD_DIR }}"
+    - "{{ LOCAL_BIN }}"
+    - "{{ SYSTEMD_DIR }}"
