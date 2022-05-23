@@ -487,6 +487,7 @@ function set_bar()
   -- Create a textclock widget
   mytextclock = wibox.widget.textclock()
   
+  bar_bg = RC.colorscheme.black_semi
   awful.screen.connect_for_each_screen(function(s)
       -- Create a promptbox for each screen
       s.mypromptbox = awful.widget.prompt()
@@ -511,7 +512,7 @@ function set_bar()
           buttons = tasklist_buttons
       }
       -- Create the wibox
-      s.mywibox = awful.wibar({ position = "top", screen = s, bg = "transparent" })
+      s.mywibox = awful.wibar({ position = "top", screen = s, bg = bar_bg })
   
       -- Add widgets to the wibox
       s.mywibox:setup {
@@ -524,7 +525,7 @@ function set_bar()
           s.mytasklist, -- Middle widget
           { -- Right widgets
               layout = wibox.layout.fixed.horizontal,
-  	    mpd,
+              mpd,
               wibox.widget.systray(),
               mytextclock,
               s.mylayoutbox,
