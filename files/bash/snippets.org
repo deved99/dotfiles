@@ -56,12 +56,16 @@ Shortcut for emacs:
   alias ew='emacsclient -c'
   alias ef='emacsclient -c --no-wait'
 #+end_src
+Export a different ~$TERM~:
+#+begin_src bash :noweb-ref aliases/misc
+  alias ssh='TERM=xterm-256color ssh'
+#+end_src
 Parse json in selection clipboard:
 #+begin_src bash :noweb-ref aliases/misc
   alias jclip='xclip -o | jq'
 #+end_src
 Set default values for the formatter:
-#+begin_src bash
+#+begin_src bash :noweb-ref aliases/misc
   alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 #+end_src
 * Prompt
