@@ -11,3 +11,6 @@
     src: dmenu
     dest: "{{ LOCAL_BIN }}/dmenu"
     mode: u+x
+
+- name: Install menu
+  import_tasks: menu.yml

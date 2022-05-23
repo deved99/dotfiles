@@ -1,0 +1,7 @@
+[
+    {"name": "Run", "cmd": "./tools/run"},
+    {"name": "Files", "cmd": "./tools/files"},
+    {"name": "Music", "cmd": "./tools/music"},
+    {"name": "Videos", "cmd": "./tools/videos"},
+    {"name": "Power", "dir": "./power"}
+]
