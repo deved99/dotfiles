@@ -14,6 +14,3 @@ source "$HOME/.config/bash/prompt.sh"
 
 # This sets variables and stuff to enable usage of autojump
 source "/usr/share/autojump/autojump.sh"
-
-# Add rust commands to path
-source "$HOME/.cargo/env"
