@@ -31,21 +31,30 @@
     src: menu/
     dest: "{{ CONFIG_DIR }}/menu/"
 
-- name: Copy executables to .local/bin
+- name: Copy executables to .local/bin from here
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ LOCAL_BIN }}"
+    mode: 'u+x'
+  loop:
+    - dmenu
+    - passmenu
+
+- name: Copy executables to .local/bin from build
   ansible.builtin.copy:
     src: "{{ MENU_TARGET }}/{{ item }}"
     dest: "{{ LOCAL_BIN }}"
+    mode: 'u+x'
     remote_src: yes
   loop:
-    - dmenu
     - menu
     - emojis
-    - passmenu
 
 - name: Copy scripts to .config/menu/tools
   ansible.builtin.copy:
-    src: "{{ MENU_TARGET }}/{{ item.src }}"
+    src: "{{ MENU_TARGET }}/{{ item }}"
     dest: "{{ CONFIG_DIR }}/menu/tools"
+    mode: 'u+x'
     remote_src: yes
   loop:
     - run
