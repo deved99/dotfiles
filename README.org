@@ -31,9 +31,8 @@ Included roles:
 - *awesome*: this is installs and configures ~awesome~. Configuration files
   are in ~files/awesome~. Ansible also templates ~colors.lua~, which sets
   the used colors.
-- *menu*: at the moment this just copies a wrapper around ~rofi~ to
-  ~~/.local/bin~ and installs its deps. Soon, it will install a program
-  which does the actual menu.
+- *menu*: installs my menu system. Clones, builds, install and configures it.
+  More details [[https://github.com/deved99/menu][here]].
 - *kitty*: the terminal I currently use. In the future I might use Emacs
   for the terminal and keep this as a backup.
 - *emacs*: the text editor, which is mainly used for:
