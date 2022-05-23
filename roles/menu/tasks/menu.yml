@@ -1,0 +1,48 @@
+---
+- name: Ensure rust is installed
+  ansible.builtin.apt:
+    name: rust-all
+    state: present
+  become: yes
+
+- name: Clone repository
+  ansible.builtin.git:
+    dest: "{{ BUILD_DIR }}/menu"
+    repo: "https://github.com/deved99/menu.git"
+
+- name: Build menu
+  ansible.builtin.command:
+    cmd: >-
+      cargo build --release
+    chdir: "{{ BUILD_DIR }}/menu"
+
+- name: Copy menu configs
+  ansible.builtin.copy:
+    src: menu/
+    dest: "{{ CONFIG_DIR }}/menu/"
+
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/menu/tools"
+    state: directory
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: "{{ MENU_TARGET }}/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+  loop:
+    - src: menu
+      dest: "{{ LOCAL_BIN }}"
+    - src: emojis
+      dest: "{{ LOCAL_BIN }}"
+    - src: passmenu
+      dest: "{{ LOCAL_BIN }}"
+    - src: run
+      dest: "{{ CONFIG_DIR }}/menu/tools"
+    - src: files
+      dest: "{{ CONFIG_DIR }}/menu/tools"
+    - src: music
+      dest: "{{ CONFIG_DIR }}/menu/tools"
+    - src: videos
+      dest: "{{ CONFIG_DIR }}/menu/tools"

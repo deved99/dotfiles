@@ -1,0 +1,4 @@
+[
+    {"name": "Poweroff", "cmd": "poweroff"},
+    {"name": "Reboot", "cmd": "reboot"}
+]

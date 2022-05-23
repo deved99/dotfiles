@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+if [ -z $PASSWORD_STORE_DIR ]; then
+  DIR=$HOME/.password-store
+else
+  DIR=$PASSWORD_STORE_DIR
+fi
+
+cd $DIR
+
+NAME=$(
+  find -L . -name '*.gpg' \
+    | sed -e 's/^\.\///' -e 's/\.gpg$//' \
+    | dmenu
+)
+
+if [[ -n $NAME ]]; then
+  pass -c $NAME
+else
+  echo "No password selected."
+fi

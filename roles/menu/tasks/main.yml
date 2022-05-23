@@ -1,13 +1,54 @@
 ---
 
-- name: Install rofi
+# Preparatory checks
+- name: Install rofi, rust
   ansible.builtin.apt:
     name:
       - rofi
+      - rust-all # Build dependency for menu
   become: yes
 
-- name: Copy dmenu's like script to local bin
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/menu/tools"
+    state: directory
+
+# Clone & build menu
+- name: Clone repository
+  ansible.builtin.git:
+    dest: "{{ BUILD_DIR }}/menu"
+    repo: "https://github.com/deved99/menu.git"
+
+- name: Build menu
+  ansible.builtin.command:
+    cmd: >-
+      cargo build --release
+    chdir: "{{ BUILD_DIR }}/menu"
+
+# Install and configure menu
+- name: Copy menu configs
   ansible.builtin.copy:
-    src: dmenu
-    dest: "{{ LOCAL_BIN }}/dmenu"
-    mode: u+x
+    src: menu/
+    dest: "{{ CONFIG_DIR }}/menu/"
+
+- name: Copy executables to .local/bin
+  ansible.builtin.copy:
+    src: "{{ MENU_TARGET }}/{{ item }}"
+    dest: "{{ LOCAL_BIN }}"
+    remote_src: yes
+  loop:
+    - dmenu
+    - menu
+    - emojis
+    - passmenu
+
+- name: Copy scripts to .config/menu/tools
+  ansible.builtin.copy:
+    src: "{{ MENU_TARGET }}/{{ item.src }}"
+    dest: "{{ CONFIG_DIR }}/menu/tools"
+    remote_src: yes
+  loop:
+    - run
+    - files
+    - music
+    - videos
