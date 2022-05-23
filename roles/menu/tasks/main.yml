@@ -44,6 +44,7 @@
 
 - name: Copy scripts to .config/menu/tools
   ansible.builtin.copy:
+<<<<<<< HEAD
     src: "{{ MENU_TARGET }}/{{ item.src }}"
     dest: "{{ CONFIG_DIR }}/menu/tools"
     remote_src: yes
@@ -52,3 +53,11 @@
     - files
     - music
     - videos
+=======
+    src: dmenu
+    dest: "{{ LOCAL_BIN }}/dmenu"
+    mode: u+x
+
+- name: Install menu
+  import_tasks: menu.yml
+>>>>>>> 54336508d828cdfd573fa3ff21ef433e30535356
