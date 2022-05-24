@@ -3,14 +3,25 @@ import argparse
 
 def getArgumentParser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    # Whether to copy script in $PATH
     parser.add_argument(
-        '--install', dest='main', action='store_const',
-        const=install, default=playbook
+        '--install', dest = 'install', action = 'store_true',
+        help = "install script in ~/.local/bin"
+    )
+    # Toggle or set colorscheme
+    parser.add_argument(
+        '-t', '--toggle', dest = 'colorscheme', action = 'store_const',
+        const = "toggle",
+        help = "toggle dark/light colorscheme"
+    )
+    parser.add_argument(
+        '-s', '--set', dest = 'colorscheme', action = 'store',
+        choices = ["dark", "light"],
+        help = "set dark/light colorscheme as given"
     )
     return parser
 
 ## config
-# get default config
 # read config file
 # write config file
 
@@ -26,6 +37,9 @@ def install():
 def playbook():
     print("I'm launching the playbook.")
 
+def main():
+   parsed = getArgumentParser().parse_args()
+   print(parsed)
+
 if __name__ == "__main__":
-   parser = getArgumentParser().parse_args()
-   parser.main()
+    main()
