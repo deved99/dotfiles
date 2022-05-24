@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+import argparse
+
+def getArgumentParser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--install', dest='main', action='store_const',
+        const=install, default=playbook
+    )
+    return parser
+
+## config
+# get default config
+# read config file
+# write config file
+
+## Subroutins
+# install this script in ~/.local/bin
+# if --install
+def install():
+    print("I'm installing this.")
+    playbook()
+
+# launch the ansible
+# if not --install
+def playbook():
+    print("I'm launching the playbook.")
+
+if __name__ == "__main__":
+   parser = getArgumentParser().parse_args()
+   parser.main()
