@@ -68,6 +68,13 @@ Set default values for the formatter:
 #+begin_src bash :noweb-ref aliases/misc
   alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 #+end_src
+Make directory and ~cd~ into it:
+#+begin_src bash :noweb-ref aliases/misc
+  function mkcd() {
+    mkdir $1
+    cd $1
+  }
+#+end_src
 * Prompt
 I've divided my prompt definition in two parts:
 - A function, which prints the value I want my ~$PS1~ to be.

@@ -9,3 +9,7 @@ alias ef='emacsclient -c --no-wait'
 alias ssh='TERM=xterm-256color ssh'
 alias jclip='xclip -o | jq'
 alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
+function mkcd() {
+  mkdir $1
+  cd $1
+}
