@@ -219,6 +219,8 @@ function set_global_keys()
       -- MPD
       awful.key({}, "XF86AudioPlay", exec("song toggle"),
                 {description = "Pause/play music", group = "media"}),
+      awful.key({}, "XF86AudioPause", exec("song toggle"),
+                {description = "Pause/play music", group = "media"}),
       awful.key({}, "XF86AudioNext", exec("song next"),
                 {description = "Next song", group = "media"}),
       awful.key({}, "XF86AudioPrev", exec("song prev"),
