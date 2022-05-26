@@ -26,7 +26,7 @@ def getArgumentParser() -> argparse.ArgumentParser:
     )
     return parser
 
-## config
+## Helpers
 # TODO: accept config-this.yaml too
 def get_config_path() -> str:
     config_dir = os.environ.get("XDG_CONFIG_DIR")
@@ -36,24 +36,47 @@ def get_config_path() -> str:
         config_dir = Path(config_dir)
     return config_dir / "local" / "config-this.yml"
 
+def get_variables(profile) -> dict:
+    with open("vars/common.yml") as f:
+        vars_common = yaml.safe_load(f)
+    with open(f"vars/{profile}.yml") as f:
+        vars_profile = yaml.safe_load(f)
+    return vars_common.update(var_profile)
+
 # read config file
 def config_read() -> dict:
     with open(get_config_path()) as f:
         return yaml.safe_load(f)
 
 # write config file
-def config_write(data):
-    with open(get_config_path(), "w") as f:
+def config_write(data: dict):
+    config_path = get_config_path()
+    # Ensure directory exists
+    config_dir = config_path.parent
+    if not config_dir.is_dir():
+        config_parent.mkdir(parents=True)
+    # Then write
+    with open(config_path, "w") as f:
         return yaml.dump(data, f)
 
 ## Subroutins
 # install this script in ~/.local/bin
 # if --install
-def install():
-    print("I'm installing this.")
-    data = {}
-    data["path"] = Path.cwd()
-    print(yaml.dump(data))
+def install(profile):
+    confirm = input("Installing. Are you in the playbook folder? ")
+    if confirm not in ["yes", "y"]:
+        print("Aborting.")
+        exit(1)
+    # Get variables; set data
+    variables = get_variables(profile)
+    data = {
+        "path": str(Path.cwd()),
+        "dark_theme": variables["CS"],
+        "light_theme": variables["CS"],
+        "current_theme": False
+    }
+    # Write config
+    config_write(data)
 
 # launch the ansible
 # if not --install
@@ -61,8 +84,9 @@ def playbook():
     print("I'm launching the playbook.")
 
 def main():
-   parsed = getArgumentParser().parse_args()
-   print(parsed)
+    # parsed = getArgumentParser().parse_args()
+    # print(parsed)
+    print(__file__)
 
 if __name__ == "__main__":
     main()
