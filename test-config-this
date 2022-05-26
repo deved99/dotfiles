@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
+# Std
 import argparse
+from pathlib import Path
+import os
+# External
+import yaml
 
 def getArgumentParser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
@@ -22,15 +27,33 @@ def getArgumentParser() -> argparse.ArgumentParser:
     return parser
 
 ## config
+# TODO: accept config-this.yaml too
+def get_config_path() -> str:
+    config_dir = os.environ.get("XDG_CONFIG_DIR")
+    if config_dir is None:
+        config_dir = Path.home() / ".config"
+    else:
+        config_dir = Path(config_dir)
+    return config_dir / "local" / "config-this.yml"
+
 # read config file
+def config_read() -> dict:
+    with open(get_config_path()) as f:
+        return yaml.safe_load(f)
+
 # write config file
+def config_write(data):
+    with open(get_config_path(), "w") as f:
+        return yaml.dump(data, f)
 
 ## Subroutins
 # install this script in ~/.local/bin
 # if --install
 def install():
     print("I'm installing this.")
-    playbook()
+    data = {}
+    data["path"] = Path.cwd()
+    print(yaml.dump(data))
 
 # launch the ansible
 # if not --install
