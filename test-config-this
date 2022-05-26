@@ -11,8 +11,9 @@ def getArgumentParser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     # Whether to copy script in $PATH
     parser.add_argument(
-        '--install', dest = 'install', action = 'store_true',
-        help = "install script in ~/.local/bin"
+        '--install', dest = 'install', action = 'store',
+        help = "install and generate a default config",
+        metavar = "PROFILE"
     )
     # Toggle or set colorscheme
     parser.add_argument(
@@ -50,27 +51,49 @@ def install(profile):
         "ansible-playbook",
         "--extra-vars", "@vars/common.yml",
         "--extra-vars", f"@vars/{profile}.yml",
-        "install.yml", "-K"
+        "install.yml"
     ]
     subprocess.run(cmd)
 
 # launch the ansible
 # if not --install
-def playbook(colorscheme: str):
+def playbook(profile: str, colorscheme: str, args: list = []):
     colorscheme = "{{" + colorscheme + "}}"
     cmd = [
         "ansible-playbook",
+        "playbook.yml", "-K",
         "--extra-vars", "@vars/common.yml",
         "--extra-vars", f"@vars/{profile}.yml",
-        "--extra-vars", f"CS={colorscheme}"
-        "playbook.yml", "-K"
-    ]
+        "--extra-vars", f"CS={colorscheme}",
+    ] + args
     subprocess.run(cmd)
 
 def main():
-    # parsed = getArgumentParser().parse_args()
-    # print(parsed)
-    get_variables("stable")
+    arguments = getArgumentParser().parse_args()
+    if arguments.install is not None:
+        print(f"Install: {arguments.install}.")
+        install(arguments.install)
+        return
+    config = config_read()
+    ## decide dark/light colorscheme
+    # False = dark colorscheme
+    # True = light colorscheme
+    if arguments.colorscheme == "dark":
+        colorscheme_bool = False
+    elif arguments.colorscheme == "light":
+        colorscheme_bool = True
+    elif arguments.colorscheme == "toggle":
+        colorscheme_bool = not config["colorscheme_current"]
+    else:
+        colorscheme_bool = config["colorscheme_current"]
+    colorscheme_key = "colorscheme_light" if colorscheme_bool else "colorscheme_dark"
+    ## set variables
+    colorscheme = config[colorscheme_key]
+    profile = config["profile"]
+    playbook_dir = config["playbook_dir"]
+    ## cd and run playbook
+    os.chdir(playbook_dir)
+    playbook(profile, colorscheme)
 
 if __name__ == "__main__":
     main()
