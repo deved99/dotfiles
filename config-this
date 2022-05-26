@@ -61,11 +61,11 @@ def install(profile):
 
 # launch the ansible
 # if not --install
-def playbook(profile: str, colorscheme: str, args: list = []):
+def configure(profile: str, colorscheme: str, args: list = []):
     colorscheme = "{{" + colorscheme + "}}"
     cmd = [
         "ansible-playbook",
-        "playbook.yml", "-K",
+        "configure.yml", "-K",
         "--extra-vars", "@vars/common.yml",
         "--extra-vars", f"@vars/{profile}.yml",
         "--extra-vars", f"CS={colorscheme}",
@@ -100,7 +100,7 @@ def main():
     playbook_dir = config["playbook_dir"]
     ## cd and run playbook
     os.chdir(playbook_dir)
-    playbook(profile, colorscheme)
+    configure(profile, colorscheme)
     # If changed config, overwrite
     if config != config_old:
         config_write(config)
