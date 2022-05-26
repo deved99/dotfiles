@@ -7,8 +7,8 @@
       # where to find this file
       playbook_dir: "{{ playbook_dir }}"
       # Colors: default to already set colorscheme, on dark mode
-      colorscheme_dark: "CS"
-      colorscheme_light: "CS"
+      colorscheme_dark: "COLORSCHEME_GOOGLE_DARK"
+      colorscheme_light: "COLORSCHEME_GOOGLE_LIGHT"
       colorscheme_current: false
   tasks:
     - name: Ensure directories exist
@@ -20,9 +20,10 @@
         - "{{ LOCAL_BIN }}"
     - name: Copy config
       ansible.builtin.copy:
-        content: "{{ DEFAULT_CONFIG }}"
+        content: "{{ DEFAULT_CONFIG | to_nice_yaml }}"
         dest: "{{ CONFIG_DIR }}/local/config-this.yml"
     - name: Copy script
       ansible.builtin.copy:
         src: "test-config-this"
         dest: "{{ LOCAL_BIN }}/config-this"
+        mode: "544"
