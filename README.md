@@ -1,9 +1,9 @@
-- [Overview](#org8a018f3)
-- [Ansible playbook](#org6ad86fa)
+- [Overview](#org7d1050a)
+- [Ansible playbook](#org57ad431)
 
 
 
-<a id="org8a018f3"></a>
+<a id="org7d1050a"></a>
 
 # Overview
 
@@ -24,10 +24,10 @@ files
 
 Files ending with `.org` are [org](https://orgmode.org) files. These files can contain code blocks, which can be extracted using [Babel](https://orgmode.org/worg/org-contrib/babel/) to create the configuration files.
 
-The Ansible playbook configures the machine and is further described in its section. I usually run it using `configure` from this repo.
+The Ansible playbook configures the machine and is further described in its section. I usually run it using `config-this` from this repo, which you can install with `config-this --install PROFILE`, where `PROFILE` defines which variable file to pick (current choices: devel, stable).
 
 
-<a id="org6ad86fa"></a>
+<a id="org57ad431"></a>
 
 # Ansible playbook
 

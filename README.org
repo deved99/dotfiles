@@ -19,7 +19,9 @@ blocks, which can be extracted using [[https://orgmode.org/worg/org-contrib/babe
 files.
 
 The Ansible playbook configures the machine and is further described
-in its section. I usually run it using ~configure~ from this repo.
+in its section. I usually run it using ~config-this~ from this repo, which
+you can install with ~config-this --install PROFILE~, where ~PROFILE~ defines
+which variable file to pick (current choices: devel, stable).
 * Ansible playbook
 The playbook is splitted into roles, each role dedicated to a program.
 
