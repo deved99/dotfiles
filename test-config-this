@@ -43,6 +43,10 @@ def config_read() -> dict:
     with open(get_config_path()) as f:
         return yaml.safe_load(f)
 
+def config_write(data: dict):
+    with open(get_config_path(), "w") as f:
+        return yaml.dump(data, f)
+
 ## Subroutins
 # install this script in ~/.local/bin
 # if --install
@@ -75,18 +79,21 @@ def main():
         install(arguments.install)
         return
     config = config_read()
+    config_old = config.copy()
     ## decide dark/light colorscheme
     # False = dark colorscheme
     # True = light colorscheme
     if arguments.colorscheme == "dark":
-        colorscheme_bool = False
+        config["colorscheme_current"] = False
     elif arguments.colorscheme == "light":
-        colorscheme_bool = True
+        config["colorscheme_current"] = True
     elif arguments.colorscheme == "toggle":
-        colorscheme_bool = not config["colorscheme_current"]
+        config["colorscheme_current"] = not config["colorscheme_current"]
+    # set correct key
+    if config["colorscheme_current"]:
+        colorscheme_key = "colorscheme_light"
     else:
-        colorscheme_bool = config["colorscheme_current"]
-    colorscheme_key = "colorscheme_light" if colorscheme_bool else "colorscheme_dark"
+        colorscheme_key = "colorscheme_dark"
     ## set variables
     colorscheme = config[colorscheme_key]
     profile = config["profile"]
@@ -94,6 +101,9 @@ def main():
     ## cd and run playbook
     os.chdir(playbook_dir)
     playbook(profile, colorscheme)
+    # If changed config, overwrite
+    if config != config_old:
+        config_write(config)
 
 if __name__ == "__main__":
     main()
