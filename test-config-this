@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 import os
+import subprocess
 # External
 import yaml
 
@@ -20,7 +21,7 @@ def getArgumentParser() -> argparse.ArgumentParser:
         help = "toggle dark/light colorscheme"
     )
     parser.add_argument(
-        '-s', '--set', dest = 'colorscheme', action = 'store',
+        '--set', dest = 'colorscheme', action = 'store',
         choices = ["dark", "light"],
         help = "set dark/light colorscheme as given"
     )
@@ -36,57 +37,40 @@ def get_config_path() -> str:
         config_dir = Path(config_dir)
     return config_dir / "local" / "config-this.yml"
 
-def get_variables(profile) -> dict:
-    with open("vars/common.yml") as f:
-        vars_common = yaml.safe_load(f)
-    with open(f"vars/{profile}.yml") as f:
-        vars_profile = yaml.safe_load(f)
-    return vars_common.update(var_profile)
-
 # read config file
 def config_read() -> dict:
     with open(get_config_path()) as f:
         return yaml.safe_load(f)
 
-# write config file
-def config_write(data: dict):
-    config_path = get_config_path()
-    # Ensure directory exists
-    config_dir = config_path.parent
-    if not config_dir.is_dir():
-        config_parent.mkdir(parents=True)
-    # Then write
-    with open(config_path, "w") as f:
-        return yaml.dump(data, f)
-
 ## Subroutins
 # install this script in ~/.local/bin
 # if --install
 def install(profile):
-    confirm = input("Installing. Are you in the playbook folder? ")
-    if confirm not in ["yes", "y"]:
-        print("Aborting.")
-        exit(1)
-    # Get variables; set data
-    variables = get_variables(profile)
-    data = {
-        "path": str(Path.cwd()),
-        "dark_theme": variables["CS"],
-        "light_theme": variables["CS"],
-        "current_theme": False
-    }
-    # Write config
-    config_write(data)
+    cmd = [
+        "ansible-playbook",
+        "--extra-vars", "@vars/common.yml",
+        "--extra-vars", f"@vars/{profile}.yml",
+        "install.yml", "-K"
+    ]
+    subprocess.run(cmd)
 
 # launch the ansible
 # if not --install
-def playbook():
-    print("I'm launching the playbook.")
+def playbook(colorscheme: str):
+    colorscheme = "{{" + colorscheme + "}}"
+    cmd = [
+        "ansible-playbook",
+        "--extra-vars", "@vars/common.yml",
+        "--extra-vars", f"@vars/{profile}.yml",
+        "--extra-vars", f"CS={colorscheme}"
+        "playbook.yml", "-K"
+    ]
+    subprocess.run(cmd)
 
 def main():
     # parsed = getArgumentParser().parse_args()
     # print(parsed)
-    print(__file__)
+    get_variables("stable")
 
 if __name__ == "__main__":
     main()

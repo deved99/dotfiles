@@ -1,0 +1,19 @@
+---
+- name: Install config-this
+  host: localhost
+  tasks:
+    - name: Ensure directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ CONFIG_DIR }}/local"
+        - "{{ LOCAL_BIN }}"
+    - name: Copy config
+      ansible.builtin.copy:
+        content: "{{ DEFAULT_CONFIG }}"
+        dest: "{{ CONFIG_DIR }}/local/config.yml"
+    - name: Copy script
+      ansible.builtin.copy:
+        src: "test-config-this"
+        dest: "{{ LOCAL_BIN }}/config-this"
