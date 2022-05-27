@@ -43,9 +43,6 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (fringe-mode 10)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
-(set-default 'truncate-lines t)
-;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/keeparound][visual/keeparound]]][visual/keeparound]]
 (setq scroll-margin 5
       scroll-conservatively 10000)
@@ -85,6 +82,14 @@
 	       '(:eval (is_modified))
 	       " (%m)"))
 ;; visual/modeline ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(global-visual-line-mode t)
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package visual-fill-column
+    :hook (org-mode . visual-fill-column-mode)
+    :init (setq fill-column 80))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
@@ -105,6 +110,20 @@
   (setq evil-want-keybinding nil
         evil-want-integration t)
   (setq evil-echo-state nil)
+  (defun evil-next-line--check-visual-line-mode (orig-fun &rest args)
+    (if visual-line-mode
+        (apply 'evil-next-visual-line args)
+      (apply orig-fun args)))
+  
+  (advice-add 'evil-next-line :around 'evil-next-line--check-visual-line-mode)
+  
+  (defun evil-previous-line--check-visual-line-mode (orig-fun &rest args)
+    (if visual-line-mode
+        (apply 'evil-previous-visual-line args)
+      (apply orig-fun args)))
+  
+  (advice-add 'evil-previous-line
+    :around 'evil-previous-line--check-visual-line-mode)
   :config (evil-mode 1))
 ;; evil/main ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
