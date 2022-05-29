@@ -6,6 +6,8 @@
       - rename # perl script to rename files
       - whois
       - jq
+      - autojump
+      - fonts-jetbrains-mono # Font
   become: yes
 
 - name: Ensure folders exist

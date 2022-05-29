@@ -1,5 +1,11 @@
 ---
 
+- name: Install kitty
+  ansible.builtin.apt:
+    name: kitty
+    state: present
+  become: yes
+
 - name: Ensure config dir exists
   ansible.builtin.file:
     name: "{{ CONFIG_DIR }}/kitty"

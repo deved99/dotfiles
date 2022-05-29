@@ -13,7 +13,7 @@
       # - plantuml
   become: yes
 
-- name: Encure config directory exists
+- name: Ensure config directory exists
   ansible.builtin.file:
     path: "{{ CONFIG_DIR }}/emacs"
     state: directory
@@ -32,7 +32,7 @@
 
 - name: Install emacs related services service
   ansible.builtin.copy:
-    src: systemd-user
+    src: systemd-user/
     dest: "{{ SYSTEMD_DIR }}/"
 
 - name: Copy notes-sync to .local/bin

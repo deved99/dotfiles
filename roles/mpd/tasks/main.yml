@@ -5,6 +5,7 @@
     name:
       - mpd
       - mpdscribble
+  become: yes
 
 - name: Ensure mpd folder exists
   ansible.builtin.file:
