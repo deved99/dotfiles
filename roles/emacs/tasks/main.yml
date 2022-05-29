@@ -13,6 +13,11 @@
       # - plantuml
   become: yes
 
+- name: Encure config directory exists
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/emacs"
+    state: directory
+
 - name: Symlink configuration
   ansible.builtin.file:
     src: "{{ item }}"
