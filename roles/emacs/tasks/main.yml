@@ -10,7 +10,7 @@
       # - libpoppler-glib-dev
       # - libpoppler-private-dev
       ## plantuml-mode
-      - plantuml
+      # - plantuml
   become: yes
 
 - name: Symlink configuration
