@@ -62,7 +62,10 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/modeline][visual/modeline]]][visual/modeline]]
 (use-package all-the-icons)
 (use-package doom-modeline
-  :custom (doom-modeline-vcs-max-length 20)
+  :custom
+  (doom-modeline-vcs-max-length 20)
+  (doom-modeline-buffer-file-name-style 'buffer-name)
+  (doom-modeline-buffer-encoding nil)
   :hook (after-init . doom-modeline-mode))
 ;; visual/modeline ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]

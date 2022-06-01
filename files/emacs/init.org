@@ -173,7 +173,10 @@ A more minimal modeline:
 #+begin_src elisp
   (use-package all-the-icons)
   (use-package doom-modeline
-    :custom (doom-modeline-vcs-max-length 20)
+    :custom
+    (doom-modeline-vcs-max-length 20)
+    (doom-modeline-buffer-file-name-style 'buffer-name)
+    (doom-modeline-buffer-encoding nil)
     :hook (after-init . doom-modeline-mode))
 #+end_src
 My old modeline. This can be splitted in two parts, as follow:
