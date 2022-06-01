@@ -1,4 +1,4 @@
-PROFILE: stable
+PROFILE: work
 
 BROWSER: brave-browser
 BROWSER_FALLBACK: firefox
