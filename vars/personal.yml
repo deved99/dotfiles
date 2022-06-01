@@ -1,3 +1,6 @@
 PROFILE: personal
 
+BROWSER: brave-browser
+BROWSER_FALLBACK: firefox
+
 CS_N: 5
