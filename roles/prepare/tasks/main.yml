@@ -5,7 +5,8 @@
     name:
       - rename # perl script to rename files
       - whois
-      - jq
+      - jq # json pretty print
+      - borgbackup # backups
   become: yes
 
 - name: Ensure folders exist
