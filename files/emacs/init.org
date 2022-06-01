@@ -124,23 +124,23 @@ This shows indentations guides in programming languages:
   (setq highlight-indent-guides-method 'column))
 #+end_src
 Right now disabled: doesn't show on empty lines.
-** Wrap text
-This is equivalent to vim's ~set nowrap~, disabled for now, I'm trying another approach:
-#+begin_src elisp
+** Line wrapping
+This is equivalent to vim's ~set nowrap~. By default truncate lines.
+#+begin_src elisp :noweb-ref visual/wrap
     (set-default 'truncate-lines t)
 #+end_src
-This is equivalent to vim's ~set wrap~:
-#+begin_src elisp :noweb-ref visual/wrap
-    (global-visual-line-mode t)
-#+end_src
-This wraps lines at fill column instead of the default:
+Exception to rule above, org-files. This wraps lines at fill column
+instead of the default:
 #+begin_src elisp :noweb-ref visual/wrap
   (use-package visual-fill-column
-      :hook (org-mode . visual-fill-column-mode)
+      :hook ((org-mode . visual-fill-column-mode)
+             (org-mode . (lambda () (setq truncate-lines nil)))
+             (org-mode . visual-line-mode))
       :init (setq fill-column 80))
   (use-package adaptive-wrap
       :hook (org-mode . adaptive-wrap-prefix-mode))
 #+end_src
+I would like to collect these functions into a single one which toggle prose like niceties, but for now I'll leave it like this.
 ** ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
 #+name: visual/ligatures

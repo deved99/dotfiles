@@ -69,11 +69,13 @@
   :hook (after-init . doom-modeline-mode))
 ;; visual/modeline ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
-(global-visual-line-mode t)
+(set-default 'truncate-lines t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package visual-fill-column
-    :hook (org-mode . visual-fill-column-mode)
+    :hook ((org-mode . visual-fill-column-mode)
+           (org-mode . (lambda () (setq truncate-lines nil)))
+           (org-mode . visual-line-mode))
     :init (setq fill-column 80))
 (use-package adaptive-wrap
     :hook (org-mode . adaptive-wrap-prefix-mode))
