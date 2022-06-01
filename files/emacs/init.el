@@ -49,8 +49,8 @@
 ;; visual/keeparound ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/fonts][visual/fonts]]][visual/fonts]]
 (add-to-list 'default-frame-alist
-	     '(font . "JetBrains Mono 15"))
-(set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+             '(font . "JetBrains Mono 15")
+             '(font . "Noto Color Emoji"))
 ;; visual/fonts ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/theme][visual/theme]]][visual/theme]]
 (use-package base16-theme
@@ -60,27 +60,10 @@
   (load-theme 'base16-custom t))
 ;; visual/theme ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/modeline][visual/modeline]]][visual/modeline]]
-(defun get_current_state ()
-  (cond
-   ((eq evil-state 'normal) "NORMAL")
-   ((eq evil-state 'insert) "INSERT")
-   ((eq evil-state 'visual) "VISUAL")
-   ((eq evil-state 'operator) "OPERATOR")
-   ((eq evil-state 'replace) "REPLACE")
-   ((eq evil-state 'emacs) "EMACS")
-   (t "NOT_FOUND")))
-(defun is_modified ()
-  (cond
-   ((buffer-modified-p) "+")
-   ((buffer-read-only) "O")
-   (t " ")))
-(setq-default mode-line-format
-	      (list
-	       " "
-	       '(:eval (get_current_state))
-	       " | %b"
-	       '(:eval (is_modified))
-	       " (%m)"))
+(use-package all-the-icons)
+(use-package doom-modeline
+  :custom (doom-modeline-vcs-max-length 20)
+  :hook (after-init . doom-modeline-mode))
 ;; visual/modeline ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (global-visual-line-mode t)

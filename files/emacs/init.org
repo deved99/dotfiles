@@ -99,9 +99,9 @@ This keeps 5 lines before and after the current line:
 As for fonts, I use [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] and ~Noto Color Emoji~ for emojis:
 #+name: visual/fonts
 #+begin_src elisp
-    (add-to-list 'default-frame-alist
-		 '(font . "JetBrains Mono 15"))
-    (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+  (add-to-list 'default-frame-alist
+               '(font . "JetBrains Mono 15")
+               '(font . "Noto Color Emoji"))
 #+end_src
 ** theme
 This sets the theme: it loads a file, which has been templated
@@ -168,8 +168,16 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
     (global-ligature-mode t))
 #+end_src
 ** modeline
-This can be splitted in two parts, as follow:
+A more minimal modeline:
 #+name: visual/modeline
+#+begin_src elisp
+  (use-package all-the-icons)
+  (use-package doom-modeline
+    :custom (doom-modeline-vcs-max-length 20)
+    :hook (after-init . doom-modeline-mode))
+#+end_src
+My old modeline. This can be splitted in two parts, as follow:
+#+name: visual/modeline-old
 #+begin_src elisp :noweb yes
   <<visual/modeline/functions>>
   <<visual/modeline/main>>
