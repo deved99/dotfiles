@@ -7,6 +7,8 @@
       - whois
       - jq # json pretty print
       - borgbackup # backups
+      - autojump
+      - fonts-jetbrains-mono # Font
   become: yes
 
 - name: Ensure folders exist
