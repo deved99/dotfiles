@@ -135,9 +135,11 @@ This is equivalent to vim's ~set wrap~:
 #+end_src
 This wraps lines at fill column instead of the default:
 #+begin_src elisp :noweb-ref visual/wrap
-(use-package visual-fill-column
-    :hook (org-mode . visual-fill-column-mode)
-    :init (setq fill-column 80))
+  (use-package visual-fill-column
+      :hook (org-mode . visual-fill-column-mode)
+      :init (setq fill-column 80))
+  (use-package adaptive-wrap
+      :hook (org-mode . adaptive-wrap-prefix-mode))
 #+end_src
 ** ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:

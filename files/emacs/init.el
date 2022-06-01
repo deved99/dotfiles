@@ -89,6 +89,8 @@
 (use-package visual-fill-column
     :hook (org-mode . visual-fill-column-mode)
     :init (setq fill-column 80))
+(use-package adaptive-wrap
+    :hook (org-mode . adaptive-wrap-prefix-mode))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
 (use-package rainbow-delimiters
