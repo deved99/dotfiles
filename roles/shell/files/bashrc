@@ -11,6 +11,7 @@ esac
 source "$HOME/.config/bash/history.sh"
 source "$HOME/.config/bash/aliases.sh"
 source "$HOME/.config/bash/prompt.sh"
+source "$HOME/.config/bash/vars.sh"
 
 # This sets variables and stuff to enable usage of autojump
 source "/usr/share/autojump/autojump.sh"

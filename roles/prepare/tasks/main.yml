@@ -3,11 +3,7 @@
 - name: Install miscellaneous packages
   ansible.builtin.apt:
     name:
-      - rename # perl script to rename files
-      - whois
-      - jq # json pretty print
       - borgbackup # backups
-      - autojump
       - fonts-jetbrains-mono # Font
   become: yes
 

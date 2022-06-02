@@ -1,15 +1,29 @@
 ---
 
-- name: Ensure {{ CONFIG_DIR }}/.bash exists
+- name: Ensure {{ CONFIG_DIR }}/bash exists
   ansible.builtin.file:
     path: "{{ CONFIG_DIR }}/bash"
     state: directory
+
+- name: Install commands
+  ansible.builtin.apt:
+    name:
+      # Script to rename with a sed like syntax
+      - rename
+      # Pretty print and query jsons
+      - jq
+      # Keep history of common dirs and easily cd into them
+      - autojump
+      # Fallback editor
+      - vim
+      # Misc
+      - whois
+  become: yes
 
 - name: Copy .bashrc
   ansible.builtin.copy:
     src: bashrc
     dest: "{{ HOME }}/.bashrc"
-    
 
 - name: linking bash configuration
   ansible.builtin.file:

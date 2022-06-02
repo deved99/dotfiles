@@ -113,3 +113,12 @@ This settings makes ~\w~ print at most the nearest 2 dirs:
 #+begin_src bash
   PROMPT_DIRTRIM=2
 #+end_src
+* Exports
+This section define variables.
+#+begin_src bash :tangle vars.sh :noweb yes
+  <<vars/editor>>
+#+end_src
+If I have to edit something in the terminal, use vim:
+#+begin_src bash :noweb-ref vars/editor
+  export EDITOR=vim
+#+end_src
