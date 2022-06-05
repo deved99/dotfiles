@@ -6,6 +6,7 @@
       - btrfs-progs # Filesystem I use for storage
       - borgbackup # backups
       - fonts-jetbrains-mono # Font
+      - pass
   become: yes
 
 - name: Ensure folders exist
