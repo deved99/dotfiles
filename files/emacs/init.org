@@ -1,10 +1,7 @@
 #+TITLE: Emacs Config
 
 * Summary
-This org file is used to generate my emacs config. It contains various
-named snippets (and their reasoning), which are organized by the
-following snippet. More specifically, it defines which snippets to
-include and where to put them.
+This org file is used to generate my emacs config. It contains various named snippets (and their reasoning), which are organized by the following snippet. More specifically, it defines which snippets to include and where to put them.
 #+begin_src elisp :tangle init.el :noweb yes :comments noweb
   <<prepare/garbage-collection>>
   <<prepare/use-package>>
@@ -16,6 +13,7 @@ include and where to put them.
   <<visual/modeline>>
   <<visual/wrap>>
   <<visual/parenthesis>>
+  <<interface/ivy>>
   <<evil/main>>
   <<evil/integrations>>
   <<evil/plugins>>
@@ -136,7 +134,7 @@ instead of the default:
       :hook ((org-mode . visual-fill-column-mode)
              (org-mode . (lambda () (setq truncate-lines nil)))
              (org-mode . visual-line-mode))
-      :init (setq fill-column 80))
+      :init (setq fill-column 100))
   (use-package adaptive-wrap
       :hook (org-mode . adaptive-wrap-prefix-mode))
 #+end_src
@@ -228,6 +226,18 @@ Color matching parenthesis in different colors:
                         :inherit 'error
                         :box t))
 #+end_src
+* Interface
+** Ivy
+Install and enable ivy:
+#+begin_src elisp :noweb-ref interface/ivy
+  (use-package ivy
+   :diminish
+   :config (ivy-mode))
+  (use-package counsel
+   :diminish
+   :config (counsel-mode))
+#+end_src
+** which-key
 * evil-mode
 ** ~evil~ package:
 The main piece, ~evil~:

@@ -76,7 +76,7 @@
     :hook ((org-mode . visual-fill-column-mode)
            (org-mode . (lambda () (setq truncate-lines nil)))
            (org-mode . visual-line-mode))
-    :init (setq fill-column 80))
+    :init (setq fill-column 100))
 (use-package adaptive-wrap
     :hook (org-mode . adaptive-wrap-prefix-mode))
 ;; ends here
@@ -89,6 +89,12 @@
                       :inherit 'error
                       :box t))
 ;; visual/parenthesis ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(use-package ivy
+ :config (ivy-mode))
+(use-package counsel
+ :config (counsel-mode))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][evil/main]]
 (use-package evil
   :after undo-tree
