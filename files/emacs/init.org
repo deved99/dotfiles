@@ -228,14 +228,24 @@ Color matching parenthesis in different colors:
 #+end_src
 * Interface
 ** Ivy
-Install and enable ivy:
-#+begin_src elisp :noweb-ref interface/ivy
+Change the completion framework in the minibuffer:
+#+begin_src elisp :noweb yes :noweb-ref interface/ivy
   (use-package ivy
    :diminish
    :config (ivy-mode))
+  <<interface/ivy/plugins>>
+#+end_src
+Use the above framwork for common operations:
+#+begin_src elisp :noweb-ref interface/ivy/plugins
   (use-package counsel
    :diminish
    :config (counsel-mode))
+#+end_src
+Add more info in ivy buffers:
+#+begin_src elisp :noweb-ref interface/ivy/plugins
+  (use-package ivy-rich
+   :diminish
+   :config (ivy-rich-mode 1))
 #+end_src
 ** which-key
 * evil-mode

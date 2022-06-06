@@ -91,9 +91,14 @@
 ;; visual/parenthesis ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package ivy
+ :diminish
  :config (ivy-mode))
 (use-package counsel
+ :diminish
  :config (counsel-mode))
+(use-package ivy-rich
+ :diminish
+ :config (ivy-rich-mode 1))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][evil/main]]
 (use-package evil
