@@ -165,7 +165,8 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][evil/undo]]
 (use-package undo-tree
   :init
-  ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
+  (setq undo-dir "/home/davide/.config/emacs/undo"
+        undo-tree-history-directory-alist `(("." . ,undo-dir)))
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
@@ -206,7 +207,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq backup-dir (concat user-emacs-directory "backups")
       backup-directory-alist `(("." . ,backup-dir))
-      auto-save-file-name-transforms `((".*", backup-dir t)))
+      auto-save-file-name-transforms `((".*" ,backup-dir t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq-default indent-tabs-mode nil)

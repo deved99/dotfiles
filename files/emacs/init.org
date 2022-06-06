@@ -350,7 +350,8 @@ This is the undo system I use; it also provides a nice visualization of the undo
 #+end_src
 Set where should it save files:
 #+begin_src elisp :noweb-ref evil/undo/init
-    ;; (setq undo-tree-auto-save-history (concat user-emacs-directory "undo"))
+  (setq undo-dir "/home/davide/.config/emacs/undo"
+        undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
 * org-mode
 Use org-mode from elpa:
@@ -466,11 +467,11 @@ Autoclose parenthesis, quotation marks, etc:
   (electric-pair-mode)
 #+end_src
 ** backup
-Sets where to save backup files. Backup always gud.
+Sets where to save backup and auto-save dir.
 #+begin_src elisp :noweb-ref misc
   (setq backup-dir (concat user-emacs-directory "backups")
-	backup-directory-alist `(("." . ,backup-dir))
-	auto-save-file-name-transforms `((".*", backup-dir t)))
+        backup-directory-alist `(("." . ,backup-dir))
+        auto-save-file-name-transforms `((".*" ,backup-dir t)))
 #+end_src
 ** no tab please
 Never insert tabs:
