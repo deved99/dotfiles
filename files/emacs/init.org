@@ -354,6 +354,7 @@ Set where should it save files:
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
 * org-mode
+** Main package
 Use org-mode from elpa:
 #+begin_src elisp :noweb-ref org/main :noweb yes
   (use-package org
@@ -372,6 +373,7 @@ Code block background fills the whole line:
 (set-face-attribute 'org-block nil :extend t)
 (set-face-attribute 'org-block-begin-line nil :extend t)
 #+end_src
+** Plugins
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
 (use-package ox-gfm)
@@ -394,6 +396,14 @@ Change look of headers:
   (use-package org-superstar
      :init (setq org-superstar-remove-leading-stars t)
      :hook (org-mode . org-superstar-mode))
+#+end_src
+** Test
+This returns a string with the file content:
+#+begin_src elisp
+  (string-trim-right
+    (with-temp-buffer
+      (insert-file-contents "test.txt")
+      (buffer-string)))
 #+end_src
 * lsp-mode
 ** main package
