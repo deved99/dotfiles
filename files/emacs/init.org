@@ -72,7 +72,7 @@ Install ~general.el~, which provides easier keybinding definition.
       :keymaps '(normal)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    (df/leader "ff" 'find-file))
+    (df/leader "ff" '(find-file :which-key "find-files")))
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:

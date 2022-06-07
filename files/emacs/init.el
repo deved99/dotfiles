@@ -32,7 +32,7 @@
     :keymaps '(normal)
     :prefix "SPC"
     :global-prefix "C-SPC")
-  (df/leader "ff" 'find-file))
+  (df/leader "ff" '(find-file :which-key "find-files")))
 ;; prepare/general.el ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/startup-time][prepare/startup-time]]][prepare/startup-time]]
 (add-hook 'emacs-startup-hook
