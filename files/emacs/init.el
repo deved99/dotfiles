@@ -25,6 +25,15 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq straight-use-package-by-default t)
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][prepare/general.el]]
+(use-package general
+  :config
+  (general-create-definer df/leader
+    :keymaps '(normal)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
+  (df/leader "ff" 'find-file))
+;; prepare/general.el ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/startup-time][prepare/startup-time]]][prepare/startup-time]]
 (add-hook 'emacs-startup-hook
   (lambda ()

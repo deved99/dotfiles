@@ -5,6 +5,7 @@ This org file is used to generate my emacs config. It contains various named sni
 #+begin_src elisp :tangle init.el :noweb yes :comments noweb
   <<prepare/garbage-collection>>
   <<prepare/use-package>>
+  <<prepare/general.el>>
   <<prepare/startup-time>>
   <<visual/cleanup>>
   <<visual/keeparound>>
@@ -60,6 +61,18 @@ Install and load ~use-package~:
 If a package is specified, install it:
 #+begin_src elisp :noweb-ref prepare/use-package
   (setq straight-use-package-by-default t)
+#+end_src
+** install general.el
+Install ~general.el~, which provides easier keybinding definition.
+#+name: prepare/general.el
+#+begin_src elisp
+  (use-package general
+    :config
+    (general-create-definer df/leader
+      :keymaps '(normal)
+      :prefix "SPC"
+      :global-prefix "C-SPC")
+    (df/leader "ff" 'find-file))
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
@@ -248,6 +261,13 @@ Add more info in ivy buffers:
    :config (ivy-rich-mode 1))
 #+end_src
 ** which-key
+~which-key~ adds a mode the shows possible keybindings:
+#+begin_src elisp
+   (use-package which-key
+     :custom
+     (which-key-delay 2)
+     :config (which-key-mode))
+#+end_src
 * evil-mode
 ** ~evil~ package:
 The main piece, ~evil~:
