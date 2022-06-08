@@ -15,6 +15,7 @@ This org file is used to generate my emacs config. It contains various named sni
   <<visual/wrap>>
   <<visual/parenthesis>>
   <<interface/ivy>>
+  <<interface/which-key>>
   <<evil/main>>
   <<evil/integrations>>
   <<evil/plugins>>
@@ -72,7 +73,9 @@ Install ~general.el~, which provides easier keybinding definition.
       :keymaps '(normal)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    (df/leader "ff" '(find-file :which-key "find-files")))
+    (df/leader "f" '(:ignore t :which-key "Files keybindings"))
+    (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
+    (df/leader "ff" '(find-file :which-key "Open file")))
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
@@ -265,6 +268,7 @@ Add more info in ivy buffers:
 #+end_src
 ** which-key
 ~which-key~ adds a mode the shows possible keybindings:
+#+name: interface/which-key
 #+begin_src elisp
    (use-package which-key
      :custom

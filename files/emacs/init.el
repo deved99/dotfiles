@@ -32,7 +32,9 @@
     :keymaps '(normal)
     :prefix "SPC"
     :global-prefix "C-SPC")
-  (df/leader "ff" '(find-file :which-key "find-files")))
+  (df/leader "f" '(:ignore t :which-key "Files keybindings"))
+  (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
+  (df/leader "ff" '(find-file :which-key "Open file")))
 ;; prepare/general.el ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/startup-time][prepare/startup-time]]][prepare/startup-time]]
 (add-hook 'emacs-startup-hook
@@ -112,6 +114,12 @@
  :diminish
  :config (ivy-rich-mode 1))
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/which-key][interface/which-key]]][interface/which-key]]
+(use-package which-key
+  :custom
+  (which-key-delay 2)
+  :config (which-key-mode))
+;; interface/which-key ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][evil/main]]
 (use-package evil
   :after undo-tree
