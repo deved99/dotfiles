@@ -385,14 +385,22 @@ Use org-mode from elpa:
 #+end_src
 Some visual options:
 #+begin_src elisp :noweb-ref org/options
-(setq org-hide-leading-stars t
-      org-startup-folded t)
+  (setq org-hide-leading-stars t
+        org-startup-folded t)
 #+end_src
 Code block background fills the whole line:
 #+begin_src elisp :noweb-ref org/options/after
-(set-face-attribute 'org-block nil :extend t)
-(set-face-attribute 'org-block-begin-line nil :extend t)
+  (set-face-attribute 'org-block nil :extend t)
+  (set-face-attribute 'org-block-begin-line nil :extend t)
 #+end_src
+Faster insertion of code blocks:
+#+begin_src elisp :noweb-ref org/options/after
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+#+end_src
+This makes ~<el TAB~ insert an elisp code block.
 ** Plugins
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
@@ -495,7 +503,12 @@ I like using a TODO file, which keeps track of what I'm doing and what I have to
 Autoclose parenthesis, quotation marks, etc:
 #+begin_src elisp :noweb-ref misc
   (electric-pair-mode)
+  (add-hook 'org-mode-hook (lambda ()
+           (setq-local electric-pair-inhibit-predicate
+                   `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 #+end_src
+The hook inhibits pairing of ~<~ in org-mode, since it is used for ~org-tempo~.
 ** backup
 Sets where to save backup and auto-save dir.
 #+begin_src elisp :noweb-ref misc
