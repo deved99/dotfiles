@@ -32,8 +32,9 @@
     :keymaps '(normal)
     :prefix "SPC"
     :global-prefix "C-SPC")
-  (df/leader "f" '(:ignore t :which-key "Files keybindings"))
+  (df/leader "f" '(:ignore t :which-key "files"))
   (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
+  (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
   (df/leader "ff" '(find-file :which-key "Open file")))
 ;; prepare/general.el ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/startup-time][prepare/startup-time]]][prepare/startup-time]]
@@ -194,6 +195,13 @@
   :init
   (setq org-hide-leading-stars t
         org-startup-folded t)
+  (setq org-tag-alist
+    '(("@work" . ?w)
+      ("@home" . ?p)
+      ("@train" . ?t)
+      ("idea" . ?i)))
+  (df/leader "o" '(:ignore t :which-key "org-mode")
+             "ot" '(counsel-org-tag :which-key "Set org tags"))
   :config
   (set-face-attribute 'org-block nil :extend t)
   (set-face-attribute 'org-block-begin-line nil :extend t)

@@ -73,8 +73,9 @@ Install ~general.el~, which provides easier keybinding definition.
       :keymaps '(normal)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    (df/leader "f" '(:ignore t :which-key "Files keybindings"))
+    (df/leader "f" '(:ignore t :which-key "files"))
     (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
+    (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
     (df/leader "ff" '(find-file :which-key "Open file")))
 #+end_src
 ** Performance stats
@@ -399,6 +400,16 @@ Code block background fills the whole line:
 #+begin_src elisp :noweb-ref org/options/after
   (set-face-attribute 'org-block nil :extend t)
   (set-face-attribute 'org-block-begin-line nil :extend t)
+#+end_src
+Set of tags:
+#+begin_src elisp :noweb-ref org/options
+  (setq org-tag-alist
+    '(("@work" . ?w)
+      ("@home" . ?p)
+      ("@train" . ?t)
+      ("idea" . ?i)))
+  (df/leader "o" '(:ignore t :which-key "org-mode")
+             "ot" '(counsel-org-tag :which-key "Set org tags"))
 #+end_src
 Faster insertion of code blocks:
 #+begin_src elisp :noweb-ref org/options/after
