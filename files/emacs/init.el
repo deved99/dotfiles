@@ -85,6 +85,7 @@
   (setq visual-fill-column-width 100
         visual-fill-column-center-text t
         truncate-lines nil)
+  (visual-line-mode 1)
   (adaptive-wrap-prefix-mode 1)
   (visual-fill-column-mode 1))
 (use-package visual-fill-column
