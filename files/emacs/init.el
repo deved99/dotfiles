@@ -200,6 +200,7 @@
       ("@home" . ?p)
       ("@train" . ?t)
       ("idea" . ?i)))
+  (setq org-tags-column -97)
   (df/leader "o" '(:ignore t :which-key "org-mode")
              "ot" '(counsel-org-tag :which-key "Set org tags"))
   :config
