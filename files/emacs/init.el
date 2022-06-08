@@ -81,13 +81,15 @@
 (set-default 'truncate-lines t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
+(defun df/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t
+        truncate-lines nil)
+  (adaptive-wrap-prefix-mode 1)
+  (visual-fill-column-mode 1))
 (use-package visual-fill-column
-    :hook ((org-mode . visual-fill-column-mode)
-           (org-mode . (lambda () (setq truncate-lines nil)))
-           (org-mode . visual-line-mode))
-    :init (setq fill-column 100))
-(use-package adaptive-wrap
-    :hook (org-mode . adaptive-wrap-prefix-mode))
+    :hook (org-mode . df/org-mode-visual-fill))
+(use-package adaptive-wrap)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
 (use-package rainbow-delimiters
@@ -185,7 +187,11 @@
         org-startup-folded t)
   :config
   (set-face-attribute 'org-block nil :extend t)
-  (set-face-attribute 'org-block-begin-line nil :extend t))
+  (set-face-attribute 'org-block-begin-line nil :extend t)
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package ox-gfm)
@@ -212,6 +218,10 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (electric-pair-mode)
+(add-hook 'org-mode-hook (lambda ()
+         (setq-local electric-pair-inhibit-predicate
+                 `(lambda (c)
+                (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (setq backup-dir (concat user-emacs-directory "backups")
