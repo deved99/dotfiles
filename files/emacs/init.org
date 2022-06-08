@@ -403,11 +403,7 @@ Code block background fills the whole line:
 #+end_src
 Set of tags:
 #+begin_src elisp :noweb-ref org/options
-  (setq org-tag-alist
-    '(("@work" . ?w)
-      ("@home" . ?p)
-      ("@train" . ?t)
-      ("idea" . ?i)))
+  (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (setq org-tags-column -97)
   (df/leader "o" '(:ignore t :which-key "org-mode")
              "ot" '(counsel-org-tag :which-key "Set org tags"))
