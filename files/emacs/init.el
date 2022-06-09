@@ -198,6 +198,7 @@
   (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (setq org-tags-column -97)
   (df/leader "o" '(:ignore t :which-key "org-mode")
+             "oo" '(counsel-outline :which-key "Get outline")
              "ot" '(counsel-org-tag :which-key "Set org tags"))
   :config
   (set-face-attribute 'org-block nil :extend t)
