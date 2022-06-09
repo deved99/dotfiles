@@ -393,7 +393,7 @@ Use org-mode from elpa:
 #+end_src
 Some visual options:
 #+begin_src elisp :noweb-ref org/options
-  (setq org-hide-leading-stars t
+  (setq org-ellipsis "▾"
         org-startup-folded t)
 #+end_src
 Code block background fills the whole line:

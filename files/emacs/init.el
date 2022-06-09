@@ -193,7 +193,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary]]][]]
 (use-package org
   :init
-  (setq org-hide-leading-stars t
+  (setq org-ellipsis "▾"
         org-startup-folded t)
   (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (setq org-tags-column -97)
