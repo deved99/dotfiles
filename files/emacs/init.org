@@ -398,15 +398,14 @@ Some visual options:
         org-startup-folded t)
 #+end_src
 Code block background should fill the whole line:
-#+begin_src elisp :noweb-ref org/nixer-code-blocks
-  (add-hook 'org-mode-hook (lambda ()
-    (set-face-attribute 'org-block nil :extend t)
-    (set-face-attribute 'org-block-begin-line nil :extend t)))
+#+begin_src elisp :noweb-ref org/better-code-blocks
+  (set-face-attribute 'org-block nil :extend t)
+  (set-face-attribute 'org-block-begin-line nil :extend t)
 #+end_src
 Set of tags:
 #+begin_src elisp :noweb-ref org/set-tags
   (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
-  (setq org-tags-column -97)
+  (setq org-tags-column 0)
 #+end_src
 Keybindings I've set:
 #+begin_src elisp :noweb-ref org/set-tags

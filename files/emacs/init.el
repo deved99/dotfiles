@@ -195,10 +195,10 @@
 (setq org-ellipsis "▾"
       org-startup-folded t)
 
-
-(add-hook 'org-mode-hook (lambda ()
-  (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
-  (setq org-tags-column -97)))
+(set-face-attribute 'org-block nil :extend t)
+(set-face-attribute 'org-block-begin-line nil :extend t)
+(setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
+(setq org-tags-column 0)
 (df/leader "o" '(:ignore t :which-key "org-mode")
            "oo" '(counsel-outline :which-key "Get outline")
            "ot" '(counsel-org-tag :which-key "Set org tags"))
