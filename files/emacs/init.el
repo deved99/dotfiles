@@ -199,6 +199,8 @@
 (set-face-attribute 'org-block-begin-line nil :extend t)
 (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
 (setq org-tags-column 0)
+(set-face-attribute 'org-tag nil
+  :foreground (plist-get base16-custom-colors :base02))
 (df/leader "o" '(:ignore t :which-key "org-mode")
            "oo" '(counsel-outline :which-key "Get outline")
            "ot" '(counsel-org-tag :which-key "Set org tags"))

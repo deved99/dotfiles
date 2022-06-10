@@ -381,6 +381,11 @@ Set where should it save files:
   (setq undo-dir "/home/davide/.config/emacs/undo"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
+** Regular Expressions
+Testing this:
+#+begin_src elisp
+(use-package visual-regexp-steroids)
+#+end_src
 * org-mode
 ** Main package
 Use org-mode from elpa:
@@ -402,10 +407,12 @@ Code block background should fill the whole line:
   (set-face-attribute 'org-block nil :extend t)
   (set-face-attribute 'org-block-begin-line nil :extend t)
 #+end_src
-Set of tags:
+Settings related to tags:
 #+begin_src elisp :noweb-ref org/set-tags
   (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (setq org-tags-column 0)
+  (set-face-attribute 'org-tag nil
+    :foreground (plist-get base16-custom-colors :base02))
 #+end_src
 Keybindings I've set:
 #+begin_src elisp :noweb-ref org/set-tags
