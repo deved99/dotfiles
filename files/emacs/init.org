@@ -1,6 +1,6 @@
 #+TITLE: Emacs Config
 
-* Summary
+* Summary 🗂️
 This Org file is used to generate my Emacs configuration thanks to [[https://orgmode.org/worg/org-contrib/babel/][OrgBabel]] and noweb's syntax. The file is generated from the following snippet, which collects the snippets and puts them in order.
 #+begin_src elisp :tangle init.el :noweb yes :comments noweb
   <<prepare/garbage-collection>>
@@ -28,7 +28,7 @@ The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
-* Preparation
+* Preparation 🛠️
 ** garbage collect
 How frequently does Emacs garbage collect:
 #+name: prepare/garbage-collection
@@ -63,21 +63,6 @@ If a package is specified, install it:
 #+begin_src elisp :noweb-ref prepare/use-package
   (setq straight-use-package-by-default t)
 #+end_src
-** install general.el
-Install ~general.el~, which provides easier keybinding definition.
-#+name: prepare/general.el
-#+begin_src elisp
-  (use-package general
-    :config
-    (general-create-definer df/leader
-      :keymaps '(normal)
-      :prefix "SPC"
-      :global-prefix "C-SPC")
-    (df/leader "f" '(:ignore t :which-key "files"))
-    (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
-    (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
-    (df/leader "ff" '(find-file :which-key "Open file")))
-#+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
 #+name: prepare/startup-time
@@ -111,12 +96,15 @@ This keeps 5 lines before and after the current line:
 	scroll-conservatively 10000)
 #+end_src
 ** fonts
-As for fonts, I use [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] and ~Noto Color Emoji~ for emojis:
-#+name: visual/fonts
-#+begin_src elisp
+Set [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] as default font:
+#+begin_src elisp :noweb-ref visual/fonts
   (add-to-list 'default-frame-alist
-               '(font . "JetBrains Mono 15")
-               '(font . "Noto Color Emoji"))
+               '(font . "JetBrains Mono 15"))
+#+end_src
+Also, add ~Noto Color Emoji~ as fallback font for symbols:
+#+begin_src elisp :noweb-ref visual/fonts
+  (set-fontset-font 
+    t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
 #+end_src
 ** theme
 This sets the theme: it loads a file, which has been templated
@@ -246,7 +234,7 @@ Color matching parenthesis in different colors:
                         :inherit 'error
                         :box t))
 #+end_src
-* Interface
+* Interface 🖥️
 ** Ivy
 Change the completion framework in the minibuffer:
 #+begin_src elisp :noweb yes :noweb-ref interface/ivy
@@ -276,7 +264,22 @@ Add more info in ivy buffers:
      (which-key-delay 2)
      :config (which-key-mode))
 #+end_src
-* evil-mode
+** general.el
+Install ~general.el~, which provides easier keybinding definition.
+#+name: prepare/general.el
+#+begin_src elisp
+  (use-package general
+    :config
+    (general-create-definer df/leader
+      :keymaps '(normal)
+      :prefix "SPC"
+      :global-prefix "C-SPC")
+    (df/leader "f" '(:ignore t :which-key "files"))
+    (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
+    (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
+    (df/leader "ff" '(find-file :which-key "Open file")))
+#+end_src
+* Editing 🐙
 ** ~evil~ package:
 The main piece, ~evil~:
 #+name: evil/main
@@ -386,8 +389,8 @@ Testing this:
 #+begin_src elisp
 (use-package visual-regexp-steroids)
 #+end_src
-* org-mode
-** Main package
+* Note taking 📝
+** Org Mode: options
 Use org-mode from elpa:
 #+begin_src elisp :noweb-ref org/main :noweb yes
   (require 'org)
@@ -430,7 +433,7 @@ Faster insertion of code blocks:
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
 #+end_src
 This makes ~<el TAB~ insert an elisp code block.
-** Plugins
+** Org Mode: plugins
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
 (use-package ox-gfm)
@@ -462,8 +465,8 @@ This returns a string with the file content:
       (insert-file-contents "test.txt")
       (buffer-string)))
 #+end_src
-* lsp-mode
-** main package
+* Developing 🧙
+** lsp-mode
 This enables [[https://github.com/Microsoft/language-server-protocol][LSP]], which provides completions, diagnostics et cetera:
 #+begin_src elisp
   (use-package lsp-mode
@@ -521,7 +524,7 @@ Pyright, an LSP server for Python:
 #+begin_src elisp
   (use-package lsp-pyright)
 #+end_src
-* misc
+* Miscellaneous 🗃️
 ** todo file
 I like using a TODO file, which keeps track of what I'm doing and what I have to do:
 #+begin_src elisp :noweb-ref misc

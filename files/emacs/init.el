@@ -59,11 +59,14 @@
 (setq scroll-margin 5
       scroll-conservatively 10000)
 ;; visual/keeparound ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/fonts][visual/fonts]]][visual/fonts]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*fonts][fonts]]][]]
 (add-to-list 'default-frame-alist
-             '(font . "JetBrains Mono 15")
-             '(font . "Noto Color Emoji"))
-;; visual/fonts ends here
+             '(font . "JetBrains Mono 15"))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*fonts][fonts]]][]]
+(set-fontset-font 
+  t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/theme][visual/theme]]][visual/theme]]
 (use-package base16-theme
   :config
