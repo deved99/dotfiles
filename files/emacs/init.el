@@ -1,4 +1,4 @@
-;; [[file:~/.dotfiles/files/emacs/init.org::*Summary][Summary:1]]
+;; [[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️:1]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/garbage-collection][prepare/garbage-collection]]][prepare/garbage-collection]]
 (setq gc-cons-threshold 100000000)
 ;; prepare/garbage-collection ends here
@@ -85,18 +85,6 @@
 ;; visual/modeline ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Line wrapping][Line wrapping]]][]]
 (set-default 'truncate-lines t)
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Line wrapping][Line wrapping]]][]]
-(defun df/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t
-        truncate-lines nil)
-  (visual-line-mode 1)
-  (adaptive-wrap-prefix-mode 1)
-  (visual-fill-column-mode 1))
-(use-package visual-fill-column
-    :hook (org-mode . df/org-mode-visual-fill))
-(use-package adaptive-wrap)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
 (use-package rainbow-delimiters
@@ -193,43 +181,59 @@
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Main package][Main package]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Org Mode: options][Org Mode: options]]][]]
 (require 'org)
 (setq org-ellipsis "▾"
       org-startup-folded t)
 
 (set-face-attribute 'org-block nil :extend t)
 (set-face-attribute 'org-block-begin-line nil :extend t)
+(setq org-todo-keywords
+      '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
+(set-face-attribute 'org-todo nil
+  :weight 'normal
+  :foreground (plist-get base16-custom-colors :base07)
+  :background (plist-get base16-custom-colors :base08))
+(set-face-attribute 'org-done nil
+  :weight 'normal
+  :foreground (plist-get base16-custom-colors :base07)
+  :background (plist-get base16-custom-colors :base0B))
 (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
 (setq org-tags-column 0)
 (set-face-attribute 'org-tag nil
   :foreground (plist-get base16-custom-colors :base02))
-(df/leader "o" '(:ignore t :which-key "org-mode")
-           "oo" '(counsel-outline :which-key "Get outline")
-           "ot" '(counsel-org-tag :which-key "Set org tags"))
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
 (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Plugins][Plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Org Mode: plugins][Org Mode: plugins]]][]]
 (use-package ox-gfm)
 (setq org-export-backends '(html latex ox-gfm))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Plugins][Plugins]]][]]
-(use-package org-appear
-  :hook (org-mode . org-appear-mode)
-  :init (setq org-hide-emphasis-markers t))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Plugins][Plugins]]][]]
-(use-package org-fragtog
-  :straight (:host github :repo "io12/org-fragtog")
-  :hook (org-mode . org-fragtog-mode))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Plugins][Plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Org Mode: beautify][Org Mode: beautify]]][]]
+(defun df/org-mode-beautify ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t
+        truncate-lines nil)
+  (mixed-pitch-mode t)
+  (org-appear-mode t)
+  (org-superstar-mode t)
+  (visual-line-mode t)
+  (adaptive-wrap-prefix-mode t)
+  (visual-fill-column-mode t))
+(use-package mixed-pitch
+  :config
+  (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-todo)
+  (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-done))
+(use-package visual-fill-column)
+(use-package adaptive-wrap)
 (use-package org-superstar
    :init (setq org-superstar-remove-leading-stars t)
    :hook (org-mode . org-superstar-mode))
+(use-package org-appear
+  :init (setq org-hide-emphasis-markers t))
+(add-hook 'org-mode-hook 'df/org-mode-beautify)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*todo file][todo file]]][]]
 (setq inhibit-startup-screen t
@@ -280,4 +284,4 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Visit symlinks to file under git][Visit symlinks to file under git]]][]]
 (setq vc-follow-symlinks t)
 ;; ends here
-;; Summary:1 ends here
+;; Summary 🗂️:1 ends here
