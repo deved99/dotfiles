@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 
 * Summary
-This org file is used to generate my emacs config. It contains various named snippets (and their reasoning), which are organized by the following snippet. More specifically, it defines which snippets to include and where to put them.
+This Org file is used to generate my Emacs configuration thanks to [[https://orgmode.org/worg/org-contrib/babel/][OrgBabel]] and noweb's syntax. The file is generated from the following snippet, which collects the snippets and puts them in order.
 #+begin_src elisp :tangle init.el :noweb yes :comments noweb
   <<prepare/garbage-collection>>
   <<prepare/use-package>>
@@ -28,7 +28,7 @@ The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
-* prepare
+* Preparation
 ** garbage collect
 How frequently does Emacs garbage collect:
 #+name: prepare/garbage-collection
@@ -90,7 +90,7 @@ This just shows how much did it take for emacs to start and the number of garbag
 	  (time-subtract after-init-time before-init-time)))
        gcs-done)))
 #+end_src
-* visual
+* Aesthetics ✨
 ** cleanup
 I just want to see text, this disable decorations I don't need:
 #+begin_src elisp :noweb-ref visual/cleanup
@@ -397,7 +397,9 @@ Use org-mode from elpa:
   <<org/set-tags>>
   <<org/tempo>>
 #+end_src
-Some visual options:
+Generic option:
+- ~org-ellipsis~: substitute character used by OrgMode to indicate that an headline is not empty.
+- ~org-startup-folded~: tell OrgMode to collapse heading on startup.
 #+begin_src elisp :noweb-ref org/options
   (setq org-ellipsis "▾"
         org-startup-folded t)
