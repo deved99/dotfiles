@@ -7,6 +7,7 @@
       - borgbackup # backups
       - fonts-jetbrains-mono # Font
       - pass
+      - pavucontrol
   become: yes
 
 - name: Ensure folders exist
