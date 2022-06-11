@@ -1,16 +1,13 @@
 ---
 
+- name: Add ppa for Emacs 28
+  ansible.builtin.apt_repository:
+    repo: ppa:kelleyk/emacs
+  become: yes
+
 - name: Install Emacs
   ansible.builtin.apt:
-    name:
-      - emacs
-      ## pdf-tools dependencies
-      # - libpng-dev
-      # - zlib1g-dev
-      # - libpoppler-glib-dev
-      # - libpoppler-private-dev
-      ## plantuml-mode
-      # - plantuml
+    name: emacs28-nativecomp
   become: yes
 
 - name: Ensure config directory exists
@@ -46,7 +43,7 @@
     name: emacs
     scope: user
     enabled: yes
-    state: reloaded
+    state: restarted
     daemon_reload: yes
 
 - name: Enable and start notes-sync

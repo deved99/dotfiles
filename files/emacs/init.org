@@ -141,9 +141,7 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
   (use-package ligature
     :straight (:host github :repo "mickeynp/ligature.el")
     :config
-    (ligature-set-ligatures 't '("www"))
-    (ligature-set-ligatures
-     'prog-mode
+    (ligature-set-ligatures 't
      '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
        "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
        "|||" "///" "&&&" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
