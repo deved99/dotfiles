@@ -1,14 +1,24 @@
 ---
 
+####################
+# Install packages #
+####################
+
 - name: Add ppa for Emacs 28
   ansible.builtin.apt_repository:
     repo: ppa:kelleyk/emacs
   become: yes
 
-- name: Install Emacs
+- name: Install Emacs and related packages
   ansible.builtin.apt:
-    name: emacs28
+    name:
+      - emacs28
+      - rclone
   become: yes
+
+##############################
+# Create configuration files #
+##############################
 
 - name: Ensure config directory exists
   ansible.builtin.file:
@@ -27,16 +37,20 @@
     src: "theme.el"
     dest: "{{ CONFIG_DIR }}/emacs/base16-custom-theme.el"
 
-- name: Install emacs related services service
-  ansible.builtin.copy:
-    src: systemd-user/
-    dest: "{{ SYSTEMD_DIR }}/"
-
 - name: Copy notes-sync to .local/bin
   ansible.builtin.copy:
     src: scripts/notes-sync
     dest: "{{ LOCAL_BIN }}/notes-sync"
     mode: u+x
+
+###################
+# SystemD related #
+###################
+    
+- name: Install emacs related services service
+  ansible.builtin.copy:
+    src: systemd-user/
+    dest: "{{ SYSTEMD_DIR }}/"
 
 - name: Enable and start emacs service
   ansible.builtin.systemd:
