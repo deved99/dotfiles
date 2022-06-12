@@ -8,10 +8,14 @@
       - rust-all # Build dependency for menu
   become: yes
 
+
 - name: Ensure directories exist
   ansible.builtin.file:
-    path: "{{ CONFIG_DIR }}/menu/tools"
+    path: "{{ CONFIG_DIR }}/{{ item }}"
     state: directory
+  loop:
+    - "menu/tools"
+    - "local"
 
 # Clone & build menu
 - name: Clone repository
@@ -30,6 +34,17 @@
   ansible.builtin.copy:
     src: menu/
     dest: "{{ CONFIG_DIR }}/menu/"
+
+# Copy emoji.json
+- name: Copy emoji.json
+  ansible.builtin.file:
+    src: "{{ REPO_DIR }}/secret/local/emoji.json"
+    dest: "{{ CONFIG_DIR }}/local/emoji.json"
+    state: link
+
+####################
+# Copy executables #
+####################
 
 - name: Copy executables to .local/bin from here
   ansible.builtin.copy:
