@@ -1,11 +1,11 @@
-;; [[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️:1]]
+;; [[file:init.org::*Summary 🗂️][Summary 🗂️:1]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/garbage-collection][prepare/garbage-collection]]][prepare/garbage-collection]]
 (setq gc-cons-threshold 100000000)
 ;; prepare/garbage-collection ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq package-enable-at-startup nil)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -19,10 +19,10 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (straight-use-package 'use-package)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*use-package setup][use-package setup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq straight-use-package-by-default t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][prepare/general.el]]
@@ -46,27 +46,41 @@
 	  (time-subtract after-init-time before-init-time)))
        gcs-done)))
 ;; prepare/startup-time ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*cleanup][cleanup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (tooltip-mode 0)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*cleanup][cleanup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (fringe-mode 10)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/keeparound][visual/keeparound]]][visual/keeparound]]
 (setq scroll-margin 5
       scroll-conservatively 10000)
 ;; visual/keeparound ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*fonts][fonts]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (add-to-list 'default-frame-alist
-             '(font . "JetBrains Mono 15"))
+             '(font . "Iosevka 15"))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*fonts][fonts]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (set-fontset-font 
   t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/ligatures][visual/ligatures]]][visual/ligatures]]
+(use-package ligature
+  :straight (:host github :repo "mickeynp/ligature.el")
+  :config
+  (ligature-set-ligatures 't
+   '("-->" "//" "<!--" ":=" "->>" "<<-" "->" "<-"
+     "<=>" "==" "!=" "<=" ">=" "!==" "||" "..." ".."
+     "|||" "///" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
+     "|||>" "<|||" ">>" "<<" "::=" ":?" "!!" "?:" "?." "::"
+     "+++" "??" ":::" ".?" "?=" "=!=" "<|>"
+     ";;" "<<<" ">>>" "<==" "<==>" "==>" "=>>"
+     "<~>" "<~~" "<~" "~~>" "~>" "<->" "^="))
+  (global-ligature-mode t))
+;; visual/ligatures ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/theme][visual/theme]]][visual/theme]]
 (use-package base16-theme
   :config
@@ -83,7 +97,7 @@
   (doom-modeline-buffer-encoding nil)
   :hook (after-init . doom-modeline-mode))
 ;; visual/modeline ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Line wrapping][Line wrapping]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (set-default 'truncate-lines t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
@@ -95,7 +109,7 @@
                       :inherit 'error
                       :box t))
 ;; visual/parenthesis ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Ivy][Ivy]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package ivy
  :diminish
  :config (ivy-mode))
@@ -139,12 +153,12 @@
     :around 'evil-previous-line--check-visual-line-mode)
   :config (evil-mode 1))
 ;; evil/main ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*evil integrations][evil integrations]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-collection
   :after evil
   :init (evil-collection-init))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*evil integrations][evil integrations]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
   :init (setq org-special-ctrl-a/e t)
@@ -152,22 +166,22 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-surround
   :after evil
   :config (global-evil-surround-mode 1))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-commentary
   :after evil
   :config (evil-commentary-mode))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-indent-plus
   :after evil
   :init (evil-indent-plus-default-bindings))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*vim plugins][vim plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-numbers
   :after evil
   :config
@@ -181,7 +195,7 @@
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Org Mode: options][Org Mode: options]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (require 'org)
 (setq org-ellipsis "▾"
       org-startup-folded t)
@@ -207,11 +221,11 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Org Mode: plugins][Org Mode: plugins]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package ox-gfm)
 (setq org-export-backends '(html latex ox-gfm))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Org Mode: beautify][Org Mode: beautify]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (defun df/org-mode-beautify ()
   (setq visual-fill-column-width 100
         visual-fill-column-center-text t
@@ -224,6 +238,7 @@
   (visual-fill-column-mode t))
 (use-package mixed-pitch
   :config
+  (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
   (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-todo)
   (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-done))
 (use-package visual-fill-column)
@@ -235,29 +250,29 @@
   :init (setq org-hide-emphasis-markers t))
 (add-hook 'org-mode-hook 'df/org-mode-beautify)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*todo file][todo file]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq inhibit-startup-screen t
       initial-buffer-choice "~/current.org")
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*autoclose parenthesis][autoclose parenthesis]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (electric-pair-mode)
 (add-hook 'org-mode-hook (lambda ()
          (setq-local electric-pair-inhibit-predicate
                  `(lambda (c)
                 (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*backup][backup]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq backup-dir (concat user-emacs-directory "backups")
       backup-directory-alist `(("." . ,backup-dir))
       auto-save-file-name-transforms `((".*" ,backup-dir t)))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*no tab please][no tab please]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq-default indent-tabs-mode nil)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*rainbow-mode][rainbow-mode]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package rainbow-mode)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*additional filetypes][additional filetypes]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package php-mode)
 (use-package rust-mode)
 (use-package lua-mode)
@@ -265,7 +280,7 @@
 (use-package yaml-mode)
 (use-package dockerfile-mode)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*additional filetypes][additional filetypes]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package plantuml-mode
 :init
 (setq plantuml-executable-path "/usr/bin/plantuml"
@@ -275,13 +290,13 @@
 (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
 (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*additional filetypes][additional filetypes]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package markdown-mode
 :mode ("README\\.md\\'" . gfm-mode)
 :init (setq markdown-command "multimarkdown"))
 (use-package edit-indirect)
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Visit symlinks to file under git][Visit symlinks to file under git]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq vc-follow-symlinks t)
 ;; ends here
 ;; Summary 🗂️:1 ends here

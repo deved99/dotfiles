@@ -10,6 +10,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<visual/cleanup>>
   <<visual/keeparound>>
   <<visual/fonts>>
+  <<visual/ligatures>>
   <<visual/theme>>
   <<visual/modeline>>
   <<visual/wrap>>
@@ -100,7 +101,7 @@ This keeps 5 lines before and after the current line:
 Set [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] as default font:
 #+begin_src elisp :noweb-ref visual/fonts
   (add-to-list 'default-frame-alist
-               '(font . "JetBrains Mono 15"))
+               '(font . "Iosevka 15"))
 #+end_src
 Also, add ~Noto Color Emoji~ as fallback font for symbols:
 #+begin_src elisp :noweb-ref visual/fonts
@@ -142,20 +143,13 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
     :straight (:host github :repo "mickeynp/ligature.el")
     :config
     (ligature-set-ligatures 't
-     '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
-       "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
-       "|||" "///" "&&&" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
-       "|||>" "<|||" ">>" "<<" "::=" "|]" "[|" "{|" "|}"
-       "[<" ">]" ":?>" ":?" "/=" "[||]" "!!" "?:" "?." "::"
-       "+++" "??" "###" "##" ":::" "####" ".?" "?=" "=!=" "<|>"
-       "<:" ":<" ":>" ">:" "<>" "***" ";;" "/==" ".=" ".-" "__"
-       "=/=" "<-<" "<<<" ">>>" "<=<" "<<=" "<==" "<==>" "==>" "=>>"
-       ">=>" ">>=" ">>-" ">-" "<~>" "-<" "-<<" "=<<" "---" "<-|"
-       "<=|" "/\\" "\\/" "|=>" "|~>" "<~~" "<~" "~~" "~~>" "~>"
-       "<$>" "<$" "$>" "<+>" "<+" "+>" "<*>" "<*" "*>" "</>" "</" "/>"
-       "<->" "..<" "~=" "~-" "-~" "~@" "^=" "-|" "_|_" "|-" "||-"
-       "|=" "||=" "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#="
-       "&="))
+     '("-->" "//" "<!--" ":=" "->>" "<<-" "->" "<-"
+       "<=>" "==" "!=" "<=" ">=" "!==" "||" "..." ".."
+       "|||" "///" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
+       "|||>" "<|||" ">>" "<<" "::=" ":?" "!!" "?:" "?." "::"
+       "+++" "??" ":::" ".?" "?=" "=!=" "<|>"
+       ";;" "<<<" ">>>" "<==" "<==>" "==>" "=>>"
+       "<~>" "<~~" "<~" "~~>" "~>" "<->" "^="))
     (global-ligature-mode t))
 #+end_src
 ** modeline
@@ -458,6 +452,7 @@ I'm trying a proportional font for my notetaking:
 #+begin_src elisp :noweb-ref org/beautify/packages
   (use-package mixed-pitch
     :config
+    (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
     (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-todo)
     (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-done))
 #+end_src
