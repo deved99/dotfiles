@@ -38,6 +38,7 @@ local function get_notifications()
           notification_bg = cs.black,
           notification_fg = cs.accent,
           notification_border_color = cs.accent,
+          notification_max_width = 600,
           --notification_border_width = 10
   }
 
