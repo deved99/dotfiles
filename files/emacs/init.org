@@ -98,10 +98,10 @@ This keeps 5 lines before and after the current line:
 	scroll-conservatively 10000)
 #+end_src
 ** fonts
-Set [[https://www.jetbrains.com/lp/mono/][JetBrains Mono]] as default font:
+Set ~Iosevka~ as default font:
 #+begin_src elisp :noweb-ref visual/fonts
   (add-to-list 'default-frame-alist
-               '(font . "Iosevka 15"))
+               '(font . "Iosevka 17"))
 #+end_src
 Also, add ~Noto Color Emoji~ as fallback font for symbols:
 #+begin_src elisp :noweb-ref visual/fonts
@@ -132,7 +132,7 @@ Right now disabled: doesn't show on empty lines.
 ** Line wrapping
 This is equivalent to vim's ~set nowrap~. By default truncate lines.
 #+begin_src elisp :noweb-ref visual/wrap
-    (set-default 'truncate-lines t)
+  (set-default 'truncate-lines t)
 #+end_src
 Some modes, org for example, change this default.
 ** ligatures
