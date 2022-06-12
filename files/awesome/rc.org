@@ -103,7 +103,7 @@ This sets the theme:
 #+begin_src lua :noweb yes :noweb-ref theme/parts
   local function get_general()
     local r = {
-            font          = "Noto Sans 10",
+            font          = "Iosevka Aile 10",
             bg_normal     = cs.transparent,
             bg_focus      = cs.transparent,
             bg_urgent     = cs.red,
@@ -130,7 +130,7 @@ This sets the theme:
 #+begin_src lua :noweb-ref theme/parts
   local function get_notifications()  
     local r = {
-            notification_font = "Noto Sans 18",
+            notification_font = "Iosevka Alia 20",
             notification_bg = cs.black,
             notification_fg = cs.accent,
             notification_border_color = cs.accent,
@@ -696,7 +696,7 @@ This is the theme menu:
     local taglist_square_size = dpi(4)
 
     local r = {
-            menu_font = "noto 18",
+            menu_font = "Iosevka Alia 18",
             menu_submenu_icon = themes_path.."default/submenu.png",
             -- colors
             menu_bg_normal = cs.black_semi,
@@ -820,4 +820,3 @@ This is bar theme:
   end
 #+end_src
 #+end_src
-* Theme

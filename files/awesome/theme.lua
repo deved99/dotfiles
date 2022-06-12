@@ -10,7 +10,7 @@ local function merge(v)
 end
 local function get_general()
   local r = {
-          font          = "Noto Sans 10",
+          font          = "Iosevka Aile 10",
           bg_normal     = cs.transparent,
           bg_focus      = cs.transparent,
           bg_urgent     = cs.red,
@@ -34,7 +34,7 @@ local function get_general()
 end
 local function get_notifications()  
   local r = {
-          notification_font = "Noto Sans 18",
+          notification_font = "Iosevka Alia 20",
           notification_bg = cs.black,
           notification_fg = cs.accent,
           notification_border_color = cs.accent,
@@ -80,7 +80,7 @@ function get_menu()
   local taglist_square_size = dpi(4)
 
   local r = {
-          menu_font = "noto 18",
+          menu_font = "Iosevka Alia 18",
           menu_submenu_icon = themes_path.."default/submenu.png",
           -- colors
           menu_bg_normal = cs.black_semi,
