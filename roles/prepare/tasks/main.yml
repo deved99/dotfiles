@@ -5,6 +5,7 @@
     name:
       - btrfs-progs # Filesystem I use for storage
       - borgbackup # backups
+      - fonts-roboto
       - fonts-jetbrains-mono # Font
       - pass
       - pavucontrol

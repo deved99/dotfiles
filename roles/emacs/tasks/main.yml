@@ -7,7 +7,7 @@
 
 - name: Install Emacs
   ansible.builtin.apt:
-    name: emacs28-nativecomp
+    name: emacs28
   become: yes
 
 - name: Ensure config directory exists
