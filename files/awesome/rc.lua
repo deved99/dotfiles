@@ -393,13 +393,15 @@ awful.rules.rules = {
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
+                     raise = true,
+                     maximized = false,
+                     floating = false,
+                     focus = awful.client.focus.filter,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     size_hints_honor = false
+                     size_hints_honor = false,
         }
     },
 
@@ -419,8 +421,6 @@ awful.rules.rules = {
       properties = { tag = "1" } },
     -- Tag 2
     { rule = { role = "browser" },
-      properties = { tag = "2" } },
-    { rule = { class = "qutebrowser" },
       properties = { tag = "2" } },
     -- Tag 3
     { rule = { class = "Thunderbird" },
