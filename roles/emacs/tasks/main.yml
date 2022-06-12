@@ -37,6 +37,12 @@
     src: "theme.el"
     dest: "{{ CONFIG_DIR }}/emacs/base16-custom-theme.el"
 
+- name: Copy rclone configuration
+  ansible.builtin.file:
+    src: "{{ REPO_DIR }}/secret/rclone"
+    dest: "{{ CONFIG_DIR }}/rclone"
+    state: link
+
 - name: Copy notes-sync to .local/bin
   ansible.builtin.copy:
     src: scripts/notes-sync
