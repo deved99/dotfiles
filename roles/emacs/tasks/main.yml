@@ -20,9 +20,9 @@
 # Create configuration files #
 ##############################
 
-- name: Ensure config directory exists
+- name: Ensure directories exist
   ansible.builtin.file:
-    path: "{{ CONFIG_DIR }}/emacs"
+    path: "{{ CONFIG_DIR }}/emacs/straight/versions"
     state: directory
 
 - name: Symlink configuration
@@ -31,6 +31,13 @@
     dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
     state: link
   with_fileglob: "{{ REPO_FILES }}/emacs/*"
+  loop:
+    - src: "{{ REPO_FILES }}/emacs/init.el"
+      dest: "{{ CONFIG_DIR }}/emacs/init.el"
+    - src: "{{ REPO_FILES }}/emacs/init.org"
+      dest: "{{ CONFIG_DIR }}/emacs/init.org"
+    - src: "{{ REPO_FILES }}/emacs/versions/"
+      dest: "{{ CONFIG_DIT }}/emacs/straight/versions/"
 
 - name: Template theme
   ansible.builtin.template:
