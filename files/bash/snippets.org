@@ -75,6 +75,10 @@ Make directory and ~cd~ into it:
     cd $1
   }
 #+end_src
+Print my ip:
+#+begin_src bash :noweb-ref aliases/misc
+  alias myip="printf \"\$(curl -s ifconfig.me)\n\""
+#+end_src
 * Prompt
 I've divided my prompt definition in two parts:
 - A function, which prints the value I want my ~$PS1~ to be.

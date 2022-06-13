@@ -13,3 +13,4 @@ function mkcd() {
   mkdir $1
   cd $1
 }
+alias myip="printf \"\$(curl -s ifconfig.me)\n\""
