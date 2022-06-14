@@ -10,6 +10,7 @@
       - fonts-jetbrains-mono
       - pass
       - pavucontrol
+      - printer-driver-gutenprint
   become: yes
 
 - name: Ensure folders exist
