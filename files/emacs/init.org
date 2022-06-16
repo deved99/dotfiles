@@ -24,6 +24,9 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<org/main>>
   <<org/plugins>>
   <<org/beautify>>
+  <<programming/eglot>>
+  <<programming/company>>
+  <<programming/magit>>
   <<misc>>
 #+end_src
 The header arguments tell Emacs the following:
@@ -213,7 +216,7 @@ Color matching parenthesis in different colors:
                         :inherit 'error
                         :box t))
 #+end_src
-* Interface 🖥️
+* Workflow 🖥️
 ** Ivy
 Change the completion framework in the minibuffer:
 #+begin_src elisp :noweb yes :noweb-ref interface/ivy
@@ -477,6 +480,7 @@ Automatically render latex fragments when the cursor is away:
   (use-package org-fragtog
     :straight (:host github :repo "io12/org-fragtog"))
 #+end_src
+** Org Mode: roam
 ** Test
 This returns a string with the file content:
 #+begin_src elisp
@@ -485,64 +489,28 @@ This returns a string with the file content:
       (insert-file-contents "test.txt")
       (buffer-string)))
 #+end_src
-* Developing 🧙
-** lsp-mode
-This enables [[https://github.com/Microsoft/language-server-protocol][LSP]], which provides completions, diagnostics et cetera:
+* Programming ⚗️
+** eglot
+Currently trying eglot:
+#+name: programming/eglot
 #+begin_src elisp
-  (use-package lsp-mode
+  (use-package eglot)
 #+end_src
-Hook it to any programming filetype:
-#+begin_src elisp :padline no
-    :hook prog-mode
-#+end_src
-Disable icons in completions:
-#+begin_src elisp :padline no
-    :init (setq lsp-headerline-breadcrumb-enable nil)
-#+end_src
-Disable diagnostics; I'd prefer to be able to toggle it or to disable it while in insert mode:
-#+begin_src elisp :padline no
-    (setq lsp-diagnostics-mode ":none"))
-#+end_src
-** lsp-ui
-This manages the look of LSP:
-#+begin_src elisp
-  (use-package lsp-ui
-    :config
-#+end_src
-Disable some stuff; I have to find an alternative solution in the future:
-#+begin_src elisp :padline no
-    (setq lsp-ui-doc-enable nil
-	  lsp-ui-sideline-show-code-actions nil)
-#+end_src
-Enable showing info on the right of the screen:
-#+begin_src elisp :padline no
-    (setq lsp-ui-sideline-show-hover t
-	  lsp-ui-sideline-delay 1))
-#+end_src
-** completion engine
+** completion framework
 This is the completion engine, hooked up to lsp-mode:
+#+name: programming/company
 #+begin_src elisp
   (use-package company
-    :hook (lsp-mode . company-mode)
-#+end_src
-Loop after the last entry:
-#+begin_src elisp :padline no
-  :config
-  (setq company-selection-wrap-around t)
-#+end_src
-Then enable it:
-#+begin_src elisp :padline no
-  (company-tng-configure-default))
+    :hook (eglot-mode . company-mode)
+    :config
+    (setq company-selection-wrap-around t)
+    (company-tng-configure-default))
 #+end_src
 ** magit
 This is a git client I want to test:
+#+name: programming/magit
 #+begin_src elisp
   (use-package magit)
-#+end_src
-** lsp servers
-Pyright, an LSP server for Python:
-#+begin_src elisp
-  (use-package lsp-pyright)
 #+end_src
 * Miscellaneous 🗃️
 ** todo file

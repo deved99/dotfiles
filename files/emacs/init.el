@@ -61,7 +61,7 @@
 ;; visual/keeparound ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka 15"))
+             '(font . "Iosevka 17"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (set-fontset-font 
@@ -250,6 +250,19 @@
   :init (setq org-hide-emphasis-markers t))
 (add-hook 'org-mode-hook 'df/org-mode-beautify)
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
+(use-package eglot)
+;; programming/eglot ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
+(use-package company
+  :hook (eglot-mode . company-mode)
+  :config
+  (setq company-selection-wrap-around t)
+  (company-tng-configure-default))
+;; programming/company ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/magit][programming/magit]]][programming/magit]]
+(use-package magit)
+;; programming/magit ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq inhibit-startup-screen t
       initial-buffer-choice "~/current.org")
