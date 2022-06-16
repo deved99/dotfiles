@@ -390,6 +390,15 @@ Generic option:
   (setq org-ellipsis "▾"
         org-startup-folded t)
 #+end_src
+Keybindings I use:
+#+begin_src elisp :noweb-ref org/keybindings
+  (df/leader "o" '(:ignore t :which-key "org-mode")
+             "oo" 'counsel-outline
+             "ob" 'org-babel-tangle
+             "op" 'org-priority
+             ; "oc" 'org-toggle-checkbox
+             "ot" 'counsel-org-tag)
+#+end_src
 Code block background should fill the whole line:
 #+begin_src elisp :noweb-ref org/better-code-blocks
   (set-face-attribute 'org-block nil :extend t)
@@ -414,12 +423,6 @@ Settings related to tags:
   (setq org-tags-column 0)
   (set-face-attribute 'org-tag nil
     :foreground (plist-get base16-custom-colors :base02))
-#+end_src
-Keybindings I've set:
-#+begin_src elisp :noweb-ref org/set-tags
-  (df/leader "o" '(:ignore t :which-key "org-mode")
-             "oo" '(counsel-outline :which-key "Get outline")
-             "ot" '(counsel-org-tag :which-key "Set org tags"))
 #+end_src
 Faster insertion of code blocks:
 #+begin_src elisp :noweb-ref org/tempo
@@ -493,8 +496,15 @@ This returns a string with the file content:
 ** eglot
 Currently trying eglot:
 #+name: programming/eglot
-#+begin_src elisp
+#+begin_src elisp :noweb yes
   (use-package eglot)
+  <<programming/eglot/keybindings>>
+#+end_src
+Keybinding I'm using:
+#+begin_src elisp :noweb-ref programming/eglot/keybindings
+  (df/leader "p" '(:ignore t :which-key "LSP")
+             "pr" 'eglot-rename
+             "pc" 'flymake-show-buffer-diagnostics)
 #+end_src
 ** completion framework
 This is the completion engine, hooked up to lsp-mode:
@@ -510,7 +520,8 @@ This is the completion engine, hooked up to lsp-mode:
 This is a git client I want to test:
 #+name: programming/magit
 #+begin_src elisp
-  (use-package magit)
+    (use-package magit
+      :config (df/leader "g" 'magit))
 #+end_src
 * Miscellaneous 🗃️
 ** todo file

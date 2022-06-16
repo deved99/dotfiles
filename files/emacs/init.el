@@ -199,7 +199,12 @@
 (require 'org)
 (setq org-ellipsis "▾"
       org-startup-folded t)
-
+(df/leader "o" '(:ignore t :which-key "org-mode")
+           "oo" 'counsel-outline
+           "ob" 'org-babel-tangle
+           "op" 'org-priority
+           ; "oc" 'org-toggle-checkbox
+           "ot" 'counsel-org-tag)
 (set-face-attribute 'org-block nil :extend t)
 (set-face-attribute 'org-block-begin-line nil :extend t)
 (setq org-todo-keywords
@@ -252,6 +257,8 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)
+(df/leader "l" '(:ignore t :which-key "LSP")
+           "lc" 'flymake-show-buffer-diagnostics)
 ;; programming/eglot ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
@@ -261,7 +268,8 @@
   (company-tng-configure-default))
 ;; programming/company ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/magit][programming/magit]]][programming/magit]]
-(use-package magit)
+(use-package magit
+  :config (df/leader "g" 'magit))
 ;; programming/magit ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq inhibit-startup-screen t
