@@ -263,11 +263,12 @@
 ;; programming/eglot ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
-  :hook (after-init . global-company-mode)
+  :hook ((after-init . global-company-mode)
+         (prog-mode . (lambda () (setq-local company-idle-delay 0.4))))
   :config
   (setq company-selection-wrap-around t
         company-minimum-prefix-length 1
-        company-idle-delay 1)
+        company-idle-delay nil)
   (company-tng-configure-default))
 (use-package company-box
   :hook (company-mode . company-box-mode))
