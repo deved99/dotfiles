@@ -366,6 +366,10 @@ Set where should it save files:
   (setq undo-dir "/home/davide/.config/emacs/undo"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
+Set keybinding for the visualizer:
+#+begin_src elisp :noweb-ref evil/undo/init
+  (df/leader "u" 'undo-tree-visualize)
+#+end_src
 ** Regular Expressions
 Testing this:
 #+begin_src elisp
@@ -518,6 +522,10 @@ This is the completion engine, hooked up to lsp-mode:
           company-minimum-prefix-length 1
           company-idle-delay nil)
     (company-tng-configure-default))
+    (df/leader "od" '(:ignore t :which-key "date")
+               "odc" 'org-date-from-calendar
+               "ods" 'org-schedule
+               "odd" 'org-deadline)
   (use-package company-box
     :hook (company-mode . company-box-mode))
 #+end_src

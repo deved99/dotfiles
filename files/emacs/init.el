@@ -193,6 +193,7 @@
   :init
   (setq undo-dir "/home/davide/.config/emacs/undo"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
+  (df/leader "u" 'undo-tree-visualize)
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
@@ -270,6 +271,10 @@
         company-minimum-prefix-length 1
         company-idle-delay nil)
   (company-tng-configure-default))
+  (df/leader "od" '(:ignore t :which-key "date")
+             "odc" 'org-date-from-calendar
+             "ods" 'org-schedule
+             "odd" 'org-deadline)
 (use-package company-box
   :hook (company-mode . company-box-mode))
 ;; programming/company ends here
