@@ -257,15 +257,20 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)
-(df/leader "l" '(:ignore t :which-key "LSP")
-           "lc" 'flymake-show-buffer-diagnostics)
+(df/leader "p" '(:ignore t :which-key "LSP")
+           "pr" 'eglot-rename
+           "pc" 'flymake-show-buffer-diagnostics)
 ;; programming/eglot ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
-  :hook (eglot-mode . company-mode)
+  :hook (after-init . global-company-mode)
   :config
-  (setq company-selection-wrap-around t)
+  (setq company-selection-wrap-around t
+        company-minimum-prefix-length 1
+        company-idle-delay 1)
   (company-tng-configure-default))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 ;; programming/company ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/magit][programming/magit]]][programming/magit]]
 (use-package magit

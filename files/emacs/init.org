@@ -511,10 +511,14 @@ This is the completion engine, hooked up to lsp-mode:
 #+name: programming/company
 #+begin_src elisp
   (use-package company
-    :hook (eglot-mode . company-mode)
+    :hook (after-init . global-company-mode)
     :config
-    (setq company-selection-wrap-around t)
+    (setq company-selection-wrap-around t
+          company-minimum-prefix-length 1
+          company-idle-delay 1)
     (company-tng-configure-default))
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
 #+end_src
 ** magit
 This is a git client I want to test:
