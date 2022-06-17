@@ -21,9 +21,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/integrations>>
   <<evil/plugins>>
   <<evil/undo>>
-  <<org/main>>
-  <<org/plugins>>
-  <<org/beautify>>
+  <<note-taking>>
   <<programming/eglot>>
   <<programming/company>>
   <<programming/magit>>
@@ -110,6 +108,13 @@ Also, add ~Noto Color Emoji~ as fallback font for symbols:
 #+begin_src elisp :noweb-ref visual/fonts
   (set-fontset-font 
     t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
+#+end_src
+Set variable and fixed pitch font:
+#+begin_src elisp :noweb-ref visual/fonts
+  (set-face-attribute 'fixed-pitch nil
+    :font (font-spec :family "Iosevka"))
+  (set-face-attribute 'variable-pitch nil
+    :font (font-spec :family "Iosevka Alia"))
 #+end_src
 ** theme
 This sets the theme: it loads a file, which has been templated
@@ -378,21 +383,26 @@ Testing this:
 * Note taking 📝
 ** Org Mode: options
 Use org-mode from elpa:
-#+begin_src elisp :noweb-ref org/main :noweb yes
-  (require 'org)
-  <<org/options>>
-  <<org/keybindings>>
-  <<org/better-code-blocks>>
-  <<org/keywords>>
-  <<org/tags>>
+#+name: note-taking
+#+begin_src elisp :noweb yes
+  <<org/plugins>>
+  (use-package org
+    :custom
+    <<org/options>>
+    <<org/keywords>>
+    :init
+    <<org/keybindings>>
+    :straight (:type built-in))
   <<org/tempo>>
+  <<org/beautify>>
 #+end_src
 Generic option:
 - ~org-ellipsis~: substitute character used by OrgMode to indicate that an headline is not empty.
 - ~org-startup-folded~: tell OrgMode to collapse heading on startup.
 #+begin_src elisp :noweb-ref org/options
-  (setq org-ellipsis "▾"
-        org-startup-folded t)
+  (org-ellipsis " ▾")
+  (org-startup-folded t)
+  (org-export-backends '(html latex ox-gfm))
 #+end_src
 Keybindings I use:
 #+begin_src elisp :noweb-ref org/keybindings
@@ -403,98 +413,126 @@ Keybindings I use:
              ; "oc" 'org-toggle-checkbox
              "ot" 'counsel-org-tag)
 #+end_src
-Code block background should fill the whole line:
-#+begin_src elisp :noweb-ref org/better-code-blocks
-  (set-face-attribute 'org-block nil :extend t)
-  (set-face-attribute 'org-block-begin-line nil :extend t)
-#+end_src
-Add keywords and change their face:
+Add keywords and tags:
 #+begin_src elisp :noweb-ref org/keywords
-  (setq org-todo-keywords
-        '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
-  (set-face-attribute 'org-todo nil
-    :weight 'normal
-    :foreground (plist-get base16-custom-colors :base07)
-    :background (plist-get base16-custom-colors :base08))
-  (set-face-attribute 'org-done nil
-    :weight 'normal
-    :foreground (plist-get base16-custom-colors :base07)
-    :background (plist-get base16-custom-colors :base0B))
-#+end_src
-Settings related to tags:
-#+begin_src elisp :noweb-ref org/tags
-  (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
-  (setq org-tags-column 0)
-  (set-face-attribute 'org-tag nil
-    :foreground (plist-get base16-custom-colors :base02))
+  (org-todo-keywords '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
+  (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
+  (org-tags-column 0)
 #+end_src
 Faster insertion of code blocks:
 #+begin_src elisp :noweb-ref org/tempo
-  (require 'org-tempo)
-  (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (use-package org-tempo
+    :straight (:type built-in)
+    :config
+    (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+    (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python")))
 #+end_src
 This makes ~<el TAB~ insert an elisp code block.
 ** Org Mode: plugins
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
 (use-package ox-gfm)
-(setq org-export-backends '(html latex ox-gfm))
 #+end_src
 ** Org Mode: beautify
 Org mode is treated in a special way:
 #+begin_src elisp :noweb yes :noweb-ref org/beautify
+  <<org/beautify/plugins>>
+  <<org/faces>>
   (defun df/org-mode-beautify ()
-    (setq visual-fill-column-width 100
-          visual-fill-column-center-text t
-          truncate-lines nil)
-    (mixed-pitch-mode t)
+    ;; use proportional font
+    (variable-pitch-mode)
+    ;; change symbol appearence
     (org-appear-mode t)
     (org-superstar-mode t)
+    ;; Resize buffer
     (visual-line-mode t)
     (adaptive-wrap-prefix-mode t)
     (visual-fill-column-mode t))
   <<org/beautify/packages>>
   (add-hook 'org-mode-hook 'df/org-mode-beautify)
 #+end_src
-I'm trying a proportional font for my notetaking:
-#+begin_src elisp :noweb-ref org/beautify/packages
-  (use-package mixed-pitch
-    :config
-    (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
-    (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-todo)
-    (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-done))
+Below etc
+*** Faces
+These are custom faces that, in my opinion, give Org a cleaner look:
+- Blocks of code in fixed pitch and background change:
+  #+begin_src elisp :noweb-ref org/faces
+    (set-face-attribute 'org-block nil
+      :foreground nil
+      :extend t
+      :inherit 'fixed-pitch)
+    (set-face-attribute 'org-block-begin-line nil
+      :extend t
+      :inherit 'fixed-pitch)
+  #+end_src
+- Tables with fixed pitch:
+  #+begin_src elisp :noweb-ref org/faces
+    (set-face-attribute 'org-table nil
+      :inherit '(shadow fixed-pitch))
+  #+end_src
+- Some styles in text
+  #+begin_src elisp :noweb-ref org/faces
+    (set-face-attribute 'org-code nil
+      :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-formula nil
+      :inherit 'fixed-pitch)
+    (set-face-attribute 'org-verbatim nil
+      :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-checkbox nil
+      :inherit 'fixed-pitch)
+  #+end_src
+- Keywords:
+  #+begin_src elisp :noweb-ref org/faces
+   (set-face-attribute 'org-special-keyword nil
+     :inherit '(font-lock-comment-face fixed-pitch))
+   (set-face-attribute 'org-todo nil
+     :inherit 'fixed-pitch
+     :weight 'normal
+     :foreground (plist-get base16-custom-colors :base07)
+     :background (plist-get base16-custom-colors :base08))
+   (set-face-attribute 'org-done nil
+     :inherit 'fixed-pitch
+     :weight 'normal
+     :foreground (plist-get base16-custom-colors :base07)
+     :background (plist-get base16-custom-colors :base0B))
+  (set-face-attribute 'org-tag nil
+    :foreground (plist-get base16-custom-colors :base02))
 #+end_src
+*** Plugins
 I don't like text spanning from the beginning to the end of the screen. The first package adjusts margins to fix this, while the second package makes wrapping smarter. Visual explanation [[https://codeberg.org/joostkremers/visual-fill-column][here]].
-#+begin_src elisp :noweb-ref org/beautify/packages
-  (use-package visual-fill-column)
+#+begin_src elisp :noweb-ref org/beautify/plugins
+  (use-package visual-fill-column
+    :custom
+    (visual-fill-column-width 100)
+    (visual-fill-column-center-text t)
+    (truncate-lines nil))
   (use-package adaptive-wrap)
 #+end_src
 Change header and list dots style:
-#+begin_src elisp :noweb-ref org/beautify/packages
+#+begin_src elisp :noweb-ref org/beautify/plugins
   (use-package org-superstar
-     :init (setq org-superstar-remove-leading-stars t)
-     :hook (org-mode . org-superstar-mode))
+     :init (setq org-superstar-remove-leading-stars t))
 #+end_src
 Hide most markup symbols:
-#+begin_src elisp :noweb-ref org/beautify/packages
+#+begin_src elisp :noweb-ref org/beautify/plugins
   (use-package org-appear
     :init (setq org-hide-emphasis-markers t))
 #+end_src
-Automatically render latex fragments when the cursor is away:
+As a reminder, package to automatically render latex fragments when the cursor is away:
 #+begin_src elisp
   (use-package org-fragtog
     :straight (:host github :repo "io12/org-fragtog"))
 #+end_src
 ** Org Mode: roam
-** Test
-This returns a string with the file content:
+Package:
 #+begin_src elisp
-  (string-trim-right
-    (with-temp-buffer
-      (insert-file-contents "test.txt")
-      (buffer-string)))
+  (use-package org-roam
+    :custom (org-roam-directory "~/Notes/wiki"))
+#+end_src
+** Test
+#+begin_src elisp
+  (dolist (msg '("a" "b"))
+    (message msg))
 #+end_src
 * Programming ⚗️
 ** eglot

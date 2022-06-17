@@ -67,6 +67,12 @@
 (set-fontset-font 
   t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(set-face-attribute 'fixed-pitch nil
+  :font (font-spec :family "Iosevka"))
+(set-face-attribute 'variable-pitch nil
+  :font (font-spec :family "Iosevka Alia"))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/ligatures][visual/ligatures]]][visual/ligatures]]
 (use-package ligature
   :straight (:host github :repo "mickeynp/ligature.el")
@@ -196,66 +202,84 @@
   (df/leader "u" 'undo-tree-visualize)
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(require 'org)
-(setq org-ellipsis "▾"
-      org-startup-folded t)
-(df/leader "o" '(:ignore t :which-key "org-mode")
-           "oo" 'counsel-outline
-           "ob" 'org-babel-tangle
-           "op" 'org-priority
-           ; "oc" 'org-toggle-checkbox
-           "ot" 'counsel-org-tag)
-(set-face-attribute 'org-block nil :extend t)
-(set-face-attribute 'org-block-begin-line nil :extend t)
-(setq org-todo-keywords
-      '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
-(set-face-attribute 'org-todo nil
-  :weight 'normal
-  :foreground (plist-get base16-custom-colors :base07)
-  :background (plist-get base16-custom-colors :base08))
-(set-face-attribute 'org-done nil
-  :weight 'normal
-  :foreground (plist-get base16-custom-colors :base07)
-  :background (plist-get base16-custom-colors :base0B))
-(setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
-(setq org-tags-column 0)
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
+(use-package ox-gfm)
+(use-package org
+  :custom
+  (org-ellipsis " ▾")
+  (org-startup-folded t)
+  (org-export-backends '(html latex ox-gfm))
+  (org-todo-keywords '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
+  (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
+  (org-tags-column 0)
+  :init
+  (df/leader "o" '(:ignore t :which-key "org-mode")
+             "oo" 'counsel-outline
+             "ob" 'org-babel-tangle
+             "op" 'org-priority
+             ; "oc" 'org-toggle-checkbox
+             "ot" 'counsel-org-tag)
+  :straight (:type built-in))
+(use-package org-tempo
+  :straight (:type built-in)
+  :config
+  (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
+(use-package visual-fill-column
+  :custom
+  (visual-fill-column-width 100)
+  (visual-fill-column-center-text t)
+  (truncate-lines nil))
+(use-package adaptive-wrap)
+(use-package org-superstar
+   :init (setq org-superstar-remove-leading-stars t))
+(use-package org-appear
+  :init (setq org-hide-emphasis-markers t))
+(set-face-attribute 'org-block nil
+  :foreground nil
+  :extend t
+  :inherit 'fixed-pitch)
+(set-face-attribute 'org-block-begin-line nil
+  :extend t
+  :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil
+  :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-code nil
+  :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-formula nil
+  :inherit 'fixed-pitch)
+(set-face-attribute 'org-verbatim nil
+  :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-checkbox nil
+  :inherit 'fixed-pitch)
+ (set-face-attribute 'org-special-keyword nil
+   :inherit '(font-lock-comment-face fixed-pitch))
+ (set-face-attribute 'org-todo nil
+   :inherit 'fixed-pitch
+   :weight 'normal
+   :foreground (plist-get base16-custom-colors :base07)
+   :background (plist-get base16-custom-colors :base08))
+ (set-face-attribute 'org-done nil
+   :inherit 'fixed-pitch
+   :weight 'normal
+   :foreground (plist-get base16-custom-colors :base07)
+   :background (plist-get base16-custom-colors :base0B))
 (set-face-attribute 'org-tag nil
   :foreground (plist-get base16-custom-colors :base02))
-(require 'org-tempo)
-(add-to-list 'org-structure-template-alist '("el" . "src elisp"))
-(add-to-list 'org-structure-template-alist '("sh" . "src bash"))
-(add-to-list 'org-structure-template-alist '("py" . "src python"))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package ox-gfm)
-(setq org-export-backends '(html latex ox-gfm))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (defun df/org-mode-beautify ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t
-        truncate-lines nil)
-  (mixed-pitch-mode t)
+  ;; use proportional font
+  (variable-pitch-mode)
+  ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
+  ;; Resize buffer
   (visual-line-mode t)
   (adaptive-wrap-prefix-mode t)
   (visual-fill-column-mode t))
-(use-package mixed-pitch
-  :config
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
-  (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-todo)
-  (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-done))
-(use-package visual-fill-column)
-(use-package adaptive-wrap)
-(use-package org-superstar
-   :init (setq org-superstar-remove-leading-stars t)
-   :hook (org-mode . org-superstar-mode))
-(use-package org-appear
-  :init (setq org-hide-emphasis-markers t))
+
 (add-hook 'org-mode-hook 'df/org-mode-beautify)
-;; ends here
+;; note-taking ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)
 (df/leader "p" '(:ignore t :which-key "LSP")
