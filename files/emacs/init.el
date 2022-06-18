@@ -280,6 +280,13 @@
 
 (add-hook 'org-mode-hook 'df/org-mode-beautify)
 ;; note-taking ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][note-taking/roam]]
+(use-package org-roam
+  :config
+  (df/leader "w" '(:ignore t :which-key "wiki")
+             "ww" 'org-roam-node-find)
+  :custom (org-roam-directory "~/Notes/wiki"))
+;; note-taking/roam ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)
 (df/leader "p" '(:ignore t :which-key "LSP")

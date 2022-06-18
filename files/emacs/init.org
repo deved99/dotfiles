@@ -22,6 +22,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/plugins>>
   <<evil/undo>>
   <<note-taking>>
+  <<note-taking/roam>>
   <<programming/eglot>>
   <<programming/company>>
   <<programming/magit>>
@@ -525,8 +526,12 @@ As a reminder, package to automatically render latex fragments when the cursor i
 #+end_src
 ** Org Mode: roam
 Package:
+#+name: note-taking/roam
 #+begin_src elisp
   (use-package org-roam
+    :config
+    (df/leader "w" '(:ignore t :which-key "wiki")
+               "ww" 'org-roam-node-find)
     :custom (org-roam-directory "~/Notes/wiki"))
 #+end_src
 ** Test
