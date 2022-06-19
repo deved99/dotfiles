@@ -121,6 +121,18 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/vertico][interface/vertico]]][interface/vertico]]
 (use-package vertico
   :config (vertico-mode))
+;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/vertico][interface/vertico]]][]]
+(use-package orderless
+  :custom (completion-styles '(orderless basic)))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/vertico][interface/vertico]]][]]
+(use-package marginalia
+  :config (marginalia-mode))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/vertico][interface/vertico]]][]]
+(use-package consult
+  :config (df/leader "i" 'consult-outline))
+;; ends here
 ;; interface/vertico ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/which-key][interface/which-key]]][interface/which-key]]
 (use-package which-key
@@ -319,7 +331,9 @@
   :config
   (df/leader "w" '(:ignore t :which-key "wiki")
              "ww" 'org-roam-node-find)
-  :custom (org-roam-directory "~/Notes/wiki"))
+  :custom
+  (org-roam-directory "~/Notes/wiki")
+  (org-roam-completion-everywhere t))
 ;; note-taking/roam ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)

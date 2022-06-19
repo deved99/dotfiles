@@ -250,11 +250,22 @@ Current framework I'm trying:
 #+begin_src elisp
   (use-package vertico
     :config (vertico-mode))
+  <<interface/vertico/packages>>
+#+end_src
+Make completion behave more like ivy:
+#+begin_src elisp :noweb-ref interface/vertico/packages
+  (use-package orderless
+    :custom (completion-styles '(orderless basic)))
 #+end_src
 Similarly to ivy rich, this adds info to completion buffers:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref interface/vertico/packages
   (use-package marginalia
     :config (marginalia-mode))
+#+end_src
+Add some useful functions related to vertico:
+#+begin_src elisp :noweb-ref interface/vertico/packages
+  (use-package consult
+    :config (df/leader "i" 'consult-outline))
 #+end_src
 ** which-key
 ~which-key~ adds a mode the shows possible keybindings:
@@ -548,7 +559,9 @@ Package:
     :config
     (df/leader "w" '(:ignore t :which-key "wiki")
                "ww" 'org-roam-node-find)
-    :custom (org-roam-directory "~/Notes/wiki"))
+    :custom
+    (org-roam-directory "~/Notes/wiki")
+    (org-roam-completion-everywhere t))
 #+end_src
 ** Test
 #+begin_src elisp
