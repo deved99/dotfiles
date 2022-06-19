@@ -1,8 +1,9 @@
 #+TITLE: Emacs Config
+#+PROPERTY: header-args :comments noweb :noweb yes
 
 * Summary 🗂️
 This Org file is used to generate my Emacs configuration thanks to [[https://orgmode.org/worg/org-contrib/babel/][OrgBabel]] and noweb's syntax. The file is generated from the following snippet, which collects the snippets and puts them in order.
-#+begin_src elisp :tangle init.el :noweb yes :comments noweb
+#+begin_src elisp :tangle init.el
   <<prepare/garbage-collection>>
   <<prepare/use-package>>
   <<prepare/general.el>>
@@ -147,7 +148,7 @@ Some modes, org for example, change this default.
 ** ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
 #+name: visual/ligatures
-#+begin_src elisp
+#+begin_src elisp :noweb no
   (use-package ligature
     :straight (:host github :repo "mickeynp/ligature.el")
     :config
@@ -175,7 +176,7 @@ A more minimal modeline:
 #+end_src
 My old modeline. This can be splitted in two parts, as follow:
 #+name: visual/modeline-old
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   <<visual/modeline/functions>>
   <<visual/modeline/main>>
 #+end_src
@@ -225,7 +226,7 @@ Color matching parenthesis in different colors:
 * Workflow 🖥️
 ** Ivy
 Change the completion framework in the minibuffer:
-#+begin_src elisp :noweb yes :noweb-ref interface/ivy
+#+begin_src elisp :noweb-ref interface/ivy
   (use-package ivy
    :diminish
    :config (ivy-mode))
@@ -255,14 +256,15 @@ Add more info in ivy buffers:
 ** general.el
 Install ~general.el~, which provides easier keybinding definition:
 #+name: prepare/general.el
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   (use-package general
     :config
     (general-create-definer df/leader
       :keymaps '(normal)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    <<prepare/general/base>>)
+    <<prepare/general/base>>
+  )
 #+end_src
 These are some keybindindings that are not related to a specific package:
 #+begin_src elisp :noweb-ref prepare/general/base
@@ -275,7 +277,7 @@ These are some keybindindings that are not related to a specific package:
 ** ~evil~ package:
 The main piece, ~evil~:
 #+name: evil/main
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   (use-package evil
     :after undo-tree
     :init
@@ -323,7 +325,7 @@ This is a collections of various integrations:
   :init (evil-collection-init))
 #+end_src
 And this is an integration for Org-mode:
-#+begin_src elisp :noweb yes :noweb-ref evil/integrations
+#+begin_src elisp :noweb-ref evil/integrations
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
   :init <<evil/integrations/options>>
@@ -365,7 +367,7 @@ Vi-like number controlling:
 ** undo
 This is the undo system I use; it also provides a nice visualization of the undo-tree.
 #+name: evil/undo
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   (use-package undo-tree
     :init
     <<evil/undo/init>>
@@ -389,7 +391,7 @@ Testing this:
 ** Org Mode: options
 Use org-mode from elpa:
 #+name: note-taking
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   <<org/plugins>>
   (use-package org
     :custom
@@ -441,7 +443,7 @@ Download Github flavored Markdown exporter and define the exports backends I use
 #+end_src
 ** Org Mode: beautify
 Org mode is treated in a special way:
-#+begin_src elisp :noweb yes :noweb-ref org/beautify
+#+begin_src elisp :noweb-ref org/beautify
   <<org/beautify/plugins>>
   <<org/faces>>
   (defun df/org-mode-beautify ()
@@ -547,7 +549,7 @@ Package:
 ** eglot
 Currently trying eglot:
 #+name: programming/eglot
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   (use-package eglot)
   <<programming/eglot/keybindings>>
 #+end_src

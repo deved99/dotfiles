@@ -32,10 +32,13 @@
     :keymaps '(normal)
     :prefix "SPC"
     :global-prefix "C-SPC")
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][]]
   (df/leader "f" '(:ignore t :which-key "files"))
   (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
   (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
-  (df/leader "ff" '(find-file :which-key "Open file")))
+  (df/leader "ff" '(find-file :which-key "Open file"))
+  ;; ends here
+)
 ;; prepare/general.el ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/startup-time][prepare/startup-time]]][prepare/startup-time]]
 (add-hook 'emacs-startup-hook
@@ -119,12 +122,16 @@
 (use-package ivy
  :diminish
  :config (ivy-mode))
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package counsel
  :diminish
  :config (counsel-mode))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package ivy-rich
  :diminish
  :config (ivy-rich-mode 1))
+;; ends here
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/which-key][interface/which-key]]][interface/which-key]]
 (use-package which-key
@@ -136,13 +143,20 @@
 (use-package evil
   :after undo-tree
   :init
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][]]
   (require 'undo-tree)
   (setq evil-undo-system 'undo-tree)
   (setq evil-undo-function 'undo-tree-undo)
   (setq evil-redo-function 'undo-tree-redo)
+  ;; ends here
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][]]
   (setq evil-want-keybinding nil
         evil-want-integration t)
+  ;; ends here
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][]]
   (setq evil-echo-state nil)
+  ;; ends here
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][]]
   (defun evil-next-line--check-visual-line-mode (orig-fun &rest args)
     (if visual-line-mode
         (apply 'evil-next-visual-line args)
@@ -157,6 +171,7 @@
   
   (advice-add 'evil-previous-line
     :around 'evil-previous-line--check-visual-line-mode)
+  ;; ends here
   :config (evil-mode 1))
 ;; evil/main ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
@@ -167,7 +182,9 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
+  :init ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
   :init (setq org-special-ctrl-a/e t)
+  :init ;; ends here
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -197,45 +214,67 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][evil/undo]]
 (use-package undo-tree
   :init
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
   (setq undo-dir "/home/davide/.config/emacs/undo"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
+  ;; ends here
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
   (df/leader "u" 'undo-tree-visualize)
+  ;; ends here
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package ox-gfm)
+;; ends here
 (use-package org
   :custom
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-ellipsis " ▾")
   (org-startup-folded t)
   (org-export-backends '(html latex ox-gfm))
+  ;; ends here
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-todo-keywords '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
+  ;; ends here
   :init
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (df/leader "o" '(:ignore t :which-key "org-mode")
              "oo" 'counsel-outline
              "ob" 'org-babel-tangle
              "op" 'org-priority
              ; "oc" 'org-toggle-checkbox
              "ot" 'counsel-org-tag)
+  ;; ends here
   :straight (:type built-in))
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-tempo
   :straight (:type built-in)
   :config
   (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
   (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
   (add-to-list 'org-structure-template-alist '("py" . "src python")))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package visual-fill-column
   :custom
   (visual-fill-column-width 100)
   (visual-fill-column-center-text t)
   (truncate-lines nil))
 (use-package adaptive-wrap)
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-superstar
    :init (setq org-superstar-remove-leading-stars t))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-appear
   :init (setq org-hide-emphasis-markers t))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-block nil
   :foreground nil
   :extend t
@@ -243,8 +282,12 @@
 (set-face-attribute 'org-block-begin-line nil
   :extend t
   :inherit 'fixed-pitch)
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-table nil
   :inherit '(shadow fixed-pitch))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-code nil
   :inherit '(shadow fixed-pitch))
 (set-face-attribute 'org-formula nil
@@ -253,6 +296,8 @@
   :inherit '(shadow fixed-pitch))
 (set-face-attribute 'org-checkbox nil
   :inherit 'fixed-pitch)
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
  (set-face-attribute 'org-special-keyword nil
    :inherit '(font-lock-comment-face fixed-pitch))
  (set-face-attribute 'org-todo nil
@@ -267,6 +312,7 @@
    :background (plist-get base16-custom-colors :base0B))
 (set-face-attribute 'org-tag nil
   :foreground (plist-get base16-custom-colors :base02))
+;; ends here
 (defun df/org-mode-beautify ()
   ;; use proportional font
   (variable-pitch-mode)
@@ -279,6 +325,7 @@
   (visual-fill-column-mode t))
 
 (add-hook 'org-mode-hook 'df/org-mode-beautify)
+;; ends here
 ;; note-taking ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][note-taking/roam]]
 (use-package org-roam
@@ -289,9 +336,11 @@
 ;; note-taking/roam ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)
+;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][]]
 (df/leader "p" '(:ignore t :which-key "LSP")
            "pr" 'eglot-rename
            "pc" 'flymake-show-buffer-diagnostics)
+;; ends here
 ;; programming/eglot ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
