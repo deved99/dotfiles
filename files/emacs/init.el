@@ -118,21 +118,10 @@
                       :inherit 'error
                       :box t))
 ;; visual/parenthesis ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package ivy
- :diminish
- :config (ivy-mode))
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package counsel
- :diminish
- :config (counsel-mode))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package ivy-rich
- :diminish
- :config (ivy-rich-mode 1))
-;; ends here
-;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/vertico][interface/vertico]]][interface/vertico]]
+(use-package vertico
+  :config (vertico-mode))
+;; interface/vertico ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::interface/which-key][interface/which-key]]][interface/which-key]]
 (use-package which-key
   :custom
@@ -242,11 +231,9 @@
   :init
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (df/leader "o" '(:ignore t :which-key "org-mode")
-             "oo" 'counsel-outline
              "ob" 'org-babel-tangle
-             "op" 'org-priority
              ; "oc" 'org-toggle-checkbox
-             "ot" 'counsel-org-tag)
+             "op" 'org-priority)
   ;; ends here
   :straight (:type built-in))
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
