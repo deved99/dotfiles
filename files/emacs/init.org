@@ -253,19 +253,23 @@ Add more info in ivy buffers:
      :config (which-key-mode))
 #+end_src
 ** general.el
-Install ~general.el~, which provides easier keybinding definition.
+Install ~general.el~, which provides easier keybinding definition:
 #+name: prepare/general.el
-#+begin_src elisp
+#+begin_src elisp :noweb yes
   (use-package general
     :config
     (general-create-definer df/leader
       :keymaps '(normal)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    (df/leader "f" '(:ignore t :which-key "files"))
-    (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
-    (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
-    (df/leader "ff" '(find-file :which-key "Open file")))
+    <<prepare/general/base>>)
+#+end_src
+These are some keybindindings that are not related to a specific package:
+#+begin_src elisp :noweb-ref prepare/general/base
+  (df/leader "f" '(:ignore t :which-key "files"))
+  (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
+  (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
+  (df/leader "ff" '(find-file :which-key "Open file"))
 #+end_src
 * Editing 🐙
 ** ~evil~ package:
