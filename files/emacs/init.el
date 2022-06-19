@@ -28,6 +28,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][prepare/general.el]]
 (use-package general
   :config
+  (general-evil-setup)
   (general-create-definer df/leader
     :keymaps '(normal)
     :prefix "SPC"
@@ -245,7 +246,11 @@
   (df/leader "o" '(:ignore t :which-key "org-mode")
              "ob" 'org-babel-tangle
              ; "oc" 'org-toggle-checkbox
-             "op" 'org-priority)
+             "op" 'org-priority
+             "od" '(:ignore t :which-key "date")
+             "odc" 'org-date-from-calendar
+             "ods" 'org-schedule
+             "odd" 'org-deadline)
   ;; ends here
   :straight (:type built-in))
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -348,15 +353,14 @@
 (use-package company
   :hook ((after-init . global-company-mode)
          (prog-mode . (lambda () (setq-local company-idle-delay 0.4))))
+  :general
+  (general-imap "C-n" 'company-select-next
+                "C-p" 'company-select-previous)
   :config
   (setq company-selection-wrap-around t
         company-minimum-prefix-length 1
         company-idle-delay nil)
   (company-tng-configure-default))
-  (df/leader "od" '(:ignore t :which-key "date")
-             "odc" 'org-date-from-calendar
-             "ods" 'org-schedule
-             "odd" 'org-deadline)
 (use-package company-box
   :hook (company-mode . company-box-mode))
 ;; programming/company ends here
