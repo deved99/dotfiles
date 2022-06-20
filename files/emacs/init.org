@@ -68,6 +68,10 @@ If a package is specified, install it:
 #+begin_src elisp :noweb-ref prepare/use-package
   (setq straight-use-package-by-default t)
 #+end_src
+Finally, write lockfile:
+#+begin_src elisp :noweb-ref prepare/use-package
+  (add-hook 'emacs-startup-hook '(lambda () (straight-freeze-versions t)))
+#+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
 #+name: prepare/startup-time

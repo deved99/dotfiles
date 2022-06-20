@@ -25,6 +25,9 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq straight-use-package-by-default t)
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(add-hook 'emacs-startup-hook '(lambda () (straight-freeze-versions t)))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][prepare/general.el]]
 (use-package general
   :config
