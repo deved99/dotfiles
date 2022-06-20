@@ -33,6 +33,11 @@ The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
+Also, write ~early-init.el~:
+#+begin_src elisp :tangle early-init.el
+  (setq package-enable-at-startup nil)
+#+end_src
+This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
 * Preparation 🛠️
 ** garbage collect
 How frequently does Emacs garbage collect:
@@ -41,10 +46,6 @@ How frequently does Emacs garbage collect:
   (setq gc-cons-threshold 100000000)
 #+end_src
 ** use-package setup
-Do not load ~package.el~:
-#+begin_src elisp :noweb-ref prepare/use-package
-  (setq package-enable-at-startup nil)
-#+end_src
 Bootstrap straight.el:
 #+begin_src elisp :noweb-ref prepare/use-package
   (defvar bootstrap-version)
