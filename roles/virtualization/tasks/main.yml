@@ -1,7 +1,7 @@
 ---
 
 - name: Install needed packages
-  ansible.builtin.package:
+  ansible.builtin.apt:
     name:
       - qemu-kvm
       - libvirt-daemon-system
