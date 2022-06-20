@@ -1,0 +1,20 @@
+---
+
+- name: Install needed packages
+  ansible.builtin.package:
+    name:
+      - qemu-kvm
+      - libvirt-daemon-system
+      - virtinst
+      - libosinfo-bin
+      - libguestfs-tools
+      # For the change permission below
+      - acl
+    state: present
+
+- name: Ensure ~ is attraversable by libvirt-qemu
+  ansible.posix.acl:
+    path: "{{ HOME }}"
+    entity: libvirt-qemu
+    etype: user
+    permissions: +x
