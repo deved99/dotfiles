@@ -276,7 +276,8 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-appear
-  :init (setq org-hide-emphasis-markers t))
+  :custom ((org-hide-emphasis-markers t)
+           (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-block nil
