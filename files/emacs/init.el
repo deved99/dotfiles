@@ -34,10 +34,11 @@
     :prefix "SPC"
     :global-prefix "C-SPC")
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][]]
-  (df/leader "f" '(:ignore t :which-key "files"))
-  (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
-  (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
-  (df/leader "ff" '(find-file :which-key "Open file"))
+  (df/leader "f" '(:ignore t :which-key "files")
+             "F" 'make-frame-command
+             "fb" '(switch-to-buffer :which-key "Switch to buffer")
+             "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
+             "ff" '(find-file :which-key "Open file"))
   ;; ends here
 )
 ;; prepare/general.el ends here
