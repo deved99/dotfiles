@@ -302,16 +302,17 @@ Install ~general.el~, which provides easier keybinding definition:
 These are some keybindindings that are not related to a specific package:
 #+begin_src elisp :noweb-ref prepare/general/base
   (df/leader "f" '(:ignore t :which-key "files")
-             "F" 'make-frame-command
              "fb" '(switch-to-buffer :which-key "Switch to buffer")
              "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
              "ff" '(find-file :which-key "Open file"))
+  (df/leader "w" 'make-frame-command)
+             ;"W" 'other-frame-prefix)
 #+end_src
 ** vterm
 Testing this terminal:
 #+begin_src elisp
   (use-package multi-vterm
-     :config (df/leader "t" 'multi-vterm))
+     :config (df/leader "s" 'multi-vterm))
 #+end_src
 Add cmake,libtool-bin to install in config.
 * Editing 🐙
@@ -455,6 +456,7 @@ Generic option:
 Keybindings I use:
 #+begin_src elisp :noweb-ref org/keybindings
   (df/leader "o" '(:ignore t :which-key "org-mode")
+             "oo" 'org-open-at-point
              "ob" 'org-babel-tangle
              ; "oc" 'org-toggle-checkbox
              "op" 'org-priority

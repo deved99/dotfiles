@@ -245,6 +245,7 @@
   :init
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (df/leader "o" '(:ignore t :which-key "org-mode")
+             "oo" 'org-open-at-point
              "ob" 'org-babel-tangle
              ; "oc" 'org-toggle-checkbox
              "op" 'org-priority
