@@ -133,7 +133,7 @@ Make directory and ~cd~ into it:
 #+end_src
 Print my ip:
 #+begin_src bash :noweb-ref aliases/misc
-  alias myip="printf \"\$(curl -s ifconfig.me)\n\""
+  alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
 #+end_src
 ** Prompt
 I've divided my prompt definition in two parts:

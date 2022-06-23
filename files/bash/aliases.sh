@@ -31,6 +31,6 @@ function mkcd() {
 }
 # ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]
-alias myip="printf \"\$(curl -s ifconfig.me)\n\""
+alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
 # ends here
 # Aliases:1 ends here
