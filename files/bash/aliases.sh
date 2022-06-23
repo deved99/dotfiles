@@ -7,7 +7,9 @@ alias la='ls -A'
 alias ew='emacsclient -c'
 alias ef='emacsclient -c --no-wait'
 alias ssh='TERM=xterm-256color ssh'
+alias shclip='xclip -o -selection clipboard | bash'
 alias jclip='xclip -o | jq'
+alias wclip='whois $(xclip -o)'
 alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 function mkcd() {
   mkdir $1
