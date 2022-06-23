@@ -3,7 +3,7 @@ Description=Emacs text editor
 Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
-ExecStart=/usr/bin/emacs --fg-daemon
+ExecStart=/bin/sh -c "emacs --fg-daemon"
 Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 
 [Install]

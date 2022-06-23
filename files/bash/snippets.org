@@ -84,9 +84,11 @@ Export a different ~$TERM~:
 #+begin_src bash :noweb-ref aliases/misc
   alias ssh='TERM=xterm-256color ssh'
 #+end_src
-Parse json in selection clipboard:
+Actions from clipboard:
 #+begin_src bash :noweb-ref aliases/misc
+  alias shclip='xclip -o -selection clipboard | bash'
   alias jclip='xclip -o | jq'
+  alias wclip='whois $(xclip -o)'
 #+end_src
 Set default values for the formatter:
 #+begin_src bash :noweb-ref aliases/misc

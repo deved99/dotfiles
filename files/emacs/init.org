@@ -1,8 +1,9 @@
 #+TITLE: Emacs Config
+#+PROPERTY: header-args :comments noweb :noweb yes
 
 * Summary 🗂️
 This Org file is used to generate my Emacs configuration thanks to [[https://orgmode.org/worg/org-contrib/babel/][OrgBabel]] and noweb's syntax. The file is generated from the following snippet, which collects the snippets and puts them in order.
-#+begin_src elisp :tangle init.el :noweb yes :comments noweb
+#+begin_src elisp :tangle init.el
   <<prepare/garbage-collection>>
   <<prepare/use-package>>
   <<prepare/general.el>>
@@ -15,21 +16,28 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<visual/modeline>>
   <<visual/wrap>>
   <<visual/parenthesis>>
-  <<interface/ivy>>
+  <<interface/vertico>>
   <<interface/which-key>>
   <<evil/main>>
   <<evil/integrations>>
   <<evil/plugins>>
   <<evil/undo>>
-  <<org/main>>
-  <<org/plugins>>
-  <<org/beautify>>
+  <<note-taking>>
+  <<note-taking/roam>>
+  <<programming/eglot>>
+  <<programming/company>>
+  <<programming/magit>>
   <<misc>>
 #+end_src
 The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
+Also, write ~early-init.el~:
+#+begin_src elisp :tangle early-init.el
+  (setq package-enable-at-startup nil)
+#+end_src
+This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
 * Preparation 🛠️
 ** garbage collect
 How frequently does Emacs garbage collect:
@@ -38,10 +46,6 @@ How frequently does Emacs garbage collect:
   (setq gc-cons-threshold 100000000)
 #+end_src
 ** use-package setup
-Do not load ~package.el~:
-#+begin_src elisp :noweb-ref prepare/use-package
-  (setq package-enable-at-startup nil)
-#+end_src
 Bootstrap straight.el:
 #+begin_src elisp :noweb-ref prepare/use-package
   (defvar bootstrap-version)
@@ -64,6 +68,10 @@ Install and load ~use-package~:
 If a package is specified, install it:
 #+begin_src elisp :noweb-ref prepare/use-package
   (setq straight-use-package-by-default t)
+#+end_src
+Finally, write lockfile:
+#+begin_src elisp :noweb-ref prepare/use-package
+  (add-hook 'emacs-startup-hook '(lambda () (straight-freeze-versions t)))
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
@@ -108,6 +116,13 @@ Also, add ~Noto Color Emoji~ as fallback font for symbols:
   (set-fontset-font 
     t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
 #+end_src
+Set variable and fixed pitch font:
+#+begin_src elisp :noweb-ref visual/fonts
+  (set-face-attribute 'fixed-pitch nil
+    :font (font-spec :family "Iosevka"))
+  (set-face-attribute 'variable-pitch nil
+    :font (font-spec :family "Iosevka Alia"))
+#+end_src
 ** theme
 This sets the theme: it loads a file, which has been templated
 by Ansible. This way every program uses the same colorscheme.
@@ -138,7 +153,7 @@ Some modes, org for example, change this default.
 ** ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
 #+name: visual/ligatures
-#+begin_src elisp
+#+begin_src elisp :noweb no
   (use-package ligature
     :straight (:host github :repo "mickeynp/ligature.el")
     :config
@@ -166,7 +181,7 @@ A more minimal modeline:
 #+end_src
 My old modeline. This can be splitted in two parts, as follow:
 #+name: visual/modeline-old
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   <<visual/modeline/functions>>
   <<visual/modeline/main>>
 #+end_src
@@ -213,10 +228,10 @@ Color matching parenthesis in different colors:
                         :inherit 'error
                         :box t))
 #+end_src
-* Interface 🖥️
+* Workflow 🖥️
 ** Ivy
 Change the completion framework in the minibuffer:
-#+begin_src elisp :noweb yes :noweb-ref interface/ivy
+#+begin_src elisp :noweb-ref interface/ivy
   (use-package ivy
    :diminish
    :config (ivy-mode))
@@ -234,6 +249,33 @@ Add more info in ivy buffers:
    :diminish
    :config (ivy-rich-mode 1))
 #+end_src
+** Vertico
+Current framework I'm trying:
+#+name: interface/vertico
+#+begin_src elisp
+  (use-package vertico
+    :config (vertico-mode))
+  <<interface/vertico/packages>>
+#+end_src
+Make completion behave more like ivy:
+#+begin_src elisp :noweb-ref interface/vertico/packages
+  (use-package orderless
+    :custom (completion-styles '(orderless basic)))
+#+end_src
+Similarly to ivy rich, this adds info to completion buffers:
+#+begin_src elisp :noweb-ref interface/vertico/packages
+  (use-package marginalia
+    :config (marginalia-mode))
+#+end_src
+Add some useful functions related to vertico:
+#+begin_src elisp :noweb-ref interface/vertico/packages
+  (use-package consult
+    :config (df/leader "i" 'consult-outline))
+#+end_src
+** Helpful
+#+begin_src elisp
+  (use-package helpful)
+#+end_src
 ** which-key
 ~which-key~ adds a mode the shows possible keybindings:
 #+name: interface/which-key
@@ -244,25 +286,40 @@ Add more info in ivy buffers:
      :config (which-key-mode))
 #+end_src
 ** general.el
-Install ~general.el~, which provides easier keybinding definition.
+Install ~general.el~, which provides easier keybinding definition:
 #+name: prepare/general.el
 #+begin_src elisp
   (use-package general
     :config
+    (general-evil-setup)
     (general-create-definer df/leader
       :keymaps '(normal)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    (df/leader "f" '(:ignore t :which-key "files"))
-    (df/leader "fb" '(switch-to-buffer :which-key "Switch to buffer"))
-    (df/leader "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers"))
-    (df/leader "ff" '(find-file :which-key "Open file")))
+    <<prepare/general/base>>
+  )
 #+end_src
+These are some keybindindings that are not related to a specific package:
+#+begin_src elisp :noweb-ref prepare/general/base
+  (df/leader "f" '(:ignore t :which-key "files")
+             "fb" '(switch-to-buffer :which-key "Switch to buffer")
+             "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
+             "ff" '(find-file :which-key "Open file"))
+  (df/leader "w" 'make-frame-command)
+             ;"W" 'other-frame-prefix)
+#+end_src
+** vterm
+Testing this terminal:
+#+begin_src elisp
+  (use-package multi-vterm
+     :config (df/leader "s" 'multi-vterm))
+#+end_src
+Add cmake,libtool-bin to install in config.
 * Editing 🐙
 ** ~evil~ package:
 The main piece, ~evil~:
 #+name: evil/main
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   (use-package evil
     :after undo-tree
     :init
@@ -310,7 +367,7 @@ This is a collections of various integrations:
   :init (evil-collection-init))
 #+end_src
 And this is an integration for Org-mode:
-#+begin_src elisp :noweb yes :noweb-ref evil/integrations
+#+begin_src elisp :noweb-ref evil/integrations
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
   :init <<evil/integrations/options>>
@@ -352,7 +409,7 @@ Vi-like number controlling:
 ** undo
 This is the undo system I use; it also provides a nice visualization of the undo-tree.
 #+name: evil/undo
-#+begin_src elisp :noweb yes
+#+begin_src elisp
   (use-package undo-tree
     :init
     <<evil/undo/init>>
@@ -363,6 +420,10 @@ Set where should it save files:
   (setq undo-dir "/home/davide/.config/emacs/undo"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
+Set keybinding for the visualizer:
+#+begin_src elisp :noweb-ref evil/undo/init
+  (df/leader "u" 'undo-tree-visualize)
+#+end_src
 ** Regular Expressions
 Testing this:
 #+begin_src elisp
@@ -371,178 +432,211 @@ Testing this:
 * Note taking 📝
 ** Org Mode: options
 Use org-mode from elpa:
-#+begin_src elisp :noweb-ref org/main :noweb yes
-  (require 'org)
-  <<org/options>>
-  <<org/keybindings>>
-  <<org/better-code-blocks>>
-  <<org/keywords>>
-  <<org/tags>>
+#+name: note-taking
+#+begin_src elisp
+  <<org/plugins>>
+  (use-package org
+    :custom
+    <<org/options>>
+    <<org/keywords>>
+    :init
+    <<org/keybindings>>
+    :straight (:type built-in))
   <<org/tempo>>
+  <<org/beautify>>
 #+end_src
 Generic option:
 - ~org-ellipsis~: substitute character used by OrgMode to indicate that an headline is not empty.
 - ~org-startup-folded~: tell OrgMode to collapse heading on startup.
 #+begin_src elisp :noweb-ref org/options
-  (setq org-ellipsis "▾"
-        org-startup-folded t)
+  (org-ellipsis " ▾")
+  (org-startup-folded t)
+  (org-export-backends '(html latex ox-gfm))
 #+end_src
-Code block background should fill the whole line:
-#+begin_src elisp :noweb-ref org/better-code-blocks
-  (set-face-attribute 'org-block nil :extend t)
-  (set-face-attribute 'org-block-begin-line nil :extend t)
-#+end_src
-Add keywords and change their face:
-#+begin_src elisp :noweb-ref org/keywords
-  (setq org-todo-keywords
-        '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
-  (set-face-attribute 'org-todo nil
-    :weight 'normal
-    :foreground (plist-get base16-custom-colors :base07)
-    :background (plist-get base16-custom-colors :base08))
-  (set-face-attribute 'org-done nil
-    :weight 'normal
-    :foreground (plist-get base16-custom-colors :base07)
-    :background (plist-get base16-custom-colors :base0B))
-#+end_src
-Settings related to tags:
-#+begin_src elisp :noweb-ref org/tags
-  (setq org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
-  (setq org-tags-column 0)
-  (set-face-attribute 'org-tag nil
-    :foreground (plist-get base16-custom-colors :base02))
-#+end_src
-Keybindings I've set:
-#+begin_src elisp :noweb-ref org/set-tags
+Keybindings I use:
+#+begin_src elisp :noweb-ref org/keybindings
   (df/leader "o" '(:ignore t :which-key "org-mode")
-             "oo" '(counsel-outline :which-key "Get outline")
-             "ot" '(counsel-org-tag :which-key "Set org tags"))
+             "oo" 'org-open-at-point
+             "ob" 'org-babel-tangle
+             ; "oc" 'org-toggle-checkbox
+             "op" 'org-priority
+             "od" '(:ignore t :which-key "date")
+             "odc" 'org-date-from-calendar
+             "ods" 'org-schedule
+             "odd" 'org-deadline)
+#+end_src
+Add keywords and tags:
+#+begin_src elisp :noweb-ref org/keywords
+  (org-todo-keywords '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
+  (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
+  (org-tags-column 0)
 #+end_src
 Faster insertion of code blocks:
 #+begin_src elisp :noweb-ref org/tempo
-  (require 'org-tempo)
-  (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (use-package org-tempo
+    :straight (:type built-in)
+    :config
+    (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+    (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python")))
 #+end_src
 This makes ~<el TAB~ insert an elisp code block.
 ** Org Mode: plugins
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
 (use-package ox-gfm)
-(setq org-export-backends '(html latex ox-gfm))
 #+end_src
 ** Org Mode: beautify
 Org mode is treated in a special way:
-#+begin_src elisp :noweb yes :noweb-ref org/beautify
+#+begin_src elisp :noweb-ref org/beautify
+  <<org/beautify/plugins>>
+  <<org/faces>>
   (defun df/org-mode-beautify ()
-    (setq visual-fill-column-width 100
-          visual-fill-column-center-text t
-          truncate-lines nil)
-    (mixed-pitch-mode t)
+    ;; use proportional font
+    (variable-pitch-mode)
+    ;; change symbol appearence
     (org-appear-mode t)
     (org-superstar-mode t)
+    ;; Resize buffer
     (visual-line-mode t)
     (adaptive-wrap-prefix-mode t)
     (visual-fill-column-mode t))
   <<org/beautify/packages>>
   (add-hook 'org-mode-hook 'df/org-mode-beautify)
 #+end_src
-I'm trying a proportional font for my notetaking:
-#+begin_src elisp :noweb-ref org/beautify/packages
-  (use-package mixed-pitch
-    :config
-    (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
-    (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-todo)
-    (add-to-list 'mixed-pitch-fixed-pitch-faces 'org-done))
+Below etc
+*** Faces
+These are custom faces that, in my opinion, give Org a cleaner look:
+- Blocks of code in fixed pitch and background change:
+  #+begin_src elisp :noweb-ref org/faces
+    (set-face-attribute 'org-block nil
+      :foreground nil
+      :extend t
+      :inherit 'fixed-pitch)
+    (set-face-attribute 'org-block-begin-line nil
+      :extend t
+      :inherit 'fixed-pitch)
+  #+end_src
+- Tables with fixed pitch:
+  #+begin_src elisp :noweb-ref org/faces
+    (set-face-attribute 'org-table nil
+      :inherit '(shadow fixed-pitch))
+  #+end_src
+- Some styles in text
+  #+begin_src elisp :noweb-ref org/faces
+    (set-face-attribute 'org-code nil
+      :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-formula nil
+      :inherit 'fixed-pitch)
+    (set-face-attribute 'org-verbatim nil
+      :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-checkbox nil
+      :inherit 'fixed-pitch)
+  #+end_src
+- Keywords:
+  #+begin_src elisp :noweb-ref org/faces
+   (set-face-attribute 'org-special-keyword nil
+     :inherit '(font-lock-comment-face fixed-pitch))
+   (set-face-attribute 'org-todo nil
+     :inherit 'fixed-pitch
+     :weight 'normal
+     :foreground (plist-get base16-custom-colors :base07)
+     :background (plist-get base16-custom-colors :base08))
+   (set-face-attribute 'org-done nil
+     :inherit 'fixed-pitch
+     :weight 'normal
+     :foreground (plist-get base16-custom-colors :base07)
+     :background (plist-get base16-custom-colors :base0B))
+  (set-face-attribute 'org-tag nil
+    :foreground (plist-get base16-custom-colors :base02))
 #+end_src
+*** Plugins
 I don't like text spanning from the beginning to the end of the screen. The first package adjusts margins to fix this, while the second package makes wrapping smarter. Visual explanation [[https://codeberg.org/joostkremers/visual-fill-column][here]].
-#+begin_src elisp :noweb-ref org/beautify/packages
-  (use-package visual-fill-column)
+#+begin_src elisp :noweb-ref org/beautify/plugins
+  (use-package visual-fill-column
+    :custom
+    (visual-fill-column-width 100)
+    (visual-fill-column-center-text t)
+    (truncate-lines nil))
   (use-package adaptive-wrap)
 #+end_src
 Change header and list dots style:
-#+begin_src elisp :noweb-ref org/beautify/packages
+#+begin_src elisp :noweb-ref org/beautify/plugins
   (use-package org-superstar
-     :init (setq org-superstar-remove-leading-stars t)
-     :hook (org-mode . org-superstar-mode))
+     :init (setq org-superstar-remove-leading-stars t))
 #+end_src
 Hide most markup symbols:
-#+begin_src elisp :noweb-ref org/beautify/packages
+#+begin_src elisp :noweb-ref org/beautify/plugins
   (use-package org-appear
-    :init (setq org-hide-emphasis-markers t))
+    :custom ((org-hide-emphasis-markers t)
+             (org-appear-autolinks t)))
 #+end_src
-Automatically render latex fragments when the cursor is away:
+As a reminder, package to automatically render latex fragments when the cursor is away:
 #+begin_src elisp
   (use-package org-fragtog
     :straight (:host github :repo "io12/org-fragtog"))
 #+end_src
-** Test
-This returns a string with the file content:
+** Org Mode: roam
+Package:
+#+name: note-taking/roam
 #+begin_src elisp
-  (string-trim-right
-    (with-temp-buffer
-      (insert-file-contents "test.txt")
-      (buffer-string)))
-#+end_src
-* Developing 🧙
-** lsp-mode
-This enables [[https://github.com/Microsoft/language-server-protocol][LSP]], which provides completions, diagnostics et cetera:
-#+begin_src elisp
-  (use-package lsp-mode
-#+end_src
-Hook it to any programming filetype:
-#+begin_src elisp :padline no
-    :hook prog-mode
-#+end_src
-Disable icons in completions:
-#+begin_src elisp :padline no
-    :init (setq lsp-headerline-breadcrumb-enable nil)
-#+end_src
-Disable diagnostics; I'd prefer to be able to toggle it or to disable it while in insert mode:
-#+begin_src elisp :padline no
-    (setq lsp-diagnostics-mode ":none"))
-#+end_src
-** lsp-ui
-This manages the look of LSP:
-#+begin_src elisp
-  (use-package lsp-ui
+  (use-package org-roam
     :config
+    (org-roam-db-autosync-mode)
+    (df/leader "w" '(:ignore t :which-key "wiki")
+               "ww" 'org-roam-node-find)
+    :custom
+    (org-roam-directory "~/Notes/wiki")
+    (org-roam-completion-everywhere t))
+  <<note-taking/roam/plugins>>
 #+end_src
-Disable some stuff; I have to find an alternative solution in the future:
-#+begin_src elisp :padline no
-    (setq lsp-ui-doc-enable nil
-	  lsp-ui-sideline-show-code-actions nil)
+UI:
+#+begin_src elisp :noweb-ref note-taking/roam/plugins
+  (use-package org-roam-ui)
 #+end_src
-Enable showing info on the right of the screen:
-#+begin_src elisp :padline no
-    (setq lsp-ui-sideline-show-hover t
-	  lsp-ui-sideline-delay 1))
+** Test
+#+begin_src elisp
+  (dolist (msg '("a" "b"))
+    (message msg))
 #+end_src
-** completion engine
+* Programming ⚗️
+** eglot
+Currently trying eglot:
+#+name: programming/eglot
+#+begin_src elisp
+  (use-package eglot)
+  <<programming/eglot/keybindings>>
+#+end_src
+Keybinding I'm using:
+#+begin_src elisp :noweb-ref programming/eglot/keybindings
+  (df/leader "p" '(:ignore t :which-key "LSP")
+             "pr" 'eglot-rename
+             "pc" 'flymake-show-buffer-diagnostics)
+#+end_src
+** completion framework
 This is the completion engine, hooked up to lsp-mode:
+#+name: programming/company
 #+begin_src elisp
   (use-package company
-    :hook (lsp-mode . company-mode)
-#+end_src
-Loop after the last entry:
-#+begin_src elisp :padline no
-  :config
-  (setq company-selection-wrap-around t)
-#+end_src
-Then enable it:
-#+begin_src elisp :padline no
-  (company-tng-configure-default))
+    :hook ((after-init . global-company-mode)
+           (prog-mode . (lambda () (setq-local company-idle-delay 0.4))))
+    :general
+    (general-imap "C-n" 'company-select-next
+                  "C-p" 'company-select-previous)
+    :config
+    (setq company-selection-wrap-around t
+          company-minimum-prefix-length 1
+          company-idle-delay nil)
+    (company-tng-configure-default))
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
 #+end_src
 ** magit
 This is a git client I want to test:
+#+name: programming/magit
 #+begin_src elisp
-  (use-package magit)
-#+end_src
-** lsp servers
-Pyright, an LSP server for Python:
-#+begin_src elisp
-  (use-package lsp-pyright)
+    (use-package magit
+      :config (df/leader "g" 'magit))
 #+end_src
 * Miscellaneous 🗃️
 ** todo file

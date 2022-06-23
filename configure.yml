@@ -14,3 +14,6 @@
     - menu # Well, I guess you can tell
     - brave # Browser
     - mpd # Music
+    # Optional roles
+    - role: virtualization
+      tags: virtualization
