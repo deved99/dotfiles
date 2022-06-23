@@ -5,7 +5,7 @@
 This illustrate the structure of my bashrc:
 #+begin_src bash :tangle bashrc
   #!/bin/bash
-  <bashrc/exit-non-interactive>
+  <<bashrc/exit-non-interactive>>
   SNIPPET_DIR="$HOME/.config/bash"
   <<bashrc/snippets>>
 #+end_src
