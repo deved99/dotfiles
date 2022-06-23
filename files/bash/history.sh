@@ -1,6 +1,12 @@
+# [[file:snippets.org::*History][History:1]]
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*History][History]]][]]
 HISTCONTROL=ignorespace:erasedups
+# ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*History][History]]][]]
 HISTSIZE=
 HISTFILESIZE=
+# ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*History][History]]][]]
 function clean-bash-history() {
   echo "Old # of lines: $(wc -l ~/.bash_history | cut -f1)"
   echo "Old size of history: $(du -hs .bash_history  | cut -f1)"
@@ -9,3 +15,5 @@ function clean-bash-history() {
   echo "New # of lines: $(wc -l ~/.bash_history | cut -f1)"
   echo "New size of history: $(du -hs .bash_history  | cut -f1)"
 }
+# ends here
+# History:1 ends here
