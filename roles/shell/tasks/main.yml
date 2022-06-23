@@ -18,16 +18,22 @@
       - vim
       # Info about domain/ip
       - whois 
-      # Faster man
+      # Shorter man
       - tldr
   become: yes
 
-- name: Copy .bashrc
-  ansible.builtin.copy:
-    src: bashrc
-    dest: "{{ HOME }}/.bashrc"
+- name: Link .bashrc and .profile
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: "{{ REPO_FILES }}/bash/bashrc"
+      dest: "{{ HOME }}/.bashrc"
+    - src: "{{ REPO_FILES }}/bash/profile"
+      dest: "{{ HOME }}/.profile"
 
-- name: linking bash configuration
+- name: Link snippets to config dir
   ansible.builtin.file:
     src: "{{ src }}"
     dest: "{{ dest }}"
@@ -35,4 +41,4 @@
   vars:
     src: "{{ item }}"
     dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
-  with_fileglob: "{{ REPO_FILES }}/bash/*"
+  with_fileglob: "{{ REPO_FILES }}/bash/*.sh"
