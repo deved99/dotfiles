@@ -1,3 +1,14 @@
 # [[file:snippets.org::*.bashrc][.bashrc:1]]
 #!/bin/bash
+<bashrc/exit-non-interactive>
+SNIPPET_DIR="$HOME/.config/bash"
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*.bashrc][.bashrc]]][]]
+source "$SNIPPET_DIR/history.sh"
+source "$SNIPPET_DIR/aliases.sh"
+source "$SNIPPET_DIR/prompt.sh"
+source "$SNIPPET_DIR/vars.sh"
+# ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*.bashrc][.bashrc]]][]]
+source "/usr/share/autojump/autojump.sh"
+# ends here
 # .bashrc:1 ends here

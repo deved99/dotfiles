@@ -5,23 +5,26 @@
 Set the shebang:
 #+begin_src bash :tangle bashrc
   #!/bin/bash
+  <bashrc/exit-non-interactive>
+  SNIPPET_DIR="$HOME/.config/bash"
+  <<bashrc/snippets>>
 #+end_src
 Then tell bash to ignore the following if not running interactively:
-#+begin_src bash
+#+begin_src bash :noweb-ref bashrc/exit-non-interactive
   case $- in
     *i*) ;;
       *) return;;
   esac
 #+end_src
 Source snippets, which are defined below. This makes the configuration more modular.
-#+begin_src bash
-  source "$HOME/.config/bash/history.sh"
-  source "$HOME/.config/bash/aliases.sh"
-  source "$HOME/.config/bash/prompt.sh"
-  source "$HOME/.config/bash/vars.sh"
+#+begin_src bash :noweb-ref bashrc/snippets
+  source "$SNIPPET_DIR/history.sh"
+  source "$SNIPPET_DIR/aliases.sh"
+  source "$SNIPPET_DIR/prompt.sh"
+  source "$SNIPPET_DIR/vars.sh"
 #+end_src
 Also, source this file, which sets variables and aliases for autojump:
-#+begin_src bash
+#+begin_src bash :noweb-ref bashrc/snippets
   source "/usr/share/autojump/autojump.sh"
 #+end_src
 * snippets
