@@ -1,0 +1,9 @@
+# [[file:snippets.org::*.profile][.profile:1]]
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*.profile][.profile]]][]]
+case "$DESKTOP_SESSION" in
+  awesome) 
+    export $(gnome-keyring-daemon --start)
+    ;;
+esac
+# ends here
+# .profile:1 ends here
