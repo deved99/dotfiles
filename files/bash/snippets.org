@@ -34,15 +34,15 @@ This file is mainly used to set variables. This is its structure:
   <<profile/ssh-agent>>
 #+end_src
 Set the editor used by multiple commands:
-#+begin_src bash
+#+begin_src bash :noweb-ref profile/variables
   export EDITOR=/usr/bin/nvim
 #+end_src
 Add ~~/.local/bin~ to ~$PATH~:
-#+begin_src bash
+#+begin_src bash :noweb-ref profile/variables
   export PATH="$HOME/.local/bin:$PATH"
 #+end_src
 Set the directory where pass searches password files:
-#+begin_src bash
+#+begin_src bash :noweb-ref profile/variables
   export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 #+end_src
 This starts a ssh-agent and sets proper variables:
