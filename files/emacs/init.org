@@ -451,7 +451,6 @@ Generic option:
 #+begin_src elisp :noweb-ref org/options
   (org-ellipsis " ▾")
   (org-startup-folded t)
-  (org-export-backends '(html latex ox-gfm))
 #+end_src
 Keybindings I use:
 #+begin_src elisp :noweb-ref org/keybindings
@@ -484,7 +483,9 @@ This makes ~<el TAB~ insert an elisp code block.
 ** Org Mode: plugins
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
-(use-package ox-gfm)
+  (use-package ox-gfm
+    :config 
+    (setq org-export-backends '(html latex ox-gfm)))
 #+end_src
 ** Org Mode: beautify
 Org mode is treated in a special way:

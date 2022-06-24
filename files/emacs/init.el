@@ -35,10 +35,11 @@
     :global-prefix "C-SPC")
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][]]
   (df/leader "f" '(:ignore t :which-key "files")
-             "F" 'make-frame-command
              "fb" '(switch-to-buffer :which-key "Switch to buffer")
              "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
              "ff" '(find-file :which-key "Open file"))
+  (df/leader "w" 'make-frame-command)
+             ;"W" 'other-frame-prefix)
   ;; ends here
 )
 ;; prepare/general.el ends here
@@ -228,14 +229,15 @@
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-(use-package ox-gfm)
+(use-package ox-gfm
+  :custom 
+  (org-export-backends '(html latex ox-gfm)))
 ;; ends here
 (use-package org
   :custom
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-ellipsis " ▾")
   (org-startup-folded t)
-  (org-export-backends '(html latex ox-gfm))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-todo-keywords '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
@@ -343,6 +345,9 @@
   :custom
   (org-roam-directory "~/Notes/wiki")
   (org-roam-completion-everywhere t))
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][]]
+(use-package org-roam-ui)
+;; ends here
 ;; note-taking/roam ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
 (use-package eglot)
