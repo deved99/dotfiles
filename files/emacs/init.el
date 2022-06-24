@@ -230,8 +230,8 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package ox-gfm
-  :custom 
-  (org-export-backends '(html latex ox-gfm)))
+  :config 
+  (setq org-export-backends '(html latex ox-gfm)))
 ;; ends here
 (use-package org
   :custom
@@ -249,10 +249,11 @@
   (df/leader "o" '(:ignore t :which-key "org-mode")
              "oo" 'org-open-at-point
              "ob" 'org-babel-tangle
+             "oe" 'org-export-dispatch
              ; "oc" 'org-toggle-checkbox
              "op" 'org-priority
              "od" '(:ignore t :which-key "date")
-             "odc" 'org-date-from-calendar
+             "odc" 'org-time-stamp
              "ods" 'org-schedule
              "odd" 'org-deadline)
   ;; ends here
