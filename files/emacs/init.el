@@ -38,8 +38,7 @@
              "fb" '(switch-to-buffer :which-key "Switch to buffer")
              "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
              "ff" '(find-file :which-key "Open file"))
-  (df/leader "w" 'make-frame-command)
-             ;"W" 'other-frame-prefix)
+  (df/leader "F" 'make-frame-command)
   ;; ends here
 )
 ;; prepare/general.el ends here
@@ -282,6 +281,9 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-appear
   :custom ((org-hide-emphasis-markers t)
+           (org-pretty-entities t)
+           (org-appear-autoentities t)
+           (org-appear-inside-latex t)
            (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
