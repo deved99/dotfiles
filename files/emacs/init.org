@@ -570,9 +570,6 @@ Hide most markup symbols:
 #+begin_src elisp :noweb-ref org/beautify/plugins
   (use-package org-appear
     :custom ((org-hide-emphasis-markers t)
-             (org-pretty-entities t)
-             (org-appear-autoentities t)
-             (org-appear-inside-latex t)
              (org-appear-autolinks t)))
 #+end_src
 As a reminder, package to automatically render latex fragments when the cursor is away:

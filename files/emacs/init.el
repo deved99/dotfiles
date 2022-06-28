@@ -281,9 +281,6 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-appear
   :custom ((org-hide-emphasis-markers t)
-           (org-pretty-entities t)
-           (org-appear-autoentities t)
-           (org-appear-inside-latex t)
            (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
