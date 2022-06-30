@@ -6,14 +6,22 @@
   #     ansible.builtin.debug:
   #       msg: "{{ BASE16 }}"
   roles:
+    # Basics
     - prepare
-    - awesome # WM
     - shell
-    - kitty # Terminal
-    - emacs # Editor
-    - menu # Well, I guess you can tell
-    - brave # Browser
-    - mpd # Music
+    # Graphical
+    - role: awesome
+      tags: graphical
+    - role: kitty # Terminal
+      tags: graphical
+    - role: emacs # Editor
+      tags: graphical
+    - role: menu # Well, I guess you can tell
+      tags: graphical
+    - role: brave # Browser
+      tags: graphical
     # Optional roles
-    - role: virtualization
-      tags: virtualization
+    - role: mpd # Music
+      tags: music
+    - role: virsh
+      tags: virsh
