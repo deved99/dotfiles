@@ -574,9 +574,9 @@ This defines the tags and connect them to each screen:
         properties = { tag = "2" } },
       -- Tag 3
       { rule = { class = "Thunderbird" },
-        properties = { tag = "3" } },
+        properties = { tag = "7" } },
       { rule = { class = "Pavucontrol" },
-        properties = { tag = "4" } },
+        properties = { tag = "8" } },
   }
 #+end_src
 ** Signals

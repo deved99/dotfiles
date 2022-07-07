@@ -424,9 +424,9 @@ awful.rules.rules = {
       properties = { tag = "2" } },
     -- Tag 3
     { rule = { class = "Thunderbird" },
-      properties = { tag = "3" } },
+      properties = { tag = "7" } },
     { rule = { class = "Pavucontrol" },
-      properties = { tag = "4" } },
+      properties = { tag = "8" } },
 }
 -- workflow/rules ends here
 -- [[[[file:~/.dotfiles/files/awesome/rc.org::workflow/signals][workflow/signals]]][workflow/signals]]
