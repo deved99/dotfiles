@@ -1,4 +1,7 @@
 PROFILE: personal
+TAGS:
+  - graphical
+  - music
 
 BROWSER: brave-browser
 BROWSER_FALLBACK: firefox

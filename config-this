@@ -15,11 +15,6 @@ def getArgumentParser() -> argparse.ArgumentParser:
         help = "install and generate a default config",
         metavar = "PROFILE"
     )
-    parser.add_argument(
-        '--tags', dest = 'tags', action = 'store',
-        help = "Set tags to run/install",
-        default = 'graphical,music'
-    )
     # Toggle or set colorscheme
     parser.add_argument(
         '-t', '--toggle', dest = 'colorscheme', action = 'store_const',
@@ -52,7 +47,7 @@ def config_write(data: dict):
     with open(get_config_path(), "w") as f:
         return yaml.dump(data, f)
 
-## Subroutins
+## Subroutines
 # install this script in ~/.local/bin
 # if --install
 def install(profile):
