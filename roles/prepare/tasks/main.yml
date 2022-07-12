@@ -6,8 +6,7 @@
       - btrfs-progs # Filesystem I use for storage
       - borgbackup # backups
       # Fonts
-      - fonts-roboto
-      - fonts-jetbrains-mono
+      - fonts-firacode
       - pass
       - pavucontrol
       - printer-driver-gutenprint
