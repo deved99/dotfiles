@@ -66,7 +66,7 @@
 ;; visual/keeparound ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka 17"))
+             '(font . "Fira Code 17"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (set-fontset-font 
@@ -74,9 +74,7 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (set-face-attribute 'fixed-pitch nil
-  :font (font-spec :family "Iosevka"))
-(set-face-attribute 'variable-pitch nil
-  :font (font-spec :family "Iosevka Alia"))
+  :font (font-spec :family "Fira Code"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/ligatures][visual/ligatures]]][visual/ligatures]]
 (use-package ligature
@@ -286,8 +284,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-block nil
   :foreground nil
-  :extend t
-  :inherit 'fixed-pitch)
+  :extend t)
 (set-face-attribute 'org-block-begin-line nil
   :extend t
   :inherit 'fixed-pitch)
@@ -323,8 +320,6 @@
   :foreground (plist-get base16-custom-colors :base02))
 ;; ends here
 (defun df/org-mode-beautify ()
-  ;; use proportional font
-  (variable-pitch-mode)
   ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
@@ -400,6 +395,7 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package php-mode)
+(use-package nix-mode)
 (use-package rust-mode)
 (use-package lua-mode)
 (use-package json-mode)

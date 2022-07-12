@@ -40,6 +40,7 @@
  ("marginalia" . "03fa4655ecd99310a51632e285bf961476b789bc")
  ("markdown-mode" . "4477f381de0068a04b55e198c32614793f67b38a")
  ("melpa" . "221950c9703432a8e3c2a99f2cc709dff7bcbdbb")
+ ("nix-mode" . "8fe2ccf0b01f694a77d2528e06c10f06057784f6")
  ("orderless" . "8b9af2796fa0eb87eea4140bc08d16880a493803")
  ("org-appear" . "8dd1e564153d8007ebc4bb4e14250bde84e26a34")
  ("org-roam" . "171a8db32f5b51d3ddb4a31356e1d9c581b4bbd2")

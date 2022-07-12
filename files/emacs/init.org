@@ -106,10 +106,10 @@ This keeps 5 lines before and after the current line:
 	scroll-conservatively 10000)
 #+end_src
 ** fonts
-Set ~Iosevka~ as default font:
+Set ~Fira Code~ as default font:
 #+begin_src elisp :noweb-ref visual/fonts
   (add-to-list 'default-frame-alist
-               '(font . "Iosevka 17"))
+               '(font . "Fira Code 17"))
 #+end_src
 Also, add ~Noto Color Emoji~ as fallback font for symbols:
 #+begin_src elisp :noweb-ref visual/fonts
@@ -119,9 +119,7 @@ Also, add ~Noto Color Emoji~ as fallback font for symbols:
 Set variable and fixed pitch font:
 #+begin_src elisp :noweb-ref visual/fonts
   (set-face-attribute 'fixed-pitch nil
-    :font (font-spec :family "Iosevka"))
-  (set-face-attribute 'variable-pitch nil
-    :font (font-spec :family "Iosevka Alia"))
+    :font (font-spec :family "Fira Code"))
 #+end_src
 ** theme
 This sets the theme: it loads a file, which has been templated
@@ -493,8 +491,6 @@ Org mode is treated in a special way:
   <<org/beautify/plugins>>
   <<org/faces>>
   (defun df/org-mode-beautify ()
-    ;; use proportional font
-    (variable-pitch-mode)
     ;; change symbol appearence
     (org-appear-mode t)
     (org-superstar-mode t)
@@ -512,8 +508,7 @@ These are custom faces that, in my opinion, give Org a cleaner look:
   #+begin_src elisp :noweb-ref org/faces
     (set-face-attribute 'org-block nil
       :foreground nil
-      :extend t
-      :inherit 'fixed-pitch)
+      :extend t)
     (set-face-attribute 'org-block-begin-line nil
       :extend t
       :inherit 'fixed-pitch)
