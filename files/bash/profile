@@ -15,4 +15,7 @@ case "$DESKTOP_SESSION" in
     ;;
 esac
 # ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*.profile][.profile]]][]]
+export ANSIBLE_COW_SELECTION=tux
+# ends here
 # .profile:1 ends here

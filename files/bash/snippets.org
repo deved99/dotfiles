@@ -32,6 +32,7 @@ This file is mainly used to set variables. This is its structure:
 #+begin_src bash :tangle profile
   <<profile/variables>>
   <<profile/ssh-agent>>
+  <<profile/ansible>>
 #+end_src
 Set the editor used by multiple commands:
 #+begin_src bash :noweb-ref profile/variables
@@ -52,6 +53,10 @@ This starts a ssh-agent and sets proper variables:
       export $(gnome-keyring-daemon --start)
       ;;
   esac
+#+end_src
+Tell ansible to use ~tux~ with ~cowsay~:
+#+begin_src bash :noweb-ref profile/ansible
+  export ANSIBLE_COW_SELECTION=tux
 #+end_src
 * snippets
 ** History
