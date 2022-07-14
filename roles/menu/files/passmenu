@@ -18,6 +18,7 @@ NAME=$(
 
 if [[ -n $NAME ]]; then
   pass -c $NAME
+  notify-send "Copied password." "$NAME"
 else
   echo "No password selected."
 fi
