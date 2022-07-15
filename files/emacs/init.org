@@ -158,7 +158,7 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
     (ligature-set-ligatures 't
      '("-->" "//" "<!--" ":=" "->>" "<<-" "->" "<-"
        "<=>" "==" "!=" "<=" ">=" "!==" "||" "..." ".."
-       "|||" "///" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
+       "|||" "///" "===" "++" "--" "---" "=>" "|>" "<|" "||>" "<||"
        "|||>" "<|||" ">>" "<<" "::=" ":?" "!!" "?:" "?." "::"
        "+++" "??" ":::" ".?" "?=" "=!=" "<|>"
        ";;" "<<<" ">>>" "<==" "<==>" "==>" "=>>"
@@ -657,6 +657,11 @@ Sets where to save backup and auto-save dir.
   (setq backup-dir (concat user-emacs-directory "backups")
         backup-directory-alist `(("." . ,backup-dir))
         auto-save-file-name-transforms `((".*" ,backup-dir t)))
+#+end_src
+** RFCs
+#+begin_src elisp
+  (use-package rfc-mode
+    :custom (rfc-mode-directory (concat user-emacs-directory "rfc")))
 #+end_src
 ** no tab please
 Never insert tabs:
