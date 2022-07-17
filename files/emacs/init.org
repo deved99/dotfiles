@@ -338,53 +338,12 @@ Set keybinding for the visualizer:
   (df/leader "u" 'undo-tree-visualize)
 #+end_src
 * Note taking 📝
-** Org Mode: plugins
-Faster insertion of code blocks:
-#+begin_src elisp :noweb-ref org/plugins
-  (use-package org-tempo
-    :straight (:type built-in)
-    :config
-    (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
-    (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python")))
-#+end_src
-This makes ~<el TAB~ insert an elisp code block.
-Download Github flavored Markdown exporter and define the exports backends I use:
-#+begin_src elisp :noweb-ref org/plugins
-  (use-package ox-gfm
-    :config 
-    (setq org-export-backends '(html latex ox-gfm)))
-#+end_src
-I don't like text spanning from the beginning to the end of the screen. The first package adjusts margins to fix this, while the second package makes wrapping smarter. Visual explanation [[https://codeberg.org/joostkremers/visual-fill-column][here]].
-#+begin_src elisp :noweb-ref org/plugins
-  (use-package visual-fill-column
-    :custom
-    (visual-fill-column-width 100)
-    (visual-fill-column-center-text t)
-    (truncate-lines nil))
-  (use-package adaptive-wrap)
-#+end_src
-Change header and list dots style:
-#+begin_src elisp :noweb-ref org/plugins
-  (use-package org-superstar
-     :init (setq org-superstar-remove-leading-stars t))
-#+end_src
-Hide most markup symbols:
-#+begin_src elisp :noweb-ref org/plugins
-  (use-package org-appear
-    :custom ((org-hide-emphasis-markers t)
-             (org-appear-autolinks t)))
-#+end_src
-As a reminder, package to automatically render latex fragments when the cursor is away:
-#+begin_src elisp
-  (use-package org-fragtog
-    :straight (:host github :repo "io12/org-fragtog"))
-#+end_src
 ** Org Mode: options
 Use builtin org-mode:
 #+name: note-taking
 #+begin_src elisp
   (use-package org
+
     :custom
     <<org/options>>
     <<org/keywords>>
@@ -420,6 +379,48 @@ Add keywords and tags:
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
 #+end_src
+** Org Mode: plugins
+Faster insertion of code blocks:
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package org-tempo
+    :straight (:type built-in)
+    :config
+    (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+    (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python")))
+#+end_src
+This makes ~<el TAB~ insert an elisp code block.
+Download Github flavored Markdown exporter and define the exports backends I use:
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package ox-gfm
+    :config 
+    (setq org-export-backends '(html latex ox-gfm)))
+#+end_src
+I don't like text spanning from the beginning to the end of the screen. The first package adjusts margins to fix this, while the second package makes wrapping smarter. Visual explanation [[https://codeberg.org/joostkremers/visual-fill-column][here]].
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package visual-fill-column
+    :custom
+    (visual-fill-column-width 120)
+    (visual-fill-column-center-text t)
+    (truncate-lines nil))
+  (use-package adaptive-wrap)
+#+end_src
+Change header and list dots style:
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package org-superstar
+     :init (setq org-superstar-remove-leading-stars t))
+#+end_src
+Hide most markup symbols:
+#+begin_src elisp :noweb-ref org/plugins
+  (use-package org-appear
+    :custom ((org-hide-emphasis-markers t)
+             (org-appear-autolinks t)))
+#+end_src
+As a reminder, package to automatically render latex fragments when the cursor is away:
+#+begin_src elisp
+  (use-package org-fragtog
+    :straight (:host github :repo "io12/org-fragtog"))
+#+end_src
 ** Org Mode: beautify
 Org mode is treated in a special way:
 #+begin_src elisp :noweb-ref org/beautify
@@ -440,10 +441,6 @@ These are custom faces that, in my opinion, give Org a cleaner look:
     (set-face-attribute 'org-block nil
       :foreground nil
       :extend t)
-    ;; (set-face-attribute 'org-block-begin-line nil
-    ;;   :extend t
-    ;;   :background nil
-    ;;   :inherit 'fixed-pitch)
   #+end_src
 - Some styles in text
   #+begin_src elisp

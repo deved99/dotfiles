@@ -215,6 +215,7 @@
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
 (use-package org
+
   :custom
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-ellipsis " ▾")
@@ -255,7 +256,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package visual-fill-column
   :custom
-  (visual-fill-column-width 100)
+  (visual-fill-column-width 120)
   (visual-fill-column-center-text t)
   (truncate-lines nil))
 (use-package adaptive-wrap)
@@ -274,10 +275,6 @@
 (set-face-attribute 'org-block nil
   :foreground nil
   :extend t)
-;; (set-face-attribute 'org-block-begin-line nil
-;;   :extend t
-;;   :background nil
-;;   :inherit 'fixed-pitch)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
  (set-face-attribute 'org-special-keyword nil
