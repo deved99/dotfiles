@@ -127,8 +127,9 @@ by Ansible. This way every program uses the same colorscheme.
 #+name: visual/theme
 #+begin_src elisp
   (use-package base16-theme
+    :custom
+    (base16-theme-distinct-fringe-background nil)
     :config
-    (setq base16-distinct-fringe-background nil)
     (load (concat user-emacs-directory "base16-custom-theme.el"))
     (load-theme 'base16-custom t))
 #+end_src

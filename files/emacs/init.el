@@ -92,8 +92,9 @@
 ;; visual/ligatures ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/theme][visual/theme]]][visual/theme]]
 (use-package base16-theme
+  :custom
+  (base16-theme-distinct-fringe-background nil)
   :config
-  (setq base16-distinct-fringe-background nil)
   (load (concat user-emacs-directory "base16-custom-theme.el"))
   (load-theme 'base16-custom t))
 ;; visual/theme ends here
