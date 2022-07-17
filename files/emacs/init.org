@@ -14,7 +14,6 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<visual/ligatures>>
   <<visual/theme>>
   <<visual/modeline>>
-  <<visual/wrap>>
   <<visual/parenthesis>>
   <<interface/vertico>>
   <<interface/which-key>>
@@ -133,22 +132,6 @@ by Ansible. This way every program uses the same colorscheme.
     (load (concat user-emacs-directory "base16-custom-theme.el"))
     (load-theme 'base16-custom t))
 #+end_src
-** indent guides
-This shows indentations guides in programming languages:
-#+name: visual/indent-guides
-#+begin_src elisp
-(use-package highlight-indent-guides
-  :hook (prog-mode . highlight-indent-guides-mode)
-  :config
-  (setq highlight-indent-guides-method 'column))
-#+end_src
-Right now disabled: doesn't show on empty lines.
-** Line wrapping
-This is equivalent to vim's ~set nowrap~. By default truncate lines.
-#+begin_src elisp :noweb-ref visual/wrap
-  (set-default 'truncate-lines t)
-#+end_src
-Some modes, org for example, change this default.
 ** ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
 #+name: visual/ligatures
@@ -167,7 +150,7 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
     (global-ligature-mode t))
 #+end_src
 ** modeline
-A more minimal modeline:
+Modeline I'm using:
 #+name: visual/modeline
 #+begin_src elisp
   (use-package all-the-icons)
@@ -177,43 +160,6 @@ A more minimal modeline:
     (doom-modeline-buffer-file-name-style 'buffer-name)
     (doom-modeline-buffer-encoding nil)
     :hook (after-init . doom-modeline-mode))
-#+end_src
-My old modeline. This can be splitted in two parts, as follow:
-#+name: visual/modeline-old
-#+begin_src elisp
-  <<visual/modeline/functions>>
-  <<visual/modeline/main>>
-#+end_src
-This wraps everything up in the modeline:
-#+name: visual/modeline/main
-#+begin_src elisp
-  (setq-default mode-line-format
-		(list
-		 " "
-		 '(:eval (get_current_state))
-		 " | %b"
-		 '(:eval (is_modified))
-		 " (%m)"))
-#+end_src
-This outputs the current evil-state:
-#+begin_src elisp :noweb-ref visual/modeline/functions
-  (defun get_current_state ()
-    (cond
-     ((eq evil-state 'normal) "NORMAL")
-     ((eq evil-state 'insert) "INSERT")
-     ((eq evil-state 'visual) "VISUAL")
-     ((eq evil-state 'operator) "OPERATOR")
-     ((eq evil-state 'replace) "REPLACE")
-     ((eq evil-state 'emacs) "EMACS")
-     (t "NOT_FOUND")))
-#+end_src
-This wheter the current buffer has been modified or in read only mode:
-#+begin_src elisp :noweb-ref visual/modeline/functions
-  (defun is_modified ()
-    (cond
-     ((buffer-modified-p) "+")
-     ((buffer-read-only) "O")
-     (t " ")))
 #+end_src
 ** Parenthesis coloring
 Color matching parenthesis in different colors:
@@ -228,26 +174,6 @@ Color matching parenthesis in different colors:
                         :box t))
 #+end_src
 * Workflow 🖥️
-** Ivy
-Change the completion framework in the minibuffer:
-#+begin_src elisp :noweb-ref interface/ivy
-  (use-package ivy
-   :diminish
-   :config (ivy-mode))
-  <<interface/ivy/plugins>>
-#+end_src
-Use the above framwork for common operations:
-#+begin_src elisp :noweb-ref interface/ivy/plugins
-  (use-package counsel
-   :diminish
-   :config (counsel-mode))
-#+end_src
-Add more info in ivy buffers:
-#+begin_src elisp :noweb-ref interface/ivy/plugins
-  (use-package ivy-rich
-   :diminish
-   :config (ivy-rich-mode 1))
-#+end_src
 ** Vertico
 Current framework I'm trying:
 #+name: interface/vertico
@@ -270,10 +196,6 @@ Add some useful functions related to vertico:
 #+begin_src elisp :noweb-ref interface/vertico/packages
   (use-package consult
     :config (df/leader "i" 'consult-outline))
-#+end_src
-** Helpful
-#+begin_src elisp
-  (use-package helpful)
 #+end_src
 ** which-key
 ~which-key~ adds a mode the shows possible keybindings:
@@ -512,6 +434,7 @@ These are custom faces that, in my opinion, give Org a cleaner look:
       :extend t)
     (set-face-attribute 'org-block-begin-line nil
       :extend t
+      :background nil
       :inherit 'fixed-pitch)
   #+end_src
 - Tables with fixed pitch:

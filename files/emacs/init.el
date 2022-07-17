@@ -107,9 +107,6 @@
   (doom-modeline-buffer-encoding nil)
   :hook (after-init . doom-modeline-mode))
 ;; visual/modeline ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(set-default 'truncate-lines t)
-;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/parenthesis][visual/parenthesis]]][visual/parenthesis]]
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
@@ -288,6 +285,7 @@
   :extend t)
 (set-face-attribute 'org-block-begin-line nil
   :extend t
+  :background nil
   :inherit 'fixed-pitch)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
