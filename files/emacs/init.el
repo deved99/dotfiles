@@ -65,10 +65,6 @@
       scroll-conservatively 10000)
 ;; visual/keeparound ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(add-to-list 'default-frame-alist
-             '(font . "Fira Code 17"))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (set-fontset-font 
   t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
 ;; ends here
@@ -181,9 +177,8 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
-  :init ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-  :init (setq org-special-ctrl-a/e t)
-  :init ;; ends here
+  :custom
+  (setq org-special-ctrl-a/e t)
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -199,11 +194,6 @@
   :config (evil-commentary-mode))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package evil-indent-plus
-  :after evil
-  :init (evil-indent-plus-default-bindings))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package evil-numbers
   :after evil
   :config
@@ -212,22 +202,18 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][evil/undo]]
 (use-package undo-tree
-  :init
+  :custom
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
-  (setq undo-dir "/home/davide/.config/emacs/undo"
-        undo-tree-history-directory-alist `(("." . ,undo-dir)))
+  (undo-dir "/home/davide/.config/emacs/undo"
+   undo-tree-history-directory-alist `(("." . ,undo-dir)))
   ;; ends here
+  :init
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
   (df/leader "u" 'undo-tree-visualize)
   ;; ends here
   :config (global-undo-tree-mode))
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-(use-package ox-gfm
-  :config 
-  (setq org-export-backends '(html latex ox-gfm)))
-;; ends here
 (use-package org
   :custom
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -235,7 +221,7 @@
   (org-startup-folded t)
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-  (org-todo-keywords '("ACTIVE" "TODO" "NEXT" "WAIT" "|" "DONE" "CANC"))
+  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
   ;; ends here
@@ -262,6 +248,10 @@
   (add-to-list 'org-structure-template-alist '("py" . "src python")))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+(use-package ox-gfm
+  :config 
+  (setq org-export-backends '(html latex ox-gfm)))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package visual-fill-column
   :custom
@@ -280,27 +270,14 @@
            (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-block nil
   :foreground nil
   :extend t)
-(set-face-attribute 'org-block-begin-line nil
-  :extend t
-  :background nil
-  :inherit 'fixed-pitch)
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-(set-face-attribute 'org-table nil
-  :inherit '(shadow fixed-pitch))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-(set-face-attribute 'org-code nil
-  :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-formula nil
-  :inherit 'fixed-pitch)
-(set-face-attribute 'org-verbatim nil
-  :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-checkbox nil
-  :inherit 'fixed-pitch)
+;; (set-face-attribute 'org-block-begin-line nil
+;;   :extend t
+;;   :background nil
+;;   :inherit 'fixed-pitch)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
  (set-face-attribute 'org-special-keyword nil
@@ -322,11 +299,10 @@
   ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
-  ;; Resize buffer
+  ;; Limit buffer width, center eventually.
   (visual-line-mode t)
   (adaptive-wrap-prefix-mode t)
   (visual-fill-column-mode t))
-
 (add-hook 'org-mode-hook 'df/org-mode-beautify)
 ;; ends here
 ;; note-taking ends here
@@ -340,7 +316,9 @@
   (org-roam-directory "~/Notes/wiki")
   (org-roam-completion-everywhere t))
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][]]
-(use-package org-roam-ui)
+(use-package org-roam-ui
+  :custom (org-roam-ui-open-on-start nil)
+  :hook (after-init . org-roam-ui-mode))
 ;; ends here
 ;; note-taking/roam ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]

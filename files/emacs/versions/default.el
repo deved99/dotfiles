@@ -21,7 +21,6 @@
  ("evil" . "157af04d2cf466e301e82b0e667c5e7203fd96a2")
  ("evil-collection" . "e049bc4777cae21d937e08ad2d3960f3e1432dd5")
  ("evil-commentary" . "2dab6ac34d1617971768ad219d73af48f7473fec")
- ("evil-indent-plus" . "b4dacbfdb57f474f798bfbf5026d434d549eb65c")
  ("evil-numbers" . "08f0c1ee93b8a563770eaefaf21ab9087fca7bdb")
  ("evil-org-mode" . "0d10ff7bb9a3a93d25cd91018b17f0a052b335f3")
  ("evil-surround" . "c9e1449bf3f740b5e9b99e7820df4eca7fc7cf02")
