@@ -322,16 +322,15 @@ This is the undo system I use; it also provides a nice visualization of the undo
 #+name: evil/undo
 #+begin_src elisp
   (use-package undo-tree
-    :custom
-    <<evil/undo/options>>
     :init
+    <<evil/undo/options>>
     <<evil/undo/init>>
     :config (global-undo-tree-mode))
 #+end_src
 Set where should it save files:
 #+begin_src elisp :noweb-ref evil/undo/options
-  (undo-dir "/home/davide/.config/emacs/undo"
-   undo-tree-history-directory-alist `(("." . ,undo-dir)))
+  (setq undo-dir "/home/davide/.config/emacs/undo"
+        undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
 Set keybinding for the visualizer:
 #+begin_src elisp :noweb-ref evil/undo/init
@@ -417,8 +416,9 @@ Hide most markup symbols:
              (org-appear-autolinks t)))
 #+end_src
 As a reminder, package to automatically render latex fragments when the cursor is away:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref org/plugins
   (use-package org-fragtog
+    :custom (org-startup-with-latex-preview t)
     :straight (:host github :repo "io12/org-fragtog"))
 #+end_src
 ** Org Mode: beautify
@@ -429,6 +429,7 @@ Org mode is treated in a special way:
     ;; change symbol appearence
     (org-appear-mode t)
     (org-superstar-mode t)
+    (org-fragtog-mode t)
     ;; Limit buffer width, center eventually.
     (visual-line-mode t)
     (adaptive-wrap-prefix-mode t)

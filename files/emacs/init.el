@@ -202,12 +202,11 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][evil/undo]]
 (use-package undo-tree
-  :custom
-  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
-  (undo-dir "/home/davide/.config/emacs/undo"
-   undo-tree-history-directory-alist `(("." . ,undo-dir)))
-  ;; ends here
   :init
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
+  (setq undo-dir "/home/davide/.config/emacs/undo"
+        undo-tree-history-directory-alist `(("." . ,undo-dir)))
+  ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
   (df/leader "u" 'undo-tree-visualize)
   ;; ends here
@@ -271,6 +270,11 @@
            (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+(use-package org-fragtog
+  :custom (org-startup-with-latex-preview t)
+  :straight (:host github :repo "io12/org-fragtog"))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (set-face-attribute 'org-block nil
   :foreground nil
@@ -296,6 +300,7 @@
   ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
+  (org-fragtog-mode t)
   ;; Limit buffer width, center eventually.
   (visual-line-mode t)
   (adaptive-wrap-prefix-mode t)
