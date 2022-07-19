@@ -276,11 +276,6 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-(set-face-attribute 'org-block nil
-  :foreground nil
-  :extend t)
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
  (set-face-attribute 'org-special-keyword nil
    :inherit '(font-lock-comment-face fixed-pitch))
  (set-face-attribute 'org-todo nil
@@ -315,6 +310,7 @@
   (df/leader "w" '(:ignore t :which-key "wiki")
              "ww" 'org-roam-node-find)
   :custom
+  (org-roam-node-display-template (concat "${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-directory "~/Notes/wiki")
   (org-roam-completion-everywhere t))
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][]]
@@ -323,14 +319,16 @@
   :hook (after-init . org-roam-ui-mode))
 ;; ends here
 ;; note-taking/roam ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][programming/eglot]]
-(use-package eglot)
-;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/eglot][programming/eglot]]][]]
-(df/leader "p" '(:ignore t :which-key "LSP")
-           "pr" 'eglot-rename
-           "pc" 'flymake-show-buffer-diagnostics)
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package tree-sitter-langs)
+(use-package tree-sitter
+  :hook (tree-sitter-mode . tree-sitter-hl-mode)
+  :config (global-tree-sitter-mode))
 ;; ends here
-;; programming/eglot ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package lsp-mode
+ :custom (lsp-headerline-breadcrumb-enable nil))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
   :hook ((after-init . global-company-mode)

@@ -23,7 +23,8 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/undo>>
   <<note-taking>>
   <<note-taking/roam>>
-  <<programming/eglot>>
+  <<programming/treesitter>>
+  <<programming/lsp>>
   <<programming/company>>
   <<programming/magit>>
   <<misc>>
@@ -438,7 +439,7 @@ Org mode is treated in a special way:
 #+end_src
 These are custom faces that, in my opinion, give Org a cleaner look:
 - Blocks of code in fixed pitch and background change:
-  #+begin_src elisp :noweb-ref org/faces
+  #+begin_src elisp
     (set-face-attribute 'org-block nil
       :foreground nil
       :extend t)
@@ -481,6 +482,7 @@ Package:
     (df/leader "w" '(:ignore t :which-key "wiki")
                "ww" 'org-roam-node-find)
     :custom
+    (org-roam-node-display-template (concat "${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
     (org-roam-directory "~/Notes/wiki")
     (org-roam-completion-everywhere t))
   <<note-taking/roam/plugins>>
@@ -492,18 +494,19 @@ UI:
     :hook (after-init . org-roam-ui-mode))
 #+end_src
 * Programming ⚗️
-** eglot
-Currently trying eglot:
-#+name: programming/eglot
-#+begin_src elisp
-  (use-package eglot)
-  <<programming/eglot/keybindings>>
+** Treesitter
+Highlighting via tree parsing:
+#+begin_src elisp :noweb-ref programming/treesitter
+  (use-package tree-sitter-langs)
+  (use-package tree-sitter
+    :hook (tree-sitter-mode . tree-sitter-hl-mode)
+    :config (global-tree-sitter-mode))
 #+end_src
-Keybinding I'm using:
-#+begin_src elisp :noweb-ref programming/eglot/keybindings
-  (df/leader "p" '(:ignore t :which-key "LSP")
-             "pr" 'eglot-rename
-             "pc" 'flymake-show-buffer-diagnostics)
+** LSP mode
+Enable LSP support:
+#+begin_src elisp :noweb-ref programming/lsp
+  (use-package lsp-mode
+   :custom (lsp-headerline-breadcrumb-enable nil))
 #+end_src
 ** completion framework
 This is the completion engine, hooked up to lsp-mode:
