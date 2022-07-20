@@ -25,6 +25,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<note-taking/roam>>
   <<programming/treesitter>>
   <<programming/lsp>>
+  <<programming/langs>>
   <<programming/company>>
   <<programming/magit>>
   <<misc>>
@@ -506,9 +507,25 @@ Highlighting via tree parsing:
 Enable LSP support:
 #+begin_src elisp :noweb-ref programming/lsp
   (use-package lsp-mode
+   :config (df/leader "l" lsp-command-map)
    :custom (lsp-headerline-breadcrumb-enable nil))
 #+end_src
-** completion framework
+UI features:
+#+begin_src elisp
+  (use-package lsp-ui
+   :custom
+   (lsp-ui-doc-show-with-mouse t))
+#+end_src
+** Languages
+*** Python
+Use pyright LSP:
+#+begin_src elisp :noweb-ref programming/langs
+  (use-package lsp-pyright
+    :hook (python-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp-deferred))))
+#+end_src
+** Company
 This is the completion engine, hooked up to lsp-mode:
 #+name: programming/company
 #+begin_src elisp

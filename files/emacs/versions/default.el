@@ -34,6 +34,7 @@
  ("json-snatcher" . "b28d1c0670636da6db508d03872d96ffddbc10f2")
  ("ligature.el" . "9357156a917a021a87b33ee391567a5d8e44794a")
  ("lsp-mode" . "5a62d4aa1b05fd14e338c47dad976b0b53c4bbc0")
+ ("lsp-pyright" . "c745228f39fdb35372b29b909f25fa6c98dc7c88")
  ("lua-mode" . "5a9bee8d5fc978dc64fcb677167417010321ba65")
  ("magit" . "c1fb53d3de6390961ccd8dfb1cc135383508d0fc")
  ("marginalia" . "03fa4655ecd99310a51632e285bf961476b789bc")
