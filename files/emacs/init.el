@@ -271,7 +271,11 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-fragtog
-  :custom (org-startup-with-latex-preview t)
+  :custom
+  (org-startup-with-latex-preview t)
+  :init
+  (setq org-latex-packages-alist '())
+  (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
   :straight (:host github :repo "io12/org-fragtog"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -336,6 +340,10 @@
                           (require 'lsp-pyright)
                           (lsp-deferred))))
 ;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package rust-mode
+  :hook (rust-mode . lsp-deferred))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
   :hook ((after-init . global-company-mode)
@@ -380,7 +388,6 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package php-mode)
 (use-package nix-mode)
-(use-package rust-mode)
 (use-package lua-mode)
 (use-package json-mode)
 (use-package yaml-mode)
