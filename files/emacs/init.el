@@ -87,12 +87,9 @@
   (global-ligature-mode t))
 ;; visual/ligatures ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/theme][visual/theme]]][visual/theme]]
-(use-package base16-theme
-  :custom
-  (base16-theme-distinct-fringe-background nil)
-  :config
-  (load (concat user-emacs-directory "base16-custom-theme.el"))
-  (load-theme 'base16-custom t))
+(if (file-exists-p (concat user-emacs-directory "theme.el"))
+    (load-file (concat user-emacs-directory "theme.el"))
+    (load-theme 'modus-vivendi t))
 ;; visual/theme ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/modeline][visual/modeline]]][visual/modeline]]
 (use-package all-the-icons)
@@ -284,22 +281,6 @@
   :straight (:host github :repo "io12/org-fragtog"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
- (set-face-attribute 'org-special-keyword nil
-   :inherit '(font-lock-comment-face fixed-pitch))
- (set-face-attribute 'org-todo nil
-   :inherit 'fixed-pitch
-   :weight 'normal
-   :foreground (plist-get base16-custom-colors :base07)
-   :background (plist-get base16-custom-colors :base08))
- (set-face-attribute 'org-done nil
-   :inherit 'fixed-pitch
-   :weight 'normal
-   :foreground (plist-get base16-custom-colors :base07)
-   :background (plist-get base16-custom-colors :base0B))
-(set-face-attribute 'org-tag nil
-  :foreground (plist-get base16-custom-colors :base02))
-;; ends here
 (defun df/org-mode-beautify ()
   ;; change symbol appearence
   (org-appear-mode t)

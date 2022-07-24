@@ -123,16 +123,12 @@ Set variable and fixed pitch font:
     :font (font-spec :family "Fira Code"))
 #+end_src
 ** theme
-This sets the theme: it loads a file, which has been templated
-by Ansible. This way every program uses the same colorscheme.
+If this file exists, load it, otherwise load a dark theme:
 #+name: visual/theme
 #+begin_src elisp
-  (use-package base16-theme
-    :custom
-    (base16-theme-distinct-fringe-background nil)
-    :config
-    (load (concat user-emacs-directory "base16-custom-theme.el"))
-    (load-theme 'base16-custom t))
+  (if (file-exists-p (concat user-emacs-directory "theme.el"))
+      (load-file (concat user-emacs-directory "theme.el"))
+      (load-theme 'modus-vivendi t))
 #+end_src
 ** ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
@@ -435,7 +431,6 @@ As a reminder, package to automatically render latex fragments when the cursor i
 ** Org Mode: beautify
 Org mode is treated in a special way:
 #+begin_src elisp :noweb-ref org/beautify
-  <<org/faces>>
   (defun df/org-mode-beautify ()
     ;; change symbol appearence
     (org-appear-mode t)

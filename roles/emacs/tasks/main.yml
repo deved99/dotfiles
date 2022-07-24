@@ -40,10 +40,10 @@
     - src: "{{ REPO_FILES }}/emacs/versions/default.el"
       dest: "{{ CONFIG_DIR }}/emacs/straight/versions/default.el"
 
-- name: Template theme
-  ansible.builtin.template:
-    src: "theme.el"
-    dest: "{{ CONFIG_DIR }}/emacs/base16-custom-theme.el"
+- name: Copy theme
+  ansible.builtin.copy:
+    src: "themes/{{ CS_EMACS }}"
+    dest: "{{ CONFIG_DIR }}/emacs/theme.el"
 
 - name: Copy rclone configuration
   ansible.builtin.file:
