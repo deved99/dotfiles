@@ -6,6 +6,13 @@ case $- in
     *) return;;
 esac
 # ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*.bashrc][.bashrc]]][]]
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+# ends here
 SNIPPET_DIR="$HOME/.config/bash"
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*.bashrc][.bashrc]]][]]
 source "$SNIPPET_DIR/history.sh"

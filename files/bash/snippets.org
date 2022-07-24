@@ -6,6 +6,7 @@ This illustrate the structure of my bashrc:
 #+begin_src bash :tangle bashrc
   #!/bin/bash
   <<bashrc/exit-non-interactive>>
+  <<bashrc/autocompletions>>
   SNIPPET_DIR="$HOME/.config/bash"
   <<bashrc/snippets>>
 #+end_src
@@ -15,6 +16,14 @@ Then tell bash to ignore the following if not running interactively:
     *i*) ;;
       *) return;;
   esac
+#+end_src
+Enable autocompletions:
+#+begin_src bash :noweb-ref bashrc/autocompletions
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 #+end_src
 Source snippets, which are defined below. This makes the configuration more modular.
 #+begin_src bash :noweb-ref bashrc/snippets
