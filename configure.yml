@@ -7,8 +7,10 @@
   #       msg: "{{ BASE16 }}"
   roles:
     # Basics
-    - prepare
-    - shell
+    - role: prepare
+      tags: always
+    - role: shell
+      tags: always
     # Graphical
     - role: awesome
       tags: graphical
