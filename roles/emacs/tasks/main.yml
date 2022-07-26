@@ -39,6 +39,8 @@
       dest: "{{ CONFIG_DIR }}/emacs/early-init.el"
     - src: "{{ REPO_FILES }}/emacs/versions/default.el"
       dest: "{{ CONFIG_DIR }}/emacs/straight/versions/default.el"
+    - src: "{{ REPO_FILES }}/emacs/emacs-vterm.sh"
+      dest: "{{ CONFIG_DIR }}/bash/emacs-vterm.sh"
 
 - name: Copy theme
   ansible.builtin.copy:

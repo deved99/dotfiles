@@ -17,6 +17,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<visual/parenthesis>>
   <<interface/vertico>>
   <<interface/which-key>>
+  <<interface/vterm>>
   <<evil/main>>
   <<evil/integrations>>
   <<evil/plugins>>
@@ -39,6 +40,10 @@ Also, write ~early-init.el~:
   (setq package-enable-at-startup nil)
 #+end_src
 This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
+There's also another snippet generated from this Org file, which is the shell side configuration of vterm:
+#+begin_src bash :tangle emacs-vterm.sh
+<<vterm/bash-index>>
+#+end_src
 * Preparation 🛠️
 ** garbage collect
 How frequently does Emacs garbage collect:
@@ -228,11 +233,38 @@ These are some keybindindings that are not related to a specific package:
 #+end_src
 ** vterm
 Testing this terminal:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref interface/vterm
   (use-package multi-vterm
      :config (df/leader "s" 'multi-vterm))
 #+end_src
 Add cmake,libtool-bin to install in config.
+Vterm requires some shell side configurations:
+#+name: vterm/bash-index
+#+begin_src bash
+  <<vterm/printf>>
+  <<vterm/directory-tracking>>
+#+end_src
+This function is used to pass messages between vterm and Emacs:
+#+begin_src bash :noweb-ref vterm/printf
+  vterm_printf(){
+      if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
+          # Tell tmux to pass the escape sequences through
+          printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+      elif [ "${TERM%%-*}" = "screen" ]; then
+          # GNU screen (screen, screen-256color, screen-256color-bce)
+          printf "\eP\e]%s\007\e\\" "$1"
+      else
+          printf "\e]%s\e\\" "$1"
+      fi
+  }
+#+end_src
+Directory tracking:
+#+begin_src bash :noweb-ref vterm/directory-tracking
+  vterm_prompt_end(){
+      vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+  }
+  PS1=$PS1'\[$(vterm_prompt_end)\]'
+#+end_src
 * Editing 🐙
 ** ~evil~ package:
 The main piece, ~evil~:
