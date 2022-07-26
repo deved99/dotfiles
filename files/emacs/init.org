@@ -235,6 +235,7 @@ These are some keybindindings that are not related to a specific package:
 Testing this terminal:
 #+begin_src elisp :noweb-ref interface/vterm
   (use-package multi-vterm
+     :custom (vterm-max-scrollback 100000)
      :config (df/leader "s" 'multi-vterm))
 #+end_src
 Add cmake,libtool-bin to install in config.
@@ -359,7 +360,7 @@ This is the undo system I use; it also provides a nice visualization of the undo
 #+end_src
 Set where should it save files:
 #+begin_src elisp :noweb-ref evil/undo/options
-  (setq undo-dir "/home/davide/.config/emacs/undo"
+  (setq undo-dir "/home/davide/.config/emacs/undo/"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
 #+end_src
 Set keybinding for the visualizer:
@@ -454,7 +455,7 @@ As a reminder, package to automatically render latex fragments when the cursor i
   (use-package org-fragtog
     :custom
     (org-startup-with-latex-preview t)
-    (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
+    (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg/"))
     ;; :init
     ;; (setq org-latex-packages-alist '())
     ;; (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))

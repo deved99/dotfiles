@@ -133,6 +133,7 @@
 ;; interface/which-key ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package multi-vterm
+   :custom (vterm-max-scrollback 100000)
    :config (df/leader "s" 'multi-vterm))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][evil/main]]
@@ -205,7 +206,7 @@
 (use-package undo-tree
   :init
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
-  (setq undo-dir "/home/davide/.config/emacs/undo"
+  (setq undo-dir "/home/davide/.config/emacs/undo/"
         undo-tree-history-directory-alist `(("." . ,undo-dir)))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/undo][evil/undo]]][]]
@@ -278,7 +279,7 @@
 (use-package org-fragtog
   :custom
   (org-startup-with-latex-preview t)
-  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
+  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg/"))
   ;; :init
   ;; (setq org-latex-packages-alist '())
   ;; (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
