@@ -211,12 +211,10 @@
 ;; evil/undo ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][note-taking]]
 (use-package org
-
   :custom
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-ellipsis " ▾")
   (org-startup-folded t)
-  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
@@ -276,9 +274,10 @@
 (use-package org-fragtog
   :custom
   (org-startup-with-latex-preview t)
-  :init
-  (setq org-latex-packages-alist '())
-  (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
+  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
+  ;; :init
+  ;; (setq org-latex-packages-alist '())
+  ;; (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
   :straight (:host github :repo "io12/org-fragtog"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]

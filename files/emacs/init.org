@@ -340,7 +340,6 @@ Use builtin org-mode:
 #+name: note-taking
 #+begin_src elisp
   (use-package org
-
     :custom
     <<org/options>>
     <<org/keywords>>
@@ -356,7 +355,6 @@ Generic option:
 #+begin_src elisp :noweb-ref org/options
   (org-ellipsis " ▾")
   (org-startup-folded t)
-  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
 #+end_src
 Keybindings I use:
 #+begin_src elisp :noweb-ref org/keybindings
@@ -424,9 +422,10 @@ As a reminder, package to automatically render latex fragments when the cursor i
   (use-package org-fragtog
     :custom
     (org-startup-with-latex-preview t)
-    :init
-    (setq org-latex-packages-alist '())
-    (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
+    (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
+    ;; :init
+    ;; (setq org-latex-packages-alist '())
+    ;; (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
     :straight (:host github :repo "io12/org-fragtog"))
 #+end_src
 ** Org Mode: beautify
