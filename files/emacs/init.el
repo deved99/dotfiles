@@ -216,6 +216,7 @@
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-ellipsis " ▾")
   (org-startup-folded t)
+  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg"))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
@@ -282,6 +283,11 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (defun df/org-mode-beautify ()
+  ;; set some faces
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+  (set-face-attribute 'org-block-begin-line nil 
+    :inherit 'font-lock-comment-face)
+  ;; ends here
   ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
