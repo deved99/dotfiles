@@ -488,6 +488,7 @@ Package:
 #+name: note-taking/roam
 #+begin_src elisp
   (use-package org-roam
+    :hook (org-roam-capture-new-node . (lambda () (org-roam-tag-add '("draft"))))
     :config
     (org-roam-db-autosync-mode)
     (df/leader "w" '(:ignore t :which-key "wiki")

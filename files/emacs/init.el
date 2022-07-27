@@ -305,6 +305,7 @@
 ;; note-taking ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][note-taking/roam]]
 (use-package org-roam
+  :hook (org-roam-capture-new-node . (lambda () (org-roam-tag-add '("draft"))))
   :config
   (org-roam-db-autosync-mode)
   (df/leader "w" '(:ignore t :which-key "wiki")
