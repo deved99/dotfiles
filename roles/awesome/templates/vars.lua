@@ -1,11 +1,11 @@
 local terminal = "kitty"
 local editor = "nvim"
 return {
-   terminal = "emacsclient -ce '(multi-vterm)'",
-   terminal_fb = "kitty",
+   terminal = terminal,
+   terminal_fb = "gnome-terminal",
    browser = "{{ BROWSER }}",
    browser_fb = "{{ BROWSER_FALLBACK }}",
    editor = editor,
-   editor_cmd = "emacsclient -c",
+   editor_cmd = terminal .. '-e' editor,
    modkey = "Mod4",
 }

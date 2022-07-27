@@ -131,11 +131,6 @@
   (which-key-delay 2)
   :config (which-key-mode))
 ;; interface/which-key ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package multi-vterm
-   :custom (vterm-max-scrollback 100000)
-   :config (df/leader "s" 'multi-vterm))
-;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::evil/main][evil/main]]][evil/main]]
 (use-package evil
   :after undo-tree

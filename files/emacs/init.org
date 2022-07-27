@@ -17,7 +17,6 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<visual/parenthesis>>
   <<interface/vertico>>
   <<interface/which-key>>
-  <<interface/vterm>>
   <<evil/main>>
   <<evil/integrations>>
   <<evil/plugins>>
@@ -41,7 +40,7 @@ Also, write ~early-init.el~:
 #+end_src
 This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
 There's also another snippet generated from this Org file, which is the shell side configuration of vterm:
-#+begin_src bash :tangle emacs-vterm.sh
+#+begin_src bash :tangle no
 <<vterm/bash-index>>
 #+end_src
 * Preparation 🛠️
@@ -236,7 +235,9 @@ Testing this terminal:
 #+begin_src elisp :noweb-ref interface/vterm
   (use-package multi-vterm
      :custom (vterm-max-scrollback 100000)
-     :config (df/leader "s" 'multi-vterm))
+     :config
+     (df/leader "s" 'multi-vterm
+                "S" 'multi-vterm-rename-buffer))
 #+end_src
 Add cmake,libtool-bin to install in config.
 Vterm requires some shell side configurations:
