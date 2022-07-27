@@ -312,7 +312,7 @@
              "ww" 'org-roam-node-find
              "wt" 'org-roam-tag-add)
   :custom
-  (org-roam-node-display-template (concat "${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-node-display-template (concat "${title:*}" (propertize "${tags:20}" 'face 'org-tag)))
   (org-roam-directory "~/Notes/wiki")
   (org-roam-completion-everywhere t))
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][]]
