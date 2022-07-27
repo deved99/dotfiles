@@ -491,7 +491,8 @@ Package:
     :config
     (org-roam-db-autosync-mode)
     (df/leader "w" '(:ignore t :which-key "wiki")
-               "ww" 'org-roam-node-find)
+               "ww" 'org-roam-node-find
+               "wt" 'org-roam-tag-add)
     :custom
     (org-roam-node-display-template (concat "${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
     (org-roam-directory "~/Notes/wiki")
