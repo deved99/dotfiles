@@ -6,6 +6,6 @@ return {
    browser = "{{ BROWSER }}",
    browser_fb = "{{ BROWSER_FALLBACK }}",
    editor = editor,
-   editor_cmd = terminal .. '-e' editor,
+   editor_cmd = terminal .. '-e' .. editor,
    modkey = "Mod4",
 }

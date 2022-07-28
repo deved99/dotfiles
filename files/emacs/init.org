@@ -23,7 +23,6 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/undo>>
   <<note-taking>>
   <<note-taking/roam>>
-  <<programming/treesitter>>
   <<programming/lsp>>
   <<programming/langs>>
   <<programming/company>>

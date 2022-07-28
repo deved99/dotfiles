@@ -11,6 +11,7 @@
       # For the change permission below
       - acl
     state: present
+  become: yes
 
 - name: Ensure ~ is attraversable by libvirt-qemu
   ansible.posix.acl:
