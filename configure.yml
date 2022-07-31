@@ -22,8 +22,12 @@
       tags: graphical
     - role: brave # Browser
       tags: graphical
-    # Optional roles
+    ## Miscellaneous
     - role: mpd # Music
       tags: music
+    # Docker
+    - role: docker
+      tags: docker
+    # Libvirt
     - role: virsh
       tags: virsh

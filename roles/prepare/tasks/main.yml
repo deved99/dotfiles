@@ -1,14 +1,22 @@
 ---
 
+- name: Become password check
+  ansible.builtin.command: whoami
+  become: true
+
 - name: Install miscellaneous packages
   ansible.builtin.apt:
     name:
-      - btrfs-progs # Filesystem I use for storage
-      - borgbackup # backups
+      # File
+      - btrfs-progs
+      - borgbackup
+      # Password management
+      - pass
       # Fonts
       - fonts-firacode
-      - pass
+      # Audio
       - pavucontrol
+      # Printers
       - printer-driver-gutenprint
   become: yes
 

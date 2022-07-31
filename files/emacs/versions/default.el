@@ -56,7 +56,7 @@
  ("shrink-path.el" . "c14882c8599aec79a6e8ef2d06454254bb3e1e41")
  ("spinner" . "34905eae12a236753fa88abc831eff1e41e8576e")
  ("straight.el" . "af5437f2afd00936c883124d6d3098721c2d306c")
- ("themes" . "d79a41f593c69697af1ddaac971c0c47ecc446a8")
+ ("themes" . "5f96ee83e9734587bf3e8ec61d4f067b43d9c26e")
  ("transient" . "a583d2b2f5f8963f08cb5a15a4d4dd55faa13585")
  ("undo-tree" . "16f4121032d09ef44b3d7d02c4d02c3c2f18041f")
  ("use-package" . "a7422fb8ab1baee19adb2717b5b47b9c3812a84c")
