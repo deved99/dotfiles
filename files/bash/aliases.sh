@@ -22,6 +22,11 @@ alias jclip='xclip -o | jq'
 alias wclip='whois $(xclip -o)'
 # ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]
+function cj() {
+  curl --silent $1 | jq
+}
+# ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]
 alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]

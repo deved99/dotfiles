@@ -134,6 +134,12 @@ Actions from clipboard:
   alias jclip='xclip -o | jq'
   alias wclip='whois $(xclip -o)'
 #+end_src
+Curl and parse as json:
+#+begin_src bash :noweb-ref aliases/misc
+  function cj() {
+    curl --silent $1 | jq
+  }
+#+end_src
 Set default values for the formatter:
 #+begin_src bash :noweb-ref aliases/misc
   alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
