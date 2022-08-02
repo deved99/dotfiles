@@ -2,6 +2,9 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/garbage-collection][prepare/garbage-collection]]][prepare/garbage-collection]]
 (setq gc-cons-threshold 100000000)
 ;; prepare/garbage-collection ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/exec-path][prepare/exec-path]]][prepare/exec-path]]
+(add-to-list 'exec-path "~/.local/bin")
+;; prepare/exec-path ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -36,7 +39,7 @@
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][]]
   (df/leader "f" '(:ignore t :which-key "files")
              "fb" '(switch-to-buffer :which-key "Switch to buffer")
-             "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
+             "fB" '(ibuffer :which-key "Open window to manage buffers")
              "ff" '(find-file :which-key "Open file"))
   (df/leader "F" 'make-frame-command)
   ;; ends here
