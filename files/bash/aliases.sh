@@ -4,6 +4,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias ip='ip -c'
 # aliases/colors ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::aliases/ls][aliases/ls]]][aliases/ls]]
 alias ll='ls -alhF'

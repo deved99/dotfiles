@@ -111,6 +111,7 @@ Default commands to use colors:
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
+  alias ip='ip -c'
 #+end_src
 Some ~ls~ aliases:
 #+name: aliases/ls
