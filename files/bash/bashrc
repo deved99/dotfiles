@@ -21,11 +21,6 @@ source "$SNIPPET_DIR/prompt.sh"
 source "$SNIPPET_DIR/vars.sh"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*.bashrc][.bashrc]]][]]
-if test -f "$SNIPPET_DIR/emacs-vterm.sh"; then
-  source "$SNIPPET_DIR/emacs-vterm.sh"
-fi
-# ends here
-# [[[[file:~/.dotfiles/files/bash/snippets.org::*.bashrc][.bashrc]]][]]
 source "/usr/share/autojump/autojump.sh"
 # ends here
 # .bashrc:1 ends here
