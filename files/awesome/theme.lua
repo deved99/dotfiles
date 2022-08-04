@@ -22,7 +22,7 @@ local function get_general()
           fg_minimize   = cs.white,
           -- Gap & border
           useless_gap   = 5,
-          border_width  = 3,
+          border_width  = 5,
           border_normal = cs.grey,
           border_focus  = cs.accent,
           border_marked = cs.red,

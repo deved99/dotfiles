@@ -4,6 +4,7 @@
   ansible.builtin.apt:
     name:
       - mpd
+      - mpc
       - mpdscribble
   become: yes
 
@@ -16,6 +17,13 @@
   ansible.builtin.template:
     src: mpd.conf
     dest: "{{ CONFIG_DIR }}/mpd/mpd.conf"
+
+- name: Enable and start MPD service
+  ansible.builtin.service:
+    name: mpd
+    scope: user
+    enabled: true
+    state: started
 
 - name: Copy mpdscribble override and reload services
   block:

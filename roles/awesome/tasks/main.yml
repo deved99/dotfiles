@@ -4,6 +4,8 @@
   ansible.builtin.apt:
     name:
       - awesome
+      - picom
+      - light
       - flameshot
   become: true
 

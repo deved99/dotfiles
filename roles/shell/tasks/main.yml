@@ -8,18 +8,16 @@
 - name: Install commands
   ansible.builtin.apt:
     name:
-      # Script to rename with a sed like syntax
-      - rename
-      # Pretty print and query jsons
-      - jq
-      # Keep history of common dirs and easily cd into them
+      # Quality of life utilities
       - autojump
+      - htop
+      - jq
+      - rename
+      - tldr
       # Fallback editor
       - vim
-      # Info about domain/ip
+      # Networking
       - whois 
-      # Shorter man
-      - tldr
   become: yes
 
 - name: Link .bashrc and .profile

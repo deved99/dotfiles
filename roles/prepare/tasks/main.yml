@@ -8,13 +8,14 @@
   ansible.builtin.apt:
     name:
       # File
-      - btrfs-progs
-      - borgbackup
-      # Password management
+      - btrfs-progs # Filesystem I use for storage
+      - borgbackup # backups
       - pass
-      # Fonts
+      # Connect with android
+      - adb
+      - fastboot
+      # Graphical
       - fonts-firacode
-      # Audio
       - pavucontrol
       # Printers
       - printer-driver-gutenprint
