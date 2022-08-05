@@ -378,6 +378,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package php-mode)
 (use-package nix-mode)
+(use-package jinja2-mode)
 (use-package lua-mode)
 (use-package json-mode)
 (use-package yaml-mode)
