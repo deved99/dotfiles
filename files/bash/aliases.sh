@@ -18,7 +18,7 @@ alias ef='emacsclient -c --no-wait'
 alias ssh='TERM=xterm-256color ssh'
 # ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]
-alias gclip='xlip -o | gpg -d'
+alias gclip='xclip -o | gpg -d'
 alias jclip='xclip -o | jq'
 alias shclip='xclip -o -selection clipboard | bash'
 alias wclip='whois $(xclip -o)'

@@ -12,11 +12,10 @@ function ps1() {
         local cyan="\[\e[36m\]"
         local reset="\[\e[m\]"
         # Prompt
-        echo -n "$green┌── "
-        echo -n "$magenta\u$reset"
-        echo -n " at $blue\h$reset"
-        echo " in $bold\w$reset"
-        echo -n "$green└─\$ $reset"
+        echo -n "$bold$magenta\u$reset"
+        echo -n "@$bold$blue\h$reset"
+        echo ":$bold\w$reset"
+        echo -n "$green\$ $reset"
 }
 # prompt/function ends here
 

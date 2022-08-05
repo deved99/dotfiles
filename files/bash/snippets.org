@@ -131,7 +131,7 @@ Export a different ~$TERM~:
 #+end_src
 Actions from clipboard:
 #+begin_src bash :noweb-ref aliases/misc
-  alias gclip='xlip -o | gpg -d'
+  alias gclip='xclip -o | gpg -d'
   alias jclip='xclip -o | jq'
   alias shclip='xclip -o -selection clipboard | bash'
   alias wclip='whois $(xclip -o)'
@@ -184,11 +184,10 @@ This is the function:
           local cyan="\[\e[36m\]"
           local reset="\[\e[m\]"
           # Prompt
-          echo -n "$green┌── "
-          echo -n "$magenta\u$reset"
-          echo -n " at $blue\h$reset"
-          echo " in $bold\w$reset"
-          echo -n "$green└─\$ $reset"
+          echo -n "$bold$magenta\u$reset"
+          echo -n "@$bold$blue\h$reset"
+          echo ":$bold\w$reset"
+          echo -n "$green\$ $reset"
   }
 #+end_src
 This settings makes ~\w~ print at most the nearest 2 dirs:
