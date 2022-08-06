@@ -41,7 +41,7 @@ This file is mainly used to set variables. This is its structure:
 #+begin_src bash :tangle profile
   <<profile/variables>>
   <<profile/ssh-agent>>
-  <<profile/ansible>>
+  <<profile/misc>>
 #+end_src
 Set the editor used by multiple commands:
 #+begin_src bash :noweb-ref profile/variables
@@ -64,8 +64,12 @@ This starts a ssh-agent and sets proper variables:
   esac
 #+end_src
 Tell ansible to use ~tux~ with ~cowsay~:
-#+begin_src bash :noweb-ref profile/ansible
+#+begin_src bash :noweb-ref profile/misc
   export ANSIBLE_COW_SELECTION=tux
+#+end_src
+Skip updating runtime in lutris:
+#+begin_src bash :noweb-ref profile/misc
+  export LUTRIS_SKIP_INIT=1
 #+end_src
 * snippets
 ** History
