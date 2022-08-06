@@ -5,6 +5,7 @@
 This Org file is used to generate my Emacs configuration thanks to [[https://orgmode.org/worg/org-contrib/babel/][OrgBabel]] and noweb's syntax. The file is generated from the following snippet, which collects the snippets and puts them in order.
 #+begin_src elisp :tangle init.el
   <<prepare/garbage-collection>>
+  <<prepare/exec-path>>
   <<prepare/use-package>>
   <<prepare/general.el>>
   <<prepare/startup-time>>
@@ -89,6 +90,12 @@ This just shows how much did it take for emacs to start and the number of garbag
 	  (time-subtract after-init-time before-init-time)))
        gcs-done)))
 #+end_src
+** ~.local/bin~ in ~exec-path~
+Add the local bin directory to ~$PATH~:
+#+name: prepare/exec-path
+#+begin_src elisp
+  (add-to-list 'exec-path "~/.local/bin")
+#+end_src
 * Aesthetics ✨
 ** cleanup
 I just want to see text, this disable decorations I don't need:
@@ -113,7 +120,7 @@ This keeps 5 lines before and after the current line:
 Set ~Fira Code~ as default font:
 #+begin_src elisp
   (add-to-list 'default-frame-alist
-               '(font . "Fira Code 17"))
+               '(font . "Fira Code 11"))
 #+end_src
 Also, add ~Noto Color Emoji~ as fallback font for symbols:
 #+begin_src elisp :noweb-ref visual/fonts
@@ -225,7 +232,7 @@ These are some keybindindings that are not related to a specific package:
 #+begin_src elisp :noweb-ref prepare/general/base
   (df/leader "f" '(:ignore t :which-key "files")
              "fb" '(switch-to-buffer :which-key "Switch to buffer")
-             "fB" '(ibuffer-list-buffers :which-key "Open window to manage buffers")
+             "fB" '(ibuffer :which-key "Open window to manage buffers")
              "ff" '(find-file :which-key "Open file"))
   (df/leader "F" 'make-frame-command)
 #+end_src

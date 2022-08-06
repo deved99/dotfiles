@@ -4,6 +4,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias ip='ip -c'
 # aliases/colors ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::aliases/ls][aliases/ls]]][aliases/ls]]
 alias ll='ls -alhF'
@@ -21,6 +22,11 @@ alias gclip='xlip -o | gpg -d'
 alias jclip='xclip -o | jq'
 alias shclip='xclip -o -selection clipboard | bash'
 alias wclip='whois $(xclip -o)'
+# ends here
+# [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]
+function cj() {
+  curl --silent $1 | jq
+}
 # ends here
 # [[[[file:~/.dotfiles/files/bash/snippets.org::*Aliases][Aliases]]][]]
 alias yapf="yapf --style={based_on_style:google\,indent_width:2}"

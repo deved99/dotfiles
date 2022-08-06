@@ -115,6 +115,7 @@ Default commands to use colors:
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
+  alias ip='ip -c'
 #+end_src
 Some ~ls~ aliases:
 #+name: aliases/ls
@@ -138,6 +139,12 @@ Actions from clipboard:
   alias jclip='xclip -o | jq'
   alias shclip='xclip -o -selection clipboard | bash'
   alias wclip='whois $(xclip -o)'
+#+end_src
+Curl and parse as json:
+#+begin_src bash :noweb-ref aliases/misc
+  function cj() {
+    curl --silent $1 | jq
+  }
 #+end_src
 Set default values for the formatter:
 #+begin_src bash :noweb-ref aliases/misc
