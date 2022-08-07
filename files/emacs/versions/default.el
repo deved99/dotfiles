@@ -28,6 +28,7 @@
  ("goto-chg" . "278cd3e6d5107693aa2bb33189ca503f22f227d0")
  ("ht.el" . "c4c1be487d6ecb353d07881526db05d7fc90ea87")
  ("hydra" . "9e9e00cb240ea1903ffd36a54956b3902c379d29")
+ ("jinja2-mode" . "03e5430a7efe1d163a16beaf3c82c5fd2c2caee1")
  ("json-mode" . "eedb4560034f795a7950fa07016bd4347c368873")
  ("json-snatcher" . "b28d1c0670636da6db508d03872d96ffddbc10f2")
  ("ligature.el" . "9357156a917a021a87b33ee391567a5d8e44794a")

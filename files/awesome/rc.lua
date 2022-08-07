@@ -397,11 +397,10 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      raise = true,
                      maximized = false,
-                     floating = false,
+                     -- floating = false,
                      focus = awful.client.focus.filter,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     size_hints_honor = false,
         }
     },
 

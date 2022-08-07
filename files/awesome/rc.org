@@ -99,7 +99,7 @@ This sets the theme:
     return beautiful
   end
 #+end_src
-** basic theming (borders, wallpaper, {fg,bg}_*)
+** basic theming (borders, wallpaper, ~{fg,bg}_*~)
 #+begin_src lua :noweb yes :noweb-ref theme/parts
   local function get_general()
     local r = {
@@ -547,11 +547,10 @@ This defines the tags and connect them to each screen:
                        buttons = clientbuttons,
                        raise = true,
                        maximized = false,
-                       floating = false,
+                       -- floating = false,
                        focus = awful.client.focus.filter,
                        screen = awful.screen.preferred,
                        placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                       size_hints_honor = false,
           }
       },
 
