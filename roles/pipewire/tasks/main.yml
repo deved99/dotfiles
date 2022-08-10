@@ -1,0 +1,32 @@
+---
+
+- name: Install needed packages
+  ansible.builtin.apt:
+    name:
+      - pipewire
+      - pipewire-pulse
+      - wireplumber
+  become: true
+
+# Disable, stop and mask pulseaudio
+- name: Disable pulseaudio
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+    masked: true
+    scope: user
+  loop:
+    - pulseaudio.service
+    - pulseaudio.socket
+
+# Enable and start pipewire
+- name: Enable pipewire
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+    scope: user
+  loop:
+    - pipewire
+    - pipewire-pulse

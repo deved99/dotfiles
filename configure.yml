@@ -22,9 +22,12 @@
       tags: graphical
     - role: brave # Browser
       tags: graphical
-    ## Miscellaneous
+    ## Audio related
+    - role: pipewire
+      tags: graphical
     - role: mpd # Music
       tags: music
+    ## Miscellaneous
     # Docker
     - role: docker
       tags: docker
