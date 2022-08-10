@@ -35,6 +35,10 @@ def main():
     playbook_dir = config["playbook_dir"]
     ## cd and run playbook with variables
     os.chdir(playbook_dir)
+    # Configure system if specified as argument
+    if arguments.system:
+        system_configure(profile)
+        return
     configure(profile, colorscheme, tags)
     # If changed config, write
     if config != config_old:
@@ -101,6 +105,10 @@ def getArgumentParser() -> argparse.ArgumentParser:
         metavar = "PROFILE"
     )
     parser.add_argument(
+        '--system', dest = 'system', action = 'store_true',
+        help = "run system-configure.yml instead of configure.yml",
+    )
+    parser.add_argument(
         '--tags', dest = 'tags', action = 'store',
         help = "Set tags to run/install"
     )
@@ -152,6 +160,21 @@ def configure(profile: str, colorscheme: str, tags: list, args: list = []):
         "--extra-vars", f"@vars/{profile}.yml",
         "--extra-vars", f"CS={colorscheme}",
         "--tags", ",".join(tags)
+    ] + args
+    subprocess.run(cmd)
+
+def system_configure(profile: str, args: list = []):
+    """ Run Ansible Playbook to configure this machine (system side).
+
+    Args:
+        profile: profile from which to take additional variables.
+        args: additional arguments to pass to Ansible.
+    """
+    cmd = [
+        "ansible-playbook",
+        "system-configure.yml", "-K",
+        "--extra-vars", "@vars/common.yml",
+        "--extra-vars", f"@vars/{profile}.yml",
     ] + args
     subprocess.run(cmd)
 

@@ -1,0 +1,7 @@
+---
+
+- name: System configuration
+  hosts: localhost
+  become: yes
+  roles:
+    - system
