@@ -1,18 +1,26 @@
 ---
 
 HOME: "{{ lookup('env', 'HOME') }}"
+
+# XDG directories
 CONFIG_DIR: >-
   {{
   lookup('env', 'XDG_CONFIG_DIR')
   | default(HOME+'/.config', true)
   }}
+
 LOCAL_DIR: >-
   {{
   lookup('env', 'XDG_LOCAL_DIR')
   | default(HOME+'/.local', true)
   }}
+
+# Repo directories
 REPO_DIR: "{{ HOME }}/.dotfiles"
 REPO_FILES: "{{ REPO_DIR }}/files"
+REPO_SECRETS: "{{ REPO_DIR }}/secret"
+
+# Miscellaneos
 SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
 LOCAL_BIN: "{{ LOCAL_DIR }}/bin"
 BUILD_DIR: "{{ HOME }}/.cache/build"

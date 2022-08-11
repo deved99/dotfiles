@@ -39,7 +39,7 @@
 # Copy emoji.json
 - name: Copy emoji.json
   ansible.builtin.file:
-    src: "{{ REPO_DIR }}/secret/local/emoji.json"
+    src: "{{ REPO_SECRETS }}/local/emoji.json"
     dest: "{{ CONFIG_DIR }}/local/emoji.json"
     state: link
 

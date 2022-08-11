@@ -48,7 +48,7 @@
 
 - name: Copy rclone configuration
   ansible.builtin.file:
-    src: "{{ REPO_DIR }}/secret/rclone"
+    src: "{{ REPO_SECRETS }}/rclone"
     dest: "{{ CONFIG_DIR }}/rclone"
     state: link
 
