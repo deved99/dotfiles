@@ -8,30 +8,51 @@
       - mpdscribble
   become: yes
 
-- name: Ensure mpd folder exists
+- name: Ensure folders exists
   ansible.builtin.file:
-    path: "{{ CONFIG_DIR }}/mpd"
+    path: "{{ item }}"
     state: directory
+  loop:
+    - "{{ CONFIG_DIR }}/mpd"
+    - "{{ HOME }}/.mpdscribble"
+    - "{{ SYSTEMD_DIR }}/mpdscribble.service.d"
 
-- name: Copy configuration
+#####################
+# mpd configuration #
+#####################
+
+- name: Copy mpd.conf
   ansible.builtin.template:
     src: mpd.conf
     dest: "{{ CONFIG_DIR }}/mpd/mpd.conf"
+  notify: mpd
 
-- name: Enable and start MPD service
-  ansible.builtin.service:
+- name: Copy mpd.conf
+  ansible.builtin.systemd:
     name: mpd
-    scope: user
     enabled: true
-    state: started
+    scope: user
+  notify: mpd
 
-- name: Copy mpdscribble override and reload services
-  block:
-    - name: Copy the override file
-      ansible.builtin.copy:
-        src: mpdscribble.service.d
-        dest: "{{ SYSTEMD_DIR }}/mpdscribble.service.d"
-    - name: Reload services
-      ansible.builtin.systemd:
-        daemon_reload: yes
-        scope: user
+#############################
+# mpdscribble configuration #
+#############################
+
+- name: Copy mpdscribble configuration
+  ansible.builtin.copy:
+    src: "{{ REPO_SECRETS }}/mpdscribble/mpdscribble.conf"
+    dest: "{{ HOME }}/.mpdscribble/mpdscribble.conf"
+  notify: mpdscribble
+
+- name: Copy mpdscribble override.conf
+  ansible.builtin.copy:
+    src: mpdscribble.service.d/override.conf
+    dest: "{{ SYSTEMD_DIR }}/mpdscribble.service.d/override.conf"
+  notify: mpdscribble
+
+- name: Copy mpdscribble override.conf
+  ansible.builtin.systemd:
+    name: mpd
+    enabled: true
+    scope: user
+  notify: mpdscribble

@@ -1,0 +1,14 @@
+---
+
+- name: mpd
+  ansible.builtin.systemd:
+    name: mpd
+    state: restarted
+    scope: user
+
+- name: mpdscribble
+  ansible.builtin.systemd:
+    name: mpdscribble
+    state: restarted
+    daemon_reload: true
+    scope: user
