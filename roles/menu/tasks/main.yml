@@ -22,6 +22,7 @@
   ansible.builtin.git:
     dest: "{{ BUILD_DIR }}/menu"
     repo: "https://github.com/deved99/menu.git"
+    update: "{{ UPDATE }}"
 
 - name: Build menu
   ansible.builtin.command:

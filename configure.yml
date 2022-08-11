@@ -8,25 +8,25 @@
   roles:
     # Basics
     - role: prepare
-      tags: always
+      tags: base,prepare
     - role: shell
-      tags: always
+      tags: base,shell
     # Graphical
     - role: awesome
-      tags: graphical
+      tags: graphical,awesome
     - role: kitty # Terminal
-      tags: graphical
+      tags: graphical,kitty
     - role: emacs # Editor
-      tags: graphical
+      tags: graphical,emacs
     - role: menu # Well, I guess you can tell
-      tags: graphical
+      tags: graphical,menu
     - role: brave # Browser
-      tags: graphical
+      tags: graphical,brave
     ## Audio related
     - role: pipewire
-      tags: graphical
+      tags: graphical,pipewire
     - role: mpd # Music
-      tags: music
+      tags: mpd
     ## Miscellaneous
     # Docker
     - role: docker

@@ -18,6 +18,8 @@ LOCAL_BIN: "{{ LOCAL_DIR }}/bin"
 BUILD_DIR: "{{ HOME }}/.cache/build"
 MUSIC_DIR: "{{ HOME }}/Music"
 
+UPDATE: no
+
 ############################################################
 # Variables
 
