@@ -15,7 +15,6 @@
   loop:
     - "{{ CONFIG_DIR }}/mpd"
     - "{{ HOME }}/.mpdscribble"
-    - "{{ SYSTEMD_DIR }}/mpdscribble.service.d"
 
 #####################
 # mpd configuration #
@@ -46,8 +45,8 @@
 
 - name: Copy mpdscribble override.conf
   ansible.builtin.copy:
-    src: mpdscribble.service.d/override.conf
-    dest: "{{ SYSTEMD_DIR }}/mpdscribble.service.d/override.conf"
+    src: mpdscribble.service
+    dest: "{{ SYSTEMD_DIR }}/mpdscribble.service"
   notify: mpdscribble
 
 - name: Enable mpdscribble
