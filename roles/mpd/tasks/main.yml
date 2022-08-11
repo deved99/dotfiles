@@ -27,7 +27,7 @@
     dest: "{{ CONFIG_DIR }}/mpd/mpd.conf"
   notify: mpd
 
-- name: Copy mpd.conf
+- name: Enable systemd
   ansible.builtin.systemd:
     name: mpd
     enabled: true
@@ -50,9 +50,9 @@
     dest: "{{ SYSTEMD_DIR }}/mpdscribble.service.d/override.conf"
   notify: mpdscribble
 
-- name: Copy mpdscribble override.conf
+- name: Enable mpdscribble
   ansible.builtin.systemd:
-    name: mpd
+    name: mpdscribble
     enabled: true
     scope: user
   notify: mpdscribble
