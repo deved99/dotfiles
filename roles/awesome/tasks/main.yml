@@ -9,6 +9,13 @@
       - flameshot
   become: true
 
+- name: Add current user to video group
+  ansible.builtin.user:
+    name: "{{ ansible_facts.user_id }}"
+    groups:
+      - video
+    append: true
+
 - name: Ensure awesome's config dir exists
   ansible.builtin.file:
     path: "{{ CONFIG_DIR }}/awesome"
