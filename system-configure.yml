@@ -4,4 +4,4 @@
   hosts: localhost
   become: yes
   roles:
-    - system
+    - base.system

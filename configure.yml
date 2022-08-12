@@ -7,36 +7,36 @@
   #       msg: "{{ BASE16 }}"
   roles:
     # Basics
-    - role: prepare
+    - role: base.prepare
       tags: base,prepare
-    - role: bash
+    - role: term.bash
       tags: base,shell
     # Graphical
-    - role: awesome
+    - role: wm.awesome
       tags: graphical,awesome
     ## Terminal
-    - role: alacritty
+    - role: term.alacritty
       tags: graphical,alacritty
-    - role: kitty
+    - role: term.kitty
       tags: kitty
     ## Editor
-    - role: emacs # Editor
+    - role: program.emacs # Editor
       tags: graphical,emacs
     ## Menu
-    - role: menu
+    - role: wm.menu
       tags: graphical,menu
     ## Browser
-    - role: brave # Browser
+    - role: program.brave # Browser
       tags: graphical,brave
     ## Audio related
-    - role: pipewire
+    - role: audio.pipewire
       tags: graphical,pipewire
-    - role: mpd # Music
+    - role: audio.mpd # Music
       tags: mpd
     ## Miscellaneous
     # Docker
-    - role: docker
+    - role: virt.docker
       tags: docker
     # Libvirt
-    - role: libvirt
+    - role: virt.libvirt
       tags: libvirt
