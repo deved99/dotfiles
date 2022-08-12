@@ -1,0 +1,6 @@
+---
+
+- name: Install rust
+  ansible.builtin.apt:
+    name: rust-all
+  become: yes

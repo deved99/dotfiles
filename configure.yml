@@ -14,12 +14,16 @@
     # Graphical
     - role: awesome
       tags: graphical,awesome
-    - role: kitty # Terminal
+    ## Terminal
+    - role: kitty
       tags: graphical,kitty
+    ## Editor
     - role: emacs # Editor
       tags: graphical,emacs
-    - role: menu # Well, I guess you can tell
+    ## Menu
+    - role: menu
       tags: graphical,menu
+    ## Browser
     - role: brave # Browser
       tags: graphical,brave
     ## Audio related

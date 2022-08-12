@@ -1,13 +1,19 @@
 ---
 
-# Preparatory checks
-- name: Install rofi, rust
+################
+# Dependencies #
+################
+
+- name: Install rofi
   ansible.builtin.apt:
-    name:
-      - rofi
-      - rust-all # Build dependency for menu
+    name: rofi
   become: yes
 
+- name: Copy dmenu-like script
+  ansible.builtin.copy:
+    src: "dmenu"
+    dest: "{{ LOCAL_BIN }}/dmenu"
+    mode: 'u+x'
 
 - name: Ensure directories exist
   ansible.builtin.file:
@@ -16,6 +22,10 @@
   loop:
     - "menu/tools"
     - "local"
+
+################
+# Install menu #
+################
 
 # Clone & build menu
 - name: Clone repository
@@ -26,8 +36,7 @@
 
 - name: Build menu
   ansible.builtin.command:
-    cmd: >-
-      cargo build --release
+    cmd: "cargo build --release"
     chdir: "{{ BUILD_DIR }}/menu"
 
 # Install and configure menu
@@ -35,26 +44,6 @@
   ansible.builtin.copy:
     src: menu/
     dest: "{{ CONFIG_DIR }}/menu/"
-
-# Copy emoji.json
-- name: Copy emoji.json
-  ansible.builtin.file:
-    src: "{{ REPO_SECRETS }}/local/emoji.json"
-    dest: "{{ CONFIG_DIR }}/local/emoji.json"
-    state: link
-
-####################
-# Copy executables #
-####################
-
-- name: Copy executables to .local/bin from here
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ LOCAL_BIN }}"
-    mode: 'u+x'
-  loop:
-    - dmenu
-    - passmenu
 
 - name: Copy executables to .local/bin from build
   ansible.builtin.copy:
@@ -66,10 +55,21 @@
     - menu
     - emojis
 
-- name: Copy scripts to .config/menu/tools
+##################
+# Configure menu #
+##################
+
+# Copy emoji.json
+- name: Copy emoji.json
+  ansible.builtin.file:
+    src: "{{ REPO_SECRETS }}/local/emoji.json"
+    dest: "{{ CONFIG_DIR }}/local/emoji.json"
+    state: link
+
+- name: Copy dmenu scripts to .config/menu/tools
   ansible.builtin.copy:
     src: "{{ MENU_TARGET }}/{{ item }}"
-    dest: "{{ CONFIG_DIR }}/menu/tools"
+    dest: "{{ CONFIG_DIR }}/menu/tools/{{ item }}"
     mode: 'u+x'
     remote_src: yes
   loop:
@@ -77,3 +77,9 @@
     - files
     - music
     - videos
+
+- name: Copy dmenu script for pass to .local/bin
+  ansible.builtin.copy:
+    src: "passmenu"
+    dest: "{{ LOCAL_BIN }}/passmenu"
+    mode: 'u+x'
