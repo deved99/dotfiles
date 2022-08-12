@@ -9,7 +9,7 @@
     # Basics
     - role: prepare
       tags: base,prepare
-    - role: shell
+    - role: bash
       tags: base,shell
     # Graphical
     - role: awesome
@@ -32,5 +32,5 @@
     - role: docker
       tags: docker
     # Libvirt
-    - role: virsh
-      tags: virsh
+    - role: libvirt
+      tags: libvirt
