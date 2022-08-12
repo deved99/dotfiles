@@ -50,7 +50,7 @@
     src: "{{ MENU_TARGET }}/{{ item }}"
     dest: "{{ LOCAL_BIN }}"
     mode: 'u+x'
-    remote_src: yes
+    remote_src: true
   loop:
     - menu
     - emojis

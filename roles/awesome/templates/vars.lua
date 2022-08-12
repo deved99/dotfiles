@@ -1,4 +1,4 @@
-local terminal = "kitty"
+local terminal = "alacritty"
 local editor = "nvim"
 return {
    terminal = terminal,

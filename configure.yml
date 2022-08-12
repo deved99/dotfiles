@@ -15,8 +15,10 @@
     - role: awesome
       tags: graphical,awesome
     ## Terminal
+    - role: alacritty
+      tags: graphical,alacritty
     - role: kitty
-      tags: graphical,kitty
+      tags: kitty
     ## Editor
     - role: emacs # Editor
       tags: graphical,emacs
