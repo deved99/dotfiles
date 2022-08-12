@@ -138,14 +138,6 @@ function set_global_keys()
                 {description = "focus the previous screen", group = "screen"}),
       awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
                 {description = "focus urgent", group = "client"}),
-      awful.key({ modkey,           }, "Tab",
-          function ()
-              awful.client.focus.history.previous()
-              if client.focus then
-                  client.focus:raise()
-              end
-          end,
-          {description = "focus previous", group = "client"}),
       awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
                 {description = "increase master width factor", group = "layout"}),
       awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
