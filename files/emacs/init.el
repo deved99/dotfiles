@@ -40,8 +40,8 @@
   (df/leader "f" '(:ignore t :which-key "files")
              "fb" '(switch-to-buffer :which-key "Switch to buffer")
              "fB" '(ibuffer :which-key "Open window to manage buffers")
-             "ff" '(find-file :which-key "Open file"))
-  (df/leader "F" 'make-frame-command)
+             "ff" '(find-file :which-key "Open file")
+             "e" 'make-frame-command)
   ;; ends here
 )
 ;; prepare/general.el ends here
