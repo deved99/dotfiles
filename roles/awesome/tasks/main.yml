@@ -1,6 +1,10 @@
 --- 
 
-- name: Install packages for awesome
+###############
+# Preparation #
+###############
+
+- name: Install packages
   ansible.builtin.apt:
     name:
       - awesome
@@ -9,17 +13,17 @@
       - flameshot
   become: true
 
-- name: Add current user to video group
-  ansible.builtin.user:
-    name: "{{ ansible_facts.user_id }}"
-    groups:
-      - video
-    append: true
-
-- name: Ensure awesome's config dir exists
+- name: Create directories
   ansible.builtin.file:
-    path: "{{ CONFIG_DIR }}/awesome"
+    path: "{{ item }}"
     state: directory
+  loop:
+    - "{{ CONFIG_DIR }}/awesome"
+    - "{{ CONFIG_DIR }}/picom"
+
+#########################
+# Awesome Configuration #
+#########################
 
 - name: Symlink configuration
   ansible.builtin.file:
@@ -35,6 +39,26 @@
   loop:
     - colors.lua
     - vars.lua
+
+##############################
+# Dependencies configuration #
+##############################
+
+- name: Add current user to video group
+  ansible.builtin.user:
+    name: "{{ ansible_facts.user_id }}"
+    groups:
+      - video
+    append: true
+
+- name: Copy picom configuration
+  ansible.builtin.copy:
+    src: picom.conf
+    dest: "{{ CONFIG_DIR }}/picom/picom.conf"
+
+###################
+# Restart awesome #
+###################
 
 - name: Restart awesome
   ignore_errors: yes
