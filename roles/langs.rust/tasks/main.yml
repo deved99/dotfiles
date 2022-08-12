@@ -2,5 +2,7 @@
 
 - name: Install rust
   ansible.builtin.apt:
-    name: rust-all
+    name:
+      - rust-all
+      - rust-src
   become: yes
