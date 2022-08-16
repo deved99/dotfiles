@@ -47,7 +47,7 @@ toggleSticky = withFocused (\windowId -> do
                            )
 -- ends here
 
-main = xmonad $ ewmh $ def
+main = xmonad $ docks $ ewmh $ def
     { terminal = "alacritty"
     , modMask = mod4Mask
     , borderWidth = 5
