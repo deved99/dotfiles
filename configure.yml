@@ -16,29 +16,29 @@
       tags: graphical,awesome
     - role: wm.xmonad
       tags: graphical,xmonad
-    ## Terminal
+    # WM utilities
+    - role: wm.menu
+      tags: graphical,menu
+    # Terminal
     - role: term.alacritty
       tags: graphical,alacritty
     - role: term.kitty
       tags: kitty
-    ## Editor
-    - role: program.emacs # Editor
+    # Programs
+    - role: program.emacs
       tags: graphical,emacs
-    ## Menu
-    - role: wm.menu
-      tags: graphical,menu
-    ## Browser
-    - role: program.brave # Browser
+    - role: program.brave
       tags: graphical,brave
-    ## Audio related
+    # Audio related
     - role: audio.pipewire
       tags: graphical,pipewire
     - role: audio.mpd # Music
       tags: mpd
-    ## Miscellaneous
-    # Docker
+    # Programming 
+    - role: langs.rust
+      tags: rust
+    # Virtualization
     - role: virt.docker
       tags: docker
-    # Libvirt
     - role: virt.libvirt
       tags: libvirt
