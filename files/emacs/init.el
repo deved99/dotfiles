@@ -376,6 +376,7 @@
 (use-package rainbow-mode)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package haskell-mode)
 (use-package php-mode)
 (use-package nix-mode)
 (use-package jinja2-mode)

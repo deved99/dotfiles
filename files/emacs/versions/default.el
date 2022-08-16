@@ -26,6 +26,7 @@
  ("general.el" . "9651024e7f40a8ac5c3f31f8675d3ebe2b667344")
  ("gnu-elpa-mirror" . "808923d95777d378ca340b8020dd571e6a62460a")
  ("goto-chg" . "278cd3e6d5107693aa2bb33189ca503f22f227d0")
+ ("haskell-mode" . "5a9f8072c7b9168f0a8409adf9d62a3e4ad4ea3d")
  ("ht.el" . "c4c1be487d6ecb353d07881526db05d7fc90ea87")
  ("hydra" . "9e9e00cb240ea1903ffd36a54956b3902c379d29")
  ("jinja2-mode" . "03e5430a7efe1d163a16beaf3c82c5fd2c2caee1")

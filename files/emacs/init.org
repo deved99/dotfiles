@@ -616,6 +616,7 @@ This shows a color preview inside Emacs for strings like #FF0000
 ** additional filetypes
 Miscellanous syntax highlight:
 #+begin_src elisp :noweb-ref misc
+  (use-package haskell-mode)
   (use-package php-mode)
   (use-package nix-mode)
   (use-package jinja2-mode)
