@@ -47,9 +47,9 @@ Set the editor used by multiple commands:
 #+begin_src bash :noweb-ref profile/variables
   export EDITOR=/usr/bin/nvim
 #+end_src
-Add ~~/.local/bin~ to ~$PATH~:
+Add paths to ~$PATH~:
 #+begin_src bash :noweb-ref profile/variables
-  export PATH="$HOME/.local/bin:$PATH"
+  export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 #+end_src
 Set the directory where pass searches password files:
 #+begin_src bash :noweb-ref profile/variables

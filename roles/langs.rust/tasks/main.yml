@@ -1,8 +1,33 @@
 ---
 
-- name: Install rust
+- name: Remove Rust from Aptitude
   ansible.builtin.apt:
     name:
+      - cargo
+      - rustc
       - rust-all
       - rust-src
+    state: absent
+    autoremove: true
   become: yes
+
+- name: Install rustup
+  block:
+    - name: Download rustup-init.sh
+      ansible.builtin.get_url:
+        url: "https://sh.rustup.rs"
+        dest: "{{ RUSTUP_INIT }}"
+    - name: Execute rustup-init.sh
+      ansible.builtin.command:
+        cmd: "sh {{ RUSTUP_INIT }} -y --no-modify-path"
+        creates: "{{ CARGO_BIN }}/rustup"
+  vars:
+    RUSTUP_INIT: "{{ BUILD_DIR }}/rust-init.sh"
+
+- name: Download toolchains
+  ansible.builtin.command:
+    cmd: "{{ CARGO_BIN }}/rustup toolchain install nightly"
+    creates: "{{ HOME }}/.rustup/toolchains/{{ item }}-*"
+  loop:
+    - stable
+    - nightly

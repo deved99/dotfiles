@@ -3,7 +3,7 @@
 export EDITOR=/usr/bin/nvim
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
 export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
