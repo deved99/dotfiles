@@ -1,5 +1,5 @@
-# [[file:snippets.org::*Prompt][Prompt:1]]
-# [[[[file:~/.dotfiles/files/bash/snippets.org::prompt/function][prompt/function]]][prompt/function]]
+# [[file:bash.org::*Prompt][Prompt:1]]
+# [[[[file:~/.dotfiles/files/bash/bash.org::prompt/function][prompt/function]]][prompt/function]]
 function ps1() {
         # Vars
         local bold="\[\e[1m\]"

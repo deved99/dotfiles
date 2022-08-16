@@ -58,7 +58,7 @@ Set the directory where pass searches password files:
 This starts a ssh-agent and sets proper variables:
 #+begin_src bash :noweb-ref profile/ssh-agent
   case "$DESKTOP_SESSION" in
-    awesome) 
+    awesome|xmonad) 
       export $(gnome-keyring-daemon --start)
       ;;
   esac
