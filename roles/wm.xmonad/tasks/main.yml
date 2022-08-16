@@ -1,0 +1,30 @@
+---
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - xmonad
+      - libghc-xmonad-dev
+      - libghc-xmonad-contrib-dev
+  become: true
+
+- name: Create folders
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ CONFIG_DIR }}/xmonad/lib"
+    - "{{ HOME }}/.cache/xmonad"
+    - "{{ HOME }}/.local/share/xmonad"
+
+- name: Link configuration
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
+    state: link
+  with_fileglob: "{{ REPO_FILES }}/xmonad/*"
+
+- name: Template colors
+  ansible.builtin.template:
+    src: "Colors.hs.j2"
+    dest: "{{ CONFIG_DIR }}/xmonad/lib/Colors.hs"

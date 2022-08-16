@@ -11,9 +11,11 @@
       tags: base,prepare
     - role: term.bash
       tags: base,shell
-    # Graphical
+    # Window Managers
     - role: wm.awesome
       tags: graphical,awesome
+    - role: wm.xmonad
+      tags: graphical,xmonad
     ## Terminal
     - role: term.alacritty
       tags: graphical,alacritty
