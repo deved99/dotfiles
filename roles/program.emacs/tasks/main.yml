@@ -9,10 +9,17 @@
     repo: ppa:kelleyk/emacs
   become: yes
 
-- name: Install Emacs and related packages
+- name: Uninstall incompatible Emacs
   ansible.builtin.apt:
     name:
       - emacs28
+      - emacs
+  become: yes
+
+- name: Install Emacs and related packages
+  ansible.builtin.apt:
+    name:
+      - emacs28-nativecomp
       - rclone
       - texlive-full
   become: yes
