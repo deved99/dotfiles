@@ -2,31 +2,27 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/garbage-collection][prepare/garbage-collection]]][prepare/garbage-collection]]
 (setq gc-cons-threshold 100000000)
 ;; prepare/garbage-collection ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+'(warning-suppress-types '((comp)))
+;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/exec-path][prepare/exec-path]]][prepare/exec-path]]
 (add-to-list 'exec-path "~/.local/bin")
 ;; prepare/exec-path ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(straight-use-package 'use-package)
+(eval-when-compile
+  (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+  (require 'use-package))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(setq straight-use-package-by-default t)
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(add-hook 'emacs-startup-hook '(lambda () (straight-freeze-versions t)))
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/general.el][prepare/general.el]]][prepare/general.el]]
 (use-package general
@@ -75,20 +71,6 @@
 (set-face-attribute 'fixed-pitch nil
   :font (font-spec :family "Fira Code"))
 ;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/ligatures][visual/ligatures]]][visual/ligatures]]
-(use-package ligature
-  :straight (:host github :repo "mickeynp/ligature.el")
-  :config
-  (ligature-set-ligatures 't
-   '("-->" "//" "<!--" ":=" "->>" "<<-" "->" "<-"
-     "<=>" "==" "!=" "<=" ">=" "!==" "||" "..." ".."
-     "|||" "///" "===" "++" "--" "---" "=>" "|>" "<|" "||>" "<||"
-     "|||>" "<|||" ">>" "<<" "::=" ":?" "!!" "?:" "?." "::"
-     "+++" "??" ":::" ".?" "?=" "=!=" "<|>"
-     ";;" "<<<" ">>>" "<==" "<==>" "==>" "=>>"
-     "<~>" "<~~" "<~" "~~>" "~>" "<->" "^="))
-  (global-ligature-mode t))
-;; visual/ligatures ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::visual/theme][visual/theme]]][visual/theme]]
 (if (file-exists-p (concat user-emacs-directory "theme.el"))
     (load-file (concat user-emacs-directory "theme.el"))
@@ -237,10 +219,12 @@
              "ods" 'org-schedule
              "odd" 'org-deadline)
   ;; ends here
-  :straight (:type built-in))
+  ;; :straight (:type built-in)
+  )
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package org-tempo
-  :straight (:type built-in)
+  :ensure org
+  ;; :straight (:type built-in)
   :config
   (add-to-list 'org-structure-template-alist '("caddy" . "src caddy"))
   (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
@@ -274,16 +258,6 @@
            (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-(use-package org-fragtog
-  :custom
-  (org-startup-with-latex-preview t)
-  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg/"))
-  ;; :init
-  ;; (setq org-latex-packages-alist '())
-  ;; (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
-  :straight (:host github :repo "io12/org-fragtog"))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (defun df/org-mode-beautify ()
   ;; set some faces
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -293,7 +267,7 @@
   ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
-  (org-fragtog-mode t)
+  ;;(org-fragtog-mode t)
   ;; Limit buffer width, center eventually.
   (visual-line-mode t)
   (adaptive-wrap-prefix-mode t)
@@ -384,16 +358,6 @@
 (use-package json-mode)
 (use-package yaml-mode)
 (use-package dockerfile-mode)
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package plantuml-mode
-:init
-(setq plantuml-executable-path "/usr/bin/plantuml"
-      plantuml-default-exec-mode 'executable)
-(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-;; Org-mode
-(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package markdown-mode

@@ -5,14 +5,14 @@
 This Org file is used to generate my Emacs configuration thanks to [[https://orgmode.org/worg/org-contrib/babel/][OrgBabel]] and noweb's syntax. The file is generated from the following snippet, which collects the snippets and puts them in order.
 #+begin_src elisp :tangle init.el
   <<prepare/garbage-collection>>
+  <<prepare/suppress-warnings>>
   <<prepare/exec-path>>
-  <<prepare/use-package>>
+  <<prepare/package.el>>
   <<prepare/general.el>>
   <<prepare/startup-time>>
   <<visual/cleanup>>
   <<visual/keeparound>>
   <<visual/fonts>>
-  <<visual/ligatures>>
   <<visual/theme>>
   <<visual/modeline>>
   <<visual/parenthesis>>
@@ -34,14 +34,14 @@ The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
-Also, write ~early-init.el~:
-#+begin_src elisp :tangle early-init.el
-  (setq package-enable-at-startup nil)
-#+end_src
 This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
 There's also another snippet generated from this Org file, which is the shell side configuration of vterm:
 #+begin_src bash :tangle no
 <<vterm/bash-index>>
+#+end_src
+Disable ~package.el~, write ~early-init.el~, used when using ~straight.el~:
+#+begin_src elisp
+  (setq package-enable-at-startup nil)
 #+end_src
 * Preparation 🛠️
 ** garbage collect
@@ -50,9 +50,13 @@ How frequently does Emacs garbage collect:
 #+begin_src elisp
   (setq gc-cons-threshold 100000000)
 #+end_src
-** use-package setup
+** Suppress compilation messages
+#+begin_src elisp :noweb-ref prepare/suppress-warnings
+  '(warning-suppress-types '((comp)))
+#+end_src
+** use-package setup (~straight.el~)
 Bootstrap straight.el:
-#+begin_src elisp :noweb-ref prepare/use-package
+#+begin_src elisp :noweb-ref prepare/straight.el
   (defvar bootstrap-version)
   (let ((bootstrap-file
          (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -67,16 +71,36 @@ Bootstrap straight.el:
     (load bootstrap-file nil 'nomessage))
 #+end_src
 Install and load ~use-package~:
-#+begin_src elisp :noweb-ref prepare/use-package
+#+begin_src elisp :noweb-ref prepare/straight.el
   (straight-use-package 'use-package)
 #+end_src
 If a package is specified, install it:
-#+begin_src elisp :noweb-ref prepare/use-package
+#+begin_src elisp :noweb-ref prepare/straight.el
   (setq straight-use-package-by-default t)
 #+end_src
 Finally, write lockfile:
-#+begin_src elisp :noweb-ref prepare/use-package
+#+begin_src elisp :noweb-ref prepare/straight.el
   (add-hook 'emacs-startup-hook '(lambda () (straight-freeze-versions t)))
+#+end_src
+** use-package setup (~package.el~)
+Add Melpa repository:
+#+begin_src elisp :noweb-ref prepare/package.el
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+#+end_src
+Install ~use-package~ if not installed:
+#+begin_src elisp :noweb-ref prepare/package.el
+  (eval-when-compile
+    (unless (package-installed-p 'use-package)
+        (package-refresh-contents)
+        (package-install 'use-package))
+    (require 'use-package))
+#+end_src
+And install every specified package:
+#+begin_src elisp :noweb-ref prepare/package.el
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
 #+end_src
 ** Performance stats
 This just shows how much did it take for emacs to start and the number of garbage collections done:
@@ -385,7 +409,8 @@ Use builtin org-mode:
     <<org/keywords>>
     :init
     <<org/keybindings>>
-    :straight (:type built-in))
+    ;; :straight (:type built-in)
+    )
   <<org/plugins>>
   <<org/beautify>>
 #+end_src
@@ -419,7 +444,8 @@ Add keywords and tags:
 Faster insertion of code blocks:
 #+begin_src elisp :noweb-ref org/plugins
   (use-package org-tempo
-    :straight (:type built-in)
+    :ensure org
+    ;; :straight (:type built-in)
     :config
     (add-to-list 'org-structure-template-alist '("caddy" . "src caddy"))
     (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
@@ -458,7 +484,7 @@ Hide most markup symbols:
              (org-appear-autolinks t)))
 #+end_src
 As a reminder, package to automatically render latex fragments when the cursor is away:
-#+begin_src elisp :noweb-ref org/plugins
+#+begin_src elisp
   (use-package org-fragtog
     :custom
     (org-startup-with-latex-preview t)
@@ -477,7 +503,7 @@ Org mode is treated in a special way:
     ;; change symbol appearence
     (org-appear-mode t)
     (org-superstar-mode t)
-    (org-fragtog-mode t)
+    ;;(org-fragtog-mode t)
     ;; Limit buffer width, center eventually.
     (visual-line-mode t)
     (adaptive-wrap-prefix-mode t)
@@ -628,17 +654,6 @@ Miscellanous syntax highlight:
 Better pdf viewer, disabled since not optimal yet:
 #+begin_src elisp
   (use-package pdf-tools)
-#+end_src
-Plantuml support, used to create nice graphs:
-#+begin_src elisp :noweb-ref misc
-  (use-package plantuml-mode
-  :init
-  (setq plantuml-executable-path "/usr/bin/plantuml"
-        plantuml-default-exec-mode 'executable)
-  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-  ;; Org-mode
-  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-  (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 #+end_src
 Markdown syntax-higlight plus some functions:
 #+begin_src elisp :noweb-ref misc
