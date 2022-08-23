@@ -86,7 +86,6 @@ Finally, write lockfile:
 Add Melpa repository:
 #+begin_src elisp :noweb-ref prepare/package.el
   (require 'package)
-  (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
 Install ~use-package~ if not installed:
