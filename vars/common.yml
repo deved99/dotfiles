@@ -37,10 +37,9 @@ BROWSER_FALLBACK: firefox
 ############################################################
 # Colorscheme
 
-# CS is the choosen colorscheme, which will update CS_TERM and CS_BASE16
+# CS is the choosen colorscheme, which will update CS_TERM
 CS: "{{ COLORSCHEME_GOOGLE_DARK }}"
 CS_TERM: "{{ CS.TERM}}" 
-CS_BASE16: "{{ CS.BASE16 }}"
 CS_EMACS: "{{ CS.EMACS }}"
 
 # These are the chosen accent, background and foreground color
