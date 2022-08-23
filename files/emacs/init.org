@@ -466,7 +466,7 @@ I don't like text spanning from the beginning to the end of the screen. The firs
 #+begin_src elisp :noweb-ref org/plugins
   (use-package visual-fill-column
     :custom
-    (visual-fill-column-width 120)
+    (visual-fill-column-width 140)
     (visual-fill-column-center-text t)
     (truncate-lines nil))
   (use-package adaptive-wrap)

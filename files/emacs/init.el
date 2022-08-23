@@ -242,7 +242,7 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (use-package visual-fill-column
   :custom
-  (visual-fill-column-width 120)
+  (visual-fill-column-width 140)
   (visual-fill-column-center-text t)
   (truncate-lines nil))
 (use-package adaptive-wrap)
