@@ -21,12 +21,13 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.ToggleLayouts
 import Graphics.X11.ExtraTypes.XF86
-import qualified Colors as CS
 -- ends here
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
+import qualified Colors as CS
 myWhite  = CS.foreground
 myBlack = CS.background
 myAccent = CS.accent
+-- myAccent = CS.accent
 -- ends here
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
 toggleFloat = withFocused (\windowId -> do
@@ -58,7 +59,10 @@ main = xmonad $ docks $ ewmh $ def
     , layoutHook = myLayout
     , manageHook = myManageHook
     , logHook = myLogHook
+    , startupHook = myStartupHook
     }
+
+myStartupHook = spawn "~/.config/xmonad/autostart"
 
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
 myKeys conf@(XConfig {}) = M.fromList $
@@ -111,11 +115,12 @@ myLayout = toggleLayouts full layouts
   where
     full = noBorders Full
     layouts = avoidStruts(tiled)
-    tiled = gaps $ smartBorders $ Tall n inc split
+    -- tiled = gaps $ smartBorders $ Tall n inc split
+    tiled = gaps $ Tall n inc split
     n = 1
     split = 1/2
     inc = 3/100
-    gaps w = smartSpacing 5 w
+    gaps w = spacing 5 w
 -- ends here
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
 myManageHook = manageDocks <+> composeAll

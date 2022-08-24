@@ -2,6 +2,7 @@
 #+PROPERTY: header-args :comments noweb :noweb yes
 
 * Summary
+This is the structure of my xmonad configuration:
 #+begin_src haskell :tangle xmonad.hs
   <<preparation/imports>>
   <<preparation/variables>>
@@ -18,12 +19,22 @@
       , layoutHook = myLayout
       , manageHook = myManageHook
       , logHook = myLogHook
+      , startupHook = myStartupHook
       }
+
+  myStartupHook = spawn "~/.config/xmonad/autostart"
 
   <<keybindings>>
   <<layouts>>
   <<rules>>
-  #+end_src
+#+end_src
+It is started by ~~/.Xsession~, which also starts this script:
+#+begin_src bash :tangle autostart
+  feh --bg-scale ~/bg.jpg
+  picom --experimental-backends
+  eww open bar
+  flameshot
+#+end_src
 * Preparation
 ** Imports
 #+begin_src haskell :noweb-ref preparation/imports
@@ -48,13 +59,14 @@
   import XMonad.Layout.Spacing
   import XMonad.Layout.ToggleLayouts
   import Graphics.X11.ExtraTypes.XF86
-  import qualified Colors as CS
 #+end_src
 ** Variables
 #+begin_src haskell :noweb-ref preparation/variables
+  import qualified Colors as CS
   myWhite  = CS.foreground
   myBlack = CS.background
   myAccent = CS.accent
+  -- myAccent = CS.accent
 #+end_src
 ** Functions
 #+begin_src haskell :noweb-ref preparation/functions
@@ -124,15 +136,16 @@
   #+end_src
 * Layouts
   #+begin_src haskell :noweb-ref layouts
-  myLayout = toggleLayouts full layouts
-    where
-      full = noBorders Full
-      layouts = avoidStruts(tiled)
-      tiled = gaps $ smartBorders $ Tall n inc split
-      n = 1
-      split = 1/2
-      inc = 3/100
-      gaps w = smartSpacing 5 w
+    myLayout = toggleLayouts full layouts
+      where
+        full = noBorders Full
+        layouts = avoidStruts(tiled)
+        -- tiled = gaps $ smartBorders $ Tall n inc split
+        tiled = gaps $ Tall n inc split
+        n = 1
+        split = 1/2
+        inc = 3/100
+        gaps w = spacing 5 w
   #+end_src
 * Rules
   #+begin_src haskell :noweb-ref rules

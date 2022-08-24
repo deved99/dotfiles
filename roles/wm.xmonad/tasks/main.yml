@@ -1,11 +1,12 @@
 ---
 
-- name: Install packages
+- name: Uninstall incompatible packages
   ansible.builtin.apt:
     name:
       - xmonad
       - libghc-xmonad-dev
       - libghc-xmonad-contrib-dev
+    state: absent
   become: true
 
 - name: Create folders
@@ -16,6 +17,10 @@
     - "{{ CONFIG_DIR }}/xmonad/lib"
     - "{{ HOME }}/.cache/xmonad"
     - "{{ HOME }}/.local/share/xmonad"
+
+################
+# Configurtion #
+################
 
 - name: Link configuration
   ansible.builtin.file:
@@ -28,3 +33,62 @@
   ansible.builtin.template:
     src: "Colors.hs.j2"
     dest: "{{ CONFIG_DIR }}/xmonad/lib/Colors.hs"
+
+# - name: Template eww files
+#   ansible.builtin.template:
+#     src: "{{ item }}.j2"
+#     dest: "{{ CONFIG_DIR }}/eww/{{ item }}"
+#   loop:
+#     - "eww.scss"
+
+###################
+# Build & install #
+###################
+# Untested from here onward
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - haskell-stack
+      - libx11-dev
+      - libxft-dev
+      - libxinerama-dev
+      - libxrandr-dev
+      - libxss-dev
+  become: true
+
+- name: Clone repos
+  ansible.builtin.git:
+    repo: "https://github.com/xmonad/{{ item }}"
+    dest: "{{ CONFIG_DIR }}/xmonad/{{ item }}"
+    version: "v0.17.0"
+    update: false
+  loop:
+    - "xmonad"
+    - "xmonad-contrib"
+
+- name: Copy stack.yaml
+  ansible.builtin.copy:
+    src: stack.yaml
+    dest: "{{ CONFIG_DIR }}/xmonad/stack.yml"
+  
+- name: stack install
+  ansible.builtin.command:
+    cmd: stack install
+    chdir: "{{ CONFIG_DIR }}/xmonad"
+
+##########################
+# XSession configuration #
+##########################
+
+- name: Copy xsession.desktop
+  ansible.builtin.template:
+    src: xsession.desktop.j2
+    dest: /usr/share/xsessions/xsession.desktop
+  become: true
+
+- name: Copy ~/.Xsession # Move this to ~/.config/xmonad?
+  ansible.builtin.copy:
+    src: Xsession
+    dest: "{{ HOME }}/.Xsession"
+    mode: 'u+x'
