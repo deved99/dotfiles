@@ -1,4 +1,4 @@
-#env:
+env:
 #   TERM variable
 #  
 #   This value is used to set the `$TERM` environment variable for
@@ -6,6 +6,7 @@
 #   check the local terminfo database and use `alacritty` if it is
 #   available, otherwise `xterm-256color` is used.
 #  TERM: alacritty
+   WINIT_X11_SCALE_FACTOR=1
 
 window:
   # Window padding (changes require restart)
@@ -24,7 +25,7 @@ font:
   normal:
     family: Fira Code
   # Point size
-  size: 8.0
+  size: 10.0
 
 # Colors (Tomorrow Night)
 colors:
