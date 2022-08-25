@@ -108,10 +108,10 @@ end
 local function get_bar()
   local r = {
           taglist_fg_focus = cs.black,
-          taglist_bg_focus = cs.accent_semi,
+          taglist_bg_focus = cs.accent,
           tasklist_fg_normal = cs.white,
           tasklist_fg_focus = cs.accent,
-          tasklist_bg_minimize = cs.black_semi,
+          tasklist_bg_minimize = cs.black,
           tasklist_fg_minimize = cs.grey,
   }
 

@@ -482,7 +482,7 @@ function set_bar()
   -- Create a textclock widget
   mytextclock = wibox.widget.textclock()
   
-  bar_bg = RC.colorscheme.black_semi
+  bar_bg = RC.colorscheme.black
   awful.screen.connect_for_each_screen(function(s)
       -- Create a promptbox for each screen
       s.mypromptbox = awful.widget.prompt()
