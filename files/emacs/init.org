@@ -25,6 +25,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<note-taking>>
   <<note-taking/roam>>
   <<programming/lsp>>
+  <<programming/treesitter>>
   <<programming/langs>>
   <<programming/company>>
   <<programming/magit>>
