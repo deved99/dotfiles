@@ -409,7 +409,7 @@ Use builtin org-mode:
     :init
     <<org/keybindings>>
     ;; :straight (:type built-in)
-    )
+    :pin manual)
   <<org/plugins>>
   <<org/beautify>>
 #+end_src
@@ -579,8 +579,7 @@ This is the completion engine, hooked up to lsp-mode:
 #+name: programming/company
 #+begin_src elisp
   (use-package company
-    :hook ((after-init . global-company-mode)
-           (prog-mode . (lambda () (setq-local company-idle-delay 0.4))))
+    :hook (after-init . global-company-mode)
     :general
     (general-imap "C-n" 'company-select-next
                   "C-p" 'company-select-previous)
