@@ -19,10 +19,7 @@ This is the structure of my xmonad configuration:
       , layoutHook = myLayout
       , manageHook = myManageHook
       , logHook = myLogHook
-      , startupHook = myStartupHook
       }
-
-  myStartupHook = spawn "~/.config/xmonad/autostart"
 
   <<keybindings>>
   <<layouts>>

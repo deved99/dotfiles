@@ -59,10 +59,7 @@ main = xmonad $ docks $ ewmh $ def
     , layoutHook = myLayout
     , manageHook = myManageHook
     , logHook = myLogHook
-    , startupHook = myStartupHook
     }
-
-myStartupHook = spawn "~/.config/xmonad/autostart"
 
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
 myKeys conf@(XConfig {}) = M.fromList $
