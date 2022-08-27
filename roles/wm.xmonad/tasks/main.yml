@@ -57,20 +57,25 @@
       - libxss-dev
   become: true
 
-- name: Clone repos
+- name: Clone core repo [fork]
   ansible.builtin.git:
-    repo: "https://github.com/xmonad/{{ item }}"
-    dest: "{{ CONFIG_DIR }}/xmonad/{{ item }}"
+    repo: "https://github.com/deved99/xmonad"
+    dest: "{{ CONFIG_DIR }}/xmonad/xmonad"
+    version: "1.17-opaque-border"
+    update: false
+
+- name: Clone contrib repo
+  ansible.builtin.git:
+    repo: "https://github.com/xmonad/xmonad-contrib"
+    dest: "{{ CONFIG_DIR }}/xmonad/xmonad-contrib"
     version: "v0.17.0"
     update: false
-  loop:
-    - "xmonad"
-    - "xmonad-contrib"
+
 
 - name: Copy stack.yaml
   ansible.builtin.copy:
     src: stack.yaml
-    dest: "{{ CONFIG_DIR }}/xmonad/stack.yml"
+    dest: "{{ CONFIG_DIR }}/xmonad/stack.yaml"
   
 - name: stack install
   ansible.builtin.command:
