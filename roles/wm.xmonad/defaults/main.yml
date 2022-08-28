@@ -1,0 +1,8 @@
+---
+
+XMONAD_DIR: "{{ CONFIG_DIR }}/xmonad"
+
+CORE_SRC_DIR: "{{ XMONAD_DIR }}/xmonad"
+CONTRIB_SRC_DIR: "{{ XMONAD_DIR }}/xmonad-contrib"
+
+CTL_BUILD_DIR: "{{ XMONAD_DIR }}/xmonadctl"
