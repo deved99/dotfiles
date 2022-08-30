@@ -6,21 +6,28 @@ import XMonad.Hooks.DynamicLog
 import Data.List
 -- import Data.Monoid
 import Data.Ratio ((%))
+import Data.Maybe
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 -- import System.Exit
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
     ( avoidStruts, docks, manageDocks )
+import XMonad.Hooks.ServerMode
 -- Addons
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.FloatKeys
+import XMonad.Actions.WorkspaceNames
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.RefocusLast
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.ToggleLayouts
+import XMonad.Util.Loggers
+--
 import Graphics.X11.ExtraTypes.XF86
+
+import Text.JSON
 -- ends here
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
 import qualified Colors as CS
@@ -52,13 +59,14 @@ main = xmonad $ docks $ ewmh $ def
     { terminal = "alacritty"
     , modMask = mod4Mask
     , borderWidth = 5
-    , workspaces = [ show x  | x <- [1..8] ]
+    , workspaces = [ show x ++ show y  | x <- [1..5], y <- [1..5] ]
     , normalBorderColor = myWhite
     , focusedBorderColor = myAccent
     , XMonad.keys = myKeys
     , layoutHook = myLayout
     , manageHook = myManageHook
     , logHook = myLogHook
+    , handleEventHook = myEventHook
     }
 
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
@@ -121,16 +129,35 @@ myLayout = toggleLayouts full layouts
 -- ends here
 -- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
 myManageHook = manageDocks <+> composeAll
-  [ className =? "Alacritty" --> doShift "1"
-  , className =? "kitty" --> doShift "1"
-  , className =? "Emacs" --> doShift "1"
-  , className =? "Zathura" --> doShift "1"
-  , className =? "Brave-browser" --> doShift "2"
-  , className =? "Ferdi" --> doShift "3"
-  , className =? "mpv" --> doShift "3"
-  , className =? "minecraft-launcher" --> doShift "3"
-  , fmap("Minecraft" `isPrefixOf`) className --> doShift "3" ]
+    [ className =? "Alacritty" --> doShift "1"
+    , className =? "kitty" --> doShift "1"
+    , className =? "Emacs" --> doShift "1"
+    , className =? "Zathura" --> doShift "1"
+    , className =? "Brave-browser" --> doShift "2"
+    , className =? "Ferdi" --> doShift "3"
+    , className =? "mpv" --> doShift "3"
+    , className =? "minecraft-launcher" --> doShift "3"
+    , fmap("Minecraft" `isPrefixOf`) className --> doShift "3" ]
 
 myLogHook = refocusLastLogHook
+-- ends here
+-- [[[[file:~/.dotfiles/files/xmonad/xmonad.org::*Summary][Summary]]][]]
+myEventHook = serverModeEventHookCmd' $ return myCommands
+
+myCommands =
+    [ ("list", listCommands)
+    -- , ("a", currentWorkspaceMessage)
+    , ("test-up", windows W.focusUp)]
+
+
+-- currentWorkspaceMessage = do
+--   x <- show logCurrent
+--   message x
+
+
+message msg = spawn ("echo '" ++ msg ++ "' | xmessage -file -")
+
+listCommands = spawn ("echo '" ++ asmc ++ "' | xmessage -file -")
+  where asmc = concat $ "Available commands:" : map (\(x, _)-> "    " ++ x) myCommands
 -- ends here
 -- Summary:1 ends here
