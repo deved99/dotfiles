@@ -257,6 +257,12 @@
            (org-appear-autolinks t)))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+(use-package org-fragtog
+  :custom
+  (org-startup-with-latex-preview t)
+  (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg/")))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
 (defun df/org-mode-beautify ()
   ;; set some faces
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -266,7 +272,7 @@
   ;; change symbol appearence
   (org-appear-mode t)
   (org-superstar-mode t)
-  ;;(org-fragtog-mode t)
+  (org-fragtog-mode t)
   ;; Limit buffer width, center eventually.
   (visual-line-mode t)
   (adaptive-wrap-prefix-mode t)
@@ -373,16 +379,3 @@
 (setq vc-follow-symlinks t)
 ;; ends here
 ;; Summary 🗂️:1 ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(tree-sitter-langs yaml-mode which-key visual-fill-column vertico use-package undo-tree rust-mode rainbow-mode rainbow-delimiters plantuml-mode php-mode ox-gfm org-superstar org-roam-ui org-appear orderless nix-mode marginalia magit lua-mode lsp-pyright json-mode jinja2-mode haskell-mode general evil-surround evil-org evil-numbers evil-commentary evil-collection edit-indirect doom-themes doom-modeline dockerfile-mode consult company-box all-the-icons adaptive-wrap)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

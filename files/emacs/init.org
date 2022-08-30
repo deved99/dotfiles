@@ -484,15 +484,11 @@ Hide most markup symbols:
              (org-appear-autolinks t)))
 #+end_src
 As a reminder, package to automatically render latex fragments when the cursor is away:
-#+begin_src elisp
+#+begin_src elisp :noweb-ref org/plugins
   (use-package org-fragtog
     :custom
     (org-startup-with-latex-preview t)
-    (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg/"))
-    ;; :init
-    ;; (setq org-latex-packages-alist '())
-    ;; (add-to-list 'org-latex-packages-alist '("" "pgfplots" t))
-    :straight (:host github :repo "io12/org-fragtog"))
+    (org-latex-preview-ltxpng-directory (concat user-emacs-directory "ltximg/")))
 #+end_src
 ** Org Mode: beautify
 Org mode is treated in a special way:
@@ -503,7 +499,7 @@ Org mode is treated in a special way:
     ;; change symbol appearence
     (org-appear-mode t)
     (org-superstar-mode t)
-    ;;(org-fragtog-mode t)
+    (org-fragtog-mode t)
     ;; Limit buffer width, center eventually.
     (visual-line-mode t)
     (adaptive-wrap-prefix-mode t)
