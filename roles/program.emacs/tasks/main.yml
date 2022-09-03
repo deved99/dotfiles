@@ -14,6 +14,7 @@
     name:
       - emacs28
       - emacs
+    state: absent
   become: yes
 
 - name: Install Emacs and related packages
