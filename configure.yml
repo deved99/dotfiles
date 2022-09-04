@@ -15,7 +15,7 @@
     - role: wm.awesome
       tags: graphical,awesome
     - role: wm.xmonad
-      tags: graphical,xmonad
+      tags: xmonad
     # WM utilities
     - role: wm.eww
       tags: eww

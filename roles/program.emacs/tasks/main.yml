@@ -31,10 +31,10 @@
 
 # Commented lines needed by straight el
 
-# - name: Ensure directories exist
-#   ansible.builtin.file:
-#     path: "{{ CONFIG_DIR }}/emacs/straight/versions"
-#     state: directory
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/emacs/"
+    state: directory
 
 - name: Symlink configuration
   ansible.builtin.file:
