@@ -413,8 +413,14 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+end)
 
-    c.shape = gears.shape.rounded_rect
+client.connect_signal("property::geometry", function (c)
+    if c.fullscreen then
+        c.shape = gears.shape.rectangle
+    else
+        c.shape = gears.shape.rounded_rect
+    end
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
