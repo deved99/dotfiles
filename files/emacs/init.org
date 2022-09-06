@@ -420,6 +420,7 @@ Generic option:
 #+begin_src elisp :noweb-ref org/options
   (org-ellipsis " ▾")
   (org-startup-folded t)
+  (org-highlight-latex-and-related '(native))
 #+end_src
 Keybindings I use:
 #+begin_src elisp :noweb-ref org/keybindings
@@ -511,6 +512,10 @@ These are custom faces that, in my opinion, give Org a cleaner look:
   #+begin_src elisp :noweb-ref org/beautify/faces
     (set-face-attribute 'org-block-begin-line nil 
       :inherit 'font-lock-comment-face)
+  #+end_src
+- Remove background in latex fragments:
+  #+begin_src elisp :noweb-ref org/beautify/faces
+    (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
   #+end_src
 ** Org Mode: roam
 Package:

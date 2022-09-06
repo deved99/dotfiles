@@ -199,6 +199,7 @@
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-ellipsis " ▾")
   (org-startup-folded t)
+  (org-highlight-latex-and-related '(native))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
@@ -268,6 +269,9 @@
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (set-face-attribute 'org-block-begin-line nil 
     :inherit 'font-lock-comment-face)
+  ;; ends here
+  ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
+  (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
   ;; ends here
   ;; change symbol appearence
   (org-appear-mode t)
