@@ -4,7 +4,7 @@ TAGS:
   - graphical
   - mpd
 
-BROWSER: brave-browser
+BROWSER: firefox
 BROWSER_FALLBACK: firefox
 
 CS_N: 4

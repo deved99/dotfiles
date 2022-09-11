@@ -30,7 +30,7 @@
     - role: program.emacs
       tags: graphical,emacs
     - role: program.brave
-      tags: graphical,brave
+      tags: brave
     # Audio related
     - role: audio.pipewire
       tags: graphical,pipewire
