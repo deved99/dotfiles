@@ -106,6 +106,8 @@ I've grouped aliases into groups:
   <<aliases/colors>>
   <<aliases/ls>>
   <<aliases/emacs>>
+  <<aliases/systemd>>
+  <<aliases/clipboard>>
   <<aliases/misc>>
 #+end_src
 Default commands to use colors:
@@ -129,16 +131,21 @@ Shortcut for emacs:
   alias ew='emacsclient -c'
   alias ef='emacsclient -c --no-wait'
 #+end_src
-Export a different ~$TERM~:
-#+begin_src bash :noweb-ref aliases/misc
-  alias ssh='TERM=xterm-256color ssh'
+Systemd user actions:
+#+begin_src bash :noweb-ref aliases/systemd
+  alias usystemctl='systemctl --user'
+  alias ujournalctl='journalctl --user'
 #+end_src
 Actions from clipboard:
-#+begin_src bash :noweb-ref aliases/misc
+#+begin_src bash :noweb-ref aliases/clipboard
   alias gclip='xclip -o | gpg -d'
   alias jclip='xclip -o | jq'
   alias shclip='xclip -o -selection clipboard | bash'
   alias wclip='whois $(xclip -o)'
+#+end_src
+Export a different ~$TERM~:
+#+begin_src bash :noweb-ref aliases/misc
+  alias ssh='TERM=xterm-256color ssh'
 #+end_src
 Curl and parse as json:
 #+begin_src bash :noweb-ref aliases/misc
@@ -149,13 +156,6 @@ Curl and parse as json:
 Set default values for the formatter:
 #+begin_src bash :noweb-ref aliases/misc
   alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
-#+end_src
-Make directory and ~cd~ into it:
-#+begin_src bash :noweb-ref aliases/misc
-  function mkcd() {
-    mkdir $1
-    cd $1
-  }
 #+end_src
 Print my ip:
 #+begin_src bash :noweb-ref aliases/misc

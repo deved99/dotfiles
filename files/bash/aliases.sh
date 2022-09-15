@@ -15,7 +15,8 @@ alias ew='emacsclient -c'
 alias ef='emacsclient -c --no-wait'
 # aliases/emacs ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
-alias ssh='TERM=xterm-256color ssh'
+alias usystemctl='systemctl --user'
+alias ujournalctl='journalctl --user'
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias gclip='xclip -o | gpg -d'
@@ -24,18 +25,15 @@ alias shclip='xclip -o -selection clipboard | bash'
 alias wclip='whois $(xclip -o)'
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
+alias ssh='TERM=xterm-256color ssh'
+# ends here
+# [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 function cj() {
   curl --silent $1 | jq
 }
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
-# ends here
-# [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
-function mkcd() {
-  mkdir $1
-  cd $1
-}
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
