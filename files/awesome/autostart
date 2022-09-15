@@ -4,5 +4,6 @@ PROGRAM=$(echo $line | cut -d" " -f1)
 pidof -q $PROGRAM || $line &
 done <<EOF
 picom --experimental-backends
+thunderbird
 flameshot
 EOF

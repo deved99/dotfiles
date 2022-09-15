@@ -538,8 +538,8 @@ This defines the tags and connect them to each screen:
       -- Tag 2
       { rule = { role = "browser" },
         properties = { tag = "2" } },
-      -- Tag 3
-      { rule = { class = "Thunderbird" },
+      -- Background stuff
+      { rule = { class = "thunderbird" },
         properties = { tag = "7" } },
       { rule = { class = "Pavucontrol" },
         properties = { tag = "8" } },
@@ -618,6 +618,7 @@ This is the autostart script:
   pidof -q $PROGRAM || $line &
   done <<EOF
   picom --experimental-backends
+  thunderbird
   flameshot
   EOF
 #+end_src

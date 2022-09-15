@@ -388,8 +388,8 @@ awful.rules.rules = {
     -- Tag 2
     { rule = { role = "browser" },
       properties = { tag = "2" } },
-    -- Tag 3
-    { rule = { class = "Thunderbird" },
+    -- Background stuff
+    { rule = { class = "thunderbird" },
       properties = { tag = "7" } },
     { rule = { class = "Pavucontrol" },
       properties = { tag = "8" } },
