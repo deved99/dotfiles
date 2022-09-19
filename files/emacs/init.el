@@ -308,12 +308,6 @@
  :custom (lsp-headerline-breadcrumb-enable nil))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package tree-sitter-langs)
-(use-package tree-sitter
-  :hook (tree-sitter-mode . tree-sitter-hl-mode)
-  :config (global-tree-sitter-mode))
-;; ends here
-;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package lsp-pyright
   :hook (python-mode . (lambda ()
                           (require 'lsp-pyright)
