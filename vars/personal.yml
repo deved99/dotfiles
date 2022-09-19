@@ -1,0 +1,10 @@
+PROFILE: personal
+TAGS:
+  - base
+  - graphical
+  - music
+
+BROWSER: firefox
+BROWSER_FALLBACK: firefox
+
+CS_N: 5

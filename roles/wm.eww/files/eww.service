@@ -1,0 +1,8 @@
+[Unit]
+Description=ElKowars wacky widgets
+
+[Service]
+ExecStart=sh -c "~/.local/bin/eww daemon --no-daemonize"
+
+[Install]
+WantedBy=default.target

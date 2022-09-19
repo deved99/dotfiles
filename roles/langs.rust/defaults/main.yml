@@ -1,0 +1,3 @@
+---
+
+CARGO_BIN: "{{ HOME }}/.cargo/bin"

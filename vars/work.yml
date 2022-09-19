@@ -1,0 +1,10 @@
+PROFILE: work
+TAGS:
+  - base
+  - graphical
+  - mpd
+
+BROWSER: firefox
+BROWSER_FALLBACK: firefox
+
+CS_N: 4

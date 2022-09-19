@@ -6,10 +6,41 @@
   #     ansible.builtin.debug:
   #       msg: "{{ BASE16 }}"
   roles:
-    - prepare
-    - awesome # WM
-    - shell
-    - kitty # Terminal
-    - emacs # Editor
-    - menu # Well, I guess you can tell
-    - mpd # Music
+    # Basics
+    - role: base.prepare
+      tags: base,prepare
+    - role: term.bash
+      tags: base,shell
+    # Window Managers
+    - role: wm.awesome
+      tags: graphical,awesome
+    - role: wm.xmonad
+      tags: xmonad
+    # WM utilities
+    - role: wm.eww
+      tags: eww
+    - role: wm.menu
+      tags: graphical,menu
+    # Terminal
+    - role: term.alacritty
+      tags: graphical,alacritty
+    - role: term.kitty
+      tags: kitty
+    # Programs
+    - role: program.emacs
+      tags: graphical,emacs
+    - role: program.brave
+      tags: brave
+    # Audio related
+    - role: audio.pipewire
+      tags: graphical,pipewire
+    - role: audio.mpd # Music
+      tags: mpd
+    # Programming 
+    - role: langs.rust
+      tags: rust
+    # Virtualization
+    - role: virt.docker
+      tags: docker
+    - role: virt.libvirt
+      tags: libvirt

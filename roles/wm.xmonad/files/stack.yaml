@@ -1,0 +1,8 @@
+resolver: lts-17.14
+
+packages:
+- xmonad
+- xmonad-contrib
+
+extra-deps:
+- X11-1.10.2@sha256:5f449203afe0240ca5124dc4b28d906fbde1d56a15c0c95534f677060f8b72ac,3747

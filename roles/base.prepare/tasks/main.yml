@@ -1,0 +1,31 @@
+---
+
+- name: Become password check
+  ansible.builtin.command: whoami
+  become: true
+
+- name: Install miscellaneous packages
+  ansible.builtin.apt:
+    name:
+      # File
+      - btrfs-progs # Filesystem I use for storage
+      - borgbackup # backups
+      - pass
+      # Connect with android
+      - adb
+      - fastboot
+      # Graphical
+      - fonts-firacode
+      - pavucontrol
+      # Printers
+      - printer-driver-gutenprint
+  become: yes
+
+- name: Ensure folders exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ BUILD_DIR }}"
+    - "{{ LOCAL_BIN }}"
+    - "{{ SYSTEMD_DIR }}"

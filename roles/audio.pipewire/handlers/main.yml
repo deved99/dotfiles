@@ -1,0 +1,10 @@
+---
+
+- name: pipewire
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    scope: user
+  loop:
+    - pipewire
+    - pipewire-pulse

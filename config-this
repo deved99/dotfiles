@@ -7,13 +7,110 @@ import subprocess
 # External
 import yaml
 
+###################################
+# Main function and close related #
+###################################
+
+def main():
+    """ The main function.
+
+    Parses arguments. If told so, install config-this and exits.
+    Otherwise, reads config and then execute the configure playbook
+    with appropriate paramaters.
+    """
+    # Parse arguments
+    arguments = getArgumentParser().parse_args()
+    # If --install has been passed, install and exit.
+    if arguments.install is not None:
+        print(f"Install: {arguments.install}.")
+        install(arguments.install)
+        return
+    # Read config
+    config = config_read()
+    config_old = config.copy()
+    # Then set variables
+    colorscheme = choose_coloscheme(config, arguments)
+    tags = choose_tags(config, arguments)
+    profile = config["profile"]
+    playbook_dir = config["playbook_dir"]
+    ## cd and run playbook with variables
+    os.chdir(playbook_dir)
+    # Configure system if specified as argument
+    if arguments.system:
+        system_configure(profile)
+        return
+    configure(profile, colorscheme, tags)
+    # If changed config, write
+    if config != config_old:
+        config_write(config)
+
+def choose_coloscheme(config: dict,
+                      arguments: argparse.Namespace) -> str:
+    """ Choose the colorscheme, depending on config and arguments.
+
+    Args:
+        config: configuration of this wrapper.
+        arguments: arguments parsed by main above.
+
+    Returns:
+        Name of the colorscheme to use.
+    """
+    # Set colorscheme_current in config if it needs to be changed
+    if arguments.colorscheme == "dark":
+        config["colorscheme_current"] = False
+    elif arguments.colorscheme == "light":
+        config["colorscheme_current"] = True
+    elif arguments.colorscheme == "toggle":
+        config["colorscheme_current"] = not config["colorscheme_current"]
+    # Then set colorscheme_key according to coloscheme_current
+    if config["colorscheme_current"]:
+        colorscheme_key = "colorscheme_light"
+    else:
+        colorscheme_key = "colorscheme_dark"
+    # Finally, return colorscheme
+    return config[colorscheme_key]
+
+def choose_tags(config: dict,
+                arguments: argparse.Namespace) -> list[str]:
+    """ Decide what tags to apply.
+
+    Args:
+        config: configuration of this wrapper.
+        arguments: arguments parsed by main above.
+
+    If any tags have been specified as argument, return them.
+    Otherwise return defaults from config.
+    """
+    if arguments.tags:
+        return arguments.tags.split(",")
+    else:
+        return config["tags"]
+        
+
+###################
+# Argument Parser #
+###################
+
 def getArgumentParser() -> argparse.ArgumentParser:
+    """ Get the argument parser.
+
+    Returns:
+        The argument parser.
+    """
     parser = argparse.ArgumentParser()
     # Whether to copy script in $PATH
     parser.add_argument(
         '--install', dest = 'install', action = 'store',
         help = "install and generate a default config",
         metavar = "PROFILE"
+    )
+    parser.add_argument(
+        '--system', dest = 'system', action = 'store_true',
+        help = "run system-configure.yml instead of configure.yml",
+    )
+    parser.add_argument(
+        '--tags', dest = 'tags', action = 'store',
+        help = "Set tags to run/install"
     )
     # Toggle or set colorscheme
     parser.add_argument(
@@ -28,29 +125,16 @@ def getArgumentParser() -> argparse.ArgumentParser:
     )
     return parser
 
-## Helpers
-# TODO: accept config-this.yaml too
-def get_config_path() -> str:
-    config_dir = os.environ.get("XDG_CONFIG_DIR")
-    if config_dir is None:
-        config_dir = Path.home() / ".config"
-    else:
-        config_dir = Path(config_dir)
-    return config_dir / "local" / "config-this.yml"
+###############
+# Subroutines #
+###############
 
-# read config file
-def config_read() -> dict:
-    with open(get_config_path()) as f:
-        return yaml.safe_load(f)
-
-def config_write(data: dict):
-    with open(get_config_path(), "w") as f:
-        return yaml.dump(data, f)
-
-## Subroutins
-# install this script in ~/.local/bin
-# if --install
 def install(profile):
+    """ Run Ansible Playbook to install this script.
+
+    Args:
+        profile: name of the profile to use, assumes vars/{profile} exists.
+    """
     cmd = [
         "ansible-playbook",
         "--extra-vars", "@vars/common.yml",
@@ -59,9 +143,15 @@ def install(profile):
     ]
     subprocess.run(cmd)
 
-# launch the ansible
-# if not --install
-def configure(profile: str, colorscheme: str, args: list = []):
+def configure(profile: str, colorscheme: str, tags: list, args: list = []):
+    """ Run Ansible Playbook to configure this machine.
+
+    Args:
+        profile: profile from which to take additional variables.
+        colorscheme: colorscheme to use.
+        tags: tags to pass to Ansible.
+        args: additional arguments to pass to Ansible.
+    """
     colorscheme = "{{" + colorscheme + "}}"
     cmd = [
         "ansible-playbook",
@@ -69,41 +159,56 @@ def configure(profile: str, colorscheme: str, args: list = []):
         "--extra-vars", "@vars/common.yml",
         "--extra-vars", f"@vars/{profile}.yml",
         "--extra-vars", f"CS={colorscheme}",
+        "--tags", ",".join(tags)
     ] + args
     subprocess.run(cmd)
 
-def main():
-    arguments = getArgumentParser().parse_args()
-    if arguments.install is not None:
-        print(f"Install: {arguments.install}.")
-        install(arguments.install)
-        return
-    config = config_read()
-    config_old = config.copy()
-    ## decide dark/light colorscheme
-    # False = dark colorscheme
-    # True = light colorscheme
-    if arguments.colorscheme == "dark":
-        config["colorscheme_current"] = False
-    elif arguments.colorscheme == "light":
-        config["colorscheme_current"] = True
-    elif arguments.colorscheme == "toggle":
-        config["colorscheme_current"] = not config["colorscheme_current"]
-    # set correct key
-    if config["colorscheme_current"]:
-        colorscheme_key = "colorscheme_light"
+def system_configure(profile: str, args: list = []):
+    """ Run Ansible Playbook to configure this machine (system side).
+
+    Args:
+        profile: profile from which to take additional variables.
+        args: additional arguments to pass to Ansible.
+    """
+    cmd = [
+        "ansible-playbook",
+        "system-configure.yml", "-K",
+        "--extra-vars", "@vars/common.yml",
+        "--extra-vars", f"@vars/{profile}.yml",
+    ] + args
+    subprocess.run(cmd)
+
+####################
+# Helper functions #
+####################
+
+# TODO: accept config-this.yaml too
+def get_config_path() -> Path:
+    """ Return path of config directory.
+
+    Returns $XDG_CONFIG_DIR if exists, otherwise ~/.config.
+    """
+    config_dir = os.environ.get("XDG_CONFIG_DIR")
+    if config_dir is None:
+        config_dir = Path.home() / ".config"
     else:
-        colorscheme_key = "colorscheme_dark"
-    ## set variables
-    colorscheme = config[colorscheme_key]
-    profile = config["profile"]
-    playbook_dir = config["playbook_dir"]
-    ## cd and run playbook
-    os.chdir(playbook_dir)
-    configure(profile, colorscheme)
-    # If changed config, overwrite
-    if config != config_old:
-        config_write(config)
+        config_dir = Path(config_dir)
+    return config_dir / "local" / "config-this.yml"
+
+def config_read() -> dict:
+    """ Read configuration and return it.
+    """
+    with open(get_config_path()) as f:
+        return yaml.safe_load(f)
+
+def config_write(data: dict):
+    """ Write configuration to file.
+
+    Args:
+        data: config to write to file.
+    """
+    with open(get_config_path(), "w") as f:
+        return yaml.dump(data, f)
 
 if __name__ == "__main__":
     main()

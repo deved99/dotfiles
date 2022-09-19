@@ -10,6 +10,7 @@
       colorscheme_dark: "COLORSCHEME_GOOGLE_DARK"
       colorscheme_light: "COLORSCHEME_GOOGLE_LIGHT"
       colorscheme_current: false
+      tags: "{{ TAGS }}"
   tasks:
     - name: Ensure directories exist
       ansible.builtin.file:

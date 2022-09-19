@@ -1,0 +1,26 @@
+# [[file:bash.org::*.bashrc][.bashrc:1]]
+#!/bin/bash
+# [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+# ends here
+# [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+# ends here
+SNIPPET_DIR="$HOME/.config/bash"
+# [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
+source "$SNIPPET_DIR/history.sh"
+source "$SNIPPET_DIR/aliases.sh"
+source "$SNIPPET_DIR/prompt.sh"
+source "$SNIPPET_DIR/vars.sh"
+# ends here
+# [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
+source "/usr/share/autojump/autojump.sh"
+# ends here
+# .bashrc:1 ends here

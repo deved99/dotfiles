@@ -1,0 +1,26 @@
+---
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/X11/xorg.conf.d
+    - /etc/NetworkManager/conf.d
+    - /etc/systemd/resolved.conf.d
+
+- name: Configure touchpad
+  ansible.builtin.copy:
+    src: X11/00-touchpad.conf
+    dest: /etc/X11/xorg.conf.d/00-touchpad.conf
+
+- name: Configure NetworkManager to use systemd-resolved
+  ansible.builtin.copy:
+    src: NetworkManager/dns.conf
+    dest: /etc/NetworkManager/conf.d/dns.conf
+  notify: NetworkManager
+
+- name: Configure systemd-resolved
+  ansible.builtin.copy:
+    src: systemd-resolved/dns_servers.conf
+    dest: /etc/systemd/resolved.conf.d/dns_servers.conf

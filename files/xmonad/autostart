@@ -1,0 +1,6 @@
+# [[file:xmonad.org::*Summary][Summary:2]]
+feh --bg-scale ~/bg.jpg
+picom --experimental-backends
+eww open bar
+flameshot
+# Summary:2 ends here

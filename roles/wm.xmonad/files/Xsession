@@ -1,0 +1,5 @@
+AUTOSTART=$(realpath ~/.config/xmonad/autostart)
+
+chmod +x $AUTOSTART
+$AUTOSTART &
+xmonad

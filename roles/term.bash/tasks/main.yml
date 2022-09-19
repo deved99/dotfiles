@@ -1,0 +1,42 @@
+---
+
+- name: Ensure {{ CONFIG_DIR }}/bash exists
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/bash"
+    state: directory
+
+- name: Install commands
+  ansible.builtin.apt:
+    name:
+      # Quality of life utilities
+      - autojump
+      - htop
+      - jq
+      - rename
+      - tldr
+      # Fallback editor
+      - vim
+      # Networking
+      - whois 
+  become: yes
+
+- name: Link .bashrc and .profile
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: "{{ REPO_FILES }}/bash/bashrc"
+      dest: "{{ HOME }}/.bashrc"
+    - src: "{{ REPO_FILES }}/bash/profile"
+      dest: "{{ HOME }}/.profile"
+
+- name: Link snippets to config dir
+  ansible.builtin.file:
+    src: "{{ src }}"
+    dest: "{{ dest }}"
+    state: link
+  vars:
+    src: "{{ item }}"
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
+  with_fileglob: "{{ REPO_FILES }}/bash/*.sh"
