@@ -613,6 +613,10 @@ This defines the tags and connect them to each screen:
 This is the autostart script:
 #+begin_src bash :tangle autostart
   #!/bin/bash
+  xrandr --output eDP-1 --primary \
+    --output DP-1 --left-of eDP-1 \
+    --output HDMI-1 --left-of DP-1
+
   while read -r line; do
   PROGRAM=$(echo $line | cut -d" " -f1)
   pidof -q $PROGRAM || $line &
@@ -751,6 +755,7 @@ Actual bar, I should split it in more manageable bits:
           layout = wibox.layout.align.horizontal,
           { -- Left widgets
               layout = wibox.layout.fixed.horizontal,
+              s.mylayoutbox,
               s.mytaglist,
               s.mypromptbox,
           },
@@ -760,7 +765,6 @@ Actual bar, I should split it in more manageable bits:
               mpd,
               wibox.widget.systray(),
               mytextclock,
-              s.mylayoutbox,
           },
       }
   end)

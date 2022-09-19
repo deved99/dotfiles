@@ -494,6 +494,7 @@ function set_bar()
           layout = wibox.layout.align.horizontal,
           { -- Left widgets
               layout = wibox.layout.fixed.horizontal,
+              s.mylayoutbox,
               s.mytaglist,
               s.mypromptbox,
           },
@@ -503,7 +504,6 @@ function set_bar()
               mpd,
               wibox.widget.systray(),
               mytextclock,
-              s.mylayoutbox,
           },
       }
   end)
