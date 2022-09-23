@@ -150,7 +150,7 @@ Export a different ~$TERM~:
 Curl and parse as json:
 #+begin_src bash :noweb-ref aliases/misc
   function cj() {
-    curl --silent $1 | jq
+    time (curl --silent $1 | jq)
   }
 #+end_src
 Set default values for the formatter:
