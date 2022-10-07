@@ -7,6 +7,7 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/exec-path][prepare/exec-path]]][prepare/exec-path]]
 (add-to-list 'exec-path "~/.local/bin")
+(add-to-list 'exec-path "~/.cargo/bin")
 ;; prepare/exec-path ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (require 'package)
@@ -314,8 +315,12 @@
                           (lsp-deferred))))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package rust-mode
-  :hook (rust-mode . lsp-deferred))
+(use-package python-black
+  :hook (python-mode . python-black-on-save-mode))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package rustic)
+  ;; :hook (rust-mode . lsp-deferred))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company

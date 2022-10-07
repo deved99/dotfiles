@@ -113,11 +113,12 @@ This just shows how much did it take for emacs to start and the number of garbag
 	  (time-subtract after-init-time before-init-time)))
        gcs-done)))
 #+end_src
-** ~.local/bin~ in ~exec-path~
+** Additional paths in ~exec-path~
 Add the local bin directory to ~$PATH~:
 #+name: prepare/exec-path
 #+begin_src elisp
   (add-to-list 'exec-path "~/.local/bin")
+  (add-to-list 'exec-path "~/.cargo/bin")
 #+end_src
 * Aesthetics ✨
 ** cleanup
@@ -570,10 +571,15 @@ Use pyright LSP:
                             (require 'lsp-pyright)
                             (lsp-deferred))))
 #+end_src
+Code formatter
+#+begin_src elisp :noweb-ref programming/langs
+  (use-package python-black
+    :hook (python-mode . python-black-on-save-mode))
+#+end_src
 *** Rust
 #+begin_src elisp :noweb-ref programming/langs
-  (use-package rust-mode
-    :hook (rust-mode . lsp-deferred))
+  (use-package rustic)
+    ;; :hook (rust-mode . lsp-deferred))
 #+end_src
 ** Company
 This is the completion engine, hooked up to lsp-mode:
