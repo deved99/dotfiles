@@ -1,0 +1,13 @@
+#+TITLE: Neovim Config
+#+PROPERTY: header-args :comments noweb :noweb yes
+
+* Summary
+My configuration is composed by:
+#+begin_src lua :tangle init.lua
+  <<generic/number-line>>
+#+end_src
+* Generic options
+** Number line
+#+begin_src lua :noweb-ref generic/number-line
+  vim.opt.number = true
+#+end_src

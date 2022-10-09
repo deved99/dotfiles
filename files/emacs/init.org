@@ -24,10 +24,10 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/undo>>
   <<note-taking>>
   <<note-taking/roam>>
-  <<programming/lsp>>
-  <<programming/langs>>
-  <<programming/company>>
-  <<programming/magit>>
+  ;; <<programming/lsp>>
+  ;; <<programming/langs>>
+  ;; <<programming/company>>
+  ;; <<programming/magit>>
   <<misc>>
 #+end_src
 The header arguments tell Emacs the following:

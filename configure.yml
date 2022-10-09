@@ -29,6 +29,8 @@
     # Programs
     - role: program.emacs
       tags: graphical,emacs
+    - role: program.neovim
+      tags: neovim
     - role: program.brave
       tags: brave
     # Audio related

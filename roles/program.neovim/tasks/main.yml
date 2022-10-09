@@ -1,0 +1,39 @@
+# Install
+
+- name: Create build dir
+  ansible.builtin.file:
+    path: "{{ BUILD_DIR }}/neovim"
+    state: directory
+
+- name: Download neovim deb
+  ansible.builtin.get_url:
+    url: "{{ NEOVIM_DEB_URL }}"
+    dest: "{{ BUILD_DIR }}/neovim/neovim.deb"
+
+- name: Install neovim deb
+  ansible.builtin.apt:
+    deb: "{{ BUILD_DIR }}/neovim/neovim.deb"
+  become: true
+
+- name: Set neovim as an alternative to vi
+  ansible.builtin.shell: >-
+    update-alternatives --install /usr/bin/vi vi $(which nvim) 100
+  become: true
+
+# Symlink configs
+
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/nvim/"
+    state: directory
+
+- name: Symlink configuration
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: "{{ REPO_FILES }}/neovim/init.lua"
+      dest: "{{ CONFIG_DIR }}/nvim/init.lua"
+    - src: "{{ REPO_FILES }}/neovim/init.org"
+      dest: "{{ CONFIG_DIR }}/nvim/init.org"
