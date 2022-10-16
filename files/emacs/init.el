@@ -160,7 +160,7 @@
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
   :custom
-  (setq org-special-ctrl-a/e t)
+  (org-special-ctrl-a/e t)
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -269,6 +269,7 @@
   ;; set some faces
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (set-face-attribute 'org-block-begin-line nil 
+    :background nil
     :inherit 'font-lock-comment-face)
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -303,43 +304,43 @@
   :hook (after-init . org-roam-ui-mode))
 ;; ends here
 ;; note-taking/roam ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (use-package lsp-mode
-;;  :config (df/leader "l" lsp-command-map)
-;;  :custom (lsp-headerline-breadcrumb-enable nil))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (use-package lsp-pyright
-;;   :hook (python-mode . (lambda ()
-;;                           (require 'lsp-pyright)
-;;                           (lsp-deferred))))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (use-package python-black
-;;   :hook (python-mode . python-black-on-save-mode))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (use-package rustic)
-;;   ;; :hook (rust-mode . lsp-deferred))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
-;; (use-package company
-;;   :hook (after-init . global-company-mode)
-;;   :general
-;;   (general-imap "C-n" 'company-select-next
-;;                 "C-p" 'company-select-previous)
-;;   :config
-;;   (setq company-selection-wrap-around t
-;;         company-minimum-prefix-length 1
-;;         company-idle-delay nil)
-;;   (company-tng-configure-default))
-;; (use-package company-box
-;;   :hook (company-mode . company-box-mode))
-;; ;; programming/company ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/magit][programming/magit]]][programming/magit]]
-;; (use-package magit
-;;   :config (df/leader "g" 'magit))
-;; ;; programming/magit ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package lsp-mode
+ :config (df/leader "l" lsp-command-map)
+ :custom (lsp-headerline-breadcrumb-enable nil))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred))))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package python-black
+  :hook (python-mode . python-black-on-save-mode))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package rustic)
+  ;; :hook (rust-mode . lsp-deferred))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
+(use-package company
+  :hook (after-init . global-company-mode)
+  :general
+  (general-imap "C-n" 'company-select-next
+                "C-p" 'company-select-previous)
+  :config
+  (setq company-selection-wrap-around t
+        company-minimum-prefix-length 1
+        company-idle-delay nil)
+  (company-tng-configure-default))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+;; programming/company ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/magit][programming/magit]]][programming/magit]]
+(use-package magit
+  :config (df/leader "g" 'magit))
+;; programming/magit ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (setq inhibit-startup-screen t
       initial-buffer-choice "~/current.org")

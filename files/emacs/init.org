@@ -24,27 +24,18 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/undo>>
   <<note-taking>>
   <<note-taking/roam>>
-  ;; <<programming/lsp>>
-  ;; <<programming/langs>>
-  ;; <<programming/company>>
-  ;; <<programming/magit>>
+  <<programming/lsp>>
+  <<programming/langs>>
+  <<programming/company>>
+  <<programming/magit>>
   <<misc>>
 #+end_src
 The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
-This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
-There's also another snippet generated from this Org file, which is the shell side configuration of vterm:
-#+begin_src bash :tangle no
-<<vterm/bash-index>>
-#+end_src
-Disable ~package.el~, write ~early-init.el~, used when using ~straight.el~:
-#+begin_src elisp
-  (setq package-enable-at-startup nil)
-#+end_src
 * Preparation 🛠️
-** garbage collect
+** Garbage collect
 How frequently does Emacs garbage collect:
 #+name: prepare/garbage-collection
 #+begin_src elisp
@@ -121,7 +112,7 @@ Add the local bin directory to ~$PATH~:
   (add-to-list 'exec-path "~/.cargo/bin")
 #+end_src
 * Aesthetics ✨
-** cleanup
+** Cleanup
 I just want to see text, this disable decorations I don't need:
 #+begin_src elisp :noweb-ref visual/cleanup
   (tool-bar-mode 0)
@@ -133,14 +124,14 @@ But I want some space around text:
 #+begin_src elisp :noweb-ref visual/cleanup
   (fringe-mode 10)
 #+end_src
-** keep context around cursor
+** Keep context around cursor
 This keeps 5 lines before and after the current line:
 #+name: visual/keeparound
 #+begin_src elisp
   (setq scroll-margin 5
 	scroll-conservatively 10000)
 #+end_src
-** fonts
+** Fonts
 Set ~Fira Code~ as default font:
 #+begin_src elisp
   (add-to-list 'default-frame-alist
@@ -156,7 +147,7 @@ Set variable and fixed pitch font:
   (set-face-attribute 'fixed-pitch nil
     :font (font-spec :family "Fira Code"))
 #+end_src
-** theme
+** Theme
 If this file exists, load it, otherwise load a dark theme:
 #+name: visual/theme
 #+begin_src elisp
@@ -164,7 +155,7 @@ If this file exists, load it, otherwise load a dark theme:
       (load-file (concat user-emacs-directory "theme.el"))
       (load-theme 'modus-vivendi t))
 #+end_src
-** ligatures
+** Ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
 #+name: visual/ligatures
 #+begin_src elisp :noweb no
@@ -181,7 +172,7 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
        "<~>" "<~~" "<~" "~~>" "~>" "<->" "^="))
     (global-ligature-mode t))
 #+end_src
-** modeline
+** Modeline
 Modeline I'm using:
 #+name: visual/modeline
 #+begin_src elisp
@@ -214,7 +205,7 @@ Current framework I'm trying:
     :config (vertico-mode))
   <<interface/vertico/packages>>
 #+end_src
-Make completion behave more like ivy:
+Make matching in vertico order indipendent:
 #+begin_src elisp :noweb-ref interface/vertico/packages
   (use-package orderless
     :custom (completion-styles '(orderless basic)))
@@ -298,7 +289,7 @@ Directory tracking:
   PS1=$PS1'\[$(vterm_prompt_end)\]'
 #+end_src
 * Editing 🐙
-** ~evil~ package:
+** ~evil~ package
 The main piece, ~evil~:
 #+name: evil/main
 #+begin_src elisp
@@ -344,32 +335,32 @@ Move by visual lines:
 ** evil integrations
 This is a collections of various integrations:
 #+begin_src elisp :noweb-ref evil/integrations
-(use-package evil-collection
-  :after evil
-  :init (evil-collection-init))
+  (use-package evil-collection
+    :after evil
+    :init (evil-collection-init))
 #+end_src
 And this is an integration for Org-mode:
 #+begin_src elisp :noweb-ref evil/integrations
-(use-package evil-org
-  :hook (org-mode . evil-org-mode)
-  :custom
-  (setq org-special-ctrl-a/e t)
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+  (use-package evil-org
+    :hook (org-mode . evil-org-mode)
+    :custom
+    (org-special-ctrl-a/e t)
+    :config
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
 #+end_src
 ** vim plugins
 This is for a way faster way to change surrounding like parenthesis:
 #+begin_src elisp :noweb-ref evil/plugins
-(use-package evil-surround
-  :after evil
-  :config (global-evil-surround-mode 1))
+  (use-package evil-surround
+    :after evil
+    :config (global-evil-surround-mode 1))
 #+end_src
 And this is for commenting portions of code:
 #+begin_src elisp :noweb-ref evil/plugins
-(use-package evil-commentary
-  :after evil
-  :config (evil-commentary-mode))
+  (use-package evil-commentary
+    :after evil
+    :config (evil-commentary-mode))
 #+end_src
 Vi-like number controlling:
 #+begin_src elisp :noweb-ref evil/plugins
@@ -511,6 +502,7 @@ These are custom faces that, in my opinion, give Org a cleaner look:
 - Make begin and end line of a block have no background:
   #+begin_src elisp :noweb-ref org/beautify/faces
     (set-face-attribute 'org-block-begin-line nil 
+      :background nil
       :inherit 'font-lock-comment-face)
   #+end_src
 - Remove background in latex fragments:
@@ -561,6 +553,11 @@ UI features:
   (use-package lsp-ui
    :custom
    (lsp-ui-doc-show-with-mouse t))
+#+end_src
+Which-key integration:
+#+begin_src elisp
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 #+end_src
 ** Languages
 *** Python
