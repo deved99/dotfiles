@@ -1,5 +1,6 @@
 [Unit]
-Description=Sync ~/Notes with Dropbox
+Description=Sync ~/Notes.
 
 [Service]
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 ExecStart=sh -c '~/.local/bin/notes-sync'
