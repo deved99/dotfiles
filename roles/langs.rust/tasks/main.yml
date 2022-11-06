@@ -26,7 +26,7 @@
 
 - name: Download toolchains
   ansible.builtin.command:
-    cmd: "{{ CARGO_BIN }}/rustup toolchain install nightly"
+    cmd: "{{ CARGO_BIN }}/rustup toolchain install {{ item }}"
     creates: "{{ HOME }}/.rustup/toolchains/{{ item }}-*"
   loop:
     - stable
