@@ -1,0 +1,9 @@
+---
+
+- name: Install black from apt
+  ansible.builtin.apt:
+    name: black
+
+- name: Install pyright from pip
+  ansible.builtin.pip:
+    name: pyright

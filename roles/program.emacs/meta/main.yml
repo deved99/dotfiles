@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - role: langs.rust
+  - role: langs.python
