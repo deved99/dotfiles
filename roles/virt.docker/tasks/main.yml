@@ -57,5 +57,5 @@
   ansible.builtin.copy:
     src: rdocker.py
     dest: /usr/local/bin/rdocker
-    mode: 755
+    mode: '755'
   become: yes
