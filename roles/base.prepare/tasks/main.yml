@@ -17,6 +17,15 @@
       # Graphical
       - fonts-firacode
       - pavucontrol
+      - mpv
+      - wmctrl
+      - arandr
+      # Networking tools
+      - nmap
+      - traceroute
+      - sipcalc # Calculate CIDR span
+      - nload # Network usage monitor
+      - net-tools # misc
       # Printers
       - printer-driver-gutenprint
   become: yes
