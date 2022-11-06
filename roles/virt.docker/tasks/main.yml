@@ -52,3 +52,10 @@
       - containerd.io
       - docker-compose-plugin
   become: yes
+
+- name: Install rdocker
+  ansible.builtin.copy:
+    src: rdocker.py
+    dest: /usr/local/bin/rdocker
+    mode: 755
+  become: yes
