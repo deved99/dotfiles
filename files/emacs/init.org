@@ -24,6 +24,7 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/undo>>
   <<note-taking>>
   <<note-taking/roam>>
+  ;; <<note-taking/hugo>>
   <<programming/lsp>>
   <<programming/langs>>
   <<programming/company>>
@@ -532,6 +533,56 @@ UI:
     :custom (org-roam-ui-open-on-start nil)
     :hook (after-init . org-roam-ui-mode))
 #+end_src
+** Org Roam: export to Hugo
+Export my notes to Hugo:
+#+begin_src elisp :noweb-ref note-taking/hugo
+  <<note-taking/hugo/functions>>
+  (use-package ox-hugo
+    :custom
+    (org-hugo-base-dir "~/Projects/wiki")
+    (org-hugo-section "notes")
+    :config
+    (add-to-list 'org-hugo-tag-processing-functions 'org-hugo--tag-processing-fn-roam-tags)
+    (add-hook 'org-export-before-processing-hook #'org-hugo--org-roam-backlinks)
+    (add-to-list 'after-save-hook #'org-hugo--org-roam-save-buffer))
+#+end_src
+Add tags from org:
+#+begin_src elisp :noweb-ref note-taking/hugo/functions
+(defun org-hugo--tag-processing-fn-roam-tags(tag-list info)
+  "Process org roam tags for org hugo"
+  (if (org-roam-file-p)
+    (append tag-list (mapcar #'downcase (org-roam-node-tags)))
+    (mapcar #'downcase tag-list)))
+#+end_src
+Process backlinks:
+#+begin_src elisp :noweb-ref note-taking/hugo/functions
+  (defun org-hugo--org-roam-backlinks (backend)
+    (when (equal backend 'hugo)
+    (when (org-roam-file-p)
+      (beginning-of-buffer)
+      (replace-string "{" "")
+      (beginning-of-buffer)
+      (replace-string "}" "")
+      (end-of-buffer)
+      (org-roam-buffer--insert-backlinks))))
+#+end_src
+Export on save:
+#+begin_src elisp :noweb-ref note-taking/hugo/functions
+  (defun org-hugo--org-roam-save-buffer(&optional no-trace-links)
+    "On save export to hugo"
+    (when (org-roam-file-p)
+        (org-hugo-export-wim-to-md)))
+#+end_src
+Export all:
+#+begin_src elisp :noweb-ref note-taking/hugo/functions
+  (defun my-org-hugo-org-roam-sync-all()
+    ""
+    (interactive)
+    (dolist (fil (org-roam-list-files))
+      (with-current-buffer (find-file-noselect fil)
+        (org-hugo-export-wim-to-md)
+        (kill-buffer))))
+#+end_src
 * Programming ⚗️
 ** Treesitter
 Highlighting via tree parsing:
@@ -546,7 +597,9 @@ Enable LSP support:
 #+begin_src elisp :noweb-ref programming/lsp
   (use-package lsp-mode
    :config (df/leader "l" lsp-command-map)
-   :custom (lsp-headerline-breadcrumb-enable nil))
+   :custom
+   (lsp-headerline-breadcrumb-enable nil)
+   (lsp-file-watch-threshold nil))
 #+end_src
 UI features:
 #+begin_src elisp
@@ -571,7 +624,7 @@ Use pyright LSP:
 Code formatter
 #+begin_src elisp :noweb-ref programming/langs
   (use-package python-black
-    :hook (python-mode . python-black-on-save-mode))
+    :hook (python-mode . python-black-on-save-mode-enable-dwim))
 #+end_src
 *** Rust
 #+begin_src elisp :noweb-ref programming/langs
