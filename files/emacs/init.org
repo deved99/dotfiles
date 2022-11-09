@@ -628,8 +628,10 @@ Code formatter
 #+end_src
 *** Rust
 #+begin_src elisp :noweb-ref programming/langs
-  (use-package rustic)
-    ;; :hook (rust-mode . lsp-deferred))
+  (use-package rustic
+    :config
+    (setq rustic-format-on-save t
+          rustic-rustfmt-args "--edition 2021"))
 #+end_src
 ** Company
 This is the completion engine, hooked up to lsp-mode:

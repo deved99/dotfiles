@@ -365,8 +365,10 @@
   :hook (python-mode . python-black-on-save-mode-enable-dwim))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package rustic)
-  ;; :hook (rust-mode . lsp-deferred))
+(use-package rustic
+  :config
+  (setq rustic-format-on-save t
+        rustic-rustfmt-args "--edition 2021"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
