@@ -115,7 +115,7 @@ def main(name: str, cmd: list[str]):
     matched = [MatchedContainer(container, name) for container in containers]
     # Remove those with score=0
     matched = [c for c in matched if c.score > 0]
-    matched.sort()
+    matched.sort(reverse=True)
     # Get the ones with maximum score
     if matched == []:
         print("No container matched")
