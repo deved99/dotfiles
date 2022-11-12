@@ -13,6 +13,7 @@ cd $DIR
 NAME=$(
   find -L . -name '*.gpg' \
     | sed -e 's/^\.\///' -e 's/\.gpg$//' \
+    | sort \
     | dmenu
 )
 
