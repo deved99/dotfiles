@@ -24,7 +24,6 @@ This Org file is used to generate my Emacs configuration thanks to [[https://org
   <<evil/undo>>
   <<note-taking>>
   <<note-taking/roam>>
-  ;; <<note-taking/hugo>>
   <<programming/lsp>>
   <<programming/langs>>
   <<programming/company>>
@@ -449,7 +448,7 @@ Faster insertion of code blocks:
     (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
     (add-to-list 'org-structure-template-alist '("yml" . "src yaml")))
 #+end_src
-This makes ~<el TAB~ insert an elisp code block.
+This makes, for example, ~<el TAB~ insert an elisp code block.
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
   (use-package ox-gfm
@@ -476,7 +475,7 @@ Hide most markup symbols:
     :custom ((org-hide-emphasis-markers t)
              (org-appear-autolinks t)))
 #+end_src
-As a reminder, package to automatically render latex fragments when the cursor is away:
+Complementarily this automatically render latex fragments when the cursor is away:
 #+begin_src elisp :noweb-ref org/plugins
   (use-package org-fragtog
     :custom
@@ -533,65 +532,7 @@ UI:
     :custom (org-roam-ui-open-on-start nil)
     :hook (after-init . org-roam-ui-mode))
 #+end_src
-** Org Roam: export to Hugo
-Export my notes to Hugo:
-#+begin_src elisp :noweb-ref note-taking/hugo
-  <<note-taking/hugo/functions>>
-  (use-package ox-hugo
-    :custom
-    (org-hugo-base-dir "~/Projects/wiki")
-    (org-hugo-section "notes")
-    :config
-    (add-to-list 'org-hugo-tag-processing-functions 'org-hugo--tag-processing-fn-roam-tags)
-    (add-hook 'org-export-before-processing-hook #'org-hugo--org-roam-backlinks)
-    (add-to-list 'after-save-hook #'org-hugo--org-roam-save-buffer))
-#+end_src
-Add tags from org:
-#+begin_src elisp :noweb-ref note-taking/hugo/functions
-(defun org-hugo--tag-processing-fn-roam-tags(tag-list info)
-  "Process org roam tags for org hugo"
-  (if (org-roam-file-p)
-    (append tag-list (mapcar #'downcase (org-roam-node-tags)))
-    (mapcar #'downcase tag-list)))
-#+end_src
-Process backlinks:
-#+begin_src elisp :noweb-ref note-taking/hugo/functions
-  (defun org-hugo--org-roam-backlinks (backend)
-    (when (equal backend 'hugo)
-    (when (org-roam-file-p)
-      (beginning-of-buffer)
-      (replace-string "{" "")
-      (beginning-of-buffer)
-      (replace-string "}" "")
-      (end-of-buffer)
-      (org-roam-buffer--insert-backlinks))))
-#+end_src
-Export on save:
-#+begin_src elisp :noweb-ref note-taking/hugo/functions
-  (defun org-hugo--org-roam-save-buffer(&optional no-trace-links)
-    "On save export to hugo"
-    (when (org-roam-file-p)
-        (org-hugo-export-wim-to-md)))
-#+end_src
-Export all:
-#+begin_src elisp :noweb-ref note-taking/hugo/functions
-  (defun my-org-hugo-org-roam-sync-all()
-    ""
-    (interactive)
-    (dolist (fil (org-roam-list-files))
-      (with-current-buffer (find-file-noselect fil)
-        (org-hugo-export-wim-to-md)
-        (kill-buffer))))
-#+end_src
 * Programming ⚗️
-** Treesitter
-Highlighting via tree parsing:
-#+begin_src elisp :noweb-ref programming/treesitter
-  (use-package tree-sitter-langs)
-  (use-package tree-sitter
-    :hook (tree-sitter-mode . tree-sitter-hl-mode)
-    :config (global-tree-sitter-mode))
-#+end_src
 ** LSP mode
 Enable LSP support:
 #+begin_src elisp :noweb-ref programming/lsp
@@ -634,7 +575,7 @@ Code formatter
           rustic-rustfmt-args "--edition 2021"))
 #+end_src
 ** Company
-This is the completion engine, hooked up to lsp-mode:
+This is the completion engine:
 #+name: programming/company
 #+begin_src elisp
   (use-package company
@@ -681,11 +622,6 @@ Sets where to save backup and auto-save dir.
         backup-directory-alist `(("." . ,backup-dir))
         auto-save-file-name-transforms `((".*" ,backup-dir t)))
 #+end_src
-** RFCs
-#+begin_src elisp
-  (use-package rfc-mode
-    :custom (rfc-mode-directory (concat user-emacs-directory "rfc")))
-#+end_src
 ** no tab please
 Never insert tabs:
 #+begin_src elisp :noweb-ref misc
@@ -708,15 +644,11 @@ Miscellanous syntax highlight:
   (use-package yaml-mode)
   (use-package dockerfile-mode)
 #+end_src
-Better pdf viewer, disabled since not optimal yet:
-#+begin_src elisp
-  (use-package pdf-tools)
-#+end_src
 Markdown syntax-higlight plus some functions:
 #+begin_src elisp :noweb-ref misc
   (use-package markdown-mode
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown"))
+    :mode ("README\\.md\\'" . gfm-mode)
+    :init (setq markdown-command "multimarkdown"))
   (use-package edit-indirect)
 #+end_src
 ** Visit symlinks to file under git

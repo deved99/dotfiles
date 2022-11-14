@@ -304,49 +304,6 @@
   :hook (after-init . org-roam-ui-mode))
 ;; ends here
 ;; note-taking/roam ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (defun org-hugo--tag-processing-fn-roam-tags(tag-list info)
-;;   "Process org roam tags for org hugo"
-;;   (if (org-roam-file-p)
-;;     (append tag-list (mapcar #'downcase (org-roam-node-tags)))
-;;     (mapcar #'downcase tag-list)))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (defun org-hugo--org-roam-backlinks (backend)
-;;   (when (equal backend 'hugo)
-;;   (when (org-roam-file-p)
-;;     (beginning-of-buffer)
-;;     (replace-string "{" "")
-;;     (beginning-of-buffer)
-;;     (replace-string "}" "")
-;;     (end-of-buffer)
-;;     (org-roam-buffer--insert-backlinks))))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (defun org-hugo--org-roam-save-buffer(&optional no-trace-links)
-;;   "On save export to hugo"
-;;   (when (org-roam-file-p)
-;;       (org-hugo-export-wim-to-md)))
-;; ;; ends here
-;; ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-;; (defun my-org-hugo-org-roam-sync-all()
-;;   ""
-;;   (interactive)
-;;   (dolist (fil (org-roam-list-files))
-;;     (with-current-buffer (find-file-noselect fil)
-;;       (org-hugo-export-wim-to-md)
-;;       (kill-buffer))))
-;; ;; ends here
-;; (use-package ox-hugo
-;;   :custom
-;;   (org-hugo-base-dir "~/Projects/wiki")
-;;   (org-hugo-section "notes")
-;;   :config
-;;   (add-to-list 'org-hugo-tag-processing-functions 'org-hugo--tag-processing-fn-roam-tags)
-;;   (add-hook 'org-export-before-processing-hook #'org-hugo--org-roam-backlinks)
-;;   (add-to-list 'after-save-hook #'org-hugo--org-roam-save-buffer))
-;; ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package lsp-mode
  :config (df/leader "l" lsp-command-map)
@@ -422,8 +379,8 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package markdown-mode
-:mode ("README\\.md\\'" . gfm-mode)
-:init (setq markdown-command "multimarkdown"))
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
 (use-package edit-indirect)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
