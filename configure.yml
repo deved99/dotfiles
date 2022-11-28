@@ -33,6 +33,8 @@
       tags: neovim
     - role: program.brave
       tags: brave
+    - role: program.signal
+      tags: signal
     # Audio related
     - role: audio.pipewire
       tags: graphical,pipewire

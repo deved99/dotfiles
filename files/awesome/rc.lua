@@ -391,7 +391,7 @@ awful.rules.rules = {
     -- Background stuff
     { rule = { class = "thunderbird" },
       properties = { tag = "7" } },
-    { rule = { class = "Pavucontrol" },
+    { rule = { class = "Signal" },
       properties = { tag = "8" } },
 }
 -- workflow/rules ends here

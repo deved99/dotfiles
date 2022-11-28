@@ -1,0 +1,2 @@
+REPO_URL: "https://updates.signal.org/desktop/apt"
+GPG_KEY_PATH: "/usr/share/keyrings/signal-desktop-keyring.gpg"
