@@ -18,4 +18,5 @@
     path: "{{ HOME }}"
     entity: libvirt-qemu
     etype: user
-    permissions: +x
+    permissions: rx
+    state: present
