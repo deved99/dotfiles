@@ -31,3 +31,7 @@
   loop:
     - stable
     - nightly
+
+- name: Download rust-analyzer
+  ansible.builtin.command:
+    cmd: "{{ CARGO_BIN }}/rustup component add rust-analyzer"

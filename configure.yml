@@ -5,6 +5,11 @@
   #   - name: Test
   #     ansible.builtin.debug:
   #       msg: "{{ BASE16 }}"
+  pre_tasks:
+    - name: Become password check
+      ansible.builtin.command: whoami
+      become: true
+      tags: always
   roles:
     # Basics
     - role: base.prepare

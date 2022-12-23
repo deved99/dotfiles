@@ -1,9 +1,5 @@
 ---
 
-- name: Become password check
-  ansible.builtin.command: whoami
-  become: true
-
 - name: Install miscellaneous packages
   ansible.builtin.apt:
     name:
