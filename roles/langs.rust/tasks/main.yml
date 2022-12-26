@@ -32,6 +32,20 @@
     - stable
     - nightly
 
-- name: Download rust-analyzer
+- name: Install needed components
   ansible.builtin.command:
-    cmd: "{{ CARGO_BIN }}/rustup component add rust-analyzer"
+    cmd: "{{ CARGO_BIN }}/rustup component add {{ item }}"
+  loop:
+    - rust-analyzer
+    - rust-src
+
+- name: Find rust-analyzer binary
+  ansible.builtin.command: >-
+    {{ CARGO_BIN }}/rustup which --toolchain stable rust-analyzer
+  register: RUST_ANALYZER_PATH
+
+- name: Link rust-analyzer in bin
+  ansible.builtin.file:
+    path: "{{ CARGO_BIN }}/rust-analyzer"
+    src: "{{ RUST_ANALYZER_PATH.stdout }}"
+    state: link
