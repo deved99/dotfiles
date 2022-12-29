@@ -613,10 +613,7 @@ This defines the tags and connect them to each screen:
 This is the autostart script:
 #+begin_src bash :tangle autostart
   #!/bin/bash
-  xrandr --output eDP-1 --primary \
-    --output DP-1 --left-of eDP-1 \
-    --output HDMI-1 --left-of DP-1
-
+  ~/.config/set-monitors.sh
   while read -r line; do
   PROGRAM=$(echo $line | cut -d" " -f1)
   pidof -q $PROGRAM || $line &

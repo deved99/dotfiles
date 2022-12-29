@@ -1,6 +1,5 @@
 #!/bin/bash
-$HOME/.config/set-monitors.sh
-
+~/.config/set-monitors.sh
 while read -r line; do
 PROGRAM=$(echo $line | cut -d" " -f1)
 pidof -q $PROGRAM || $line &
