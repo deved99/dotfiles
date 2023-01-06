@@ -9,9 +9,6 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
-export RUST_LOG="info"
-# ends here
-# [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
 case "$DESKTOP_SESSION" in
   awesome|xmonad) 
     export $(gnome-keyring-daemon --start)
@@ -23,5 +20,8 @@ export ANSIBLE_COW_SELECTION=tux
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
 export LUTRIS_SKIP_INIT=1
+# ends here
+# [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
+export RUST_LOG="info"
 # ends here
 # .profile:1 ends here

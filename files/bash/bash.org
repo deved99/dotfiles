@@ -72,7 +72,7 @@ Skip updating runtime in lutris:
   export LUTRIS_SKIP_INIT=1
 #+end_src
 Default to info info level:
-#+begin_src bash :noweb-ref profile/variables
+#+begin_src bash :noweb-ref profile/misc
   export RUST_LOG="info"
 #+end_src
 * snippets
