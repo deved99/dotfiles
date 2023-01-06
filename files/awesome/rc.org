@@ -513,7 +513,6 @@ This defines the tags and connect them to each screen:
                        buttons = clientbuttons,
                        raise = true,
                        maximized = false,
-                       -- floating = false,
                        focus = awful.client.focus.filter,
                        screen = awful.screen.preferred,
                        placement = awful.placement.no_overlap+awful.placement.no_offscreen,
@@ -614,6 +613,7 @@ This is the autostart script:
 #+begin_src bash :tangle autostart
   #!/bin/bash
   ~/.config/set-monitors.sh
+  systemctl --user start mpdscribble
   while read -r line; do
   PROGRAM=$(echo $line | cut -d" " -f1)
   pidof -q $PROGRAM || $line &
