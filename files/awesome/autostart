@@ -1,8 +1,6 @@
 #!/bin/bash
-xrandr --output eDP-1 --primary \
-  --output DP-1 --left-of eDP-1 \
-  --output HDMI-1 --left-of DP-1
-
+~/.config/set-monitors.sh
+systemctl --user start mpdscribble
 while read -r line; do
 PROGRAM=$(echo $line | cut -d" " -f1)
 pidof -q $PROGRAM || $line &
