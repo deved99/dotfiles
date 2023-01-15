@@ -428,7 +428,7 @@ Keybindings I use:
 #+end_src
 Add keywords and tags:
 #+begin_src elisp :noweb-ref org/keywords
-  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
+  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "|" "WAIT" "DONE" "CANC"))
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
 #+end_src

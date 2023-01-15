@@ -203,7 +203,7 @@
   (org-highlight-latex-and-related '(native))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
+  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "|" "WAIT" "DONE" "CANC"))
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
   ;; ends here
