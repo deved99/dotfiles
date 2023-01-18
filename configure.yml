@@ -48,6 +48,8 @@
     # Programming 
     - role: langs.rust
       tags: rust
+    - role: langs.javascript
+      tags: javascript
     # Virtualization
     - role: virt.docker
       tags: docker

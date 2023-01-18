@@ -1,0 +1,39 @@
+---
+
+- name: Packages for Apt over HTTPS
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+  become: yes
+
+- name: Install gpg key
+  block:
+    - name: Remove old gpg public key
+      ansible.builtin.file:
+        path: "/etc/apt/keyrings/yarn.gpg"
+        state: absent
+    - name: Download yarn public key
+      ansible.builtin.get_url:
+        url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
+        dest: "/tmp/yarn.gpg"
+    - name: Download docker public key
+      ansible.builtin.command: >-
+        gpg --dearmor -o /etc/apt/keyrings/yarn.gpg /tmp/yarn.gpg
+  become: yes
+
+- name: Add repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [arch=amd64 signed-by=/etc/apt/keyrings/yarn.gpg]
+      https://dl.yarnpkg.com/debian/
+      stable main
+  become: yes
+
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: yarn
+  become: yes
