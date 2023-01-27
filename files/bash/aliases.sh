@@ -29,7 +29,7 @@ alias ssh='TERM=xterm-256color ssh'
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 function cj() {
-  time (curl --silent $1 | jq)
+  time (curl --silent $@ | jq)
 }
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
