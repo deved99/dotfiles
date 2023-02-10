@@ -1,6 +1,7 @@
 plugins = {
-  'nvim-lualine/lualine.nvim',
-  {'williamboman/mason.nvim', lazy = false},
+  require("visual.lualine"),
+  -- {'williamboman/mason.nvim', lazy = false},
+  require("lsp.treesitter"),
 }
 
 require("lazy").setup(plugins)
