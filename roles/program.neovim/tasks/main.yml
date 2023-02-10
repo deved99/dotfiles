@@ -35,5 +35,7 @@
   loop:
     - src: "{{ REPO_FILES }}/neovim/init.lua"
       dest: "{{ CONFIG_DIR }}/nvim/init.lua"
-    - src: "{{ REPO_FILES }}/neovim/init.org"
-      dest: "{{ CONFIG_DIR }}/nvim/init.org"
+    - src: "{{ REPO_FILES }}/neovim/lua"
+      dest: "{{ CONFIG_DIR }}/nvim/lua"
+    # - src: "{{ REPO_FILES }}/neovim/init.org"
+    #   dest: "{{ CONFIG_DIR }}/nvim/init.org"
