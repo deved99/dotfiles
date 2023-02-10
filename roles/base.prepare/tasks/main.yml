@@ -34,3 +34,9 @@
     - "{{ BUILD_DIR }}"
     - "{{ LOCAL_BIN }}"
     - "{{ SYSTEMD_DIR }}"
+
+- name: Install ufetch
+  ansible.builtin.get_url:
+    url: "{{ UFETCH_URL }}"
+    dest: "{{ LOCAL_BIN }}/ufetch"
+    mode: "755"
