@@ -35,6 +35,8 @@
   loop:
     - src: "{{ REPO_FILES }}/neovim/init.lua"
       dest: "{{ CONFIG_DIR }}/nvim/init.lua"
+    - src: "{{ REPO_FILES }}/neovim/lazy-lock.json"
+      dest: "{{ CONFIG_DIR }}/nvim/lazy-lock.json"
     - src: "{{ REPO_FILES }}/neovim/lua"
       dest: "{{ CONFIG_DIR }}/nvim/lua"
     # - src: "{{ REPO_FILES }}/neovim/init.org"
