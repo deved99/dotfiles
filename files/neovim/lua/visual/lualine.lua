@@ -1,6 +1,6 @@
 vim.opt.showmode = false
 
-config = function()
+local config = function()
     require("lualine").setup { 
         options = {
           section_separators = { left = '', right = '' },

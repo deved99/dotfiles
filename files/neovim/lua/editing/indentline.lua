@@ -1,4 +1,4 @@
-config = function()
+local config = function()
     require("indent_blankline").setup()
 end
 
