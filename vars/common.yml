@@ -38,9 +38,13 @@ BROWSER_FALLBACK: firefox
 # Colorscheme
 
 # CS is the choosen colorscheme, which will update CS_TERM
-CS: "{{ COLORSCHEME_GOOGLE_DARK }}"
+CS: "{{ CS_DARK }}"
 CS_TERM: "{{ CS.TERM}}" 
 CS_EMACS: "{{ CS.EMACS }}"
+
+# Dark and light colorschemes
+CS_DARK: "{{ COLORSCHEME_ROSEPINE }}"
+CS_LIGHT: "{{ COLORSCHEME_GRUVBOX_LIGHT }}"
 
 # These are the chosen accent, background and foreground color
 CS_N: 1
@@ -189,3 +193,24 @@ COLORSCHEME_DRACULA_DARK:
     - "#a4ffff"
     - "#ffffff"
   EMACS: "dracula-dark.el"
+
+COLORSCHEME_ROSEPINE:
+
+  TERM:
+    - "#191724"
+    - "#eb6f92"
+    - "#31748f"
+    - "#f6c177"
+    - "#9ccfd8"
+    - "#c4a7e7"
+    - "#ebbcba"
+    - "#e0def4"
+    - "#6e6a86"
+    - "#eb6f92"
+    - "#31748f"
+    - "#f6c177"
+    - "#9ccfd8"
+    - "#c4a7e7"
+    - "#ebbcba"
+    - "#e0def4"
+  NEOVIM: "rosepine.lua"

@@ -33,7 +33,7 @@
       tags: kitty
     # Programs
     - role: program.emacs
-      tags: graphical,emacs
+      tags: emacs
     - role: program.neovim
       tags: neovim
     - role: program.brave
