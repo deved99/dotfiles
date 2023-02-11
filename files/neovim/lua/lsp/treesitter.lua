@@ -1,6 +1,6 @@
 local config = function()
     require('nvim-treesitter.configs').setup {
-      ensure_installed = { "lua", "python", "rust", "yaml", "gitcommit" },
+      ensure_installed = { "lua", "python", "rust", "yaml", "gitcommit", "bash"},
       highlight = { 
           enable = true,
           disable = {"vim"},
