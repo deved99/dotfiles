@@ -39,5 +39,8 @@
       dest: "{{ CONFIG_DIR }}/nvim/lazy-lock.json"
     - src: "{{ REPO_FILES }}/neovim/lua"
       dest: "{{ CONFIG_DIR }}/nvim/lua"
-    # - src: "{{ REPO_FILES }}/neovim/init.org"
-    #   dest: "{{ CONFIG_DIR }}/nvim/init.org"
+
+- name: Symlink configuration
+  ansible.builtin.copy:
+    src: "{{ CS_NEOVIM }}"
+    dest: "{{ CONFIG_DIR }}/nvim/lua/visual/theme.lua"

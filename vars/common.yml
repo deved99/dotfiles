@@ -41,6 +41,7 @@ BROWSER_FALLBACK: firefox
 CS: "{{ CS_DARK }}"
 CS_TERM: "{{ CS.TERM}}" 
 CS_EMACS: "{{ CS.EMACS }}"
+CS_NEOVIM: "{{ CS.NEOVIM }}"
 
 # Dark and light colorschemes
 CS_DARK: "{{ COLORSCHEME_ROSEPINE }}"
