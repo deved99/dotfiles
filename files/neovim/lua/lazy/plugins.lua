@@ -1,7 +1,10 @@
 plugins = {
   require("visual.lualine"),
-  -- {'williamboman/mason.nvim', lazy = false},
   require("lsp.treesitter"),
+  -- general editing
+  require("editing.surround"),
+  require("editing.comment"),
+  require("editing.indentline"),
 }
 
 require("lazy").setup(plugins)
