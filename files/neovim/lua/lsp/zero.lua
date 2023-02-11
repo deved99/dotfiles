@@ -1,17 +1,38 @@
 local config = function()
-    local lsp = require('lsp-zero').preset({
-      name = 'minimal',
+    -- requires
+    local lsp = require("lsp-zero")
+    local cmp = require("cmp")
+
+    -- preset
+    lsp.preset({
+      name = "recommended",
       set_lsp_keymaps = true,
       manage_nvim_cmp = true,
       suggest_lsp_servers = false,
     })
 
-    -- Ensure installed
-    lsp.ensure_installed({
-        "pyright", 
-        "rust_analyzer"
+    -- nvim-cmp configuration
+    local cmp_select = {behavior = cmp.SelectBehavior.Select}
+    local cmp_mappings = lsp.defaults.cmp_mappings({
+      ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+      ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+      ["<C-Space>"] = cmp.mapping.complete(),
+    })
+    cmp_mappings['<Tab>'] = nil
+    cmp_mappings['<S-Tab>'] = nil
+    lsp.setup_nvim_cmp({
+        mapping = cmp_mappings
     })
 
+    -- ensure installed
+    lsp.ensure_installed({
+        "pyright",
+        "rust_analyzer",
+        "sumneko_lua"
+    })
+
+    -- setup
     lsp.setup()
 end
 

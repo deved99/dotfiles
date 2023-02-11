@@ -12,7 +12,7 @@ local options = {
     incsearch = true,
     -- misc
     wrap = false,
-    autochdir = true,
+    signcolumn = "yes",
 }
 
 for key, val in pairs(options) do
