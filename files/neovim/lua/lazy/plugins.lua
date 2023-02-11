@@ -8,6 +8,7 @@ plugins = {
     -- require("editing.indentline"),
     -- Programming
     require("lsp.treesitter"),
+    require("lsp.mason"),
 }
 
 local status, colorscheme = pcall(require, 'visual.theme')
