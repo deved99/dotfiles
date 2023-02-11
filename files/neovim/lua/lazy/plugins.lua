@@ -5,7 +5,7 @@ plugins = {
     -- General editing
     require("editing.surround"),
     require("editing.comment"),
-    require("editing.indentline"),
+    -- require("editing.indentline"),
     -- Programming
     require("lsp.treesitter"),
 }
