@@ -1,11 +1,17 @@
+-- set leader
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local options = {
-	number = true,
-	relativenumber = true,
+    number = true,
+    relativenumber = true,
+    -- no timeout for leader, please
+    timeout = false,
     -- tab related options
-	tabstop = 4,
-	softtabstop = 4,
-	shiftwidth = 4,
-	expandtab = true,
+    tabstop = 4,
+    softtabstop = 4,
+    shiftwidth = 4,
+    expandtab = true,
     smartindent = true,
     -- search related
     hlsearch = true,

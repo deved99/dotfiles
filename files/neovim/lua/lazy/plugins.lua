@@ -1,14 +1,14 @@
 plugins = {
     -- Visual plugins
     require("visual.lualine"),
-    require("visual.which-key"),
+    -- require("visual.which-key"),
     -- General editing
     require("editing.surround"),
     require("editing.comment"),
     -- require("editing.indentline"),
     -- Programming
     require("lsp.treesitter"),
-    require("lsp.zero"),
+    require("lsp.mason"),
 }
 
 local status, colorscheme = pcall(require, 'visual.theme')
