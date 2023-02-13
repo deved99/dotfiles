@@ -3,9 +3,17 @@ local config = function()
     vim.cmd("COQnow --shut-up")
 end
 
+local coq_artifacts = {
+    'ms-jpq/coq.artifacts',
+    branch = 'artifacts'
+}
+
 return {
     "ms-jpq/coq_nvim",
     build = ":COQdeps",
     branch = "coq",
+    dependencies = {
+        coq_artifacts
+    },
     config = config,
 }
