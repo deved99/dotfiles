@@ -1,6 +1,7 @@
 -- set leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.keymap.set('n', "<leader>", "<Nop>")
 
 local options = {
     number = true,

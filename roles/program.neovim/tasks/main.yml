@@ -5,6 +5,11 @@
     path: "{{ BUILD_DIR }}/neovim"
     state: directory
 
+- name: Install configuration dependencies
+  ansible.builtin.apt:
+    name: ripgrep
+  become: true
+
 - name: Download neovim deb
   ansible.builtin.get_url:
     url: "{{ NEOVIM_DEB_URL }}"

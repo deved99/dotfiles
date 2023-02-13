@@ -9,6 +9,7 @@ plugins = {
     -- Programming
     require("lsp.treesitter"),
     require("lsp.mason"),
+    require("lsp.telescope"),
 }
 
 local status, colorscheme = pcall(require, 'visual.theme')
