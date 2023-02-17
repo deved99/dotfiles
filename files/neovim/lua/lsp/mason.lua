@@ -25,7 +25,7 @@ local config = function()
     -- setup mason
     require("mason").setup()
     require("mason-lspconfig").setup {
-        ensure_installed = { "rust_analyzer", "pyright", "lua_ls" }
+        ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels" }
     }
     require("mason-null-ls").setup {
         ensure_installed = { "black" },
