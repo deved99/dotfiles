@@ -18,6 +18,7 @@ local options = {
     hlsearch = true,
     incsearch = true,
     -- misc
+    clipboard = {"unnamedplus"},
     wrap = false,
     signcolumn = "yes",
 }
