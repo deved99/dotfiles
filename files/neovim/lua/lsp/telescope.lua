@@ -17,6 +17,8 @@ local config = function()
         ["<leader>lu"] = builtin.lsp_references,
         ["<leader>ld"] = builtin.diagnostics,
         ["<leader>i"] = builtin.treesitter,
+        --  Resume
+        ["<leader> "] = builtin.resume,
     }
 
     for keys, func in pairs(keybindings) do
