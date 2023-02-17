@@ -14,11 +14,7 @@ local keybindings = function(_, bufnr)
 end
 
 local options = function()
-    return {
-        on_attach = function(_, bufnr)
-            keybindings(_, bufnr)
-        end
-    }
+    return {}
 end
 
 -- Could this be merged in the function above?
