@@ -28,7 +28,7 @@ local config = function()
         ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels" }
     }
     require("mason-null-ls").setup {
-        ensure_installed = { "black" },
+        ensure_installed = { "black", "rustfmt" },
         automatic_setup = true,
     }
     require("mason-null-ls").setup_handlers()
