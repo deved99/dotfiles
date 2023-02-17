@@ -18,7 +18,7 @@ local lua_handler = function()
           },
         },
     }
-    require'lspconfig'.lua_ls.setup(lsp_options)
+    require('lspconfig').lua_ls.setup(lsp_options)
 end
 
 local config = function()
@@ -27,6 +27,11 @@ local config = function()
     require("mason-lspconfig").setup {
         ensure_installed = { "rust_analyzer", "pyright", "lua_ls" }
     }
+    require("mason-null-ls").setup {
+        ensure_installed = { "black" },
+        automatic_setup = true,
+    }
+    require("mason-null-ls").setup_handlers()
 
     -- see `help mason-lspconfig-automatic-server-setup`.
     require("mason-lspconfig").setup_handlers {
@@ -38,6 +43,10 @@ end
 local dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
+    -- null-ls
+    "jose-elias-alvarez/null-ls.nvim",
+    "jay-babu/mason-null-ls.nvim",
+    -- Completions
     require("lsp.completion"),
 }
 

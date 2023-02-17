@@ -5,6 +5,7 @@ local keybindings = function(_, bufnr)
         gD = vim.lsp.buf.declaration,
         K = vim.lsp.buf.hover,
         ["<leader>lr"] = vim.lsp.buf.rename,
+        ["<leader>lf"] = vim.lsp.buf.format,
     }
 
     for keys, func in pairs(keybindings) do
