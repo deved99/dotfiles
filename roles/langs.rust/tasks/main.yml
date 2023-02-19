@@ -10,7 +10,7 @@
     state: absent
     autoremove: true
   become: yes
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Remove Rust from Pacman (arch)
   ansible.builtin.pacman:
@@ -19,7 +19,7 @@
       - rust-src
     state: absent
   become: yes
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 
 - name: Install rustup
   block:

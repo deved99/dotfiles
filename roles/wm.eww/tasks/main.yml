@@ -2,14 +2,14 @@
 
 - name: Install EWW (ubuntu)
   import_tasks: ubuntu.yml
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install EWW (arch)
   kewlfft.aur.aur:
     name: eww
   become: true
   become_user: aur_builder
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 
 - name: Copy systemd unit
   ansible.builtin.copy:

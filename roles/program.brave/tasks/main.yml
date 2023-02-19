@@ -8,12 +8,11 @@
 
 - name: Install MPD (ubuntu)
   import_tasks: ubuntu.yml
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install MPD (arch)
-  kewfflt.aur.aur:
+  kewlfft.aur.aur:
     name: brave-bin
   become: yes
   become_user: aur_builder
-  when: short_distro == "arch"
-
+  when: distro_short == "arch"

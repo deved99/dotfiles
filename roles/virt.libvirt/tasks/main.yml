@@ -12,7 +12,7 @@
       - acl
     state: present
   become: yes
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install needed packages (arch)
   ansible.builtin.apt:
@@ -23,7 +23,7 @@
       - acl
     state: present
   become: yes
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Ensure ~ is attraversable by libvirt-qemu
   ansible.posix.acl:

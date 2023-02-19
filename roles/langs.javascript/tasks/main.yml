@@ -2,10 +2,10 @@
 
 - name: Install yarn (ubuntu)
   import_tasks: ubuntu.yml
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install yarn (arch)
   community.general.pacman:
     name: yarn
   become: true
-  when: short_distro == "arch"
+  when: distro_short == "arch"

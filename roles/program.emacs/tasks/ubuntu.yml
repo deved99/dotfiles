@@ -15,4 +15,3 @@
   ansible.builtin.apt:
     name: emacs28-nativecomp
   become: yes
-

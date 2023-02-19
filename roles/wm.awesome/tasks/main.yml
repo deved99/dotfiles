@@ -12,7 +12,7 @@
       - light
       - flameshot
   become: true
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install packages (arch)
   community.general.pacman:
@@ -22,7 +22,7 @@
       - light
       - flameshot
   become: true
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 
 - name: Create directories
   ansible.builtin.file:

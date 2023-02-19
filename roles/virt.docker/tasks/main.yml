@@ -1,11 +1,11 @@
 - name: Install Docker (ubuntu)
   import_tasks: ubuntu.yml
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install Docker (arch)
   community.general.pacman:
     name:
       - docker
       - docker-compose
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 

@@ -2,11 +2,11 @@
 
 - name: Install Neovim (ubuntu)
   import_tasks: ubuntu.yml
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install Neovim (arch)
   import_tasks: arch.yml
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 
 # Symlink configs
 

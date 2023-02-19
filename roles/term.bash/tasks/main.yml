@@ -12,7 +12,7 @@
       # Fallback editor
       - vim
   become: yes
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install commands (arch)
   community.general.pacman:
@@ -26,7 +26,7 @@
       # Fallback editor
       - vim
   become: yes
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 
 - name: Ensure {{ CONFIG_DIR }}/bash exists
   ansible.builtin.file:

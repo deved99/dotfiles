@@ -7,17 +7,17 @@
       - mpc
       - mpdscribble
   become: yes
-  when: short_distro == "ubuntu"
+  when: distro_short == "ubuntu"
 
 - name: Install MPD (arch)
-  kewfflt.aur.aur:
+  kewlfft.aur.aur:
     name:
       - mpd
       - mpc
       - mpdscribble
   become: yes
   become_user: aur_builder
-  when: short_distro == "arch"
+  when: distro_short == "arch"
 
 - name: Ensure folders exists
   ansible.builtin.file:

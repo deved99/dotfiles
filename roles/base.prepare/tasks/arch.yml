@@ -21,14 +21,9 @@
     create: yes
     validate: 'visudo -cf %s'
 
-- name: Install kewlfft.aur module
-  community.general.ansible_galaxy_install:
-    type: collection
-    name: kewlfft.aur
-
 - name: Install paru
   kewlfft.aur.aur:
     name: paru
     use: makepkg
   become: true
-  become: aur_builder
+  become_user: aur_builder
