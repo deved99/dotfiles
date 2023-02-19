@@ -1,6 +1,6 @@
 ---
 
-- name: Remove Rust from Aptitude
+- name: Remove Rust from Aptitude (ubuntu)
   ansible.builtin.apt:
     name:
       - cargo
@@ -10,6 +10,16 @@
     state: absent
     autoremove: true
   become: yes
+  when: short_distro == "ubuntu"
+
+- name: Remove Rust from Pacman (arch)
+  ansible.builtin.pacman:
+    name:
+      - rust
+      - rust-src
+    state: absent
+  become: yes
+  when: short_distro == "arch"
 
 - name: Install rustup
   block:

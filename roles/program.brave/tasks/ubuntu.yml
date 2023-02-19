@@ -1,0 +1,21 @@
+---
+
+- name: Install apt-transport-https
+  ansible.builtin.apt:
+    name: apt-transport-https
+    state: present
+  become: yes
+
+- name: Get gpg key
+  ansible.builtin.get_url:
+    url: "{{ REPO_URL }}/brave-browser-archive-keyring.gpg"
+    dest: "{{ GPG_KEY_PATH }}"
+  become: yes
+
+- name: Add repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [signed-by={{ GPG_KEY_PATH }} arch=amd64]
+      {{ REPO_URL}} stable main
+  become: yes
+

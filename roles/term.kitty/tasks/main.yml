@@ -1,10 +1,16 @@
 ---
 
-- name: Install kitty
+- name: Install kitty (ubuntu)
   ansible.builtin.apt:
     name: kitty
-    state: present
   become: yes
+  when: short_distro == "ubuntu"
+
+- name: Install kitty (arch)
+  community.general.pacman:
+    name: kitty
+  become: yes
+  when: short_distro == "arch"
 
 - name: Ensure config dir exists
   ansible.builtin.file:

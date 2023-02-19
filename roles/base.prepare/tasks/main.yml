@@ -1,35 +1,70 @@
 ---
 
-- name: Install miscellaneous packages
-  ansible.builtin.apt:
-    name:
+- name: Declare distro 
+  ansible.builtin.set_fact:
+    base_packages: "{{ base_packages_by_distro | map(attribute=distro_short) | flatten }}"
+    base_packages_by_distro:
       # File
-      - btrfs-progs # Filesystem I use for storage
-      - borgbackup # backups
-      - pass
+      - ubuntu: btrfs-progs # Filesystem I use for storage
+        arch: btrfs-progs
+      - ubuntu: borgbackup
+        arch: borg
+      - ubuntu: pass
+        arch: pass
       # Connect with android
-      - adb
-      - fastboot
+      - ubuntu: 
+          - adb
+          - fastboot
+        arch: android-tools
       # Graphical
-      - fonts-firacode
-      - pavucontrol
-      - mpv
-      - wmctrl
-      - arandr
+      - ubuntu: fonts-firacode
+        arch: ttf-fira-code
+      - ubuntu: pavucontrol
+        arch: pavucontrol
+      - ubuntu: mpv
+        arch: mpv
+      - ubuntu: wmctrl
+        arch: wmctrl
+      - ubuntu: arandr
+        arch: arandr
       # Networking tools
-      - nmap
-      - traceroute
-      - sipcalc # Calculate CIDR span
-      - nload # Network usage monitor
-      - net-tools # misc
+      - ubuntu: nmap
+        arch: nmap
+      - ubuntu: traceroute
+        arch: traceroute
+      - ubuntu: sipcalc # Calculate CIDR span
+        arch: sipcalc
+      - ubuntu: nload # Network usage monitor
+        arch: nload
+      - ubuntu: whois
+        arch: whois
+      - ubuntu: net-tools
+        arch: net-tools
       # Printers
-      - printer-driver-gutenprint
-  become: yes
+      - ubuntu: printer-driver-gutenprint
+        arch: gutenprint
+
+# - name: Distro specific preparation steps (arch)
+#   import_tasks: arch.yml
+#   when: distro_short == "arch"
+
+- name: Install base packages (ubuntu)
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+  become: true
+  when: distro_short == "ubuntu"
+
+- name: Install base packages (arch)
+  community.general.pacman:
+    name: "{{ base_packages }}"
+  become: true
+  when: distro_short == "arch"
 
 - name: Ensure folders exist
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "755"
   loop:
     - "{{ BUILD_DIR }}"
     - "{{ LOCAL_BIN }}"
@@ -37,6 +72,11 @@
 
 - name: Install ufetch
   ansible.builtin.get_url:
-    url: "{{ UFETCH_URL }}"
+    url: "{{ ufetch_url }}"
     dest: "{{ LOCAL_BIN }}/ufetch"
     mode: "755"
+  vars:
+    ufetch_url: "{{ ufetch_urls[distro_short] }}"
+    ufetch_urls:
+        arch: "https://gitlab.com/jschx/ufetch/-/raw/main/ufetch-arch"
+        ubuntu: "https://gitlab.com/jschx/ufetch/-/raw/main/ufetch-ubuntu"

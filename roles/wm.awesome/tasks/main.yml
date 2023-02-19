@@ -4,7 +4,7 @@
 # Preparation #
 ###############
 
-- name: Install packages
+- name: Install packages (ubuntu)
   ansible.builtin.apt:
     name:
       - awesome
@@ -12,6 +12,17 @@
       - light
       - flameshot
   become: true
+  when: short_distro == "ubuntu"
+
+- name: Install packages (arch)
+  community.general.pacman:
+    name:
+      - awesome
+      - picom
+      - light
+      - flameshot
+  become: true
+  when: short_distro == "arch"
 
 - name: Create directories
   ansible.builtin.file:

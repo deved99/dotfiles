@@ -1,10 +1,11 @@
 ---
 - name: Configuring {{ PROFILE }}
   hosts: localhost
-  # tasks:
-  #   - name: Test
-  #     ansible.builtin.debug:
-  #       msg: "{{ BASE16 }}"
+  vars:
+    distro_shorts:
+      Archlinux: arch
+      Ubuntu: ubuntu
+    distro_short: "{{ distro_shorts[ansible_facts['distribution']] }}"
   pre_tasks:
     - name: Become password check
       ansible.builtin.command: whoami

@@ -1,0 +1,8 @@
+---
+
+- name: Install Neovim with Pacman
+  community.general.pacman:
+    name: 
+      - neovim
+      - ripgrep
+  become: true

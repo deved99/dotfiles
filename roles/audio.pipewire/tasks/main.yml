@@ -1,6 +1,6 @@
 ---
 
-- name: Install needed packages
+- name: Install needed packages (ubuntu)
   ansible.builtin.apt:
     name:
       - pipewire
@@ -10,6 +10,17 @@
       - libspa-0.2-bluetooth
   become: true
   notify: pipewire
+  when: distro_short == "ubuntu"
+
+- name: Install needed packages (arch)
+  ansible.builtin.apt:
+    name:
+      - pipewire
+      - pipewire-pulse
+      - wireplumber
+  become: true
+  notify: pipewire
+  when: distro_short == "arch"
 
 # Disable, stop and mask pulseaudio
 - name: Disable pulseaudio

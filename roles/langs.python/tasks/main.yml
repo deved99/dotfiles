@@ -1,10 +1,16 @@
 ---
 
-- name: Install black from apt
+- name: Install Python3 and pip (ubuntu)
   ansible.builtin.apt:
-    name: black
-  become: true
+    name:
+      - python3
+      - python3-pip
+      - python-is-python3
+  when: short_distro == "ubuntu"
 
-- name: Install pyright from pip
-  ansible.builtin.pip:
-    name: pyright
+- name: Install Python3 and pip (arch)
+  ansible.builtin.apt:
+    name:
+      - python
+      - python-pip
+  when: short_distro == "arch"

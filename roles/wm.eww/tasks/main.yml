@@ -1,32 +1,15 @@
 ---
 
-- name: Install packages
-  ansible.builtin.apt:
-    name:
-      - libgtk-3-dev
-      - libpango1.0-dev
-      - libgdk-pixbuf2.0-dev
-      - libcairo2-dev
-      - libc6
+- name: Install EWW (ubuntu)
+  import_tasks: ubuntu.yml
+  when: short_distro == "ubuntu"
+
+- name: Install EWW (arch)
+  kewlfft.aur.aur:
+    name: eww
   become: true
-
-- name: Clone directory
-  ansible.builtin.git:
-    repo: "https://github.com/elkowar/eww"
-    dest: "{{ BUILD_DIR }}/eww"
-    update: no
-
-- name: Build
-  ansible.builtin.command:
-    cmd: "cargo +nightly build --release"
-    chdir: "{{ BUILD_DIR }}/eww"
-
-- name: Copy binary to local bin
-  ansible.builtin.copy:
-    src: "{{ BUILD_DIR }}/eww/target/release/eww"
-    dest: "{{ LOCAL_BIN }}/eww"
-    mode: "u+x"
-    remote_src: yes
+  become_user: aur_builder
+  when: short_distro == "arch"
 
 - name: Copy systemd unit
   ansible.builtin.copy:
@@ -36,5 +19,5 @@
 
 - name: Reload services
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
     scope: user

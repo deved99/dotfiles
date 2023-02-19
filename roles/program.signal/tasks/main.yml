@@ -1,20 +1,9 @@
 ---
 
-- name: Get key
-  ansible.builtin.shell: >-
-    curl "{{ REPO_URL }}/keys.asc"
-    | gpg --dearmor > {{ GPG_KEY_PATH }}
-  become: yes
+- name: Install Signal Desktop (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
 
-- name: Add repository
-  ansible.builtin.apt_repository:
-    repo: >-
-      deb [signed-by={{ GPG_KEY_PATH }} arch=amd64]
-      {{ REPO_URL}} xenial main
-  become: yes
-
-- name: Install signal
-  ansible.builtin.apt:
-    name: signal-desktop
-    state: present
-  become: yes
+- name: Install Signal Desktop (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"

@@ -4,10 +4,17 @@
 # Dependencies #
 ################
 
-- name: Install rofi
+- name: Install rofi (ubuntu)
   ansible.builtin.apt:
     name: rofi
   become: yes
+  when: short_distro == "ubuntu"
+
+- name: Install rofi (arch)
+  community.general.pacman:
+    name: rofi
+  become: yes
+  when: short_distro == "arch"
 
 - name: Copy dmenu-like script
   ansible.builtin.copy:
