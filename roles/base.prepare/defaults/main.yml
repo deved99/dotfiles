@@ -9,6 +9,8 @@ base_packages_by_distro:
     arch: borg
   - ubuntu: pass
     arch: pass
+  - ubuntu: git
+    arch: git
   # Connect with android
   - ubuntu: 
       - adb
