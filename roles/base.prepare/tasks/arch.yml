@@ -4,6 +4,7 @@
   community.general.pacman:
     name:
       - base-devel
+      - fakeroot
   become: true
 
 - name: Create the `aur_builder` user

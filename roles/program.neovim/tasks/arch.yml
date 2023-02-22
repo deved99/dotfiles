@@ -1,8 +1,10 @@
 ---
 
 - name: Install Neovim with Pacman
-  community.general.pacman:
+  kewlfft.aur.aur:
     name: 
       - neovim
+      - neovim-symlinks
       - ripgrep
   become: true
+  become_user: aur_builder

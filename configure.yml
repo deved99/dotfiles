@@ -36,7 +36,7 @@
     - role: program.emacs
       tags: emacs
     - role: program.neovim
-      tags: neovim
+      tags: base,neovim
     - role: program.brave
       tags: brave
     - role: program.signal

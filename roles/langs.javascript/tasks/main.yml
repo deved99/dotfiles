@@ -6,6 +6,8 @@
 
 - name: Install yarn (arch)
   community.general.pacman:
-    name: yarn
+    name:
+      - npm
+      - yarn
   become: true
   when: distro_short == "arch"

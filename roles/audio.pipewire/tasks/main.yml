@@ -13,7 +13,7 @@
   when: distro_short == "ubuntu"
 
 - name: Install needed packages (arch)
-  ansible.builtin.apt:
+  community.general.pacman:
     name:
       - pipewire
       - pipewire-pulse
@@ -47,3 +47,4 @@
     - pipewire-pulse.socket
     - wireplumber
   notify: pipewire
+  ignore_errors: true
