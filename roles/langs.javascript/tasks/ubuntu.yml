@@ -35,5 +35,7 @@
 
 - name: Install packages
   ansible.builtin.apt:
-    name: yarn
+    name:
+      - npm
+      - yarn
   become: yes

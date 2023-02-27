@@ -21,10 +21,8 @@
       # - autojump
       - htop
       - jq
-      - rename
+      - perl-rename
       - tldr
-      # Fallback editor
-      - vim
   become: yes
   when: distro_short == "arch"
 

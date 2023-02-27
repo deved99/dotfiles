@@ -20,6 +20,6 @@ source "$SNIPPET_DIR/aliases.sh"
 source "$SNIPPET_DIR/prompt.sh"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
-source "/usr/share/autojump/autojump.sh"
+#source "/usr/share/autojump/autojump.sh"
 # ends here
 # .bashrc:1 ends here

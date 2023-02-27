@@ -6,11 +6,15 @@ base_packages_by_distro:
   - ubuntu: btrfs-progs # Filesystem I use for storage
     arch: btrfs-progs
   - ubuntu: borgbackup
-    arch: borg
+    arch:
+      - borg
+      - python-llfuse
   - ubuntu: pass
     arch: pass
   - ubuntu: git
     arch: git
+  - ubuntu: openssh-client
+    arch: openssh
   # Connect with android
   - ubuntu: 
       - adb

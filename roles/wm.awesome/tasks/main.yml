@@ -21,6 +21,7 @@
       - picom
       - light
       - flameshot
+      - xclip
   become: true
   when: distro_short == "arch"
 
@@ -61,6 +62,7 @@
     groups:
       - video
     append: true
+  become: true
 
 - name: Copy picom configuration
   ansible.builtin.copy:

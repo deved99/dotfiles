@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - role: langs.python
+  - role: langs.javascript

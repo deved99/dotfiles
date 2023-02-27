@@ -7,10 +7,12 @@
       - python3-pip
       - python-is-python3
   when: distro_short == "ubuntu"
+  become: true
 
 - name: Install Python3 and pip (arch)
-  ansible.builtin.apt:
+  community.general.pacman:
     name:
       - python
       - python-pip
   when: distro_short == "arch"
+  become: true
