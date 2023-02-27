@@ -6,6 +6,7 @@ local plugins = {
     require("editing.surround"),
     require("editing.comment"),
     require("editing.vim-cool"),
+    require("editing.autopairs"),
     -- require("editing.indentline"),
     -- Programming
     require("lsp.treesitter"),
