@@ -387,6 +387,8 @@ awful.rules.rules = {
     -- Tag 2
     { rule = { role = "browser" },
       properties = { tag = "2" } },
+    { rule = { class = "draw.io" },
+      properties = { tag = "3" } },
     -- Background stuff
     { rule = { class = "thunderbird" },
       properties = { tag = "7" } },
@@ -469,9 +471,7 @@ function set_bar()
       -- We need one layoutbox per screen.
       s.mylayoutbox = awful.widget.layoutbox(s)
       s.mylayoutbox:buttons(gears.table.join(
-                             awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                             awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                             awful.button({ }, 4, function () awful.layout.inc( 1) end),
+                             awful.button({ }, 3, function () awful.layout.inc( 1) end),
                              awful.button({ }, 5, function () awful.layout.inc(-1) end)))
       -- Create a taglist widget
       s.mytaglist = awful.widget.taglist {

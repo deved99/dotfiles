@@ -1,0 +1,6 @@
+---
+
+- name: Install Drawio with Paru
+  kewlfft.aur.aur:
+    name: drawio-desktop-bin
+  become: true

@@ -1,0 +1,16 @@
+- name: Create build dir
+  ansible.builtin.file:
+    path: "{{ BUILD_DIR }}/drawio"
+    state: directory
+
+- name: Download Drawio deb
+  ansible.builtin.get_url:
+    url: "{{ DRAWIO_DEB_URL }}"
+    dest: "{{ BUILD_DIR }}/drawio/drawio.deb"
+  vars:
+    DRAWIO_DEB_URL: "https://github.com/jgraph/drawio-desktop/releases/download/v20.8.16/drawio-amd64-20.8.16.deb"
+
+- name: Install Drawio deb
+  ansible.builtin.apt:
+    deb: "{{ BUILD_DIR }}/drawio/drawio.deb"
+  become: true

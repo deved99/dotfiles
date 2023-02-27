@@ -56,3 +56,6 @@
       tags: docker
     - role: virt.libvirt
       tags: libvirt
+    # Miscellaneous programs
+    - role: program.drawio
+      tags: drawio
