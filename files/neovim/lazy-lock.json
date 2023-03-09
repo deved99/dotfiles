@@ -4,6 +4,7 @@
   "coq_nvim": { "branch": "coq", "commit": "49189b020236002bae41f823da9ac0f73dca873f" },
   "lazy.nvim": { "branch": "main", "commit": "8186cc5db31bd5968b5be838a30c4cf1465cb3f9" },
   "lualine.nvim": { "branch": "master", "commit": "e99d733e0213ceb8f548ae6551b04ae32e590c80" },
+  "markdown-preview.nvim": { "branch": "master", "commit": "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "93e58e100f37ef4fb0f897deeed20599dae9d128" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "8cb04ca019a1f1e0df86ca56a04bd40fff142dc8" },
   "mason.nvim": { "branch": "main", "commit": "511457c94cc47e5edbc82cf35469dcd09d56856f" },
