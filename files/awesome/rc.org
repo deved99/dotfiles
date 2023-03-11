@@ -537,6 +537,8 @@ This defines the tags and connect them to each screen:
       -- Tag 2
       { rule = { role = "browser" },
         properties = { tag = "2" } },
+      { rule = { class = "draw.io" },
+        properties = { tag = "3" } },
       -- Background stuff
       { rule = { class = "thunderbird" },
         properties = { tag = "7" } },

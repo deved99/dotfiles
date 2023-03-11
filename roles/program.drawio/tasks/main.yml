@@ -1,0 +1,9 @@
+---
+
+- name: Install Drawio (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
+
+- name: Install Drawio (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"
