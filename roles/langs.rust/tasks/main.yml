@@ -21,6 +21,18 @@
   become: yes
   when: distro_short == "arch"
 
+- name: Install gcc (ubuntu)
+  ansible.builtin.apt:
+    name: gcc
+  become: yes
+  when: distro_short == "ubuntu"
+
+- name: Install gcc (arch)
+  ansible.builtin.pacman:
+    name: gcc
+  become: yes
+  when: distro_short == "arch"
+
 - name: Install rustup
   block:
     - name: Download rustup-init.sh
