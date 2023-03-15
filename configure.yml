@@ -51,6 +51,8 @@
       tags: rust
     - role: langs.javascript
       tags: javascript
+    - role: langs.python
+      tags: python
     # Virtualization
     - role: virt.docker
       tags: docker

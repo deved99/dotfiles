@@ -6,6 +6,7 @@
       - python3
       - python3-pip
       - python-is-python3
+      - python3-venv
   when: distro_short == "ubuntu"
   become: true
 
@@ -14,5 +15,6 @@
     name:
       - python
       - python-pip
+      # Venv?
   when: distro_short == "arch"
   become: true
