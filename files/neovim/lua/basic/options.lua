@@ -17,6 +17,8 @@ local options = {
     -- search related
     hlsearch = true,
     incsearch = true,
+    ignorecase = true,
+    smartcase = true,
     -- misc
     clipboard = {"unnamedplus"},
     wrap = false,
