@@ -1,6 +1,6 @@
 ---
 
-- name: Remove Rust from Aptitude
+- name: Remove Rust from Aptitude (ubuntu)
   ansible.builtin.apt:
     name:
       - cargo
@@ -10,6 +10,28 @@
     state: absent
     autoremove: true
   become: yes
+  when: distro_short == "ubuntu"
+
+- name: Remove Rust from Pacman (arch)
+  ansible.builtin.pacman:
+    name:
+      - rust
+      - rust-src
+    state: absent
+  become: yes
+  when: distro_short == "arch"
+
+- name: Install gcc (ubuntu)
+  ansible.builtin.apt:
+    name: gcc
+  become: yes
+  when: distro_short == "ubuntu"
+
+- name: Install gcc (arch)
+  ansible.builtin.pacman:
+    name: gcc
+  become: yes
+  when: distro_short == "arch"
 
 - name: Install rustup
   block:
@@ -26,8 +48,26 @@
 
 - name: Download toolchains
   ansible.builtin.command:
-    cmd: "{{ CARGO_BIN }}/rustup toolchain install nightly"
+    cmd: "{{ CARGO_BIN }}/rustup toolchain install {{ item }}"
     creates: "{{ HOME }}/.rustup/toolchains/{{ item }}-*"
   loop:
     - stable
     - nightly
+
+- name: Install needed components
+  ansible.builtin.command:
+    cmd: "{{ CARGO_BIN }}/rustup component add {{ item }}"
+  loop:
+    - rust-analyzer
+    - rust-src
+
+- name: Find rust-analyzer binary
+  ansible.builtin.command: >-
+    {{ CARGO_BIN }}/rustup which --toolchain stable rust-analyzer
+  register: RUST_ANALYZER_PATH
+
+- name: Link rust-analyzer in bin
+  ansible.builtin.file:
+    path: "{{ CARGO_BIN }}/rust-analyzer"
+    src: "{{ RUST_ANALYZER_PATH.stdout }}"
+    state: link

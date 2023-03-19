@@ -1,17 +1,42 @@
 #!/bin/sh
 
-REMOTE=dropbox:Notes/
-LOCAL=$HOME/Notes/
-TEMP=/tmp/Notes.tmp/
+set -e
 
-echo Syncing remote and local notes
-# Print variables
-echo Remote directory: $REMOTE
-echo Local directory: $LOCAL
-echo Temp directory: $TEMP
+cd ~/Notes
 
-# Get remote Notes
-rclone sync $REMOTE $TEMP
-rsync -avu $LOCAL $TEMP
-rsync -avu $TEMP $LOCAL
-rclone sync $TEMP $REMOTE
+CHANGED_SOMETHING=0
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+CHANGED_FILES="$(git status --short)"
+if test -n "$CHANGED_FILES"; then
+    echo "Some files changed:"
+    echo "$CHANGED_FILES"
+    echo ""
+    git add .
+    git commit -m "Autocommit $(date -Iseconds)"
+    CHANGED_SOMETHING=1
+    echo ""
+fi
+
+echo "Pulling:"
+git pull
+echo ""
+
+LOCAL_REF="$(git rev-parse main)" 
+REMOTE_REF="$(git rev-parse origin/main)" 
+if test "$LOCAL_REF" != "$REMOTE_REF"; then
+    echo "Different commits:"
+    echo "  Local:  $LOCAL_REF"
+    echo "  Remote: $REMOTE_REF"
+    echo "Merging."
+    git merge "origin/$BRANCH"
+    CHANGED_SOMETHING=1
+    echo ""
+fi
+
+if test $CHANGED_SOMETHING -eq 1; then
+    echo "Something changed, pushing"
+    git push
+else
+    echo "Nothing changed."
+fi

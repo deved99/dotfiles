@@ -1,0 +1,34 @@
+---
+
+- name: Install Neovim (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
+
+- name: Install Neovim (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"
+
+# Symlink configs
+
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/nvim/"
+    state: directory
+
+- name: Symlink configuration
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: "{{ REPO_FILES }}/neovim/init.lua"
+      dest: "{{ CONFIG_DIR }}/nvim/init.lua"
+    - src: "{{ REPO_FILES }}/neovim/lazy-lock.json"
+      dest: "{{ CONFIG_DIR }}/nvim/lazy-lock.json"
+    - src: "{{ REPO_FILES }}/neovim/lua"
+      dest: "{{ CONFIG_DIR }}/nvim/lua"
+
+- name: Symlink configuration
+  ansible.builtin.copy:
+    src: "{{ CS_NEOVIM }}"
+    dest: "{{ CONFIG_DIR }}/nvim/lua/visual/theme.lua"

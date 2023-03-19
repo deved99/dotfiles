@@ -30,11 +30,12 @@ Source snippets, which are defined below. This makes the configuration more modu
   source "$SNIPPET_DIR/history.sh"
   source "$SNIPPET_DIR/aliases.sh"
   source "$SNIPPET_DIR/prompt.sh"
-  source "$SNIPPET_DIR/vars.sh"
 #+end_src
 Also, source this file, which sets variables and aliases for autojump:
 #+begin_src bash :noweb-ref bashrc/snippets
-  source "/usr/share/autojump/autojump.sh"
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    source "/usr/share/autojump/autojump.sh"
+  fi
 #+end_src
 * .profile
 This file is mainly used to set variables. This is its structure:
@@ -70,6 +71,10 @@ Tell ansible to use ~tux~ with ~cowsay~:
 Skip updating runtime in lutris:
 #+begin_src bash :noweb-ref profile/misc
   export LUTRIS_SKIP_INIT=1
+#+end_src
+Default to info info level:
+#+begin_src bash :noweb-ref profile/misc
+  export RUST_LOG="info"
 #+end_src
 * snippets
 ** History
@@ -150,7 +155,7 @@ Export a different ~$TERM~:
 Curl and parse as json:
 #+begin_src bash :noweb-ref aliases/misc
   function cj() {
-    curl --silent $1 | jq
+    time (curl --silent $@ | jq)
   }
 #+end_src
 Set default values for the formatter:
@@ -197,13 +202,4 @@ This is the function:
 This settings makes ~\w~ print at most the nearest 2 dirs:
 #+begin_src bash
   PROMPT_DIRTRIM=2
-#+end_src
-** Exports
-This section define variables.
-#+begin_src bash :tangle vars.sh
-  <<vars/editor>>
-#+end_src
-If I have to edit something in the terminal, use vim:
-#+begin_src bash :noweb-ref vars/editor
-  export EDITOR=vim
 #+end_src

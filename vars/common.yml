@@ -38,9 +38,14 @@ BROWSER_FALLBACK: firefox
 # Colorscheme
 
 # CS is the choosen colorscheme, which will update CS_TERM
-CS: "{{ COLORSCHEME_GOOGLE_DARK }}"
+CS: "{{ CS_DARK }}"
 CS_TERM: "{{ CS.TERM}}" 
 CS_EMACS: "{{ CS.EMACS }}"
+CS_NEOVIM: "{{ CS.NEOVIM }}"
+
+# Dark and light colorschemes
+CS_DARK: "{{ COLORSCHEME_ROSEPINE }}"
+CS_LIGHT: "{{ COLORSCHEME_GRUVBOX_LIGHT }}"
 
 # These are the chosen accent, background and foreground color
 CS_N: 1
@@ -148,3 +153,65 @@ COLORSCHEME_GRUVBOX_LIGHT:
     - "#928374"
     - "#9d0006"
   EMACS: "gruvbox-light.el"
+
+COLORSCHEME_AYU_DARK:
+  TERM:
+    - "#01060E"
+    - "#EA6C73"
+    - "#91B362"
+    - "#F9AF4F"
+    - "#53BDFA"
+    - "#FAE994"
+    - "#90E1C6"
+    - "#C7C7C7"
+    - "#686868"
+    - "#F07178"
+    - "#C2D94C"
+    - "#FFB454"
+    - "#59C2FF"
+    - "#FFEE99"
+    - "#95E6CB"
+    - "#FFFFFF"
+  EMACS: "ayu-dark.el"
+
+COLORSCHEME_DRACULA_DARK:
+
+  TERM:
+    - "#282a36"
+    - "#ff5555"
+    - "#50fa7b"
+    - "#f1fa8c"
+    - "#bd93f9"
+    - "#ff79c6"
+    - "#8be9fd"
+    - "#f8f8f2"
+    - "#6272a4"
+    - "#ff6e6e"
+    - "#69ff94"
+    - "#ffffa5"
+    - "#d6acff"
+    - "#ff92df"
+    - "#a4ffff"
+    - "#ffffff"
+  EMACS: "dracula-dark.el"
+
+COLORSCHEME_ROSEPINE:
+
+  TERM:
+    - "#191724"
+    - "#eb6f92"
+    - "#31748f"
+    - "#f6c177"
+    - "#9ccfd8"
+    - "#c4a7e7"
+    - "#ebbcba"
+    - "#e0def4"
+    - "#6e6a86"
+    - "#eb6f92"
+    - "#31748f"
+    - "#f6c177"
+    - "#9ccfd8"
+    - "#c4a7e7"
+    - "#ebbcba"
+    - "#e0def4"
+  NEOVIM: "rosepine.lua"

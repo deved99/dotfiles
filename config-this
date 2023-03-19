@@ -29,7 +29,6 @@ def main():
     config = config_read()
     config_old = config.copy()
     # Then set variables
-    colorscheme = choose_coloscheme(config, arguments)
     tags = choose_tags(config, arguments)
     profile = config["profile"]
     playbook_dir = config["playbook_dir"]
@@ -39,36 +38,10 @@ def main():
     if arguments.system:
         system_configure(profile)
         return
-    configure(profile, colorscheme, tags)
+    configure(profile, tags)
     # If changed config, write
     if config != config_old:
         config_write(config)
-
-def choose_coloscheme(config: dict,
-                      arguments: argparse.Namespace) -> str:
-    """ Choose the colorscheme, depending on config and arguments.
-
-    Args:
-        config: configuration of this wrapper.
-        arguments: arguments parsed by main above.
-
-    Returns:
-        Name of the colorscheme to use.
-    """
-    # Set colorscheme_current in config if it needs to be changed
-    if arguments.colorscheme == "dark":
-        config["colorscheme_current"] = False
-    elif arguments.colorscheme == "light":
-        config["colorscheme_current"] = True
-    elif arguments.colorscheme == "toggle":
-        config["colorscheme_current"] = not config["colorscheme_current"]
-    # Then set colorscheme_key according to coloscheme_current
-    if config["colorscheme_current"]:
-        colorscheme_key = "colorscheme_light"
-    else:
-        colorscheme_key = "colorscheme_dark"
-    # Finally, return colorscheme
-    return config[colorscheme_key]
 
 def choose_tags(config: dict,
                 arguments: argparse.Namespace) -> list[str]:
@@ -112,17 +85,6 @@ def getArgumentParser() -> argparse.ArgumentParser:
         '--tags', dest = 'tags', action = 'store',
         help = "Set tags to run/install"
     )
-    # Toggle or set colorscheme
-    parser.add_argument(
-        '-t', '--toggle', dest = 'colorscheme', action = 'store_const',
-        const = "toggle",
-        help = "toggle dark/light colorscheme"
-    )
-    parser.add_argument(
-        '--set', dest = 'colorscheme', action = 'store',
-        choices = ["dark", "light"],
-        help = "set dark/light colorscheme as given"
-    )
     return parser
 
 ###############
@@ -143,22 +105,19 @@ def install(profile):
     ]
     subprocess.run(cmd)
 
-def configure(profile: str, colorscheme: str, tags: list, args: list = []):
+def configure(profile: str, tags: list, args: list = []):
     """ Run Ansible Playbook to configure this machine.
 
     Args:
         profile: profile from which to take additional variables.
-        colorscheme: colorscheme to use.
         tags: tags to pass to Ansible.
         args: additional arguments to pass to Ansible.
     """
-    colorscheme = "{{" + colorscheme + "}}"
     cmd = [
         "ansible-playbook",
         "configure.yml", "-K",
         "--extra-vars", "@vars/common.yml",
         "--extra-vars", f"@vars/{profile}.yml",
-        "--extra-vars", f"CS={colorscheme}",
         "--tags", ",".join(tags)
     ] + args
     subprocess.run(cmd)

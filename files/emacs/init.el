@@ -7,6 +7,7 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::prepare/exec-path][prepare/exec-path]]][prepare/exec-path]]
 (add-to-list 'exec-path "~/.local/bin")
+(add-to-list 'exec-path "~/.cargo/bin")
 ;; prepare/exec-path ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (require 'package)
@@ -159,7 +160,7 @@
 (use-package evil-org
   :hook (org-mode . evil-org-mode)
   :custom
-  (setq org-special-ctrl-a/e t)
+  (org-special-ctrl-a/e t)
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -202,7 +203,7 @@
   (org-highlight-latex-and-related '(native))
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
-  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
+  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "|" "WAIT" "DONE" "CANC"))
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
   ;; ends here
@@ -268,6 +269,7 @@
   ;; set some faces
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
   (set-face-attribute 'org-block-begin-line nil 
+    :background nil
     :inherit 'font-lock-comment-face)
   ;; ends here
   ;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking][note-taking]]][]]
@@ -305,7 +307,9 @@
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package lsp-mode
  :config (df/leader "l" lsp-command-map)
- :custom (lsp-headerline-breadcrumb-enable nil))
+ :custom
+ (lsp-headerline-breadcrumb-enable nil)
+ (lsp-file-watch-threshold nil))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package lsp-pyright
@@ -314,8 +318,14 @@
                           (lsp-deferred))))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
-(use-package rust-mode
-  :hook (rust-mode . lsp-deferred))
+(use-package python-black
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+;; ends here
+;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
+(use-package rustic
+  :config
+  (setq rustic-format-on-save t
+        rustic-rustfmt-args "--edition 2021"))
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::programming/company][programming/company]]][programming/company]]
 (use-package company
@@ -369,8 +379,8 @@
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package markdown-mode
-:mode ("README\\.md\\'" . gfm-mode)
-:init (setq markdown-command "multimarkdown"))
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
 (use-package edit-indirect)
 ;; ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]

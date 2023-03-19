@@ -34,17 +34,8 @@ The header arguments tell Emacs the following:
 - ~tangle~: defines where Emacs should generate the file.
 - ~noweb~: whether to use noweb syntax.
 - ~comments~: whether to add comments between snippets.
-This is needed in Emacs 27+ to prevent ~package.el~ from loading anything.
-There's also another snippet generated from this Org file, which is the shell side configuration of vterm:
-#+begin_src bash :tangle no
-<<vterm/bash-index>>
-#+end_src
-Disable ~package.el~, write ~early-init.el~, used when using ~straight.el~:
-#+begin_src elisp
-  (setq package-enable-at-startup nil)
-#+end_src
 * Preparation 🛠️
-** garbage collect
+** Garbage collect
 How frequently does Emacs garbage collect:
 #+name: prepare/garbage-collection
 #+begin_src elisp
@@ -113,14 +104,15 @@ This just shows how much did it take for emacs to start and the number of garbag
 	  (time-subtract after-init-time before-init-time)))
        gcs-done)))
 #+end_src
-** ~.local/bin~ in ~exec-path~
+** Additional paths in ~exec-path~
 Add the local bin directory to ~$PATH~:
 #+name: prepare/exec-path
 #+begin_src elisp
   (add-to-list 'exec-path "~/.local/bin")
+  (add-to-list 'exec-path "~/.cargo/bin")
 #+end_src
 * Aesthetics ✨
-** cleanup
+** Cleanup
 I just want to see text, this disable decorations I don't need:
 #+begin_src elisp :noweb-ref visual/cleanup
   (tool-bar-mode 0)
@@ -132,14 +124,14 @@ But I want some space around text:
 #+begin_src elisp :noweb-ref visual/cleanup
   (fringe-mode 10)
 #+end_src
-** keep context around cursor
+** Keep context around cursor
 This keeps 5 lines before and after the current line:
 #+name: visual/keeparound
 #+begin_src elisp
   (setq scroll-margin 5
 	scroll-conservatively 10000)
 #+end_src
-** fonts
+** Fonts
 Set ~Fira Code~ as default font:
 #+begin_src elisp
   (add-to-list 'default-frame-alist
@@ -155,7 +147,7 @@ Set variable and fixed pitch font:
   (set-face-attribute 'fixed-pitch nil
     :font (font-spec :family "Fira Code"))
 #+end_src
-** theme
+** Theme
 If this file exists, load it, otherwise load a dark theme:
 #+name: visual/theme
 #+begin_src elisp
@@ -163,7 +155,7 @@ If this file exists, load it, otherwise load a dark theme:
       (load-file (concat user-emacs-directory "theme.el"))
       (load-theme 'modus-vivendi t))
 #+end_src
-** ligatures
+** Ligatures
 These are the used ligatures, disabled 'cause it does not currently support Emacs 27:
 #+name: visual/ligatures
 #+begin_src elisp :noweb no
@@ -180,7 +172,7 @@ These are the used ligatures, disabled 'cause it does not currently support Emac
        "<~>" "<~~" "<~" "~~>" "~>" "<->" "^="))
     (global-ligature-mode t))
 #+end_src
-** modeline
+** Modeline
 Modeline I'm using:
 #+name: visual/modeline
 #+begin_src elisp
@@ -213,7 +205,7 @@ Current framework I'm trying:
     :config (vertico-mode))
   <<interface/vertico/packages>>
 #+end_src
-Make completion behave more like ivy:
+Make matching in vertico order indipendent:
 #+begin_src elisp :noweb-ref interface/vertico/packages
   (use-package orderless
     :custom (completion-styles '(orderless basic)))
@@ -297,7 +289,7 @@ Directory tracking:
   PS1=$PS1'\[$(vterm_prompt_end)\]'
 #+end_src
 * Editing 🐙
-** ~evil~ package:
+** ~evil~ package
 The main piece, ~evil~:
 #+name: evil/main
 #+begin_src elisp
@@ -343,32 +335,32 @@ Move by visual lines:
 ** evil integrations
 This is a collections of various integrations:
 #+begin_src elisp :noweb-ref evil/integrations
-(use-package evil-collection
-  :after evil
-  :init (evil-collection-init))
+  (use-package evil-collection
+    :after evil
+    :init (evil-collection-init))
 #+end_src
 And this is an integration for Org-mode:
 #+begin_src elisp :noweb-ref evil/integrations
-(use-package evil-org
-  :hook (org-mode . evil-org-mode)
-  :custom
-  (setq org-special-ctrl-a/e t)
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+  (use-package evil-org
+    :hook (org-mode . evil-org-mode)
+    :custom
+    (org-special-ctrl-a/e t)
+    :config
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
 #+end_src
 ** vim plugins
 This is for a way faster way to change surrounding like parenthesis:
 #+begin_src elisp :noweb-ref evil/plugins
-(use-package evil-surround
-  :after evil
-  :config (global-evil-surround-mode 1))
+  (use-package evil-surround
+    :after evil
+    :config (global-evil-surround-mode 1))
 #+end_src
 And this is for commenting portions of code:
 #+begin_src elisp :noweb-ref evil/plugins
-(use-package evil-commentary
-  :after evil
-  :config (evil-commentary-mode))
+  (use-package evil-commentary
+    :after evil
+    :config (evil-commentary-mode))
 #+end_src
 Vi-like number controlling:
 #+begin_src elisp :noweb-ref evil/plugins
@@ -436,7 +428,7 @@ Keybindings I use:
 #+end_src
 Add keywords and tags:
 #+begin_src elisp :noweb-ref org/keywords
-  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "WAIT" "|" "DONE" "CANC"))
+  (org-todo-keywords '("ACTIVE" "NEXT" "TODO" "|" "WAIT" "DONE" "CANC"))
   (org-tag-alist '(("@w") ("@h") ("@t") ("idea")))
   (org-tags-column 0)
 #+end_src
@@ -456,7 +448,7 @@ Faster insertion of code blocks:
     (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
     (add-to-list 'org-structure-template-alist '("yml" . "src yaml")))
 #+end_src
-This makes ~<el TAB~ insert an elisp code block.
+This makes, for example, ~<el TAB~ insert an elisp code block.
 Download Github flavored Markdown exporter and define the exports backends I use:
 #+begin_src elisp :noweb-ref org/plugins
   (use-package ox-gfm
@@ -483,7 +475,7 @@ Hide most markup symbols:
     :custom ((org-hide-emphasis-markers t)
              (org-appear-autolinks t)))
 #+end_src
-As a reminder, package to automatically render latex fragments when the cursor is away:
+Complementarily this automatically render latex fragments when the cursor is away:
 #+begin_src elisp :noweb-ref org/plugins
   (use-package org-fragtog
     :custom
@@ -510,6 +502,7 @@ These are custom faces that, in my opinion, give Org a cleaner look:
 - Make begin and end line of a block have no background:
   #+begin_src elisp :noweb-ref org/beautify/faces
     (set-face-attribute 'org-block-begin-line nil 
+      :background nil
       :inherit 'font-lock-comment-face)
   #+end_src
 - Remove background in latex fragments:
@@ -540,26 +533,25 @@ UI:
     :hook (after-init . org-roam-ui-mode))
 #+end_src
 * Programming ⚗️
-** Treesitter
-Highlighting via tree parsing:
-#+begin_src elisp :noweb-ref programming/treesitter
-  (use-package tree-sitter-langs)
-  (use-package tree-sitter
-    :hook (tree-sitter-mode . tree-sitter-hl-mode)
-    :config (global-tree-sitter-mode))
-#+end_src
 ** LSP mode
 Enable LSP support:
 #+begin_src elisp :noweb-ref programming/lsp
   (use-package lsp-mode
    :config (df/leader "l" lsp-command-map)
-   :custom (lsp-headerline-breadcrumb-enable nil))
+   :custom
+   (lsp-headerline-breadcrumb-enable nil)
+   (lsp-file-watch-threshold nil))
 #+end_src
 UI features:
 #+begin_src elisp
   (use-package lsp-ui
    :custom
    (lsp-ui-doc-show-with-mouse t))
+#+end_src
+Which-key integration:
+#+begin_src elisp
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 #+end_src
 ** Languages
 *** Python
@@ -570,13 +562,20 @@ Use pyright LSP:
                             (require 'lsp-pyright)
                             (lsp-deferred))))
 #+end_src
+Code formatter
+#+begin_src elisp :noweb-ref programming/langs
+  (use-package python-black
+    :hook (python-mode . python-black-on-save-mode-enable-dwim))
+#+end_src
 *** Rust
 #+begin_src elisp :noweb-ref programming/langs
-  (use-package rust-mode
-    :hook (rust-mode . lsp-deferred))
+  (use-package rustic
+    :config
+    (setq rustic-format-on-save t
+          rustic-rustfmt-args "--edition 2021"))
 #+end_src
 ** Company
-This is the completion engine, hooked up to lsp-mode:
+This is the completion engine:
 #+name: programming/company
 #+begin_src elisp
   (use-package company
@@ -623,11 +622,6 @@ Sets where to save backup and auto-save dir.
         backup-directory-alist `(("." . ,backup-dir))
         auto-save-file-name-transforms `((".*" ,backup-dir t)))
 #+end_src
-** RFCs
-#+begin_src elisp
-  (use-package rfc-mode
-    :custom (rfc-mode-directory (concat user-emacs-directory "rfc")))
-#+end_src
 ** no tab please
 Never insert tabs:
 #+begin_src elisp :noweb-ref misc
@@ -650,15 +644,11 @@ Miscellanous syntax highlight:
   (use-package yaml-mode)
   (use-package dockerfile-mode)
 #+end_src
-Better pdf viewer, disabled since not optimal yet:
-#+begin_src elisp
-  (use-package pdf-tools)
-#+end_src
 Markdown syntax-higlight plus some functions:
 #+begin_src elisp :noweb-ref misc
   (use-package markdown-mode
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown"))
+    :mode ("README\\.md\\'" . gfm-mode)
+    :init (setq markdown-command "multimarkdown"))
   (use-package edit-indirect)
 #+end_src
 ** Visit symlinks to file under git

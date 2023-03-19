@@ -1,0 +1,6 @@
+---
+
+- name: Install Emacs with pacman
+  community.general.pacman:
+    name: emacs-nativecomp
+  become: yes

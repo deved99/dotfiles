@@ -1,0 +1,49 @@
+---
+
+base_packages: "{{ base_packages_by_distro | map(attribute=distro_short) | flatten }}"
+base_packages_by_distro:
+  # File
+  - ubuntu: btrfs-progs # Filesystem I use for storage
+    arch: btrfs-progs
+  - ubuntu: borgbackup
+    arch:
+      - borg
+      - python-llfuse
+  - ubuntu: pass
+    arch: pass
+  - ubuntu: git
+    arch: git
+  - ubuntu: openssh-client
+    arch: openssh
+  # Connect with android
+  - ubuntu: 
+      - adb
+      - fastboot
+    arch: android-tools
+  # Graphical
+  - ubuntu: fonts-firacode
+    arch: ttf-fira-code
+  - ubuntu: pavucontrol
+    arch: pavucontrol
+  - ubuntu: mpv
+    arch: mpv
+  - ubuntu: wmctrl
+    arch: wmctrl
+  - ubuntu: arandr
+    arch: arandr
+  # Networking tools
+  - ubuntu: nmap
+    arch: nmap
+  - ubuntu: traceroute
+    arch: traceroute
+  - ubuntu: sipcalc # Calculate CIDR span
+    arch: sipcalc
+  - ubuntu: nload # Network usage monitor
+    arch: nload
+  - ubuntu: whois
+    arch: whois
+  - ubuntu: net-tools
+    arch: net-tools
+  # Printers
+  - ubuntu: printer-driver-gutenprint
+    arch: gutenprint

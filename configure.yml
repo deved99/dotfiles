@@ -1,10 +1,16 @@
 ---
 - name: Configuring {{ PROFILE }}
   hosts: localhost
-  # tasks:
-  #   - name: Test
-  #     ansible.builtin.debug:
-  #       msg: "{{ BASE16 }}"
+  vars:
+    distro_shorts:
+      Archlinux: arch
+      Ubuntu: ubuntu
+    distro_short: "{{ distro_shorts[ansible_facts['distribution']] }}"
+  pre_tasks:
+    - name: Become password check
+      ansible.builtin.command: whoami
+      become: true
+      tags: always
   roles:
     # Basics
     - role: base.prepare
@@ -28,9 +34,13 @@
       tags: kitty
     # Programs
     - role: program.emacs
-      tags: graphical,emacs
+      tags: emacs
+    - role: program.neovim
+      tags: base,neovim
     - role: program.brave
       tags: brave
+    - role: program.signal
+      tags: signal
     # Audio related
     - role: audio.pipewire
       tags: graphical,pipewire
@@ -39,8 +49,15 @@
     # Programming 
     - role: langs.rust
       tags: rust
+    - role: langs.javascript
+      tags: javascript
+    - role: langs.python
+      tags: python
     # Virtualization
     - role: virt.docker
       tags: docker
     - role: virt.libvirt
       tags: libvirt
+    # Miscellaneous programs
+    - role: program.drawio
+      tags: drawio

@@ -1,12 +1,23 @@
 ---
 
-- name: install MPD
+- name: Install MPD (ubuntu)
   ansible.builtin.apt:
     name:
       - mpd
       - mpc
       - mpdscribble
   become: yes
+  when: distro_short == "ubuntu"
+
+- name: Install MPD (arch)
+  kewlfft.aur.aur:
+    name:
+      - mpd
+      - mpc
+      - mpdscribble
+  become: yes
+  become_user: aur_builder
+  when: distro_short == "arch"
 
 - name: Ensure folders exists
   ansible.builtin.file:

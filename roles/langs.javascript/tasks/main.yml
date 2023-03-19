@@ -1,0 +1,13 @@
+---
+
+- name: Install yarn (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
+
+- name: Install yarn (arch)
+  community.general.pacman:
+    name:
+      - npm
+      - yarn
+  become: true
+  when: distro_short == "arch"

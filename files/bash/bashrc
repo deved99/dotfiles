@@ -18,9 +18,10 @@ SNIPPET_DIR="$HOME/.config/bash"
 source "$SNIPPET_DIR/history.sh"
 source "$SNIPPET_DIR/aliases.sh"
 source "$SNIPPET_DIR/prompt.sh"
-source "$SNIPPET_DIR/vars.sh"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
-source "/usr/share/autojump/autojump.sh"
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  source "/usr/share/autojump/autojump.sh"
+fi
 # ends here
 # .bashrc:1 ends here

@@ -1,6 +1,6 @@
 ---
 
-- name: Install needed packages
+- name: Install needed packages (ubuntu)
   ansible.builtin.apt:
     name:
       - qemu-kvm
@@ -12,10 +12,23 @@
       - acl
     state: present
   become: yes
+  when: distro_short == "ubuntu"
+
+- name: Install needed packages (arch)
+  ansible.builtin.apt:
+    name:
+      - qemu-full
+      - virt-install
+      # For the change permission below
+      - acl
+    state: present
+  become: yes
+  when: distro_short == "ubuntu"
 
 - name: Ensure ~ is attraversable by libvirt-qemu
   ansible.posix.acl:
     path: "{{ HOME }}"
     entity: libvirt-qemu
     etype: user
-    permissions: +x
+    permissions: rx
+    state: present

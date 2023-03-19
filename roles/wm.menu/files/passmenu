@@ -13,11 +13,12 @@ cd $DIR
 NAME=$(
   find -L . -name '*.gpg' \
     | sed -e 's/^\.\///' -e 's/\.gpg$//' \
+    | sort \
     | dmenu
 )
 
 if [[ -n $NAME ]]; then
-  pass -c $NAME
+  pass -c "$NAME"
   notify-send "Copied password." "$NAME"
 else
   echo "No password selected."

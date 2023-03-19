@@ -7,8 +7,6 @@
       # where to find this file
       playbook_dir: "{{ playbook_dir }}"
       # Colors: default to already set colorscheme, on dark mode
-      colorscheme_dark: "COLORSCHEME_GOOGLE_DARK"
-      colorscheme_light: "COLORSCHEME_GOOGLE_LIGHT"
       colorscheme_current: false
       tags: "{{ TAGS }}"
   tasks:

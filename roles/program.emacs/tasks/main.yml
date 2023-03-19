@@ -1,29 +1,12 @@
 ---
 
-####################
-# Install packages #
-####################
+- name: Install Emacs (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
 
-- name: Add ppa for Emacs 28
-  ansible.builtin.apt_repository:
-    repo: ppa:kelleyk/emacs
-  become: yes
-
-- name: Uninstall incompatible Emacs
-  ansible.builtin.apt:
-    name:
-      - emacs28
-      - emacs
-    state: absent
-  become: yes
-
-- name: Install Emacs and related packages
-  ansible.builtin.apt:
-    name:
-      - emacs28-nativecomp
-      - rclone
-      - texlive-full
-  become: yes
+- name: Install Emacs (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"
 
 ##############################
 # Create configuration files #

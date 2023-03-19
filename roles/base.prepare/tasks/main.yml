@@ -1,31 +1,38 @@
 ---
 
-- name: Become password check
-  ansible.builtin.command: whoami
-  become: true
+- name: Distro specific preparation steps (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"
 
-- name: Install miscellaneous packages
+- name: Install base packages (ubuntu)
   ansible.builtin.apt:
-    name:
-      # File
-      - btrfs-progs # Filesystem I use for storage
-      - borgbackup # backups
-      - pass
-      # Connect with android
-      - adb
-      - fastboot
-      # Graphical
-      - fonts-firacode
-      - pavucontrol
-      # Printers
-      - printer-driver-gutenprint
-  become: yes
+    name: "{{ base_packages }}"
+  become: true
+  when: distro_short == "ubuntu"
+
+- name: Install base packages (arch)
+  community.general.pacman:
+    name: "{{ base_packages }}"
+  become: true
+  when: distro_short == "arch"
 
 - name: Ensure folders exist
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "755"
   loop:
     - "{{ BUILD_DIR }}"
     - "{{ LOCAL_BIN }}"
     - "{{ SYSTEMD_DIR }}"
+
+- name: Install ufetch
+  ansible.builtin.get_url:
+    url: "{{ ufetch_url }}"
+    dest: "{{ LOCAL_BIN }}/ufetch"
+    mode: "755"
+  vars:
+    ufetch_url: "{{ ufetch_urls[distro_short] }}"
+    ufetch_urls:
+        arch: "https://gitlab.com/jschx/ufetch/-/raw/main/ufetch-arch"
+        ubuntu: "https://gitlab.com/jschx/ufetch/-/raw/main/ufetch-ubuntu"

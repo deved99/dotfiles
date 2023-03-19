@@ -1,0 +1,90 @@
+---
+
+- name: Create folders
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ XMONAD_DIR }}/lib"
+    - "{{ CTL_BUILD_DIR }}"
+    - "{{ HOME }}/.cache/xmonad"
+    - "{{ HOME }}/.local/share/xmonad"
+
+- name: Uninstall incompatible packages
+  ansible.builtin.apt:
+    name:
+      - xmonad
+      - libghc-xmonad-dev
+      - libghc-xmonad-contrib-dev
+    state: absent
+  become: true
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - haskell-stack
+      - libx11-dev
+      - libxft-dev
+      - libxinerama-dev
+      - libxrandr-dev
+      - libxss-dev
+  become: true
+
+- name: Clone core repo [fork]
+  ansible.builtin.git:
+    repo: "https://github.com/deved99/xmonad"
+    dest: "{{ CORE_SRC_DIR }}"
+    version: "1.17-opaque-border"
+    update: false
+
+- name: Clone contrib repo
+  ansible.builtin.git:
+    repo: "https://github.com/xmonad/xmonad-contrib"
+    dest: "{{ CONTRIB_SRC_DIR }}"
+    version: "v0.17.0"
+    update: false
+
+- name: Copy stack.yaml
+  ansible.builtin.copy:
+    src: stack.yaml
+    dest: "{{ XMONAD_DIR }}/stack.yaml"
+  
+- name: stack install
+  ansible.builtin.command:
+    cmd: stack install
+    chdir: "{{ XMONAD_DIR }}"
+
+# xmonadctl
+- name: Copy xmonadctl
+  ansible.builtin.copy:
+    src: "{{ CONTRIB_SRC_DIR }}/scripts/xmonadctl.hs"
+    dest: "{{ CTL_BUILD_DIR }}/xmonadctl.hs"
+    remote_src: yes
+
+- name: Compile xmonadctl
+  ansible.builtin.command:
+    cmd: stack exec -- ghc --make xmonadctl.hs
+    chdir: "{{ CTL_BUILD_DIR }}"
+
+- name: Copy in .local/bin
+  ansible.builtin.copy:
+    src: "{{ CTL_BUILD_DIR }}/xmonadctl"
+    dest: "{{ LOCAL_BIN }}/xmonadctl"
+    mode: "u+x"
+    remote_src: yes
+
+##########################
+# XSession configuration #
+##########################
+
+- name: Copy xsession.desktop
+  ansible.builtin.template:
+    src: xsession.desktop.j2
+    dest: /usr/share/xsessions/xmonad.desktop
+  become: true
+
+- name: Copy ~/.Xsession # Move this to ~/.config/xmonad?
+  ansible.builtin.copy:
+    src: Xsession
+    dest: "{{ HOME }}/.Xsession"
+    mode: 'u+x'

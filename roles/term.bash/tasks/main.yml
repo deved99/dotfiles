@@ -1,11 +1,6 @@
 ---
 
-- name: Ensure {{ CONFIG_DIR }}/bash exists
-  ansible.builtin.file:
-    path: "{{ CONFIG_DIR }}/bash"
-    state: directory
-
-- name: Install commands
+- name: Install commands (ubuntu)
   ansible.builtin.apt:
     name:
       # Quality of life utilities
@@ -16,9 +11,25 @@
       - tldr
       # Fallback editor
       - vim
-      # Networking
-      - whois 
   become: yes
+  when: distro_short == "ubuntu"
+
+- name: Install commands (arch)
+  community.general.pacman:
+    name:
+      # Quality of life utilities
+      # - autojump
+      - htop
+      - jq
+      - perl-rename
+      - tldr
+  become: yes
+  when: distro_short == "arch"
+
+- name: Ensure {{ CONFIG_DIR }}/bash exists
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/bash"
+    state: directory
 
 - name: Link .bashrc and .profile
   ansible.builtin.file:

@@ -1,0 +1,6 @@
+---
+
+- name: Install Alacritty from Pacman
+  community.general.pacman:
+    name: alacritty
+  become: true

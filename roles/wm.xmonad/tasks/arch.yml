@@ -1,0 +1,9 @@
+---
+
+- name: Install with Pacman
+  community.general.pacman:
+    name:
+      - xmonad
+      - xmonad-contrib
+      - xmonad-utils
+  become: true

@@ -1,5 +1,6 @@
 [
     {"name": "Run", "cmd": "./tools/run"},
+    {"name": "SSH", "cmd": "rofi -show ssh"},
     {"name": "Files", "cmd": "./tools/files"},
     {"name": "Music", "cmd": "./tools/music"},
     {"name": "Videos", "cmd": "./tools/videos"},

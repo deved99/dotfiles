@@ -1,44 +1,12 @@
 ---
 
-################
-# Dependencies #
-################
+- name: Install Alacritty (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
 
-# Rust is installed as role dependency
-
-- name: Install dependencies
-  ansible.builtin.apt:
-    name:
-      - cmake
-      - pkg-config
-      - libfreetype6-dev
-      - libfontconfig1-dev
-      - libxcb-xfixes0-dev
-      - libxkbcommon-dev
-      - python3
-  become: true
-
-###########
-# Install #
-###########
-
-- name: Clone repository
-  ansible.builtin.git:
-    dest: "{{ BUILD_DIR }}/alacritty"
-    repo: "https://github.com/alacritty/alacritty.git"
-    update: "{{ UPDATE }}"
-
-- name: Build
-  ansible.builtin.command:
-    cmd: "cargo build --release"
-    chdir: "{{ BUILD_DIR }}/alacritty"
-
-- name: Copy binary to local/bin
-  ansible.builtin.copy:
-    src: "{{ BUILD_DIR }}/alacritty/target/release/alacritty"
-    dest: "{{ LOCAL_BIN }}/alacritty"
-    remote_src: true
-    mode: "u+x"
+- name: Install Alacritty (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"
 
 #############
 # Configure #
