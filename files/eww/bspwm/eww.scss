@@ -4,15 +4,18 @@
     all: unset;
     font-family: "NotoSans Nerd Font";
     font-size: 15px;
-}
-
-.monitor-one, .monitor-two {
-    background-color: $black;
-    color: $white-alt;
+    color: $black
 }
 
 .workspaces button {
     padding: 0px 5px;
+}
+
+.workspaces {
+    background-color: $white;
+    padding: 0px 5px;
+    border-radius: 10px;
+    margin-left: 5px;
 }
 
 .ws-active {
@@ -20,18 +23,17 @@
 }
 .workspaces button:hover {
     background-color: $accent;
-    color: $black;
+    border-radius: 10px;
 }
 
 .status > * {
-    margin: 0px 2px;
+    margin: 0px 5px;
     padding: 0px 5px;
-    color: $black
+    border-radius: 10px;
 }
 
 .time {
     background-color: $green;
-    margin-right: 0px;
 }
 
 .battery-low {
