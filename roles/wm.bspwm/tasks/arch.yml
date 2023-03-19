@@ -1,0 +1,8 @@
+---
+
+- name: Install package
+  community.general.pacman:
+    name: 
+      - bspwm
+      - sxhkd
+  become: true

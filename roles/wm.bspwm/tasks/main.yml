@@ -1,0 +1,44 @@
+--- 
+
+- name: Install (ubuntu)
+  import_tasks: "ubuntu.yml"
+  when: distro_short == "ubuntu"
+
+- name: Install (arch)
+  import_tasks: "arch.yml"
+  when: distro_short == "arch"
+
+########################
+# Install dependencies #
+########################
+
+- name: Install bspwm-grid
+  import_tasks: "bspwm-grid.yml"
+
+- name: Install status-watcher
+  import_tasks: "status-watcher.yml"
+
+#################
+# Configuration #
+#################
+
+- name: Copy update_monitor.py
+  ansible.builtin.copy:
+    src: update_monitors.py
+    dest: "{{ LOCAL_BIN }}/bspwm-update_monitors.py"
+    mode: "755"
+
+- name: Symlink BSPWM configuration
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
+    state: link
+  with_fileglob: "{{ REPO_FILES }}/bspwm/*"
+
+- name: Symlink EWW configuration
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) | replace('/eww/bspwm/', '/eww/') }}"
+    state: link
+    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) | replace('/eww/bspwm/', '/eww/') }}"
+  with_fileglob: "{{ REPO_FILES }}/eww/bspwm/*"

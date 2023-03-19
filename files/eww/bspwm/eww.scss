@@ -1,0 +1,48 @@
+@import "./colors.scss";
+
+* {
+    all: unset;
+    font-family: "NotoSans Nerd Font";
+    font-size: 15px;
+}
+
+.monitor-one, .monitor-two {
+    background-color: $black;
+    color: $white-alt;
+}
+
+.workspaces button {
+    padding: 0px 5px;
+}
+
+.ws-active {
+    color: $accent;
+}
+.ws-unactive:hover {
+    background-color: $accent;
+}
+
+.status > * {
+    margin: 0px 2px;
+    padding: 0px 5px;
+    color: $black
+}
+
+.time {
+    background-color: $green;
+    margin-right: 0px;
+}
+
+.battery-low {
+    background-color: $red;
+}
+.battery-charging, .battery {
+    background-color: $orange;
+}
+
+.volume-unmuted, .volume-muted {
+    background-color: $blue;
+}
+.volume-muted {
+    color: $black-alt;
+}

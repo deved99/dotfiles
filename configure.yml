@@ -22,6 +22,8 @@
       tags: graphical,awesome
     - role: wm.xmonad
       tags: xmonad
+    - role: wm.bspwm
+      tags: bspwm
     # WM utilities
     - role: wm.eww
       tags: eww

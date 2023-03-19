@@ -1,0 +1,65 @@
+(defwidget layout [monitor] 
+  (box (desktop :json "${desktop-json[monitor]}") (status)))
+
+(deflisten desktop-json
+  :initial '{"eDP":{"x":0,"y":0,"columns":[0,1,2,3,4]},"HDMI-1-0":{"x":0,"y":0,"columns":[0,1,2,3,4]}}'
+  `status-watcher desktop`)
+
+(defwidget desktop [json]
+  (box :class "workspaces"
+       :space-evenly true
+       :halign "start"
+       (row-switch :y "${json.y}")
+       (for n in "${json.columns}" 
+         (column-switch :n n :x "${json.x}"))))
+
+(defwidget column-switch [n x]
+    (button
+      :class { n == x ? "ws-active" : "ws-unactive" }
+      :onclick "bspwm-grid column-focus ${n}" 
+      "${ n == x ? "◉" : "○" }"))
+
+(defvar row-to-name '["α", "β", "γ", "δ", "ε"]' )
+
+(defwidget row-switch [y]
+    (button
+      :class "ws-row"
+      :onclick "bspwm-grid row-focus ${y + 1}" 
+      :onrightclick "bspwm-grid row-focus ${y - 1}" 
+      "${row-to-name[y]}"))
+
+(defwidget status []
+  (box :class "status"
+       :halign "end"
+       :space-evenly false
+       (volume)
+       (battery)
+       (time)))
+
+; Volume
+(deflisten volume-json
+  :initial '{"volume":84,"mute":false}'
+  `status-watcher volume`)
+
+(defwidget volume []
+  (box :class {volume-json.mute ? "volume-muted" : "volume-unmuted"}
+    "${volume-json.mute ? '󰖁' : '󰕾'}${volume-json.volume}%"))
+
+; Time
+(defwidget time []
+  (box :class "time" "󰥔 ${time-str}"))
+
+(defpoll time-str :interval "2s"
+  `date +%H:%M`)
+
+; Battery
+
+(defwidget battery []
+  (battery-unwrapped 
+    :status "${EWW_BATTERY.BAT0.status}"
+    :capacity "${EWW_BATTERY.BAT0.capacity}"))
+
+(defwidget battery-unwrapped [status capacity]
+  (box :class { status != "Discharging" ? "battery-charging" :
+                capacity < 20 ? "battery-low" : "battery" }
+       "${status == 'Discharging' ? '󰁹' : '󱐋'}${ capacity }%"))
