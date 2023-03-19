@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-bspwm-update_monitors.py &
-
 bspc config window_gap 10
 bspc config border_width 4
 bspc config normal_border_color "#6e6a86" # black-alt
@@ -14,8 +12,10 @@ bspc config focus_follows_pointer true
 bspc config pointer_follows_monitor true
 bspc config gapless_monocle true
 
-pgrep -x sxhkd > /dev/null || sxhkd &
 ~/.screenlayout/default.sh
+bspwm-update_monitors.py &
+
+pgrep -x sxhkd > /dev/null || sxhkd &
 feh --bg-scale ~/bg.jpg
 eww open monitor-one
 eww open monitor-two

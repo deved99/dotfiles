@@ -40,5 +40,4 @@
     src: "{{ item }}"
     dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) | replace('/eww/bspwm/', '/eww/') }}"
     state: link
-    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) | replace('/eww/bspwm/', '/eww/') }}"
   with_fileglob: "{{ REPO_FILES }}/eww/bspwm/*"

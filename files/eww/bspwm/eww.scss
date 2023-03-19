@@ -18,8 +18,9 @@
 .ws-active {
     color: $accent;
 }
-.ws-unactive:hover {
+.workspaces button:hover {
     background-color: $accent;
+    color: $black;
 }
 
 .status > * {

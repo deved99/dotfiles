@@ -11,13 +11,16 @@
        :halign "start"
        (row-switch :y "${json.y}")
        (for n in "${json.columns}" 
-         (column-switch :n n :x "${json.x}"))))
+         (column-switch 
+           :n n 
+           :x "${json.x}" 
+           :is_occupied "${jq(json.occupied_xs, 'any(. == ${n})')}"))))
 
-(defwidget column-switch [n x]
+(defwidget column-switch [n x is_occupied]
     (button
       :class { n == x ? "ws-active" : "ws-unactive" }
       :onclick "bspwm-grid column-focus ${n}" 
-      "${ n == x ? "◉" : "○" }"))
+      '${ n == x ? "◉" : is_occupied ? "○" : "◌" }'))
 
 (defvar row-to-name '["α", "β", "γ", "δ", "ε"]' )
 
