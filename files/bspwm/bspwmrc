@@ -16,10 +16,10 @@ bspc config gapless_monocle true
 bspwm-update_monitors.py &
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-feh --bg-scale ~/bg.jpg
-eww open monitor-one
-eww open monitor-two
+pgrep -x dunst > /dev/null || dunst &
+pgrep -x picom > /dev/null || picom &
 
+feh --bg-scale ~/bg.jpg
 setxkbmap -layout us -variant altgr-intl -option caps:escape
 pgrep -x alacritty > /dev/null || alacritty &
 

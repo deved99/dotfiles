@@ -1,0 +1,43 @@
+[global]
+    # Show notifications on primary screen
+    monitor = 0
+    follow = none
+
+    # The geometry of the window:
+    #   [{width}]x{height}[+/-{x}+/-{y}]
+    geometry = "300x5-30+40"
+
+    # Decorations
+    padding = 4
+    horizontal_padding = 4
+    separator_color = "{{ CS_ACC }}"
+    frame_width = 4
+    frame_color = "{{ CS_ACC }}"
+
+    ### Text ###
+    font = NotoSans Nerd Font 15
+
+    # Browser
+    browser = /usr/bin/sensible-browser
+
+[shortcuts]
+    close = ctrl+space
+    close_all = ctrl+shift+space
+    history = ctrl+grave
+
+[urgency_low]
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the "#" and following would be interpreted as a comment.
+    background = "{{ CS_TERM[0] }}"
+    foreground = "{{ CS_TERM[7] }}"
+    timeout = 10
+
+[urgency_normal]
+    background = "{{ CS_TERM[0] }}"
+    foreground = "{{ CS_ACC }}"
+    timeout = 10
+
+[urgency_critical]
+    background = "{{ CS_TERM[1] }}"
+    foreground = "{{ CS_TERM[7] }}"
+    timeout = 0
