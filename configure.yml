@@ -67,3 +67,5 @@
       tags: drawio
     - role: program.dbeaver
       tags: dbeaver
+    - role: program.lutris
+      tags: lutris
