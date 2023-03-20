@@ -8,7 +8,10 @@ local plugins = {
     require("editing.comment"),
     require("editing.vim-cool"),
     require("editing.autopairs"),
+    require("editing.autopairs"),
     -- require("editing.indentline"),
+    require("filetypes.sxhkd"),
+    require("filetypes.yuck"),
     -- Programming
     require("lsp.treesitter"),
     require("lsp.mason"),
@@ -18,7 +21,7 @@ local plugins = {
 
 local status, colorscheme = pcall(require, 'visual.theme')
 if status then
-    len = #plugins
+    local len = #plugins
     plugins[len + 1] = colorscheme
 end
 

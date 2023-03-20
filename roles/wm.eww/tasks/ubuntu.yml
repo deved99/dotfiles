@@ -14,7 +14,7 @@
   ansible.builtin.git:
     repo: "https://github.com/elkowar/eww"
     dest: "{{ BUILD_DIR }}/eww"
-    update: no
+    update: false
 
 - name: Build
   ansible.builtin.command:
@@ -26,4 +26,4 @@
     src: "{{ BUILD_DIR }}/eww/target/release/eww"
     dest: "{{ LOCAL_BIN }}/eww"
     mode: "u+x"
-    remote_src: yes
+    remote_src: true

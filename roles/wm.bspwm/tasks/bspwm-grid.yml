@@ -1,0 +1,18 @@
+---
+
+- name: Clone directory
+  ansible.builtin.git:
+    repo: "https://github.com/deved99/bspwm-grid"
+    dest: "{{ BUILD_DIR }}/bspwm-grid"
+
+- name: Build
+  ansible.builtin.command:
+    cmd: "cargo build --release"
+    chdir: "{{ BUILD_DIR }}/bspwm-grid"
+
+- name: Copy binary to local bin
+  ansible.builtin.copy:
+    src: "{{ BUILD_DIR }}/bspwm-grid/target/release/bspwm-grid"
+    dest: "{{ LOCAL_BIN }}/bspwm-grid"
+    mode: "u+x"
+    remote_src: true

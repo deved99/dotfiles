@@ -16,6 +16,10 @@
     src: eww.service
     dest: "{{ SYSTEMD_DIR }}/eww.service"
 
+- name: Template colors 
+  ansible.builtin.template:
+    src: colors.scss.j2
+    dest: "{{ CONFIG_DIR }}/eww/colors.scss"
 
 - name: Reload services
   ansible.builtin.systemd:

@@ -1,0 +1,27 @@
+---
+
+- name: Install Dunst (ubuntu)
+  ansible.builtin.apt:
+    name: dunst
+  become: true
+  when: distro_short == "ubuntu"
+
+- name: Install Dunst (arch)
+  community.general.pacman:
+    name: dunst
+  become: true
+  when: distro_short == "arch"
+
+- name: Create dunst config folder
+  ansible.builtin.file:
+    dest: "{{ CONFIG_DIR }}/dunst"
+    state: directory
+
+- name: Template configuration
+  ansible.builtin.template:
+    src: dunstrc.j2
+    dest: "{{ CONFIG_DIR }}/dunst/dunstrc"
+
+- name: Kill dunst
+  ansible.builtin.command:
+    cmd: "pkill dunst"

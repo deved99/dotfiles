@@ -1,0 +1,63 @@
+@import "./colors.scss";
+
+* {
+    all: unset;
+    font-family: "NotoSans Nerd Font";
+    font-size: 15px;
+}
+
+// Pills
+.status > *, .workspaces {
+    margin: 0px 3px;
+    border-radius: 10px;
+    color: $black;
+}
+.status > *, .workspaces button {
+    padding: 0px 5px;
+}
+
+// Workspaces
+.workspaces {
+    background-color: $white;
+}
+
+.ws-unactive:hover, .ws-active:hover {
+    background-color: $accent;
+    color: $black;
+    border-radius: 10px;
+}
+
+.ws-row {
+    color: $white;
+    background-color: $black;
+    border-radius: 10px 0px 0px 10px;
+    padding: 4px;
+    margin-right: 4px;
+}
+.ws-row:hover {
+    color: $black;
+    background-color: $accent;
+    border-radius: 10px 0px 0px 10px;
+    padding: 4px;
+    margin-right: 4px;
+}
+
+// Right side
+
+.time {
+    background-color: $green;
+}
+
+.battery-low {
+    background-color: $red;
+}
+.battery-charging, .battery {
+    background-color: $orange;
+}
+
+.volume-unmuted, .volume-muted {
+    background-color: $blue;
+}
+.volume-muted {
+    color: $black-alt;
+}
