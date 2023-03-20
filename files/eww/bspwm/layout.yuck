@@ -18,7 +18,7 @@
 
 (defwidget column-switch [n x is_occupied]
     (button
-      :class { n == x ? "ws-active" : "ws-unactive" }
+      :class { n == x ? "ws-active" : is_occupied ? "ws-occupied" : "ws-unactive" }
       :onclick "bspwm-grid column-focus ${n}" 
       '${ n == x ? "◉" : is_occupied ? "○" : "◌" }'))
 
