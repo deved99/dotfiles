@@ -61,3 +61,5 @@
     # Miscellaneous programs
     - role: program.drawio
       tags: drawio
+    - role: program.dbeaver
+      tags: dbeaver
