@@ -1,12 +1,12 @@
 #!/bin/bash
-~/.screenlayout/default.sh
+~/.config/set-monitors.sh
 setxkbmap -layout us -variant altgr-intl -option 'caps:escape'
 systemctl --user start mpdscribble
 while read -r line; do
 PROGRAM=$(echo $line | cut -d" " -f1)
 pidof -q $PROGRAM || $line &
 done <<EOF
-picom
+picom --experimental-backends
 thunderbird
 flameshot
 EOF
