@@ -215,3 +215,4 @@ COLORSCHEME_ROSEPINE:
     - "#ebbcba"
     - "#e0def4"
   NEOVIM: "rosepine.lua"
+  EMACS: "rosepine.el"

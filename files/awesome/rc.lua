@@ -171,7 +171,7 @@ function set_global_keys()
                 {description = "open a browser", group = "launcher"}),
       -- awful.key({ modkey }, "Return", exec("emojis"),
       --           {description = "open a browser", group = "launcher"}),
-      awful.key({ modkey }, "e", exec("emacsclient -c"),
+      awful.key({ modkey }, "e", exec("emacs"),
                 {description = "open emacs", group = "launcher"}),
       -- Menus
       awful.key({ modkey }, "space", exec("menu"),
