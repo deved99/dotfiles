@@ -527,7 +527,7 @@ Package:
   <<note-taking/roam/plugins>>
 #+end_src
 UI:
-#+begin_src elisp :noweb-ref note-taking/roam/plugins
+#+begin_src elisp :noweb-ref note-taking/roam/ui
   (use-package org-roam-ui
     :custom (org-roam-ui-open-on-start nil)
     :hook (after-init . org-roam-ui-mode))
