@@ -27,6 +27,8 @@
     # WM utilities
     - role: wm.dunst
       tags: dunst
+    - role: wm.notif
+      tags: notif
     - role: wm.eww
       tags: eww
     - role: wm.menu

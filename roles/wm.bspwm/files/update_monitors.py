@@ -28,29 +28,29 @@ EWW_TEMPLATE = jinja2.Template(EWW_TEMPLATE_STR)
 def update_grid():
     subprocess.run(["bspwm-grid", "init"])
 
+
 def update_eww(monitors: set[str]):
     rendered = EWW_TEMPLATE.render(monitors=monitors)
     with open(EWW_CONFIG_PATH, "w") as f:
         f.write(rendered)
-    subprocess.run(["eww", "--restart",  "open-many"]+list(monitors))
+    subprocess.run(["eww", "--restart", "open-many"] + list(monitors))
+
 
 def update_monitors(monitors: set[str]):
     update_grid()
     update_eww(monitors)
+
 
 def main():
     cmd = subprocess.Popen(["status-watcher", "monitor"], stdout=subprocess.PIPE)
     if cmd.stdout is None:
         print("I expected stdout to not be None!")
         exit(1)
-    monitors = set()
-    for line_bytes in iter(cmd.stdout.readline, ""):
-        line = line_bytes.decode("utf-8").strip()
-        new_monitors = set(json.loads(line))
-        if new_monitors != monitors:
-            print(f"Changed: {monitors} => {new_monitors}")
-            monitors = new_monitors
-            update_monitors(monitors)
+    line = cmd.stdout.readline().decode("utf-8").strip()
+    cmd.kill()
+    monitors = set(json.loads(line))
+    update_monitors(monitors)
+
 
 if __name__ == "__main__":
     main()
