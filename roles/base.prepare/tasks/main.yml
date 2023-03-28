@@ -24,6 +24,7 @@
   loop:
     - "{{ BUILD_DIR }}"
     - "{{ LOCAL_BIN }}"
+    - "{{ DATA_DIR }}"
     - "{{ SYSTEMD_DIR }}"
 
 - name: Install ufetch

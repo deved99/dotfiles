@@ -1,41 +1,11 @@
 ---
 
-HOME: "{{ lookup('env', 'HOME') }}"
-
-# XDG directories
-CONFIG_DIR: >-
-  {{
-  lookup('env', 'XDG_CONFIG_DIR')
-  | default(HOME+'/.config', true)
-  }}
-
-LOCAL_DIR: >-
-  {{
-  lookup('env', 'XDG_LOCAL_DIR')
-  | default(HOME+'/.local', true)
-  }}
-
-# Repo directories
-REPO_DIR: "{{ HOME }}/.dotfiles"
-REPO_FILES: "{{ REPO_DIR }}/files"
-REPO_SECRETS: "{{ REPO_DIR }}/secret"
-
-# Miscellaneos
-SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
-LOCAL_BIN: "{{ LOCAL_DIR }}/bin"
-BUILD_DIR: "{{ HOME }}/.cache/build"
-MUSIC_DIR: "{{ HOME }}/Music"
-
-UPDATE: no
-
 ############################################################
 # Variables
 
 BROWSER: firefox
 BROWSER_FALLBACK: firefox
-
-############################################################
-# Colorscheme
+UPDATE: false
 
 # CS is the choosen colorscheme, which will update CS_TERM
 CS: "{{ CS_DARK }}"
@@ -52,6 +22,45 @@ CS_N: 1
 CS_ACC: "{{ CS_TERM[CS_N] }}"
 CS_BG: "{{ CS_TERM[0] }}"
 CS_FG: "{{ CS_TERM[15] }}"
+
+############################################################
+# Directories
+
+HOME: "{{ lookup('env', 'HOME') }}"
+
+CONFIG_DIR: >-
+  {{
+  lookup('env', 'XDG_CONFIG_DIR')
+  | default(HOME+'/.config', true)
+  }}
+
+LOCAL_DIR: >-
+  {{
+  lookup('env', 'XDG_LOCAL_DIR')
+  | default(HOME+'/.local', true)
+  }}
+
+DATA_DIR: >-
+  {{
+  lookup('env', 'XDG_DATA_DIR')
+  | default(LOCAL_DIR+'/share', true)
+  }}
+
+FONTS_DIR: "{{ DATA_DIR }}/fonts"
+
+# Repo directories
+REPO_DIR: "{{ HOME }}/.dotfiles"
+REPO_FILES: "{{ REPO_DIR }}/files"
+REPO_SECRETS: "{{ REPO_DIR }}/secret"
+
+# Miscellaneos
+SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
+LOCAL_BIN: "{{ LOCAL_DIR }}/bin"
+BUILD_DIR: "{{ HOME }}/.cache/build"
+MUSIC_DIR: "{{ HOME }}/Music"
+
+############################################################
+# Colorscheme
 
 # These are the possible values for CS
 COLORSCHEME_GOOGLE_DARK:
@@ -216,3 +225,10 @@ COLORSCHEME_ROSEPINE:
     - "#e0def4"
   NEOVIM: "rosepine.lua"
   EMACS: "rosepine.el"
+
+############################################################
+# Fonts
+
+FONTS:
+  - name: NotoSans Nerd Font
+    url: "https://github.com/ryanoasis/nerd-fonts/raw/v2.3.3/patched-fonts/Noto/Sans/complete/Noto%20Sans%20Regular%20Nerd%20Font%20Complete.ttf"

@@ -17,6 +17,8 @@
       tags: base,prepare
     - role: term.bash
       tags: base,shell
+    - role: base.fonts
+      tags: graphical,fonts
     # Window Managers
     - role: wm.awesome
       tags: graphical,awesome
