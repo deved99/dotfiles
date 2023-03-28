@@ -40,7 +40,7 @@ def main():
     if arguments.system:
         system_configure(profile)
         return
-    configure(profile, tags)
+    configure(profile, tags, update=arguments.update)
     # If changed config, write
     if config != config_old:
         config_write(config)
@@ -91,6 +91,9 @@ def getArgumentParser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--tags", dest="tags", action="store", help="Set tags to run/install"
     )
+    parser.add_argument(
+        "--update", dest="update", action="store_true", help="Update installed roles"
+    )
     return parser
 
 
@@ -116,7 +119,7 @@ def install(profile):
     subprocess.run(cmd)
 
 
-def configure(profile: str, tags: list, args: list = []):
+def configure(profile: str, tags: list, args: list = [], update: bool = False):
     """Run Ansible Playbook to configure this machine.
 
     Args:
@@ -132,9 +135,12 @@ def configure(profile: str, tags: list, args: list = []):
         "@vars/common.yml",
         "--extra-vars",
         f"@vars/{profile}.yml",
+        "--extra-vars",
+        f"UPDATE={str(update).lower()}",
         "--tags",
         ",".join(tags),
     ] + args
+    print(cmd)
     subprocess.run(cmd)
 
 

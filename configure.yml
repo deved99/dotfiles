@@ -7,6 +7,10 @@
       Ubuntu: ubuntu
     distro_short: "{{ distro_shorts[ansible_facts['distribution']] }}"
   pre_tasks:
+    - name: Debug
+      debug:
+        var: UPDATE
+      tags: always
     - name: Become password check
       ansible.builtin.command: whoami
       become: true
