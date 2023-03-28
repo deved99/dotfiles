@@ -16,6 +16,12 @@
     src: eww.service
     dest: "{{ SYSTEMD_DIR }}/eww.service"
 
+- name: Ensure ~/.config/eww
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/eww"
+    state: directory
+    mode: "755"
+
 - name: Template colors 
   ansible.builtin.template:
     src: colors.scss.j2

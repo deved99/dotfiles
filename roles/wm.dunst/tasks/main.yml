@@ -25,3 +25,4 @@
 - name: Kill dunst
   ansible.builtin.command:
     cmd: "pkill dunst"
+  ignore_errors: true

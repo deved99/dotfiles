@@ -22,6 +22,18 @@
 # Configuration #
 #################
 
+- name: Ensure ~/.config/bspwm
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/bspwm"
+    state: directory
+    mode: "755"
+
+- name: Ensure ~/.config/bspwm
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/sxhkd"
+    state: directory
+    mode: "755"
+
 - name: Copy update_monitor.py
   ansible.builtin.copy:
     src: update_monitors.py
@@ -30,10 +42,15 @@
 
 - name: Symlink BSPWM configuration
   ansible.builtin.file:
-    src: "{{ item }}"
-    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) }}"
+    src: "{{ REPO_FILES }}/bspwm/{{ item.src }}"
+    dest: "{{ CONFIG_DIR }}/{{ item.dest }}"
     state: link
-  with_fileglob: "{{ REPO_FILES }}/bspwm/*"
+  # with_fileglob: "{{ REPO_FILES }}/bspwm/*"
+  loop:
+    - src: bspwmrc
+      dest: bspwm/bspwmrc
+    - src: sxhkdrc
+      dest: sxhkd/sxhkdrc
 
 - name: Symlink EWW configuration
   ansible.builtin.file:
