@@ -3,22 +3,24 @@
 - name: Install packages
   ansible.builtin.apt:
     name:
-      - libgtk-3-dev
-      - libpango1.0-dev
-      - libgdk-pixbuf2.0-dev
-      - libcairo2-dev
       - libc6
+      - libcairo2-dev
+      - libgdk-pixbuf2.0-dev
+      - libgtk-3-dev
+      - libgtk-layer-shell-dev
+      - libpango1.0-dev
   become: true
 
 - name: Clone directory
   ansible.builtin.git:
     repo: "https://github.com/elkowar/eww"
     dest: "{{ BUILD_DIR }}/eww"
+    version: "e76206817de1cb86ec431dcff7d4b04c8b7d36fc"
     update: false
 
 - name: Build
   ansible.builtin.command:
-    cmd: "cargo +nightly build --release"
+    cmd: "cargo build --release"
     chdir: "{{ BUILD_DIR }}/eww"
 
 - name: Copy binary to local bin
