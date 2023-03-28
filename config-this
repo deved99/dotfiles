@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 import os
 import subprocess
+
 # External
 import yaml
 
@@ -11,8 +12,9 @@ import yaml
 # Main function and close related #
 ###################################
 
+
 def main():
-    """ The main function.
+    """The main function.
 
     Parses arguments. If told so, install config-this and exits.
     Otherwise, reads config and then execute the configure playbook
@@ -43,9 +45,9 @@ def main():
     if config != config_old:
         config_write(config)
 
-def choose_tags(config: dict,
-                arguments: argparse.Namespace) -> list[str]:
-    """ Decide what tags to apply.
+
+def choose_tags(config: dict, arguments: argparse.Namespace) -> list[str]:
+    """Decide what tags to apply.
 
     Args:
         config: configuration of this wrapper.
@@ -58,14 +60,15 @@ def choose_tags(config: dict,
         return arguments.tags.split(",")
     else:
         return config["tags"]
-        
+
 
 ###################
 # Argument Parser #
 ###################
 
+
 def getArgumentParser() -> argparse.ArgumentParser:
-    """ Get the argument parser.
+    """Get the argument parser.
 
     Returns:
         The argument parser.
@@ -73,40 +76,48 @@ def getArgumentParser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     # Whether to copy script in $PATH
     parser.add_argument(
-        '--install', dest = 'install', action = 'store',
-        help = "install and generate a default config",
-        metavar = "PROFILE"
+        "--install",
+        dest="install",
+        action="store",
+        help="install and generate a default config",
+        metavar="PROFILE",
     )
     parser.add_argument(
-        '--system', dest = 'system', action = 'store_true',
-        help = "run system-configure.yml instead of configure.yml",
+        "--system",
+        dest="system",
+        action="store_true",
+        help="run system-configure.yml instead of configure.yml",
     )
     parser.add_argument(
-        '--tags', dest = 'tags', action = 'store',
-        help = "Set tags to run/install"
+        "--tags", dest="tags", action="store", help="Set tags to run/install"
     )
     return parser
+
 
 ###############
 # Subroutines #
 ###############
 
+
 def install(profile):
-    """ Run Ansible Playbook to install this script.
+    """Run Ansible Playbook to install this script.
 
     Args:
         profile: name of the profile to use, assumes vars/{profile} exists.
     """
     cmd = [
         "ansible-playbook",
-        "--extra-vars", "@vars/common.yml",
-        "--extra-vars", f"@vars/{profile}.yml",
-        "install.yml"
+        "--extra-vars",
+        "@vars/common.yml",
+        "--extra-vars",
+        f"@vars/{profile}.yml",
+        "install.yml",
     ]
     subprocess.run(cmd)
 
+
 def configure(profile: str, tags: list, args: list = []):
-    """ Run Ansible Playbook to configure this machine.
+    """Run Ansible Playbook to configure this machine.
 
     Args:
         profile: profile from which to take additional variables.
@@ -115,15 +126,20 @@ def configure(profile: str, tags: list, args: list = []):
     """
     cmd = [
         "ansible-playbook",
-        "configure.yml", "-K",
-        "--extra-vars", "@vars/common.yml",
-        "--extra-vars", f"@vars/{profile}.yml",
-        "--tags", ",".join(tags)
+        "configure.yml",
+        "-K",
+        "--extra-vars",
+        "@vars/common.yml",
+        "--extra-vars",
+        f"@vars/{profile}.yml",
+        "--tags",
+        ",".join(tags),
     ] + args
     subprocess.run(cmd)
 
+
 def system_configure(profile: str, args: list = []):
-    """ Run Ansible Playbook to configure this machine (system side).
+    """Run Ansible Playbook to configure this machine (system side).
 
     Args:
         profile: profile from which to take additional variables.
@@ -131,19 +147,24 @@ def system_configure(profile: str, args: list = []):
     """
     cmd = [
         "ansible-playbook",
-        "system-configure.yml", "-K",
-        "--extra-vars", "@vars/common.yml",
-        "--extra-vars", f"@vars/{profile}.yml",
+        "system-configure.yml",
+        "-K",
+        "--extra-vars",
+        "@vars/common.yml",
+        "--extra-vars",
+        f"@vars/{profile}.yml",
     ] + args
     subprocess.run(cmd)
+
 
 ####################
 # Helper functions #
 ####################
 
+
 # TODO: accept config-this.yaml too
 def get_config_path() -> Path:
-    """ Return path of config directory.
+    """Return path of config directory.
 
     Returns $XDG_CONFIG_DIR if exists, otherwise ~/.config.
     """
@@ -154,20 +175,22 @@ def get_config_path() -> Path:
         config_dir = Path(config_dir)
     return config_dir / "local" / "config-this.yml"
 
+
 def config_read() -> dict:
-    """ Read configuration and return it.
-    """
+    """Read configuration and return it."""
     with open(get_config_path()) as f:
         return yaml.safe_load(f)
 
+
 def config_write(data: dict):
-    """ Write configuration to file.
+    """Write configuration to file.
 
     Args:
         data: config to write to file.
     """
     with open(get_config_path(), "w") as f:
         return yaml.dump(data, f)
+
 
 if __name__ == "__main__":
     main()
