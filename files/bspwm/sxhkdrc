@@ -36,6 +36,12 @@ XF86AudioMute
 XF86Audio{RaiseVolume,LowerVolume}
     pactl set-sink-volume @DEFAULT_SINK@ {+10%,-10%}
 
+XF86Audio{Prev,Play,Pause,Next}
+    song {prev,toggle,pause,next}
+
+super + m
+    btmic
+
 # Print
 Print
     flameshot gui
@@ -55,10 +61,6 @@ super + {t,s,f}
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
-
-# alternate between the tiled and monocle layout
-super + m
-	bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
 super + y
