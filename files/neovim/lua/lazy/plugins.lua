@@ -13,10 +13,11 @@ local plugins = {
     require("filetypes.sxhkd"),
     require("filetypes.yuck"),
     -- Programming
-    require("lsp.treesitter"),
+    require("lsp.fugitive"),
     require("lsp.mason"),
     require("lsp.telescope"),
-    require("lsp.fugitive"),
+    require("lsp.treesitter"),
+    require("lsp.trouble"),
 }
 
 local status, colorscheme = pcall(require, 'visual.theme')

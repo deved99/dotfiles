@@ -31,7 +31,7 @@ local config = function()
         ensure_installed = { "black", "rustfmt" },
         automatic_setup = true,
     }
-    require("mason-null-ls").setup_handlers()
+    require("mason-null-ls").setup_handlers {}
 
     -- see `help mason-lspconfig-automatic-server-setup`.
     require("mason-lspconfig").setup_handlers {
