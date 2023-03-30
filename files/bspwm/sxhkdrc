@@ -107,6 +107,9 @@ super + {_,shift + }{1-5}
 super + alt + {_,shift + }{1-5}
 	bspwm-grid {row-focus, row-send} '{0-4}'
 
+super + {_,shift + }{button8,button9}
+    bspwm-grid row-{focus,send} -- {+1,-1}
+
 #
 # preselect
 #
