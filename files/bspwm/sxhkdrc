@@ -68,7 +68,7 @@ super + y
 
 # swap the current node and the biggest window
 super + g
-	bspc node -s biggest.window
+	bspc node -s biggest.window.local
 
 #
 # focus/swap
@@ -103,6 +103,9 @@ super + {o,i}
 # focus or send to the given desktop
 super + {_,shift + }{1-5}
 	bspwm-grid {column-focus, column-send} '{0-4}'
+
+super + alt + {_,shift + }{1-5}
+	bspwm-grid {row-focus, row-send} '{0-4}'
 
 #
 # preselect
