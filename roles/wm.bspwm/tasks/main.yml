@@ -54,7 +54,10 @@
 
 - name: Symlink EWW configuration
   ansible.builtin.file:
-    src: "{{ item }}"
-    dest: "{{ item | replace(REPO_FILES, CONFIG_DIR) | replace('/eww/bspwm/', '/eww/') }}"
+    src: "{{ REPO_FILES }}/eww/bspwm/{{ item }}"
+    dest: "{{ CONFIG_DIR }}/eww/{{ item }}"
     state: link
-  with_fileglob: "{{ REPO_FILES }}/eww/bspwm/*"
+  loop:
+    - eww.scss
+    - layout.yuck
+    - modules

@@ -1,40 +1,15 @@
+(include "./modules/desktop.yuck")
+; (include "./modules/notifications.yuck")
+
 (defwidget layout [monitor] 
-  (box (desktop :json "${desktop-json[monitor]}") (status)))
-
-(deflisten desktop-json
-  :initial '{"eDP":{"x":0,"y":0,"columns":[0,1,2,3,4]},"HDMI-1-0":{"x":0,"y":0,"columns":[0,1,2,3,4]}}'
-  `status-watcher desktop`)
-
-(defwidget desktop [json]
-  (box :class "workspaces"
-       :space-evenly true
-       :halign "start"
-       (row-switch :y "${json.y}")
-       (for n in "${json.columns}" 
-         (column-switch 
-           :n n 
-           :x "${json.x}" 
-           :is_occupied "${jq(json.occupied_xs, 'any(. == ${n})')}"))))
-
-(defwidget column-switch [n x is_occupied]
-    (button
-      :class { n == x ? "ws-active" : is_occupied ? "ws-occupied" : "ws-unactive" }
-      :onclick "bspwm-grid column-focus ${n}" 
-      '${ n == x ? "◉" : is_occupied ? "○" : "◌" }'))
-
-(defvar row-to-name '["α", "β", "γ", "δ", "ε"]' )
-
-(defwidget row-switch [y]
-    (button
-      :class "ws-row"
-      :onclick "bspwm-grid row-focus ${y + 1}" 
-      :onrightclick "bspwm-grid row-focus ${y - 1}" 
-      "${row-to-name[y]}"))
+  (box :class "whole-bar"
+    (desktop :json "${desktop-json[monitor]}") (status)))
 
 (defwidget status []
   (box :class "status"
        :halign "end"
        :space-evenly false
+       ; (notifications)
        (volume)
        (battery)
        (time)))
@@ -46,7 +21,7 @@
 
 (defwidget volume []
   (box :class {volume-json.mute ? "volume-muted" : "volume-unmuted"}
-    "${volume-json.mute ? '󰖁' : '󰕾'}${volume-json.volume}%"))
+    "${volume-json.mute ? '󰖁' : '󰕾'} ${volume-json.volume}%"))
 
 ; Time
 (defwidget time []
