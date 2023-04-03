@@ -2,6 +2,7 @@
 import json
 from os import environ
 import subprocess
+import time
 
 import jinja2
 
@@ -34,6 +35,22 @@ def update_eww(monitors: set[str]):
     with open(EWW_CONFIG_PATH, "w") as f:
         f.write(rendered)
     subprocess.run(["eww", "--restart", "open-many"] + list(monitors))
+    # Hide eww when fullscreen
+    time.sleep(1)
+    fix_fullscreen(monitors)
+
+
+def fix_fullscreen(monitors: set[str]):
+    cmd = subprocess.run(["xdo", "id", "-n", "root"], capture_output=True)
+    root_ids = cmd.stdout.decode("utf-8").splitlines()
+    for monitor in monitors:
+        # xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" $(xdo id -n "eww-{monitor}")
+        cmd = subprocess.run(["xdo", "id", "-n", f"eww-{monitor}"], capture_output=True)
+        bar_id = cmd.stdout.decode("utf-8").strip()
+        for root_id in root_ids:
+            cmd = ["xdo", "above", "-t", root_id, bar_id]
+            print(cmd)
+            subprocess.run(cmd)
 
 
 def update_monitors(monitors: set[str]):
