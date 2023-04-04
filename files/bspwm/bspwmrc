@@ -18,7 +18,7 @@ bspc config gapless_monocle true
 bspwm-update_monitors.py &
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-pgrep -x notif > /dev/null || notif server &
+# pgrep -x notif > /dev/null || notif server &
 pgrep -x picom > /dev/null || picom &
 
 feh --bg-scale ~/bg.jpg
