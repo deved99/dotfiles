@@ -1,30 +1,27 @@
 @import "./colors.scss";
 
+$inter-status: 5px;
+
 * {
     all: unset;
+}
+
+.whole-bar {
+    background-color: $black;
+    color: $white;
     font-family: "NotoSans Nerd Font";
     font-size: 15px;
 }
 
-// Pills: set radius, color and margin
-.status > *, .workspaces {
-    margin: 0px 3px;
-    border-radius: 10px;
-    color: $black;
+.status > * {
+    margin: 0px $inter-status;
 }
 // But for the whole group the margin should be a little higher.
-.status, .workspaces {
-    margin: 0px 5px;
-}
-.status > *, .workspaces button {
+.workspaces > *, .status > * {
     padding: 0px 5px;
 }
 
 // Workspaces
-.workspaces {
-    background-color: $black;
-    color: $white;
-}
 
 .ws-active {
     color: $accent;
@@ -36,14 +33,11 @@
 .ws-active:hover, .ws-occupied:hover, .ws-unactive:hover {
     background-color: $accent;
     color: $black;
-    border-radius: 10px;
 }
 
 .ws-row {
     color: $black;
     background-color: $accent;
-    border-radius: 10px 0px 0px 10px;
-    padding: 4px;
     margin-right: 4px;
 }
 .ws-row:hover {
@@ -54,19 +48,59 @@
 // Right side
 
 .time {
-    background-color: $green;
+    margin: 0px;
+    margin-left: $inter-status;
+    color: $white;
 }
 
 .battery-low {
     background-color: $red;
+    animation: urgent 1s linear infinite;
 }
 .battery-charging, .battery {
-    background-color: $orange;
+    color: $orange;
+}
+
+@keyframes urgent {
+    25% {
+        background-color: $red;
+    };
 }
 
 .volume-unmuted, .volume-muted {
-    background-color: $blue;
+    color: $blue;
 }
 .volume-muted {
     color: $black-alt;
+}
+
+.notifications {
+    margin: 0px;
+    margin-right: $inter-status;
+    color: $red;
+}
+
+.notifications-none {
+    margin: 0px;
+    margin-right: $inter-status;
+    color: $black-alt;
+}
+
+// Notification window
+.notification-window {
+    background-color: $black;
+}
+.notification-entry {
+    background-color: $black-alt;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.notification-entry-summary {
+    color: $white;
+    font-weight: bold;
+}
+.notification-entry-body {
+    color: $white;
 }

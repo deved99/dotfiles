@@ -1,0 +1,34 @@
+(deflisten notif-json
+  :initial '[]'
+  `status-watcher notif`)
+
+(defwidget notifications []
+  (box :class { arraylength(notif-json) == 0 ? "notifications-none" : "notifications" }
+    (button :onclick "./scripts/popup notification"
+      "󰇯 ${arraylength(notif-json)}")))
+
+(defwindow notification-window
+  :monitor "eDP-1-0"
+  :geometry (geometry :y "4%" :x "-0.5%" :width "30%" :height "30%" :anchor "top right")
+  (scroll :class "notification-window"
+    :vscroll true 
+    :hscroll false
+    (box
+      :orientation "vertical"
+      :spacing 1 :valign "start"
+      "Notifications"
+      (for entry in "${notif-json}" 
+        (notification-entry :json entry)))))
+
+(defwidget notification-entry [json]
+  (button :class "notification-entry"
+    :onmiddleclick "notif close ${json.id}"
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      (label 
+        :class "notification-entry-summary" 
+        :text "${json.summary}")
+      (label :class "notification-entry-body" :text "${json.body}")
+      )))
+
