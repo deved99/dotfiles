@@ -8,8 +8,8 @@ alias ip='ip -c'
 alias fd='fdfind'
 # aliases/colors ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/ls][aliases/ls]]][aliases/ls]]
-alias ll='ls -alhF'
-alias la='ls -A'
+alias ll='exa -l'
+alias la='exa -al'
 # aliases/ls ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/emacs][aliases/emacs]]][aliases/emacs]]
 alias ew='emacsclient -c'
