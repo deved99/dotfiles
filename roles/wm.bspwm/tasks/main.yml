@@ -52,6 +52,12 @@
     - src: sxhkdrc
       dest: sxhkd/sxhkdrc
 
+- name: Template colors 
+  ansible.builtin.template:
+    src: colors.sh.j2
+    dest: "{{ CONFIG_DIR }}/bspwm/colors.sh"
+    mode: "644"
+
 - name: Symlink EWW configuration
   ansible.builtin.file:
     src: "{{ REPO_FILES }}/eww/bspwm/{{ item }}"
