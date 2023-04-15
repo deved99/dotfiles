@@ -29,6 +29,7 @@
   loop:
     - "menu/tools"
     - "local"
+    - "rofi"
 
 ################
 # Install menu #
@@ -61,6 +62,26 @@
   loop:
     - menu
     - emojis
+
+##################
+# Configure rofi #
+##################
+
+- name: Symlink configuration for Rofi
+  ansible.builtin.file:
+    src: "{{ REPO_FILES }}/rofi/{{ item }}"
+    dest: "{{ CONFIG_DIR }}/rofi/{{ item }}"
+    state: link
+    mode: "644"
+  loop:
+    - "config.rasi"
+    - "theme.rasi"
+
+- name: Template colors.rasi for Rofi
+  ansible.builtin.template:
+    src: "colors.rasi.j2"
+    dest: "{{ CONFIG_DIR }}/rofi/colors.rasi"
+    mode: "644"
 
 ##################
 # Configure menu #
