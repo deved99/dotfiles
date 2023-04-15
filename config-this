@@ -140,7 +140,6 @@ def configure(profile: str, tags: list, args: list = [], update: bool = False):
         "--tags",
         ",".join(tags),
     ] + args
-    print(cmd)
     subprocess.run(cmd)
 
 

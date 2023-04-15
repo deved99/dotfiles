@@ -19,3 +19,8 @@
       {{ REPO_URL}} stable main
   become: yes
 
+- name: Install brave
+  ansible.builtin.apt:
+    name: brave-browser
+    state: present
+  become: yes

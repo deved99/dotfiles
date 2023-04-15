@@ -1,16 +1,10 @@
 ---
 
-- name: Install brave
-  ansible.builtin.apt:
-    name: brave-browser
-    state: present
-  become: yes
-
-- name: Install MPD (ubuntu)
+- name: Install Brave (ubuntu)
   import_tasks: ubuntu.yml
   when: distro_short == "ubuntu"
 
-- name: Install MPD (arch)
+- name: Install Brave (arch)
   kewlfft.aur.aur:
     name: brave-bin
   become: yes
