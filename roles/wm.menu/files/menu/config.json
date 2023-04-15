@@ -1,8 +1,7 @@
 [
     {"name": "Run", "cmd": "./tools/run"},
     {"name": "SSH", "cmd": "rofi -show ssh"},
-    {"name": "Files", "cmd": "./tools/files"},
+    {"name": "Notes", "cmd": "./tools/notes"},
     {"name": "Music", "cmd": "./tools/music"},
-    {"name": "Videos", "cmd": "./tools/videos"},
     {"name": "Power", "dir": "./power"}
 ]

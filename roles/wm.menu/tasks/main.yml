@@ -83,6 +83,7 @@
     - run
     - files
     - music
+    - notes
     - videos
 
 - name: Copy dmenu script for pass to .local/bin
