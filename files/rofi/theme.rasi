@@ -1,14 +1,11 @@
 @import "colors.rasi"
+
 * {
     background: @black;
     foreground: @white;
     background-color: inherit;
     text-color: inherit;
     border-color: @accent;
-    selected-background: @black;
-    selected-foreground: @accent;
-    urgent-background: @background;
-    urgent-foreground: @red;
 }
 
 window {
@@ -38,16 +35,14 @@ textbox-prompt-sep {
 }
 
 element {
-    border: 0;
-    padding: 2px;
+    padding: 4px;
 }
 
 element.normal.urgent, element.alternate.urgent {
-    background-color: @urgent-background;
-    text-color: @urgent-foreground;
+    background-color: @red;
 }
 
 element.selected.normal, element.selected.urgent, element.selected.active, button.selected {
-    background-color: @selected-background;
-    text-color: @selected-foreground;
+    background-color: @accent;
+    text-color: @background;
 }
