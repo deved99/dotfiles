@@ -15,7 +15,7 @@ local config = function()
         ["<leader>h"] = builtin.help_tags,
         -- code navigation
         ["<leader>lu"] = builtin.lsp_references,
-        ["<leader>ld"] = builtin.diagnostics,
+        -- ["<leader>ld"] = builtin.diagnostics,
         ["<leader>i"] = builtin.treesitter,
         --  Resume
         ["<leader> "] = builtin.resume,
