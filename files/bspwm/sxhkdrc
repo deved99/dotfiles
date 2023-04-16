@@ -18,6 +18,10 @@ super + alt + {q,r}
 super + Return
 	alacritty
 
+# SSH
+super + shift + Return
+	rofi -show ssh
+
 # Browser
 super + b
     brave-browser
