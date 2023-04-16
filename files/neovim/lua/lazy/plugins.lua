@@ -2,6 +2,7 @@ local plugins = {
     -- Visual plugins
     require("visual.lualine"),
     require("visual.markdown"),
+    require("visual.colorizer"),
     -- require("visual.which-key"),
     -- General editing
     require("editing.surround"),
