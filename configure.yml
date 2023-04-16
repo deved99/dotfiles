@@ -23,13 +23,15 @@
       tags: base,shell
     - role: base.fonts
       tags: graphical,fonts
+
     # Window Managers
     - role: wm.awesome
-      tags: graphical,awesome
+      tags: awesome
     - role: wm.xmonad
       tags: xmonad
     - role: wm.bspwm
-      tags: bspwm
+      tags: graphical,bspwm
+
     # WM utilities
     - role: wm.dunst
       tags: dunst
@@ -39,11 +41,13 @@
       tags: eww
     - role: wm.menu
       tags: graphical,menu
+
     # Terminal
     - role: term.alacritty
       tags: graphical,alacritty
     - role: term.kitty
       tags: kitty
+
     # Programs
     - role: program.emacs
       tags: emacs
@@ -51,13 +55,16 @@
       tags: base,neovim
     - role: program.brave
       tags: brave
+
     - role: program.signal
       tags: signal
+
     # Audio related
     - role: audio.pipewire
       tags: graphical,pipewire
     - role: audio.mpd # Music
       tags: mpd
+
     # Programming 
     - role: langs.rust
       tags: rust
@@ -65,6 +72,7 @@
       tags: javascript
     - role: langs.python
       tags: python
+
     # Virtualization
     - role: virt.docker
       tags: docker
