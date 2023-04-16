@@ -85,3 +85,5 @@
       tags: dbeaver
     - role: program.lutris
       tags: lutris
+    - role: script.notes
+      tags: graphical,notes

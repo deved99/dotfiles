@@ -39,18 +39,6 @@
     src: "themes/{{ CS_EMACS }}"
     dest: "{{ CONFIG_DIR }}/emacs/theme.el"
 
-- name: Copy rclone configuration
-  ansible.builtin.file:
-    src: "{{ REPO_SECRETS }}/rclone"
-    dest: "{{ CONFIG_DIR }}/rclone"
-    state: link
-
-- name: Copy notes-sync to .local/bin
-  ansible.builtin.copy:
-    src: scripts/notes-sync
-    dest: "{{ LOCAL_BIN }}/notes-sync"
-    mode: u+x
-
 ###################
 # SystemD related #
 ###################
@@ -75,10 +63,3 @@
 #     enabled: yes
 #     state: restarted
 #     daemon_reload: yes
-
-# - name: Enable and start notes-sync
-#   ansible.builtin.service:
-#     name: notes-sync.timer
-#     scope: user
-#     enabled: yes
-#     state: started
