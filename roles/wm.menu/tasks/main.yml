@@ -48,10 +48,16 @@
     chdir: "{{ BUILD_DIR }}/menu"
 
 # Install and configure menu
-- name: Copy menu configs
+- name: Copy menu config
   ansible.builtin.copy:
-    src: menu/
-    dest: "{{ CONFIG_DIR }}/menu/"
+    src: menu/config.json
+    dest: "{{ CONFIG_DIR }}/menu/config.json"
+    force: false
+
+- name: Copy Power menu config
+  ansible.builtin.copy:
+    src: menu/power/
+    dest: "{{ CONFIG_DIR }}/menu/power/"
 
 - name: Copy executables to .local/bin from build
   ansible.builtin.copy:
