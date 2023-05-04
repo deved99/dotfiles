@@ -12,14 +12,9 @@
   # More specifically, it could happen that mpdscribble gets added in multi-user.target
   # (which doesn't seem to exist in the user scope), instead of default.target. This leads
   # to mpdscribble being enabled, but without being started at boot.
-  block:
-    - ansible.builtin.systemd:
-        name: mpdscribble
-        enabled: false
-        daemon_reload: true
-        scope: user
-    - ansible.builtin.systemd:
-        name: mpdscribble
-        state: restarted
-        enabled: true
-        scope: user
+  ansible.builtin.systemd:
+    name: mpdscribble
+    state: restarted
+    enabled: true
+    scope: user
+  listen: mpdscribble
