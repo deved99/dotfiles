@@ -27,11 +27,14 @@ local config = function()
     require("mason-lspconfig").setup {
         ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels" }
     }
+
+    -- setup null-ls
+    require("null-ls").setup()
     require("mason-null-ls").setup {
         ensure_installed = { "black", "rustfmt" },
-        automatic_setup = true,
+        automatic_installation = true,
+        handlers = {}
     }
-    -- require("mason-null-ls").setup_handlers {}
 
     -- see `help mason-lspconfig-automatic-server-setup`.
     require("mason-lspconfig").setup_handlers {
@@ -52,6 +55,7 @@ local dependencies = {
 
 return {
     'williamboman/mason.nvim',
+    event = { "BufReadPre", "BufNewFile" },
     lazy = false,
     dependencies = dependencies,
     config = config
