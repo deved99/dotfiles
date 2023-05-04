@@ -87,3 +87,5 @@
       tags: lutris
     - role: script.notes
       tags: graphical,notes
+    - role: script.git_toolbelt
+      tags: git-toolbelt
