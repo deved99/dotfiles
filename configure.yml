@@ -85,6 +85,8 @@
       tags: dbeaver
     - role: program.lutris
       tags: lutris
+    - role: script.exa
+      tags: graphical,exa
     - role: script.notes
       tags: graphical,notes
     - role: script.git_toolbelt

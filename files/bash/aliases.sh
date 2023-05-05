@@ -10,6 +10,8 @@ alias fd='fdfind'
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/ls][aliases/ls]]][aliases/ls]]
 alias ll='exa -l'
 alias la='exa -al'
+alias lt='exa -T --git-ignore'
+alias lta='exa -T'
 # aliases/ls ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/emacs][aliases/emacs]]][aliases/emacs]]
 alias ew='emacsclient -c'
