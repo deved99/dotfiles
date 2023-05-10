@@ -67,10 +67,13 @@ $inter-status: 5px;
     };
 }
 
-.volume-unmuted, .volume-muted {
+.volume-unmuted {
     color: $blue;
 }
-.volume-muted {
+.mic-unmuted {
+    color: $purple;
+}
+.volume-muted, .mic-muted {
     color: $black-alt;
 }
 

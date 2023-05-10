@@ -10,7 +10,8 @@
        :halign "end"
        :space-evenly false
        ; (notifications)
-       (volume)
+       (volume-mic)
+       (volume-speaker)
        (battery)
        (time)))
 
@@ -19,9 +20,13 @@
   :initial '{"volume":84,"mute":false}'
   `status-watcher volume`)
 
-(defwidget volume []
+(defwidget volume-speaker []
   (box :class {volume-json.mute ? "volume-muted" : "volume-unmuted"}
     "${volume-json.mute ? '󰖁' : '󰕾'} ${volume-json.volume}%"))
+
+(defwidget volume-mic []
+  (box :class {volume-json.mic_mute ? "mic-muted" : "mic-unmuted"}
+    "${volume-json.mic_mute ? '󰍭' : '󰍬'} ${volume-json.mic_volume}%"))
 
 ; Time
 (defwidget time []
