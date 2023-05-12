@@ -45,7 +45,7 @@ XF86Audio{RaiseVolume,LowerVolume}
     pactl set-sink-volume @DEFAULT_SINK@ {+10%,-10%}
 
 XF86Audio{Prev,Play,Pause,Next}
-    song {prev,toggle,pause,next}
+    song {prev,toggle,toggle,next}
 
 super + m
     btmic
