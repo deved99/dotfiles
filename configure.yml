@@ -48,46 +48,52 @@
     - role: term.kitty
       tags: kitty
 
-    # Programs
+    # Editor
     - role: program.emacs
       tags: emacs
     - role: program.neovim
       tags: base,neovim
+
+    # Browser
     - role: program.brave
       tags: brave
 
-    - role: program.signal
-      tags: signal
-
-    # Audio related
+    # Audio
     - role: audio.pipewire
       tags: graphical,pipewire
     - role: audio.mpd # Music
       tags: mpd
 
-    # Programming 
+    # Programming Languages
     - role: langs.rust
       tags: rust
     - role: langs.javascript
       tags: javascript
     - role: langs.python
       tags: python
+    
+    # Programming tools
+    - role: script.git_toolbelt
+      tags: git-toolbelt
+    - role: program.drawio
+      tags: drawio
+    - role: program.dbeaver
+      tags: dbeaver
 
     # Virtualization
     - role: virt.docker
       tags: docker
     - role: virt.libvirt
       tags: libvirt
+    - role: virt.k8s
+      tags: k8s
+
     # Miscellaneous programs
-    - role: program.drawio
-      tags: drawio
-    - role: program.dbeaver
-      tags: dbeaver
+    - role: program.signal
+      tags: signal
     - role: program.lutris
       tags: lutris
     - role: script.exa
       tags: graphical,exa
     - role: script.notes
       tags: graphical,notes
-    - role: script.git_toolbelt
-      tags: git-toolbelt
