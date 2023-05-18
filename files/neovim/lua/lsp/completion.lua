@@ -12,7 +12,7 @@ local coq_artifacts = {
 }
 
 return {
-    "TheLeoP/coq_nvim",
+    "ms-jpq/coq_nvim",
     build = ":COQdeps",
     branch = "coq",
     dependencies = {
