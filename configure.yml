@@ -21,6 +21,8 @@
       tags: base,prepare
     - role: term.bash
       tags: base,shell
+    - role: base.starship
+      tags: base,shell,starship
     - role: base.fonts
       tags: graphical,fonts
 
@@ -85,8 +87,8 @@
       tags: docker
     - role: virt.libvirt
       tags: libvirt
-    - role: virt.k8s
-      tags: k8s
+    # - role: virt.k8s
+    #   tags: k8s
 
     # Miscellaneous programs
     - role: program.signal

@@ -1,0 +1,5 @@
+---
+
+- name: Install starship with Cargo
+  ansible.builtin.command:
+    cmd: cargo install starship --locked
