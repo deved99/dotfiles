@@ -42,3 +42,5 @@ alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
 # ends here
 # Aliases:1 ends here
+
+alias python='ipython3'
