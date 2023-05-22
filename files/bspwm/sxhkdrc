@@ -17,6 +17,8 @@ super + alt + {q,r}
 # Terminal emulator
 super + Return
 	alacritty
+XF86Open
+    alacritty
 
 # SSH
 super + shift + Return
@@ -26,6 +28,8 @@ super + shift + Return
 super + b
     brave-browser
 	# /snap/bin/firefox
+XF86Search
+    brave-browser
 
 # Menus
 super + @space
