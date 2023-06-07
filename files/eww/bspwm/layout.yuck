@@ -9,7 +9,7 @@
   (box :class "status"
        :halign "end"
        :space-evenly false
-       ; (notifications)
+       (song)
        (volume)
        (battery)
        (time)))
@@ -33,6 +33,15 @@
 ;; (defwidget volume-mic []
 ;;   (box :class {volume-json.mic_mute ? "mic-muted" : "mic-unmuted"}
 ;;     "${volume-json.mic_mute ? '󰍭' : '󰍬'} ${volume-json.mic_volume}%"))
+
+(deflisten song-json
+  :initial '{"artist":"artist","state":"paused","title":"title"}'
+  `song loop`)
+
+(defwidget song []
+  (box :class { song-json.state == "paused" ? "song-paused" : "song-playing" }
+    "${ song-json.state == "paused" ? "󰏤" : "󰝚" } ${song-json.title}"))
+
 
 ; Time
 (defwidget time []

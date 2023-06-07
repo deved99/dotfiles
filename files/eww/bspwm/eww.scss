@@ -73,7 +73,12 @@ $inter-status: 5px;
 .mic-unmuted {
     color: $red;
 }
-.volume-muted, .mic-muted {
+
+.song-playing {
+    color: $purple;
+}
+
+.volume-muted, .mic-muted, .song-paused {
     color: $black-alt;
 }
 
