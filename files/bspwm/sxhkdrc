@@ -41,6 +41,12 @@ super + p
 super + e
     emojis
 
+super + n
+    nautilus
+
+super + d
+    evince
+
 # Toggle mute
 XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle
