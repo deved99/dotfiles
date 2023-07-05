@@ -19,5 +19,5 @@
 
 - name: Copy configuration
   ansible.builtin.template:
-    src: "alacritty.yml"
-    dest: "{{ CONFIG_DIR }}/alacritty/alacritty.yml"
+    src: "alacritty.toml"
+    dest: "{{ CONFIG_DIR }}/alacritty/alacritty.toml"

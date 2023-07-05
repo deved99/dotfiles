@@ -1,0 +1,41 @@
+[env]
+WINIT_X11_SCALE_FACTOR = "1"
+
+[font] # Font configuration
+normal = { family = "Fira Code" }
+size = 10.0
+
+
+[window]
+# Window padding (changes require restart)
+padding = { x = 10, y = 10 }
+# Allow terminal applications to change Alacritty's window title.
+dynamic_title = true
+
+[scrolling]
+history = 100000
+
+# Colors (Tomorrow Night)
+[colors.primary]
+background = "{{ CS_BG }}"
+foreground = "{{ CS_FG }}"
+
+[colors.normal]
+black =   "{{ CS_TERM[0] }}"
+red =     "{{ CS_TERM[1] }}"
+green =   "{{ CS_TERM[2] }}"
+yellow =  "{{ CS_TERM[3] }}"
+blue =    "{{ CS_TERM[4] }}"
+magenta = "{{ CS_TERM[5] }}"
+cyan =    "{{ CS_TERM[6] }}"
+white =   "{{ CS_TERM[7] }}"
+
+[colors.bright]
+black =   "{{ CS_TERM[8] }}"
+red =     "{{ CS_TERM[9] }}"
+green =   "{{ CS_TERM[10] }}"
+yellow =  "{{ CS_TERM[11] }}"
+blue =    "{{ CS_TERM[12] }}"
+magenta = "{{ CS_TERM[13] }}"
+cyan =    "{{ CS_TERM[14] }}"
+white =   "{{ CS_TERM[15] }}"
