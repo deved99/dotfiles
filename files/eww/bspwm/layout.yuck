@@ -3,7 +3,7 @@
 
 (defwidget layout [monitor] 
   (box :class "whole-bar"
-    (desktop :json "${desktop-json[monitor]}") (status)))
+    (desktop :json "${desktop-json[monitor]}" :monitor monitor) (status)))
 
 (defwidget status []
   (box :class "status"

@@ -31,7 +31,7 @@ local config = function()
     -- setup null-ls
     require("null-ls").setup()
     require("mason-null-ls").setup {
-        ensure_installed = { "black", "rustfmt" },
+        ensure_installed = { "black", "rustfmt", "sql-formatter"},
         automatic_installation = true,
         handlers = {}
     }

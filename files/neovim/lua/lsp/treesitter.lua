@@ -19,6 +19,9 @@ local config = function()
             enable = true,
             disable = { "vim" },
         },
+        indent = {
+            enable = true,
+        }
     }
 end
 

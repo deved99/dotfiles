@@ -116,13 +116,13 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-5}
-	bspwm-grid {column-focus, column-send} '{0-4}'
+	bspwm-grid {focus, send} -x '{0-4}'
 
 super + alt + {_,shift + }{1-5}
-	bspwm-grid {row-focus, row-send} '{0-4}'
+	bspwm-grid {focus, send} -y '{0-4}'
 
 super + {_,shift + }{button8,button9}
-    bspwm-grid row-{focus,send} -- {+1,-1}
+    bspwm-grid {focus,send} -y {+1,-1}
 
 #
 # preselect

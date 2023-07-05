@@ -1,29 +1,30 @@
-(defwidget desktop [json]
+(defwidget desktop [json monitor]
   (box :class "workspaces"
        :space-evenly true
        :halign "start"
-       (row-switch :y "${json.y}")
+       (row-switch :y "${json.y}" :monitor "${monitor}")
        (for n in "${json.columns}" 
          (column-switch 
            :n n 
            :x "${json.x}" 
+           :monitor "${monitor}"
            :is_occupied "${jq(json.occupied_xs, 'any(. == ${n})')}"))))
 
 (deflisten desktop-json
   :initial '{"eDP":{"x":0,"y":0,"columns":[0,1,2,3,4]},"HDMI-1-0":{"x":0,"y":0,"columns":[0,1,2,3,4]}}'
   `status-watcher desktop`)
 
-(defwidget column-switch [n x is_occupied]
+(defwidget column-switch [n x monitor is_occupied]
     (button
       :class { n == x ? "ws-active" : is_occupied ? "ws-occupied" : "ws-unactive" }
-      :onclick "bspwm-grid column-focus ${n}" 
+      :onclick "bspwm-grid focus -x ${n} -z ${monitor}" 
       '${ n == x ? "◉" : is_occupied ? "○" : "◌" }'))
 
 (defvar row-to-name '["α", "β", "γ", "δ", "ε"]' )
 
-(defwidget row-switch [y]
+(defwidget row-switch [y monitor]
     (button
       :class "ws-row"
-      :onclick "bspwm-grid row-focus ${y + 1}" 
+      :onclick "bspwm-grid focus -y ${y + 1} -z ${monitor}" 
       :onrightclick "bspwm-grid row-focus ${y - 1}" 
       "${row-to-name[y]}"))
