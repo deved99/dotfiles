@@ -26,5 +26,5 @@
     (button
       :class "ws-row"
       :onclick "bspwm-grid focus -y ${y + 1} -z ${monitor}" 
-      :onrightclick "bspwm-grid row-focus ${y - 1}" 
+      :onrightclick "bspwm-grid focus -y ${y - 1} -z ${monitor}" 
       "${row-to-name[y]}"))
