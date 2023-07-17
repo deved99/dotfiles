@@ -8,10 +8,11 @@ alias ip='ip -c'
 alias fd='fdfind'
 # aliases/colors ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/ls][aliases/ls]]][aliases/ls]]
-alias ll='exa -l'
-alias la='exa -al'
-alias lt='exa -T --git-ignore'
-alias lta='exa -T'
+EXA_DEFAULT="exa --group-directories-first"
+alias ll="$EXA_DEFAULT -l"
+alias la="$EXA_DEFAULT -al"
+alias lt="$EXA_DEFAULT -T --git-ignore"
+alias lta="$EXA_DEFAULT -T"
 # aliases/ls ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/emacs][aliases/emacs]]][aliases/emacs]]
 alias ew='emacsclient -c'
@@ -24,6 +25,7 @@ alias ujournalctl='journalctl --user'
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias gclip='xclip -o | gpg -d'
 alias jclip='xclip -o | jq'
+alias yclip='xclip -o | yq'
 alias shclip='xclip -o -selection clipboard | bash'
 alias wclip='whois $(xclip -o)'
 # ends here
