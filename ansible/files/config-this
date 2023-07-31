@@ -16,17 +16,12 @@ import yaml
 def main():
     """The main function.
 
-    Parses arguments. If told so, install config-this and exits.
+    Parses arguments.
     Otherwise, reads config and then execute the configure playbook
     with appropriate paramaters.
     """
     # Parse arguments
     arguments = getArgumentParser().parse_args()
-    # If --install has been passed, install and exit.
-    if arguments.install is not None:
-        print(f"Install: {arguments.install}.")
-        install(arguments.install)
-        return
     # Read config
     config = config_read()
     config_old = config.copy()
@@ -76,20 +71,13 @@ def getArgumentParser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     # Whether to copy script in $PATH
     parser.add_argument(
-        "--install",
-        dest="install",
-        action="store",
-        help="install and generate a default config",
-        metavar="PROFILE",
-    )
-    parser.add_argument(
         "--system",
         dest="system",
         action="store_true",
         help="run system-configure.yml instead of configure.yml",
     )
     parser.add_argument(
-        "--tags", dest="tags", action="store", help="Set tags to run/install"
+        "--tags", dest="tags", action="store", help="Set tags to run"
     )
     parser.add_argument(
         "--update", dest="update", action="store_true", help="Update installed roles"
@@ -100,23 +88,6 @@ def getArgumentParser() -> argparse.ArgumentParser:
 ###############
 # Subroutines #
 ###############
-
-
-def install(profile):
-    """Run Ansible Playbook to install this script.
-
-    Args:
-        profile: name of the profile to use, assumes vars/{profile} exists.
-    """
-    cmd = [
-        "ansible-playbook",
-        "--extra-vars",
-        "@vars/common.yml",
-        "--extra-vars",
-        f"@vars/{profile}.yml",
-        "install.yml",
-    ]
-    subprocess.run(cmd)
 
 
 def configure(profile: str, tags: list, args: list = [], update: bool = False):

@@ -3,12 +3,14 @@
   hosts: localhost
   vars:
     DEFAULT_CONFIG:
-      profile: "{{ PROFILE }}"
-      # where to find this file
+      profile: "{{ profile }}"
       playbook_dir: "{{ playbook_dir }}"
       # Colors: default to already set colorscheme, on dark mode
       colorscheme_current: false
       tags: "{{ TAGS }}"
+  vars_files:
+    - vars/common.yml
+    - vars/{{ profile }}.yml
   tasks:
     - name: Ensure directories exist
       ansible.builtin.file:
