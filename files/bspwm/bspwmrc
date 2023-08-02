@@ -27,5 +27,8 @@ feh --bg-scale ~/bg.jpg
 setxkbmap -layout us -variant altgr-intl -option caps:escape
 pgrep -x alacritty > /dev/null || alacritty &
 
+# Disable screensaver
+xset s off -dpms
+
 # For some reason sxhkd doesn't start correctly
 sleep 5 && pkill -USR1 -x sxhkd >>/tmp/log

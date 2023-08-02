@@ -4,18 +4,18 @@ local lua_handler = function()
     local lsp_options = defaults.options()
     lsp_options.settings = {
         Lua = {
-          runtime = {
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            globals = {'vim'},
-          },
-          workspace = {
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          telemetry = {
-            enable = false,
-          },
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = { 'vim' },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+                enable = false,
+            },
         },
     }
     require('lspconfig').lua_ls.setup(lsp_options)
@@ -31,7 +31,7 @@ local config = function()
     -- setup null-ls
     require("null-ls").setup()
     require("mason-null-ls").setup {
-        ensure_installed = { "black", "rustfmt", "sql-formatter"},
+        ensure_installed = { "black", "rustfmt", "sql-formatter" },
         automatic_installation = true,
         handlers = {}
     }
