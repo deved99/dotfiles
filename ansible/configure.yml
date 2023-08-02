@@ -87,8 +87,6 @@
       tags: docker
     - role: virt.libvirt
       tags: libvirt
-    # - role: virt.k8s
-    #   tags: k8s
 
     # Miscellaneous programs
     - role: program.signal
