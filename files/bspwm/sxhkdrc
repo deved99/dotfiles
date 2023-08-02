@@ -88,6 +88,9 @@ super + y
 super + g
 	bspc node -s biggest.window.local
 
+super + r
+    bspc node @parent -R 90
+
 #
 # focus/swap
 #

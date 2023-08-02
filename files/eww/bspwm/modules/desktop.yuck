@@ -7,6 +7,7 @@
          (column-switch 
            :n n 
            :x "${json.x}" 
+           :y "${json.y}" 
            :monitor "${monitor}"
            :is_occupied "${jq(json.occupied_xs, 'any(. == ${n})')}"))))
 
@@ -14,10 +15,10 @@
   :initial '{"eDP":{"x":0,"y":0,"columns":[0,1,2,3,4]},"HDMI-1-0":{"x":0,"y":0,"columns":[0,1,2,3,4]}}'
   `status-watcher desktop`)
 
-(defwidget column-switch [n x monitor is_occupied]
+(defwidget column-switch [n x y monitor is_occupied]
     (button
       :class { n == x ? "ws-active" : is_occupied ? "ws-occupied" : "ws-unactive" }
-      :onclick "bspwm-grid focus -x ${n} -z ${monitor}" 
+      :onclick "bspwm-grid focus -x ${n} -z ${monitor} -y ${y}" 
       '${ n == x ? "◉" : is_occupied ? "○" : "◌" }'))
 
 (defvar row-to-name '["α", "β", "γ", "δ", "ε"]' )
