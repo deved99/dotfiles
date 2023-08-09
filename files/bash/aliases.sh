@@ -46,3 +46,8 @@ alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
 # Aliases:1 ends here
 
 alias python='ipython3'
+
+function k8s-secret() {
+    kubectl get secret $1 -o json \
+        | jq '.data | with_entries({ key, "value": .value | @base64d})'
+}
