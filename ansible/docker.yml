@@ -1,0 +1,10 @@
+---
+- name: Install Docker
+  hosts: raspberry
+  vars:
+    distro_shorts:
+      Archlinux: arch
+      Ubuntu: ubuntu
+    distro_short: "{{ distro_shorts[ansible_facts['distribution']] }}"
+  roles:
+    - virt.docker

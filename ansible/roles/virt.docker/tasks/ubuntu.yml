@@ -35,10 +35,20 @@
         gpg --dearmor -o /etc/apt/keyrings/docker.gpg /tmp/docker.gpg
   become: yes
 
+- name: Find architecture
+  block:
+    - ansible.builtin.command:
+        cmd: dpkg --print-architecture
+      register: temp
+    - ansible.builtin.set_fact:
+        dpkg_arch: "{{ temp.stdout }}"
+  become: yes
+
+
 - name: Add repository
   ansible.builtin.apt_repository:
     repo: >-
-      deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg]
+      deb [arch={{ dpkg_arch }} signed-by=/etc/apt/keyrings/docker.gpg]
       https://download.docker.com/linux/ubuntu
       jammy stable
   become: yes
@@ -51,6 +61,7 @@
       - docker-ce-cli
       - containerd.io
       - docker-compose-plugin
+    update_cache: true
   become: yes
 
 - name: Install rdocker

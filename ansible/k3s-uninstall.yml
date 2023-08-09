@@ -1,0 +1,24 @@
+---
+- name: Join nodes to K3S
+  hosts: all
+  become: true
+  tasks:
+    - name: Check existence of k3s-agent-uninstall.sh
+      stat:
+        path: /usr/local/bin/k3s-agent-uninstall.sh
+      register: agent_uninstall
+
+    - name: Uninstall K3S via k3s-agent-uninstall.sh
+      ansible.builtin.command:
+        cmd: k3s-agent-uninstall.sh
+      when: agent_uninstall.stat.exists
+
+    - name: Check existence of k3s-uninstall.sh
+      stat:
+        path: /usr/local/bin/k3s-uninstall.sh
+      register: server_uninstall
+
+    - name: Uninstall K3S via k3s-uninstall.sh
+      ansible.builtin.command:
+        cmd: k3s-uninstall.sh
+      when: server_uninstall.stat.exists
