@@ -1,0 +1,10 @@
+---
+
+- name: Install K3S on main node.
+  hosts: all
+  become: true
+  vars:
+    # Name of the host which will be the first the first controller created.
+    first_controller: ""
+  roles:
+    - k3s.install

@@ -1,0 +1,33 @@
+---
+
+- name: Find node-token and controller address
+  block:
+    - ansible.builtin.slurp:
+        src: "/var/lib/rancher/k3s/server/node-token"
+      register: temp
+    - ansible.builtin.set_fact:
+        k3s_token: "{{ temp.content | b64decode | regex_replace('\n$', '') }}"
+        k3s_url: "https://{{ hostvars[first_controller].k3s_address }}:6443"
+  delegate_to: "{{ first_controller }}"
+
+- name: Check token
+  ansible.builtin.debug:
+    var: install_env
+  vars:
+    install_env:
+      K3S_TOKEN: "{{ k3s_token }}"
+      K3S_URL: "{{ k3s_url }}"
+
+- name: Install other controller
+  ansible.builtin.command:
+    cmd: >-
+      /root/k3s-install.sh server
+      --server {{ k3s_url }}
+      --node-ip {{ k3s_address }}
+      --flannel-iface {{ k3s_interface }}
+      --service-cidr 10.43.0.0/16
+      --cluster-dns 10.43.0.10
+      --cluster-cidr 10.42.0.0/16
+      --disable traefik
+  environment:
+    K3S_TOKEN: "{{ k3s_token }}"

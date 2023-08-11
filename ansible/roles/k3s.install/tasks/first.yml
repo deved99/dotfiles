@@ -1,0 +1,27 @@
+---
+
+- name: Install first controller
+  ansible.builtin.command:
+    cmd: >-
+      /root/k3s-install.sh server
+      --cluster-init
+      --bind-address {{ k3s_address }}
+      --advertise-address {{ k3s_address }}
+      --node-ip {{ k3s_address }}
+      --flannel-iface {{ k3s_interface }}
+      --service-cidr 10.43.0.0/16
+      --cluster-dns 10.43.0.10
+      --cluster-cidr 10.42.0.0/16
+      --disable traefik
+
+- name: Copy kubeconfig to controller
+  block:
+    - ansible.builtin.slurp:
+        src: "/etc/rancher/k3s/k3s.yaml"
+      register: temp
+    - ansible.builtin.copy:
+        content: "{{ temp.content | b64decode }}"
+        dest: "{{ lookup('env','HOME') }}/.kube/config"
+        mode: "400"
+      delegate_to: localhost
+      become: false
