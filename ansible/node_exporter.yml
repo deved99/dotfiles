@@ -1,0 +1,9 @@
+
+---
+- name: Install node_exporter
+  hosts: all
+  become: true
+  vars:
+    listen_address: "[[ REDACTED ]]"
+  roles:
+    - base.node_exporter

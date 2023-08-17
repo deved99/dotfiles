@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/node_exporter --web.listen-address={{ listen_address }}:9100
+Restart=always
+
+[Install]
+WantedBy=default.target
