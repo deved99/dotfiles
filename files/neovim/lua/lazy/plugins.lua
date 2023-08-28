@@ -14,6 +14,7 @@ local plugins = {
     require("filetypes.sxhkd"),
     require("filetypes.yuck"),
     -- Programming
+    require("lsp.formatter"),
     require("lsp.fugitive"),
     require("lsp.mason"),
     require("lsp.telescope"),

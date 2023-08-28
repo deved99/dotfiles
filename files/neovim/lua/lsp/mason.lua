@@ -28,14 +28,6 @@ local config = function()
         ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels" }
     }
 
-    -- setup null-ls
-    require("null-ls").setup()
-    require("mason-null-ls").setup {
-        ensure_installed = { "black", "rustfmt", "sql-formatter" },
-        automatic_installation = true,
-        handlers = {}
-    }
-
     -- see `help mason-lspconfig-automatic-server-setup`.
     require("mason-lspconfig").setup_handlers {
         defaults.handler,
@@ -46,9 +38,6 @@ end
 local dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
-    -- null-ls
-    "jose-elias-alvarez/null-ls.nvim",
-    "jay-babu/mason-null-ls.nvim",
     -- Completions
     require("lsp.completion"),
 }
