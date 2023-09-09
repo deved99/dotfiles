@@ -13,29 +13,27 @@
   block:
     - name: Remove old gpg public key
       ansible.builtin.file:
-        path: "/etc/apt/keyrings/yarn.gpg"
+        path: "/etc/apt/keyrings/nodesource.gpg"
         state: absent
-    - name: Download yarn public key
+    - name: Download nodesource public key
       ansible.builtin.get_url:
-        url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
-        dest: "/tmp/yarn.gpg"
+        url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+        dest: "/tmp/nodesource.gpg"
     - name: Download docker public key
       ansible.builtin.command: >-
-        gpg --dearmor -o /etc/apt/keyrings/yarn.gpg /tmp/yarn.gpg
+        gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg /tmp/nodesource.gpg
   become: yes
 
 - name: Add repository
   ansible.builtin.apt_repository:
     repo: >-
-      deb [arch=amd64 signed-by=/etc/apt/keyrings/yarn.gpg]
-      https://dl.yarnpkg.com/debian/
-      stable main
+      deb [signed-by=/etc/apt/keyrings/nodesource.gpg]
+      https://deb.nodesource.com/node_18.x
+      jammy main
   become: yes
 
 
 - name: Install packages
   ansible.builtin.apt:
-    name:
-      - npm
-      - yarn
+    name: nodejs
   become: yes
