@@ -48,6 +48,6 @@ alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
 alias python='ipython3'
 
 function k8s-secret() {
-    kubectl get secret $1 -o json \
+    kubectl get secret -o json $@ \
         | jq '.data | with_entries({ key, "value": .value | @base64d})'
 }
