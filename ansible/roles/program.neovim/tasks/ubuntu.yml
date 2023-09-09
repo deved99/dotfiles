@@ -8,20 +8,23 @@
     name: ripgrep
   become: true
 
-- name: Download neovim deb
-  ansible.builtin.get_url:
-    url: "{{ NEOVIM_DEB_URL }}"
-    dest: "{{ BUILD_DIR }}/neovim/neovim.deb"
-  vars:
-    NEOVIM_DEB_URL: "https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb"
-
 - name: Install neovim deb
   ansible.builtin.apt:
-    deb: "{{ BUILD_DIR }}/neovim/neovim.deb"
+    name: neovim
+    state: absent
   become: true
+
+- name: Download neovim AppImage
+  ansible.builtin.get_url:
+    url: "{{ NEOVIM_URL }}"
+    dest: "/usr/bin/nvim"
+    mode: "755"
+  become: true
+  vars:
+    NEOVIM_URL: "https://github.com/neovim/neovim/releases/download/v0.9.1/nvim.appimage"
 
 - name: Set neovim as an alternative to vi
   ansible.builtin.shell: >-
-    update-alternatives --install /usr/bin/vi vi $(which nvim) 100
+    update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 100
   become: true
 
