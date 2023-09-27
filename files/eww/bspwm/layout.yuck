@@ -1,0 +1,63 @@
+(include "./modules/desktop.yuck")
+; (include "./modules/notifications.yuck")
+
+(defwidget layout [monitor] 
+  (box :class "whole-bar"
+    (desktop :json "${desktop-json[monitor]}" :monitor monitor) (status)))
+
+(defwidget status []
+  (box :class "status"
+       :halign "end"
+       :space-evenly false
+       (song)
+       (volume)
+       (battery)
+       (time)))
+
+; Volume
+(deflisten volume-json
+  :initial '{"volume":84,"mute":false}'
+  `status-watcher volume`)
+
+(defwidget volume []
+  (box :class {
+      volume-json.mic_mute ?
+      (volume-json.mute ? "volume-muted" : "volume-unmuted")
+      : "mic-unmuted" }
+    "${volume-json.mute ? '󰖁' : '󰕾'} ${volume-json.volume}%"))
+
+;; (defwidget volume-speaker []
+;;   (box :class {volume-json.mute ? "volume-muted" : "volume-unmuted"}
+;;     "${volume-json.mute ? '󰖁' : '󰕾'} ${volume-json.volume}%"))
+
+;; (defwidget volume-mic []
+;;   (box :class {volume-json.mic_mute ? "mic-muted" : "mic-unmuted"}
+;;     "${volume-json.mic_mute ? '󰍭' : '󰍬'} ${volume-json.mic_volume}%"))
+
+(deflisten song-json
+  :initial '{"artist":"artist","state":"paused","title":"title"}'
+  `song loop`)
+
+(defwidget song []
+  (box :class { song-json.state == "paused" ? "song-paused" : "song-playing" }
+    "${ song-json.state == "paused" ? "󰏤" : "󰝚" } ${song-json.title}"))
+
+
+; Time
+(defwidget time []
+  (box :class "time" "󰥔 ${time-str}"))
+
+(defpoll time-str :interval "2s"
+  `date +%H:%M`)
+
+; Battery
+
+(defwidget battery []
+  (battery-unwrapped 
+    :status "${EWW_BATTERY.BAT0.status}"
+    :capacity "${EWW_BATTERY.BAT0.capacity}"))
+
+(defwidget battery-unwrapped [status capacity]
+  (box :class { status != "Discharging" ? "battery-charging" :
+                capacity < 20 ? "battery-low" : "battery" }
+       "${status == 'Discharging' ? '󰁹' : '󱐋'}${ capacity }%"))

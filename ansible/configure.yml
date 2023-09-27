@@ -1,0 +1,99 @@
+---
+- name: Configuring {{ PROFILE }}
+  hosts: localhost
+  vars:
+    distro_shorts:
+      Archlinux: arch
+      Ubuntu: ubuntu
+    distro_short: "{{ distro_shorts[ansible_facts['distribution']] }}"
+  pre_tasks:
+    - name: Debug
+      debug:
+        var: UPDATE
+      tags: always
+    - name: Become password check
+      ansible.builtin.command: whoami
+      become: true
+      tags: always
+  roles:
+    # Basics
+    - role: base.prepare
+      tags: base,prepare
+    - role: term.bash
+      tags: base,shell
+    - role: base.starship
+      tags: base,shell,starship
+    - role: base.fonts
+      tags: graphical,fonts
+
+    # Window Managers
+    - role: wm.awesome
+      tags: awesome
+    - role: wm.xmonad
+      tags: xmonad
+    - role: wm.bspwm
+      tags: graphical,bspwm
+
+    # WM utilities
+    - role: wm.dunst
+      tags: dunst
+    - role: wm.notif
+      tags: notif
+    - role: wm.eww
+      tags: eww
+    - role: wm.menu
+      tags: graphical,menu
+
+    # Terminal
+    - role: term.alacritty
+      tags: graphical,alacritty
+    - role: term.kitty
+      tags: kitty
+
+    # Editor
+    - role: program.emacs
+      tags: emacs
+    - role: program.neovim
+      tags: base,neovim
+
+    # Browser
+    - role: program.brave
+      tags: brave
+
+    # Audio
+    - role: audio.pipewire
+      tags: graphical,pipewire
+    - role: audio.mpd # Music
+      tags: mpd
+
+    # Programming Languages
+    - role: langs.rust
+      tags: rust
+    - role: langs.javascript
+      tags: javascript
+    - role: langs.python
+      tags: python
+    
+    # Programming tools
+    - role: script.git_toolbelt
+      tags: git-toolbelt
+    - role: program.drawio
+      tags: drawio
+    - role: program.dbeaver
+      tags: dbeaver
+
+    # Virtualization
+    - role: virt.docker
+      tags: docker
+    - role: virt.libvirt
+      tags: libvirt
+
+    # Miscellaneous programs
+    - role: program.signal
+      tags: signal
+    - role: program.lutris
+      tags: lutris
+    - role: script.exa
+      tags: graphical,exa
+    - role: script.notes
+      tags: graphical,notes

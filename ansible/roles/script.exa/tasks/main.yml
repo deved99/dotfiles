@@ -1,0 +1,5 @@
+---
+
+- name: Install exa with Cargo
+  ansible.builtin.command:
+    cmd: cargo install exa

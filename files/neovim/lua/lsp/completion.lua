@@ -1,6 +1,9 @@
+local coq_startup = "COQnow --shut-up"
+
 local config = function()
     vim.opt.completeopt = {"menu", "menuone", "noselect"}
-    vim.cmd("COQnow --shut-up")
+    -- Putting the string directly here breaks Treesitter ¯\_(ツ)_/¯
+    vim.cmd(coq_startup)
 end
 
 local coq_artifacts = {
@@ -13,7 +16,8 @@ return {
     build = ":COQdeps",
     branch = "coq",
     dependencies = {
-        coq_artifacts
+        coq_artifacts,
+        "ms-jpq/coq.thirdparty"
     },
     config = config,
 }

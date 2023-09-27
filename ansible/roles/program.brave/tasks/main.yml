@@ -1,0 +1,12 @@
+---
+
+- name: Install Brave (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
+
+- name: Install Brave (arch)
+  kewlfft.aur.aur:
+    name: brave-bin
+  become: yes
+  become_user: aur_builder
+  when: distro_short == "arch"

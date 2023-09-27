@@ -1,0 +1,16 @@
+- name: Create build dir
+  ansible.builtin.file:
+    path: "{{ BUILD_DIR }}/dbeaver"
+    state: directory
+
+- name: Download deb
+  ansible.builtin.get_url:
+    url: "{{ DBEAVER_DEB_URL }}"
+    dest: "{{ BUILD_DIR }}/dbeaver/dbeaver.deb"
+  vars:
+    DBEAVER_DEB_URL: "https://github.com/dbeaver/dbeaver/releases/download/23.0.0/dbeaver-ce_23.0.0_amd64.deb"
+
+- name: Install deb
+  ansible.builtin.apt:
+    deb: "{{ BUILD_DIR }}/dbeaver/dbeaver.deb"
+  become: true

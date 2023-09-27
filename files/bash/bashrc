@@ -25,3 +25,5 @@ if [ -f /usr/share/bash-completion/bash_completion ]; then
 fi
 # ends here
 # .bashrc:1 ends here
+
+eval "$(starship init bash)"

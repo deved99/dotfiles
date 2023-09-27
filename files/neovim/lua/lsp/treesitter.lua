@@ -8,6 +8,7 @@ local ensure_installed = {
     "markdown_inline",
     "python",
     "rust",
+    "sql",
     "yaml",
 }
 
@@ -18,6 +19,9 @@ local config = function()
             enable = true,
             disable = { "vim" },
         },
+        indent = {
+            enable = true,
+        }
     }
 end
 

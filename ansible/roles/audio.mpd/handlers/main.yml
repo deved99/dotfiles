@@ -1,0 +1,20 @@
+---
+
+- name: mpd
+  ansible.builtin.systemd:
+    name: mpd
+    state: restarted
+    scope: user
+
+- name: mpdscribble
+  # Disable and reenable the service.
+  # Fixes systemd enabling the service the wrong way.
+  # More specifically, it could happen that mpdscribble gets added in multi-user.target
+  # (which doesn't seem to exist in the user scope), instead of default.target. This leads
+  # to mpdscribble being enabled, but without being started at boot.
+  ansible.builtin.systemd:
+    name: mpdscribble
+    state: restarted
+    enabled: true
+    scope: user
+  listen: mpdscribble

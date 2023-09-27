@@ -1,0 +1,234 @@
+---
+
+############################################################
+# Variables
+
+BROWSER: firefox
+BROWSER_FALLBACK: firefox
+UPDATE: false
+
+# CS is the choosen colorscheme, which will update CS_TERM
+CS: "{{ CS_DARK }}"
+CS_TERM: "{{ CS.TERM}}" 
+CS_EMACS: "{{ CS.EMACS }}"
+CS_NEOVIM: "{{ CS.NEOVIM }}"
+
+# Dark and light colorschemes
+CS_DARK: "{{ COLORSCHEME_ROSEPINE }}"
+CS_LIGHT: "{{ COLORSCHEME_GRUVBOX_LIGHT }}"
+
+# These are the chosen accent, background and foreground color
+CS_N: 1
+CS_ACC: "{{ CS_TERM[CS_N] }}"
+CS_BG: "{{ CS_TERM[0] }}"
+CS_FG: "{{ CS_TERM[15] }}"
+
+############################################################
+# Directories
+
+HOME: "{{ lookup('env', 'HOME') }}"
+
+CONFIG_DIR: >-
+  {{
+  lookup('env', 'XDG_CONFIG_DIR')
+  | default(HOME+'/.config', true)
+  }}
+
+LOCAL_DIR: >-
+  {{
+  lookup('env', 'XDG_LOCAL_DIR')
+  | default(HOME+'/.local', true)
+  }}
+
+DATA_DIR: >-
+  {{
+  lookup('env', 'XDG_DATA_DIR')
+  | default(LOCAL_DIR+'/share', true)
+  }}
+
+FONTS_DIR: "{{ DATA_DIR }}/fonts"
+
+# Repo directories
+REPO_DIR: "{{ HOME }}/.dotfiles"
+REPO_FILES: "{{ REPO_DIR }}/files"
+REPO_SECRETS: "{{ REPO_DIR }}/secret"
+
+# Miscellaneos
+SYSTEMD_DIR: "{{ CONFIG_DIR }}/systemd/user"
+LOCAL_BIN: "{{ LOCAL_DIR }}/bin"
+BUILD_DIR: "{{ HOME }}/.cache/build"
+MUSIC_DIR: "{{ HOME }}/Music"
+
+############################################################
+# Colorscheme
+
+# These are the possible values for CS
+COLORSCHEME_GOOGLE_DARK:
+  TERM:
+    - "#1d1f21"
+    - "#cc342b"
+    - "#198844"
+    - "#fba922"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
+    - "#c5c8c6"
+    - "#969896"
+    - "#cc342b"
+    - "#198844"
+    - "#fba922"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
+    - "#ffffff"
+  EMACS: "google-dark.el"
+
+COLORSCHEME_GOOGLE_LIGHT:
+  TERM:
+    - "#ffffff"
+    - "#cc342b"
+    - "#198844"
+    - "#fba922"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
+    - "#969896"
+    - "#c5c8c6"
+    - "#cc342b"
+    - "#198844"
+    - "#fba922"
+    - "#3971ed"
+    - "#a36ac7"
+    - "#3971ed"
+    - "#1d1f21"
+  EMACS: "google-light.el"
+
+COLORSCHEME_CHALK:
+  TERM:
+    - "#151515"
+    - "#fb9fb1"
+    - "#acc267"
+    - "#ddb26f"
+    - "#6fc2ef"
+    - "#e1a3ee"
+    - "#12cfc0"
+    - "#d0d0d0"
+    - "#505050"
+    - "#fb9fb1"
+    - "#acc267"
+    - "#ddb26f"
+    - "#6fc2ef"
+    - "#e1a3ee"
+    - "#12cfc0"
+    - "#f5f5f5"
+  EMACS: "chalk.el"
+
+COLORSCHEME_GRUVBOX_DARK:
+  TERM:
+    - "#282828"
+    - "#cc241d"
+    - "#98971a"
+    - "#d79921"
+    - "#458588"
+    - "#b16286"
+    - "#689d6a"
+    - "#a89984"
+    - "#928374"
+    - "#fb4934"
+    - "#b8bb26"
+    - "#fabd2f"
+    - "#83a598"
+    - "#d3869b"
+    - "#8ec07c"
+    - "#ebdbb2"
+  EMACS: "gruvbox-dark.el"
+
+COLORSCHEME_GRUVBOX_LIGHT:
+  TERM:
+    - "#fbf1c7"
+    - "#cc241d"
+    - "#79740e"
+    - "#b57614"
+    - "#076678"
+    - "#8f3f71"
+    - "#427b58"
+    - "#3c3836"
+    - "#98971a"
+    - "#d79921"
+    - "#458588"
+    - "#b16286"
+    - "#689d6a"
+    - "#7c6f64"
+    - "#928374"
+    - "#9d0006"
+  EMACS: "gruvbox-light.el"
+
+COLORSCHEME_AYU_DARK:
+  TERM:
+    - "#01060E"
+    - "#EA6C73"
+    - "#91B362"
+    - "#F9AF4F"
+    - "#53BDFA"
+    - "#FAE994"
+    - "#90E1C6"
+    - "#C7C7C7"
+    - "#686868"
+    - "#F07178"
+    - "#C2D94C"
+    - "#FFB454"
+    - "#59C2FF"
+    - "#FFEE99"
+    - "#95E6CB"
+    - "#FFFFFF"
+  EMACS: "ayu-dark.el"
+
+COLORSCHEME_DRACULA_DARK:
+
+  TERM:
+    - "#282a36"
+    - "#ff5555"
+    - "#50fa7b"
+    - "#f1fa8c"
+    - "#bd93f9"
+    - "#ff79c6"
+    - "#8be9fd"
+    - "#f8f8f2"
+    - "#6272a4"
+    - "#ff6e6e"
+    - "#69ff94"
+    - "#ffffa5"
+    - "#d6acff"
+    - "#ff92df"
+    - "#a4ffff"
+    - "#ffffff"
+  EMACS: "dracula-dark.el"
+
+COLORSCHEME_ROSEPINE:
+
+  TERM:
+    - "#191724"
+    - "#eb6f92"
+    - "#31748f"
+    - "#f6c177"
+    - "#9ccfd8"
+    - "#c4a7e7"
+    - "#ebbcba"
+    - "#e0def4"
+    - "#6e6a86"
+    - "#eb6f92"
+    - "#31748f"
+    - "#f6c177"
+    - "#9ccfd8"
+    - "#c4a7e7"
+    - "#ebbcba"
+    - "#e0def4"
+  NEOVIM: "rosepine.lua"
+  EMACS: "rosepine.el"
+
+############################################################
+# Fonts
+
+FONTS:
+  - name: NotoSans Nerd Font
+    url: "https://github.com/ryanoasis/nerd-fonts/raw/v2.3.3/patched-fonts/Noto/Sans/complete/Noto%20Sans%20Regular%20Nerd%20Font%20Complete.ttf"

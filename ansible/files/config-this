@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+# Std
+import argparse
+from pathlib import Path
+import os
+import subprocess
+
+# External
+import yaml
+
+###################################
+# Main function and close related #
+###################################
+
+
+def main():
+    """The main function.
+
+    Parses arguments.
+    Otherwise, reads config and then execute the configure playbook
+    with appropriate paramaters.
+    """
+    # Parse arguments
+    arguments = getArgumentParser().parse_args()
+    # Read config
+    config = config_read()
+    config_old = config.copy()
+    # Then set variables
+    tags = choose_tags(config, arguments)
+    profile = config["profile"]
+    playbook_dir = config["playbook_dir"]
+    ## cd and run playbook with variables
+    os.chdir(playbook_dir)
+    # Configure system if specified as argument
+    if arguments.system:
+        system_configure(profile)
+        return
+    configure(profile, tags, update=arguments.update)
+    # If changed config, write
+    if config != config_old:
+        config_write(config)
+
+
+def choose_tags(config: dict, arguments: argparse.Namespace) -> list[str]:
+    """Decide what tags to apply.
+
+    Args:
+        config: configuration of this wrapper.
+        arguments: arguments parsed by main above.
+
+    If any tags have been specified as argument, return them.
+    Otherwise return defaults from config.
+    """
+    if arguments.tags:
+        return arguments.tags.split(",")
+    else:
+        return config["tags"]
+
+
+###################
+# Argument Parser #
+###################
+
+
+def getArgumentParser() -> argparse.ArgumentParser:
+    """Get the argument parser.
+
+    Returns:
+        The argument parser.
+    """
+    parser = argparse.ArgumentParser()
+    # Whether to copy script in $PATH
+    parser.add_argument(
+        "--system",
+        dest="system",
+        action="store_true",
+        help="run system-configure.yml instead of configure.yml",
+    )
+    parser.add_argument(
+        "--tags", dest="tags", action="store", help="Set tags to run"
+    )
+    parser.add_argument(
+        "--update", dest="update", action="store_true", help="Update installed roles"
+    )
+    return parser
+
+
+###############
+# Subroutines #
+###############
+
+
+def configure(profile: str, tags: list, args: list = [], update: bool = False):
+    """Run Ansible Playbook to configure this machine.
+
+    Args:
+        profile: profile from which to take additional variables.
+        tags: tags to pass to Ansible.
+        args: additional arguments to pass to Ansible.
+    """
+    cmd = [
+        "ansible-playbook",
+        "configure.yml",
+        "-K",
+        "--extra-vars",
+        "@vars/common.yml",
+        "--extra-vars",
+        f"@vars/{profile}.yml",
+        "--extra-vars",
+        f"UPDATE={str(update).lower()}",
+        "--tags",
+        ",".join(tags),
+    ] + args
+    subprocess.run(cmd)
+
+
+def system_configure(profile: str, args: list = []):
+    """Run Ansible Playbook to configure this machine (system side).
+
+    Args:
+        profile: profile from which to take additional variables.
+        args: additional arguments to pass to Ansible.
+    """
+    cmd = [
+        "ansible-playbook",
+        "system-configure.yml",
+        "-K",
+        "--extra-vars",
+        "@vars/common.yml",
+        "--extra-vars",
+        f"@vars/{profile}.yml",
+    ] + args
+    subprocess.run(cmd)
+
+
+####################
+# Helper functions #
+####################
+
+
+# TODO: accept config-this.yaml too
+def get_config_path() -> Path:
+    """Return path of config directory.
+
+    Returns $XDG_CONFIG_DIR if exists, otherwise ~/.config.
+    """
+    config_dir = os.environ.get("XDG_CONFIG_DIR")
+    if config_dir is None:
+        config_dir = Path.home() / ".config"
+    else:
+        config_dir = Path(config_dir)
+    return config_dir / "local" / "config-this.yml"
+
+
+def config_read() -> dict:
+    """Read configuration and return it."""
+    with open(get_config_path()) as f:
+        return yaml.safe_load(f)
+
+
+def config_write(data: dict):
+    """Write configuration to file.
+
+    Args:
+        data: config to write to file.
+    """
+    with open(get_config_path(), "w") as f:
+        return yaml.dump(data, f)
+
+
+if __name__ == "__main__":
+    main()

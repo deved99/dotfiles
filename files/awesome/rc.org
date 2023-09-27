@@ -163,143 +163,143 @@ local terminal_fallback = RC.vars.terminal_fb
 #+end_src
 And this is the actual function:
 #+begin_src lua :noweb-ref workflow/kb/global-keys
-    local function exec(s)
-      return function () awful.spawn(s) end
-    end
+  local function exec(s)
+    return function () awful.spawn(s) end
+  end
 
-    local misc = gears.table.join(
-        awful.key({ modkey }, "Escape",
-            hotkeys_popup.show_help,
-            {description="show help", group="awesome"}),
-        awful.key({ modkey }, "w",
-            function () mymainmenu:show() end,
-            {description = "show main menu", group = "awesome"})
-    )
+  local misc = gears.table.join(
+      awful.key({ modkey }, "Escape",
+          hotkeys_popup.show_help,
+          {description="show help", group="awesome"}),
+      awful.key({ modkey }, "w",
+          function () mymainmenu:show() end,
+          {description = "show main menu", group = "awesome"})
+  )
 
-    local layout = gears.table.join(
-        -- Focus windows
-        awful.key({ modkey }, "j",
-            function () awful.client.focus.byidx( 1) end,
-            {description = "Focus next window", group = "client"}),
-        awful.key({ modkey }, "k",
-            function () awful.client.focus.byidx(-1) end,
-            {description = "Focus previous window", group = "client"}),
-        -- Swap windows
-        awful.key({ modkey, "Shift" }, "j",
-            function () awful.client.swap.byidx(  1)    end,
-            {description = "Swap with next client", group = "client"}),
-        awful.key({ modkey, "Shift" }, "k",
-            function () awful.client.swap.byidx( -1)    end,
-            {description = "Swap with previous client", group = "client"}),
-        -- Focus screen
-        awful.key({ modkey, "Control" }, "j",
-            function () awful.screen.focus_relative( 1) end,
-            {description = "Focus next screen", group = "screen"}),
-        awful.key({ modkey, "Control" }, "k",
-            function () awful.screen.focus_relative(-1) end,
-            {description = "Focus previous screen", group = "screen"}),
-        -- Change number of masters
-        awful.key({ modkey }, "l",
-            function () awful.tag.incmwfact( 0.05) end,
-            {description = "Increase master width factor", group = "layout"}),
-        awful.key({ modkey }, "h",
-            function () awful.tag.incmwfact(-0.05) end,
-            {description = "Decrease master width factor", group = "layout"}),
-        -- Change masters/slave ratio
-        awful.key({ modkey, "Shift" }, "h",
-            function () awful.tag.incnmaster( 1, nil, true) end,
-            {description = "Increase the number of master clients", group = "layout"}),
-        awful.key({ modkey, "Shift" }, "l",
-            function () awful.tag.incnmaster(-1, nil, true) end,
-            {description = "Decrease the number of master clients", group = "layout"}),
-        -- Change layout
-        awful.key({ modkey }, "space",
-            function () awful.layout.inc( 1) end,
-            {description = "select next", group = "layout"})
-    )
+  local layout = gears.table.join(
+      -- Focus windows
+      awful.key({ modkey }, "j",
+          function () awful.client.focus.byidx( 1) end,
+          {description = "Focus next window", group = "client"}),
+      awful.key({ modkey }, "k",
+          function () awful.client.focus.byidx(-1) end,
+          {description = "Focus previous window", group = "client"}),
+      -- Swap windows
+      awful.key({ modkey, "Shift" }, "j",
+          function () awful.client.swap.byidx(  1)    end,
+          {description = "Swap with next client", group = "client"}),
+      awful.key({ modkey, "Shift" }, "k",
+          function () awful.client.swap.byidx( -1)    end,
+          {description = "Swap with previous client", group = "client"}),
+      -- Focus screen
+      awful.key({ modkey, "Control" }, "j",
+          function () awful.screen.focus_relative( 1) end,
+          {description = "Focus next screen", group = "screen"}),
+      awful.key({ modkey, "Control" }, "k",
+          function () awful.screen.focus_relative(-1) end,
+          {description = "Focus previous screen", group = "screen"}),
+      -- Change number of masters
+      awful.key({ modkey }, "l",
+          function () awful.tag.incmwfact( 0.05) end,
+          {description = "Increase master width factor", group = "layout"}),
+      awful.key({ modkey }, "h",
+          function () awful.tag.incmwfact(-0.05) end,
+          {description = "Decrease master width factor", group = "layout"}),
+      -- Change masters/slave ratio
+      awful.key({ modkey, "Shift" }, "h",
+          function () awful.tag.incnmaster( 1, nil, true) end,
+          {description = "Increase the number of master clients", group = "layout"}),
+      awful.key({ modkey, "Shift" }, "l",
+          function () awful.tag.incnmaster(-1, nil, true) end,
+          {description = "Decrease the number of master clients", group = "layout"}),
+      -- Change layout
+      awful.key({ modkey }, "s",
+          function () awful.layout.inc( 1) end,
+          {description = "select next", group = "layout"})
+  )
 
-    local programs = gears.table.join(
-        -- Standard program
-        awful.key({ modkey }, "s", exec(terminal),
-            {description = "open a terminal", group = "launcher"}),
-        awful.key({ modkey, "Shift" }, "s", exec(terminal_fallback),
-                  {description = "open a terminal", group = "launcher"}),
-        awful.key({ modkey }, "b", exec(browser),
-                  {description = "open a browser", group = "launcher"}),
-        awful.key({ modkey, "Shift" }, "b", exec(browser_fallback),
-                  {description = "open a browser", group = "launcher"}),
-        awful.key({ modkey }, "Return", exec("emojis"),
-                  {description = "open a browser", group = "launcher"}),
-        awful.key({ modkey }, "e", exec("emacsclient -c"),
-                  {description = "open emacs", group = "launcher"}),
-        -- Menus
-        awful.key({ modkey }, "Tab", exec("menu"),
-                  {description = "run menu", group = "launcher"}),
-        awful.key({ modkey }, "p", exec("passmenu"),
-                  {description = "copy pwd", group = "launcher"})
-    )
+  local programs = gears.table.join(
+      -- Standard program
+      awful.key({ modkey }, "Return", exec(terminal),
+          {description = "open a terminal", group = "launcher"}),
+      awful.key({ modkey, "Shift" }, "s", exec(terminal_fallback),
+                {description = "open a terminal", group = "launcher"}),
+      awful.key({ modkey }, "b", exec(browser),
+                {description = "open a browser", group = "launcher"}),
+      awful.key({ modkey, "Shift" }, "b", exec(browser_fallback),
+                {description = "open a browser", group = "launcher"}),
+      -- awful.key({ modkey }, "Return", exec("emojis"),
+      --           {description = "open a browser", group = "launcher"}),
+      awful.key({ modkey }, "e", exec("emacs"),
+                {description = "open emacs", group = "launcher"}),
+      -- Menus
+      awful.key({ modkey }, "space", exec("menu"),
+                {description = "run menu", group = "launcher"}),
+      awful.key({ modkey }, "p", exec("passmenu"),
+                {description = "copy pwd", group = "launcher"})
+  )
 
-    local media = gears.table.join(
-        -- Brightness
-        awful.key({}, "XF86MonBrightnessUp", exec("light -A 10"),
-                  {description = "Increase brightness", group = "media"}),
-        awful.key({}, "XF86MonBrightnessDown", exec("light -U 10"),
-                  {description = "Decrease brightness", group = "media"}),
-        -- Volume
-        awful.key({}, "XF86AudioMute", exec("pactl set-sink-mute @DEFAULT_SINK@ toggle "),
-                  {description = "Toggle volume", group = "media"}),
-        awful.key({}, "XF86AudioRaiseVolume", exec("pactl set-sink-volume @DEFAULT_SINK@ +10%"),
-                  {description = "Raise volume", group = "media"}),
-        awful.key({}, "XF86AudioLowerVolume", exec("pactl set-sink-volume @DEFAULT_SINK@ -10%"),
-                  {description = "Decrease volume", group = "media"}),
-        awful.key({ modkey }, "m", exec("btmic"),
-                  {description = "Toggle mic", group = "media"}),
-        -- MPD
-        awful.key({}, "XF86AudioPlay", exec("song toggle"),
-                  {description = "Pause/play music", group = "media"}),
-        awful.key({}, "XF86AudioPause", exec("song toggle"),
-                  {description = "Pause/play music", group = "media"}),
-        awful.key({}, "XF86AudioNext", exec("song next"),
-                  {description = "Next song", group = "media"}),
-        awful.key({}, "XF86AudioPrev", exec("song prev"),
-                  {description = "Prev song", group = "media"}),
-        -- Screenshot
-        awful.key({}, "Print", exec("flameshot gui"),
-                  {description = "Screenshot", group = "media"})
-    )
+  local media = gears.table.join(
+      -- Brightness
+      awful.key({}, "XF86MonBrightnessUp", exec("light -A 10"),
+                {description = "Increase brightness", group = "media"}),
+      awful.key({}, "XF86MonBrightnessDown", exec("light -U 10"),
+                {description = "Decrease brightness", group = "media"}),
+      -- Volume
+      awful.key({}, "XF86AudioMute", exec("pactl set-sink-mute @DEFAULT_SINK@ toggle "),
+                {description = "Toggle volume", group = "media"}),
+      awful.key({}, "XF86AudioRaiseVolume", exec("pactl set-sink-volume @DEFAULT_SINK@ +10%"),
+                {description = "Raise volume", group = "media"}),
+      awful.key({}, "XF86AudioLowerVolume", exec("pactl set-sink-volume @DEFAULT_SINK@ -10%"),
+                {description = "Decrease volume", group = "media"}),
+      awful.key({ modkey }, "m", exec("btmic"),
+                {description = "Toggle mic", group = "media"}),
+      -- MPD
+      awful.key({}, "XF86AudioPlay", exec("song toggle"),
+                {description = "Pause/play music", group = "media"}),
+      awful.key({}, "XF86AudioPause", exec("song toggle"),
+                {description = "Pause/play music", group = "media"}),
+      awful.key({}, "XF86AudioNext", exec("song next"),
+                {description = "Next song", group = "media"}),
+      awful.key({}, "XF86AudioPrev", exec("song prev"),
+                {description = "Prev song", group = "media"}),
+      -- Screenshot
+      awful.key({}, "Print", exec("flameshot gui"),
+                {description = "Screenshot", group = "media"})
+  )
 
-    -- Bind all key numbers to tags.
-    -- Be careful: we use keycodes to make it work on any keyboard layout.
-    -- This should map on the top row of your keyboard, usually 1 to 9.
-    ws = gears.table.join()
-    for i = 1, N do
-        ws = gears.table.join(ws,
-            -- View tag only.
-            awful.key({ modkey }, "#" .. i + 9,
-                      function ()
-                            local screen = awful.screen.focused()
-                            local tag = screen.tags[i]
+  -- Bind all key numbers to tags.
+  -- Be careful: we use keycodes to make it work on any keyboard layout.
+  -- This should map on the top row of your keyboard, usually 1 to 9.
+  ws = gears.table.join()
+  for i = 1, N do
+      ws = gears.table.join(ws,
+          -- View tag only.
+          awful.key({ modkey }, "#" .. i + 9,
+                    function ()
+                          local screen = awful.screen.focused()
+                          local tag = screen.tags[i]
+                          if tag then
+                             tag:view_only()
+                          end
+                    end,
+                    {description = "view tag #"..i, group = "tag"}),
+          -- Toggle tag display.
+          awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                    function ()
+                        if client.focus then
+                            local tag = client.focus.screen.tags[i]
                             if tag then
-                               tag:view_only()
+                                client.focus:move_to_tag(tag)
                             end
-                      end,
-                      {description = "view tag #"..i, group = "tag"}),
-            -- Toggle tag display.
-            awful.key({ modkey, "Shift" }, "#" .. i + 9,
-                      function ()
-                          if client.focus then
-                              local tag = client.focus.screen.tags[i]
-                              if tag then
-                                  client.focus:move_to_tag(tag)
-                              end
-                         end
-                      end,
-                      {description = "move focused client to tag #"..i, group = "tag"})
-        )
-    end
+                       end
+                    end,
+                    {description = "move focused client to tag #"..i, group = "tag"})
+      )
+  end
 
-    local global_keys = gears.table.join(misc,layout,programs,media,notifications,ws)
-    root.keys(global_keys)
+  local global_keys = gears.table.join(misc,layout,programs,media,notifications,ws)
+  root.keys(global_keys)
 #+end_src
 *** Global buttons
 As usual, wrap everything in a function.

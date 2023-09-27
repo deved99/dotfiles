@@ -1,0 +1,33 @@
+---
+
+- name: Install EWW (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
+
+- name: Install EWW (arch)
+  kewlfft.aur.aur:
+    name: eww
+  become: true
+  become_user: aur_builder
+  when: distro_short == "arch"
+
+- name: Copy systemd unit
+  ansible.builtin.copy:
+    src: eww.service
+    dest: "{{ SYSTEMD_DIR }}/eww.service"
+
+- name: Ensure ~/.config/eww
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/eww"
+    state: directory
+    mode: "755"
+
+- name: Template colors 
+  ansible.builtin.template:
+    src: colors.scss.j2
+    dest: "{{ CONFIG_DIR }}/eww/colors.scss"
+
+- name: Reload services
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user

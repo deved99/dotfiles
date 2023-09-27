@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+source ~/.config/bspwm/colors.sh
+
+bspc config window_gap 10
+bspc config border_width 4
+bspc config normal_border_color "$BLACK_ALT" # black-alt
+bspc config focused_border_color "$ACCENT" # accent
+bspc config active_border_color "$WHITE" # blue
+bspc config presel_border_color "$RED" # red
+
+# bspc ignore_ewmh_focus true
+
+bspc config split_ratio 0.52
+bspc config focus_follows_pointer true
+bspc config pointer_follows_monitor true
+bspc config gapless_monocle true
+
+~/.screenlayout/default.sh
+bspwm-update_monitors.py &
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+# pgrep -x notif > /dev/null || notif server &
+pgrep -x picom > /dev/null || picom &
+
+feh --bg-scale ~/bg.jpg
+setxkbmap -layout us -variant altgr-intl -option caps:escape
+pgrep -x alacritty > /dev/null || alacritty &
+
+# Disable screensaver
+xset s off -dpms
+
+# For some reason sxhkd doesn't start correctly
+sleep 5 && pkill -USR1 -x sxhkd >>/tmp/log

@@ -1,0 +1,19 @@
+---
+
+- name: Clone repository
+  ansible.builtin.git:
+    dest: "{{ BUILD_DIR }}/notif"
+    repo: "https://github.com/deved99/notif.git"
+    update: "{{ UPDATE }}"
+
+- name: Build
+  ansible.builtin.command:
+    cmd: "cargo build --release"
+    chdir: "{{ BUILD_DIR }}/notif"
+
+- name: Copy binary to local/bin
+  ansible.builtin.copy:
+    src: "{{ BUILD_DIR }}/notif/target/release/notif"
+    dest: "{{ LOCAL_BIN }}/notif"
+    remote_src: true
+    mode: "u+x"

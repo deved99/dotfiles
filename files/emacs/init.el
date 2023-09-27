@@ -298,11 +298,7 @@
   (org-roam-node-display-template (concat "${title:*}" (propertize "${tags:20}" 'face 'org-tag)))
   (org-roam-directory "~/Notes/wiki")
   (org-roam-completion-everywhere t))
-;; [[[[file:~/.dotfiles/files/emacs/init.org::note-taking/roam][note-taking/roam]]][]]
-(use-package org-roam-ui
-  :custom (org-roam-ui-open-on-start nil)
-  :hook (after-init . org-roam-ui-mode))
-;; ends here
+
 ;; note-taking/roam ends here
 ;; [[[[file:~/.dotfiles/files/emacs/init.org::*Summary 🗂️][Summary 🗂️]]][]]
 (use-package lsp-mode

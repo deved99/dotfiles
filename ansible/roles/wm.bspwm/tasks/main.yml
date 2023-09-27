@@ -1,0 +1,69 @@
+--- 
+
+- name: Install (ubuntu)
+  import_tasks: "ubuntu.yml"
+  when: distro_short == "ubuntu"
+
+- name: Install (arch)
+  import_tasks: "arch.yml"
+  when: distro_short == "arch"
+
+########################
+# Install dependencies #
+########################
+
+- name: Install bspwm-grid
+  import_tasks: "bspwm-grid.yml"
+
+- name: Install status-watcher
+  import_tasks: "status-watcher.yml"
+
+#################
+# Configuration #
+#################
+
+- name: Ensure ~/.config/bspwm
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/bspwm"
+    state: directory
+    mode: "755"
+
+- name: Ensure ~/.config/bspwm
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/sxhkd"
+    state: directory
+    mode: "755"
+
+- name: Copy update_monitor.py
+  ansible.builtin.copy:
+    src: update_monitors.py
+    dest: "{{ LOCAL_BIN }}/bspwm-update_monitors.py"
+    mode: "755"
+
+- name: Symlink BSPWM configuration
+  ansible.builtin.file:
+    src: "{{ REPO_FILES }}/bspwm/{{ item.src }}"
+    dest: "{{ CONFIG_DIR }}/{{ item.dest }}"
+    state: link
+  # with_fileglob: "{{ REPO_FILES }}/bspwm/*"
+  loop:
+    - src: bspwmrc
+      dest: bspwm/bspwmrc
+    - src: sxhkdrc
+      dest: sxhkd/sxhkdrc
+
+- name: Template colors 
+  ansible.builtin.template:
+    src: colors.sh.j2
+    dest: "{{ CONFIG_DIR }}/bspwm/colors.sh"
+    mode: "644"
+
+- name: Symlink EWW configuration
+  ansible.builtin.file:
+    src: "{{ REPO_FILES }}/eww/bspwm/{{ item }}"
+    dest: "{{ CONFIG_DIR }}/eww/{{ item }}"
+    state: link
+  loop:
+    - eww.scss
+    - layout.yuck
+    - modules

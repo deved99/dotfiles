@@ -1,0 +1,13 @@
+---
+
+- name: Ensure folder exist
+  ansible.builtin.file:
+    path: "{{ FONTS_DIR }}"
+    state: directory
+    mode: "755"
+
+- name: Download fonts
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ FONTS_DIR }}/"
+  loop: "{{ FONTS }}"

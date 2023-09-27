@@ -123,6 +123,7 @@ Default commands to use colors:
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
   alias ip='ip -c'
+  alias fd='fdfind'
 #+end_src
 Some ~ls~ aliases:
 #+name: aliases/ls

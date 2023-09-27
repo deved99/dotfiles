@@ -1,0 +1,120 @@
+---
+
+################
+# Dependencies #
+################
+
+- name: Install rofi (ubuntu)
+  ansible.builtin.apt:
+    name: rofi
+  become: yes
+  when: distro_short == "ubuntu"
+
+- name: Install rofi (arch)
+  community.general.pacman:
+    name: rofi
+  become: yes
+  when: distro_short == "arch"
+
+- name: Copy dmenu-like script
+  ansible.builtin.copy:
+    src: "dmenu"
+    dest: "{{ LOCAL_BIN }}/dmenu"
+    mode: 'u+x'
+
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ CONFIG_DIR }}/{{ item }}"
+    state: directory
+  loop:
+    - "menu/tools"
+    - "local"
+    - "rofi"
+
+################
+# Install menu #
+################
+
+# Clone & build menu
+- name: Clone repository
+  ansible.builtin.git:
+    dest: "{{ BUILD_DIR }}/menu"
+    repo: "https://github.com/deved99/menu.git"
+    update: "{{ UPDATE }}"
+
+- name: Build menu
+  ansible.builtin.command:
+    cmd: "cargo build --release"
+    chdir: "{{ BUILD_DIR }}/menu"
+
+# Install and configure menu
+- name: Copy menu config
+  ansible.builtin.copy:
+    src: menu/config.json
+    dest: "{{ CONFIG_DIR }}/menu/config.json"
+    force: false
+
+- name: Copy Power menu config
+  ansible.builtin.copy:
+    src: menu/power/
+    dest: "{{ CONFIG_DIR }}/menu/power/"
+
+- name: Copy executables to .local/bin from build
+  ansible.builtin.copy:
+    src: "{{ MENU_TARGET }}/{{ item }}"
+    dest: "{{ LOCAL_BIN }}"
+    mode: 'u+x'
+    remote_src: true
+  loop:
+    - menu
+    - emojis
+
+##################
+# Configure rofi #
+##################
+
+- name: Symlink configuration for Rofi
+  ansible.builtin.file:
+    src: "{{ REPO_FILES }}/rofi/{{ item }}"
+    dest: "{{ CONFIG_DIR }}/rofi/{{ item }}"
+    state: link
+    mode: "644"
+  loop:
+    - "config.rasi"
+    - "theme.rasi"
+
+- name: Template colors.rasi for Rofi
+  ansible.builtin.template:
+    src: "colors.rasi.j2"
+    dest: "{{ CONFIG_DIR }}/rofi/colors.rasi"
+    mode: "644"
+
+##################
+# Configure menu #
+##################
+
+# Copy emoji.json
+- name: Copy emoji.json
+  ansible.builtin.file:
+    src: "{{ REPO_SECRETS }}/local/emoji.json"
+    dest: "{{ CONFIG_DIR }}/local/emoji.json"
+    state: link
+
+- name: Copy dmenu scripts to .config/menu/tools
+  ansible.builtin.copy:
+    src: "{{ MENU_TARGET }}/{{ item }}"
+    dest: "{{ CONFIG_DIR }}/menu/tools/{{ item }}"
+    mode: 'u+x'
+    remote_src: yes
+  loop:
+    - run
+    - files
+    - music
+    - notes
+    - videos
+
+- name: Copy dmenu script for pass to .local/bin
+  ansible.builtin.copy:
+    src: "passmenu"
+    dest: "{{ LOCAL_BIN }}/passmenu"
+    mode: 'u+x'

@@ -1,0 +1,46 @@
+@import "colors.rasi"
+
+* {
+    background: @black;
+    foreground: @white;
+    background-color: inherit;
+    text-color: inherit;
+    border-color: @accent;
+}
+
+window {
+    background-color: @background;
+    border: 5;
+}
+
+listview {
+    padding: 10px;
+    spacing: 2px;
+    background-color: @background;
+    text-color: @foreground;
+}
+
+inputbar {
+    padding: 5px;
+    background-color: @accent;
+    children: [ textbox-prompt, entry ];
+}
+
+textbox-prompt {
+    expand: false;
+    str: "󰍜";
+    margin: 0 0.3em 0 0;
+}
+
+element {
+    padding: 4px;
+}
+
+element.normal.urgent, element.alternate.urgent {
+    background-color: @red;
+}
+
+element.selected.normal, element.selected.urgent, element.selected.active, button.selected {
+    background-color: @accent;
+    text-color: @background;
+}

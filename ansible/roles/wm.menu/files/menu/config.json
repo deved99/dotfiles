@@ -1,0 +1,7 @@
+[
+    {"name": "Run", "cmd": "./tools/run"},
+    {"name": "SSH", "cmd": "rofi -show ssh"},
+    {"name": "Notes", "cmd": "./tools/notes"},
+    {"name": "Music", "cmd": "./tools/music"},
+    {"name": "Power", "dir": "./power"}
+]

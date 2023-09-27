@@ -5,7 +5,8 @@ vim.keymap.set('n', "<leader>", "<Nop>")
 
 local options = {
     number = true,
-    relativenumber = true,
+    -- relativenumber = true,
+    cursorline = true,
     -- no timeout for leader, please
     timeout = false,
     -- tab related options

@@ -1,0 +1,30 @@
+---
+- name: Install config-this
+  hosts: localhost
+  vars:
+    DEFAULT_CONFIG:
+      profile: "{{ profile }}"
+      playbook_dir: "{{ playbook_dir }}"
+      # Colors: default to already set colorscheme, on dark mode
+      colorscheme_current: false
+      tags: "{{ TAGS }}"
+  vars_files:
+    - vars/common.yml
+    - vars/{{ profile }}.yml
+  tasks:
+    - name: Ensure directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ CONFIG_DIR }}/local"
+        - "{{ LOCAL_BIN }}"
+    - name: Copy config
+      ansible.builtin.copy:
+        content: "{{ DEFAULT_CONFIG | to_nice_yaml }}"
+        dest: "{{ CONFIG_DIR }}/local/config-this.yml"
+    - name: Copy script
+      ansible.builtin.copy:
+        src: "config-this"
+        dest: "{{ LOCAL_BIN }}/config-this"
+        mode: "544"

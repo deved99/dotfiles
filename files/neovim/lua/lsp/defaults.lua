@@ -1,3 +1,7 @@
+local format = function()
+    vim.lsp.buf.format({ timeout_ms = 5000 })
+end
+
 local keybindings = function(_, bufnr)
     local keybindings = {
         -- goto
@@ -5,7 +9,7 @@ local keybindings = function(_, bufnr)
         gD = vim.lsp.buf.declaration,
         K = vim.lsp.buf.hover,
         ["<leader>lr"] = vim.lsp.buf.rename,
-        ["<leader>lf"] = vim.lsp.buf.format,
+        ["<leader>lf"] = format,
     }
 
     for keys, func in pairs(keybindings) do
@@ -25,10 +29,9 @@ end
 
 local handler = function (server_name)
     local lspconfig = require("lspconfig")
-
-    local lsp_options = options()
-    lsp_options = add_coq_capabilities(lsp_options)
+    local lsp_options = add_coq_capabilities({})
     lspconfig[server_name].setup(lsp_options)
+    -- keybindings()
 end
 
 return {

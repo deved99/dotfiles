@@ -1,0 +1,9 @@
+---
+
+- name: Install DBeaver (ubuntu)
+  import_tasks: ubuntu.yml
+  when: distro_short == "ubuntu"
+
+- name: Install DBeaver (arch)
+  import_tasks: arch.yml
+  when: distro_short == "arch"

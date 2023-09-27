@@ -1,0 +1,19 @@
+---
+
+- name: Copy notes-sync to .local/bin
+  ansible.builtin.copy:
+    src: scripts/notes-sync
+    dest: "{{ LOCAL_BIN }}/notes-sync"
+    mode: u+x
+
+- name: Install systemd units
+  ansible.builtin.copy:
+    src: systemd-user/
+    dest: "{{ SYSTEMD_DIR }}/"
+
+- name: Enable and start notes-sync
+  ansible.builtin.service:
+    name: notes-sync.timer
+    scope: user
+    enabled: yes
+    state: started

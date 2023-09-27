@@ -154,14 +154,14 @@ function set_global_keys()
           function () awful.tag.incnmaster(-1, nil, true) end,
           {description = "Decrease the number of master clients", group = "layout"}),
       -- Change layout
-      awful.key({ modkey }, "space",
+      awful.key({ modkey }, "s",
           function () awful.layout.inc( 1) end,
           {description = "select next", group = "layout"})
   )
   
   local programs = gears.table.join(
       -- Standard program
-      awful.key({ modkey }, "s", exec(terminal),
+      awful.key({ modkey }, "Return", exec(terminal),
           {description = "open a terminal", group = "launcher"}),
       awful.key({ modkey, "Shift" }, "s", exec(terminal_fallback),
                 {description = "open a terminal", group = "launcher"}),
@@ -169,12 +169,12 @@ function set_global_keys()
                 {description = "open a browser", group = "launcher"}),
       awful.key({ modkey, "Shift" }, "b", exec(browser_fallback),
                 {description = "open a browser", group = "launcher"}),
-      awful.key({ modkey }, "Return", exec("emojis"),
-                {description = "open a browser", group = "launcher"}),
-      awful.key({ modkey }, "e", exec("emacsclient -c"),
+      -- awful.key({ modkey }, "Return", exec("emojis"),
+      --           {description = "open a browser", group = "launcher"}),
+      awful.key({ modkey }, "e", exec("emacs"),
                 {description = "open emacs", group = "launcher"}),
       -- Menus
-      awful.key({ modkey }, "Tab", exec("menu"),
+      awful.key({ modkey }, "space", exec("menu"),
                 {description = "run menu", group = "launcher"}),
       awful.key({ modkey }, "p", exec("passmenu"),
                 {description = "copy pwd", group = "launcher"})

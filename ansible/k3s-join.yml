@@ -1,0 +1,9 @@
+---
+
+- name: Install K3S on agents.
+  hosts: []
+  vars:
+    controller_node: "pi-mnt"
+  become: true
+  roles:
+    - k3s.join

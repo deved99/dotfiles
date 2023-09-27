@@ -1,0 +1,30 @@
+- name: Create build dir
+  ansible.builtin.file:
+    path: "{{ BUILD_DIR }}/neovim"
+    state: directory
+
+- name: Install configuration dependencies
+  ansible.builtin.apt:
+    name: ripgrep
+  become: true
+
+- name: Install neovim deb
+  ansible.builtin.apt:
+    name: neovim
+    state: absent
+  become: true
+
+- name: Download neovim AppImage
+  ansible.builtin.get_url:
+    url: "{{ NEOVIM_URL }}"
+    dest: "/usr/bin/nvim"
+    mode: "755"
+  become: true
+  vars:
+    NEOVIM_URL: "https://github.com/neovim/neovim/releases/download/v0.9.1/nvim.appimage"
+
+- name: Set neovim as an alternative to vi
+  ansible.builtin.shell: >-
+    update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 100
+  become: true
+

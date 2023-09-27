@@ -1,0 +1,115 @@
+@import "./colors.scss";
+
+$inter-status: 5px;
+
+* {
+    all: unset;
+}
+
+.whole-bar {
+    background-color: $black;
+    color: $white;
+    font-family: "NotoSans Nerd Font";
+    font-size: 15px;
+}
+
+.status > * {
+    margin: 0px $inter-status;
+}
+// But for the whole group the margin should be a little higher.
+.workspaces > *, .status > * {
+    padding: 0px 5px;
+}
+
+// Workspaces
+
+.ws-active {
+    color: $accent;
+}
+.ws-unactive {
+    color: $black-alt;
+}
+
+.ws-active:hover, .ws-occupied:hover, .ws-unactive:hover {
+    background-color: $accent;
+    color: $black;
+}
+
+.ws-row {
+    color: $black;
+    background-color: $accent;
+    margin-right: 4px;
+    margin-left: 0px;
+}
+.ws-row:hover {
+    color: $black;
+    background-color: $white;
+}
+
+// Right side
+
+.time {
+    margin: 0px;
+    margin-left: $inter-status;
+    color: $white;
+}
+
+.battery-low {
+    background-color: $red;
+    animation: urgent 1s linear infinite;
+}
+.battery-charging, .battery {
+    color: $orange;
+}
+
+@keyframes urgent {
+    25% {
+        background-color: $red;
+    };
+}
+
+.volume-unmuted {
+    color: $blue;
+}
+.mic-unmuted {
+    color: $red;
+}
+
+.song-playing {
+    color: $purple;
+}
+
+.volume-muted, .mic-muted, .song-paused {
+    color: $black-alt;
+}
+
+.notifications {
+    margin: 0px;
+    margin-right: $inter-status;
+    color: $red;
+}
+
+.notifications-none {
+    margin: 0px;
+    margin-right: $inter-status;
+    color: $black-alt;
+}
+
+// Notification window
+.notification-window {
+    background-color: $black;
+}
+.notification-entry {
+    background-color: $black-alt;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.notification-entry-summary {
+    color: $white;
+    font-weight: bold;
+}
+.notification-entry-body {
+    color: $white;
+}
