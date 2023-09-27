@@ -47,6 +47,10 @@ super + n
 super + d
     evince
 
+# Raise/lower brightness
+XF86MonBrightness{Up,Down}
+    light {-A,-U} 10
+
 # Toggle mute
 XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -57,8 +61,12 @@ XF86Audio{RaiseVolume,LowerVolume}
 XF86Audio{Prev,Play,Pause,Next}
     song {prev,toggle,toggle,next}
 
-super + m
-    btmic
+# Toggle microphone mute
+# super + m
+#     btmic
+
+XF86LaunchA
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Print
 Print
