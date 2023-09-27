@@ -41,7 +41,7 @@ function cj() {
 alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
-alias myip='printf "$(curl -s ifconfig.me || echo Network unavailable)\n"'
+alias myip='curl ifconfig.co'
 # ends here
 # Aliases:1 ends here
 
