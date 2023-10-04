@@ -39,9 +39,14 @@
   `song loop`)
 
 (defwidget song []
-  (box :class { song-json.state == "paused" ? "song-paused" : "song-playing" }
-    "${ song-json.state == "paused" ? "󰏤" : "󰝚" } ${song-json.title}"))
-
+  (box
+    :space-evenly false
+    :class { song-json.state == "paused" ? "song-paused" : "song-playing" }
+    "󰝚 "
+    (revealer
+      :transition "slideright"
+      :reveal "${song-json.state == 'playing'}"
+      " ${song-json.title}")))
 
 ; Time
 (defwidget time []
