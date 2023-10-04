@@ -66,7 +66,8 @@ XF86Audio{Prev,Play,Pause,Next}
 #     btmic
 
 XF86LaunchA
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle; \
+        playerctl pause; song pause
 
 # Print
 Print
