@@ -26,10 +26,8 @@ super + shift + Return
 
 # Browser
 super + b
-    brave-browser
-	# /snap/bin/firefox
-XF86Search
-    brave-browser
+	firefox
+    # brave-browser
 
 # Menus
 super + @space
@@ -66,8 +64,7 @@ XF86Audio{Prev,Play,Pause,Next}
 #     btmic
 
 XF86LaunchA
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle; \
-        playerctl pause; song pause
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Print
 Print
