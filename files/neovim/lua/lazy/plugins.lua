@@ -15,7 +15,7 @@ local plugins = {
     require("filetypes.yuck"),
     -- Programming
     require("lsp.formatter"),
-    require("lsp.fugitive"),
+    require("lsp.git"),
     require("lsp.mason"),
     require("lsp.telescope"),
     require("lsp.treesitter"),

@@ -15,8 +15,7 @@ alias lt="$EXA_DEFAULT -T --git-ignore"
 alias lta="$EXA_DEFAULT -T"
 # aliases/ls ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/emacs][aliases/emacs]]][aliases/emacs]]
-alias ew='emacsclient -c'
-alias ef='emacsclient -c --no-wait'
+alias ef='neovide --multigrid'
 # aliases/emacs ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias usystemctl='systemctl --user'
