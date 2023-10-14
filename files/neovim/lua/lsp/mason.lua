@@ -21,6 +21,18 @@ local lua_handler = function()
     require('lspconfig').lua_ls.setup(lsp_options)
 end
 
+local rust_handler = function()
+    local lsp_options = defaults.options()
+    lsp_options.settings = {
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy"
+            }
+        }
+    }
+    require('lspconfig').rust_analyzer.setup(lsp_options)
+end
+
 local config = function()
     -- setup mason
     require("mason").setup()
@@ -31,7 +43,8 @@ local config = function()
     -- see `help mason-lspconfig-automatic-server-setup`.
     require("mason-lspconfig").setup_handlers {
         defaults.handler,
-        lua_ls = lua_handler
+        lua_ls = lua_handler,
+        rust_analyzer = rust_handler
     }
 end
 
