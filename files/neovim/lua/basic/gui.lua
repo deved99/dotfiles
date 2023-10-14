@@ -1,1 +1,1 @@
-vim.o.guifont = "Fira Code:h10"
+vim.o.guifont = "JetBrains Mono:h10"

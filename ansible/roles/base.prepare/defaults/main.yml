@@ -21,8 +21,8 @@ base_packages_by_distro:
       - fastboot
     arch: android-tools
   # Graphical
-  - ubuntu: fonts-firacode
-    arch: ttf-fira-code
+  - ubuntu: fonts-jetbrains-mono
+    arch: ttf-jetbrains-mono
   - ubuntu: pavucontrol
     arch: pavucontrol
   - ubuntu: mpv
