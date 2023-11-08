@@ -9,7 +9,6 @@ local plugins = {
     require("editing.comment"),
     require("editing.vim-cool"),
     require("editing.autopairs"),
-    require("editing.autopairs"),
     -- require("editing.indentline"),
     require("filetypes.sxhkd"),
     require("filetypes.yuck"),
