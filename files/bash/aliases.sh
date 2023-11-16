@@ -15,7 +15,9 @@ alias lt="$EXA_DEFAULT -T --git-ignore"
 alias lta="$EXA_DEFAULT -T"
 # aliases/ls ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::aliases/emacs][aliases/emacs]]][aliases/emacs]]
-alias ef='neovide --multigrid'
+ef() {
+    alacritty -e nvim "$@" & disown
+}
 # aliases/emacs ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias usystemctl='systemctl --user'
@@ -43,8 +45,6 @@ alias yapf="yapf --style={based_on_style:google\,indent_width:2}"
 alias myip='curl ifconfig.co'
 # ends here
 # Aliases:1 ends here
-
-alias python='ipython3'
 
 function k8s-secret() {
     kubectl get secret -o json $@ \
