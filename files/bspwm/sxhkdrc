@@ -53,7 +53,7 @@ XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 # Change volume
 XF86Audio{RaiseVolume,LowerVolume}
-    pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
+    pactl-rounded {+5%,-5%}
 
 XF86Audio{Prev,Play,Pause,Next}
     song {prev,toggle,toggle,next}

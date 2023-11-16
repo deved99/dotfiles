@@ -1,0 +1,8 @@
+#!/bin/sh
+
+pactl get-sink-volume @DEFAULT_SINK@ \
+    | grep -Eo '[0-9]+%' \
+    | head -n1 \
+    | awk '{print int($1/5)*5 "%"}' \
+    | xargs pactl set-sink-volume @DEFAULT_SINK@
+pactl set-sink-volume @DEFAULT_SINK@ $1

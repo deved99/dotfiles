@@ -28,7 +28,7 @@
     state: directory
     mode: "755"
 
-- name: Ensure ~/.config/bspwm
+- name: Ensure ~/.config/sxhkd
   ansible.builtin.file:
     path: "{{ CONFIG_DIR }}/sxhkd"
     state: directory
@@ -38,6 +38,12 @@
   ansible.builtin.copy:
     src: update_monitors.py
     dest: "{{ LOCAL_BIN }}/bspwm-update_monitors.py"
+    mode: "755"
+
+- name: Copy script to change volume
+  ansible.builtin.copy:
+    src: pactl-rounded
+    dest: "{{ LOCAL_BIN }}/pactl-rounded"
     mode: "755"
 
 - name: Symlink BSPWM configuration
