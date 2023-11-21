@@ -18,6 +18,9 @@ alias lta="$EXA_DEFAULT -T"
 ef() {
     alacritty -e nvim "$@" & disown
 }
+dup() {
+    alacritty "$@" & disown
+}
 # aliases/emacs ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias usystemctl='systemctl --user'
