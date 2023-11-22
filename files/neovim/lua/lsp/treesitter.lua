@@ -6,6 +6,7 @@ local ensure_installed = {
     "lua",
     "markdown",
     "markdown_inline",
+    "php",
     "python",
     "rust",
     "sql",
