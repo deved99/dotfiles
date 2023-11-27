@@ -35,17 +35,17 @@
 ;;     "${volume-json.mic_mute ? '󰍭' : '󰍬'} ${volume-json.mic_volume}%"))
 
 (deflisten song-json
-  :initial '{"artist":"artist","state":"paused","title":"title"}'
-  `song loop`)
+  :initial '{"playing":false,"title":"title"}'
+  `whale watch current --json`)
 
 (defwidget song []
   (box
     :space-evenly false
-    :class { song-json.state == "paused" ? "song-paused" : "song-playing" }
+    :class { song-json.playing ? "song-playing" : "song-paused" }
     "󰝚 "
     (revealer
       :transition "slideright"
-      :reveal "${song-json.state == 'playing'}"
+      :reveal "${song-json.playing}"
       " ${song-json.title}")))
 
 ; Time

@@ -56,7 +56,7 @@ XF86Audio{RaiseVolume,LowerVolume}
     pactl-rounded {+5%,-5%}
 
 XF86Audio{Prev,Play,Pause,Next}
-    song {prev,toggle,toggle,next}
+    whale {prev,toggle,toggle,next}
 
 # Toggle microphone mute
 # super + m
