@@ -53,3 +53,5 @@ function k8s-secret() {
     kubectl get secret -o json $@ \
         | jq '.data | with_entries({ key, "value": .value | @base64d})'
 }
+
+alias k8s-secret-clip="xclip -o | jq '.data | with_entries({ key, \"value\": .value | @base64d})'"
