@@ -26,4 +26,6 @@ fi
 # ends here
 # .bashrc:1 ends here
 
+export PATH="$PATH:~/go/bin"
+
 eval "$(starship init bash)"

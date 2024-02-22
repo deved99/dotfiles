@@ -37,7 +37,7 @@ local config = function()
     -- setup mason
     require("mason").setup()
     require("mason-lspconfig").setup {
-        ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels" }
+        ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels", "gopls"}
     }
 
     -- see `help mason-lspconfig-automatic-server-setup`.

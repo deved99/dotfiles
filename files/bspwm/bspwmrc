@@ -16,6 +16,8 @@ bspc config focus_follows_pointer true
 bspc config pointer_follows_monitor true
 bspc config gapless_monocle true
 
+bspc rule -a Zathura state=tiled
+
 ~/.screenlayout/default.sh
 bspwm-update_monitors.py &
 
@@ -25,7 +27,6 @@ pgrep -x picom > /dev/null || picom &
 
 feh --bg-scale ~/bg.jpg
 setxkbmap -layout us -variant altgr-intl -option caps:escape
-pgrep -x alacritty > /dev/null || alacritty &
 
 # Disable screensaver
 xset s off -dpms

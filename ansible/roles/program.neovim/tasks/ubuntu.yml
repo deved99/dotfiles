@@ -21,16 +21,16 @@
     mode: "755"
   become: true
   vars:
-    NEOVIM_URL: "https://github.com/neovim/neovim/releases/download/v0.9.4/nvim.appimage"
+    NEOVIM_URL: "https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage"
 
-- name: Download Neovide (AppImage)
-  ansible.builtin.get_url:
-    url: "{{ NEOVIDE_URL }}"
-    dest: "/usr/bin/neovide"
-    mode: "755"
-  become: true
-  vars:
-    NEOVIDE_URL: "https://github.com/neovide/neovide/releases/download/0.11.2/neovide.AppImage"
+# - name: Download Neovide (AppImage)
+#   ansible.builtin.get_url:
+#     url: "{{ NEOVIDE_URL }}"
+#     dest: "/usr/bin/neovide"
+#     mode: "755"
+#   become: true
+#   vars:
+#     NEOVIDE_URL: "https://github.com/neovide/neovide/releases/download/0.11.2/neovide.AppImage"
 
 - name: Set neovim as an alternative to vi
   ansible.builtin.shell: >-
