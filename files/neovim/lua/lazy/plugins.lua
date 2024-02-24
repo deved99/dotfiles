@@ -3,13 +3,11 @@ local plugins = {
     require("visual.lualine"),
     require("visual.markdown"),
     require("visual.colorizer"),
-    -- require("visual.which-key"),
     -- General editing
     require("editing.surround"),
     require("editing.comment"),
     require("editing.vim-cool"),
     require("editing.autopairs"),
-    -- require("editing.indentline"),
     require("filetypes.sxhkd"),
     require("filetypes.yuck"),
     -- Programming

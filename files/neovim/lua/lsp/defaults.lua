@@ -23,8 +23,7 @@ end
 
 -- Could this be merged in the function above?
 local add_coq_capabilities = function(lsp_options)
-    local coq = require('coq')
-    return coq.lsp_ensure_capabilities(lsp_options)
+    return require('cmp_nvim_lsp').default_capabilities(lsp_options)
 end
 
 local handler = function (server_name)
