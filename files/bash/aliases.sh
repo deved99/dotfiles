@@ -29,6 +29,9 @@ alias ujournalctl='journalctl --user'
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias gclip='xclip -o | gpg -d'
 alias jclip='xclip -o | jq'
+jless() {
+    jq -C "$@" | less -R
+}
 alias yclip='xclip -o | yq'
 alias shclip='xclip -o -selection clipboard | bash'
 alias wclip='whois $(xclip -o)'

@@ -25,7 +25,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 # pgrep -x notif > /dev/null || notif server &
 pgrep -x picom > /dev/null || picom &
 
-feh --bg-scale ~/bg.jpg
+feh --bg-fill ~/bg.jpg
 setxkbmap -layout us -variant altgr-intl -option caps:escape
 
 # Disable screensaver
