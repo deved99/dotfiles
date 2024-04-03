@@ -66,8 +66,8 @@
     {{ CARGO_BIN }}/rustup which --toolchain stable rust-analyzer
   register: RUST_ANALYZER_PATH
 
-- name: Link rust-analyzer in bin
-  ansible.builtin.file:
-    path: "{{ CARGO_BIN }}/rust-analyzer"
-    src: "{{ RUST_ANALYZER_PATH.stdout }}"
-    state: link
+# - name: Link rust-analyzer in bin
+#   ansible.builtin.file:
+#     path: "{{ CARGO_BIN }}/rust-analyzer"
+#     src: "{{ RUST_ANALYZER_PATH.stdout }}"
+#     state: link
