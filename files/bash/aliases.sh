@@ -32,6 +32,9 @@ alias jclip='xclip -o | jq'
 alias yclip='xclip -o | yq'
 alias shclip='xclip -o -selection clipboard | bash'
 alias wclip='whois $(xclip -o)'
+jless() {
+    jq -C "$@" | less -R
+}
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias ssh='TERM=xterm-256color ssh'
