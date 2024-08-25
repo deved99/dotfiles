@@ -27,7 +27,10 @@ local rust_handler = function()
         ["rust-analyzer"] = {
             checkOnSave = {
                 command = "clippy"
-            }
+            },
+            cargo = {
+                features = "all",
+            },
         }
     }
     require('lspconfig').rust_analyzer.setup(lsp_options)
