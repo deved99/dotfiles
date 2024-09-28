@@ -41,6 +41,7 @@ jless() {
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 alias ssh='TERM=xterm-256color ssh'
+alias ssh-single='ssh -o ControlPath=none'
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*Aliases][Aliases]]][]]
 function cj() {
