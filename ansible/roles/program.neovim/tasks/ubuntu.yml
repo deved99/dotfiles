@@ -21,7 +21,7 @@
     mode: "755"
   become: true
   vars:
-    NEOVIM_URL: "https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage"
+    NEOVIM_URL: "https://github.com/neovim/neovim/releases/download/v0.10.2/nvim.appimage"
 
 # - name: Download Neovide (AppImage)
 #   ansible.builtin.get_url:
