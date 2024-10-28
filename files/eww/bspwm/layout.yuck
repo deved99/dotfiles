@@ -36,7 +36,7 @@
 
 (deflisten song-json
   :initial '{"playing":false,"title":"title"}'
-  `whale watch current --json`)
+  `whale current song --watch --json`)
 
 (defwidget song []
   (box

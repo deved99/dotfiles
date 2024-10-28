@@ -27,5 +27,6 @@ fi
 # .bashrc:1 ends here
 
 export PATH="$PATH:~/go/bin"
+export ANDROID_SDK_ROOT="$HOME/.android/sdk"
 
 eval "$(starship init bash)"

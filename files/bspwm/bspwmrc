@@ -17,6 +17,7 @@ bspc config pointer_follows_monitor true
 bspc config gapless_monocle true
 
 bspc rule -a Zathura state=tiled
+bspc rule -a feh-fullscreen state=fullscreen
 
 ~/.screenlayout/default.sh
 bspwm-update_monitors.py &
