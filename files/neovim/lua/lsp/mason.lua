@@ -27,7 +27,10 @@ local rust_handler = function()
         ["rust-analyzer"] = {
             checkOnSave = {
                 command = "clippy"
-            }
+            },
+            cargo = {
+                features = "all",
+            },
         }
     }
     require('lspconfig').rust_analyzer.setup(lsp_options)
@@ -37,7 +40,7 @@ local config = function()
     -- setup mason
     require("mason").setup()
     require("mason-lspconfig").setup {
-        ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels"} -- "gopls"
+        ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "ansiblels"}
     }
 
     -- see `help mason-lspconfig-automatic-server-setup`.

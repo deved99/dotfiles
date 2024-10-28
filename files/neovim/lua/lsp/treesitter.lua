@@ -2,6 +2,7 @@ local ensure_installed = {
     "bash",
     "gitcommit",
     "json",
+    "just",
     "latex",
     "lua",
     "markdown",
