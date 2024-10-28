@@ -62,6 +62,9 @@ XF86Audio{Prev,Play,Pause,Next}
 # super + m
 #     btmic
 
+super + m
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
 XF86LaunchA
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
@@ -132,6 +135,9 @@ super + alt + {_,shift + }{1-5}
 super + {_,shift + }{button8,button9}
     bspwm-grid {focus,send} -y {+1,-1}
 
+super + {_,shift + }{Down,Up}
+    bspwm-grid {focus,send} -y {+1,-1}
+
 #
 # preselect
 #
@@ -167,3 +173,9 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+#
+# For fun and idiots
+#
+super + alt + s
+    feh --class "feh-fullscreen" ~/Pictures/please-stand-by.jpg

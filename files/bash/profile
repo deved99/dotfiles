@@ -22,6 +22,5 @@ export ANSIBLE_COW_SELECTION=tux
 export LUTRIS_SKIP_INIT=1
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
-export RUST_LOG="info"
 # ends here
 # .profile:1 ends here
