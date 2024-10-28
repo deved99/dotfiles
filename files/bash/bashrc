@@ -29,3 +29,4 @@ fi
 export PATH="$PATH:~/go/bin"
 
 eval "$(starship init bash)"
+eval "$(just --completions bash)"
