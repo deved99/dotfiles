@@ -3,7 +3,7 @@ local config = function()
     trouble.setup {}
 
     local keybindings = {
-        ["<leader>ld"] = "<cmd>TroubleToggle<cr>",
+        ["<leader>ld"] = "<cmd>Trouble diagnostics toggle<cr>",
     }
 
     for keys, func in pairs(keybindings) do
