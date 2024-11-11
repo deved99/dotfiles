@@ -18,3 +18,17 @@
       # Venv?
   when: distro_short == "arch"
   become: true
+
+- name: Install uv
+  block:
+    - name: download install.sh of uv
+      ansible.builtin.get_url:
+        url: https://astral.sh/uv/install.sh
+        dest: /tmp/uv-install.sh
+        mode: "755"
+    - name: run nstall.sh of uv
+      ansible.builtin.command: /tmp/uv-install.sh
+    - name: Remove install.sh of uv
+      ansible.builtin.file:
+        path: /tmp/uv-install.sh
+        state: absent
