@@ -17,6 +17,8 @@ local plugins = {
     require("lsp.telescope"),
     require("lsp.treesitter"),
     require("lsp.trouble"),
+    -- Language specific
+    require("lsp.flutter"),
 }
 
 local status, colorscheme = pcall(require, 'visual.theme')

@@ -1,5 +1,6 @@
 local ensure_installed = {
     "bash",
+    "dart",
     "gitcommit",
     "json",
     "just",
