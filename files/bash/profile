@@ -3,7 +3,10 @@
 export EDITOR=/usr/bin/nvim
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.local/share/flutter/bin"
 # ends here
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
 export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
@@ -24,3 +27,4 @@ export LUTRIS_SKIP_INIT=1
 # [[[[file:~/.dotfiles/files/bash/bash.org::*.profile][.profile]]][]]
 # ends here
 # .profile:1 ends here
+

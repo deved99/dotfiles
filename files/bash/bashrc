@@ -26,8 +26,8 @@ fi
 # ends here
 # .bashrc:1 ends here
 
-export PATH="$PATH:~/go/bin"
 export ANDROID_SDK_ROOT="$HOME/.android/sdk"
+export CHROME_EXECUTABLE="thorium-browser"
 
 eval "$(starship init bash)"
 eval "$(just --completions bash)"
