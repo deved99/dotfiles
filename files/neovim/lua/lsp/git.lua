@@ -23,6 +23,7 @@ local gitsigns = {
             -- Normal mode
             map('n', '<leader>gs', gs.stage_hunk)
             map('n', '<leader>gS', gs.stage_buffer)
+            map('n', '<leader>gr', gs.reset_hunk)
             map('n', '<leader>gR', gs.reset_buffer)
             map('n', '<leader>gp', gs.preview_hunk)
             map('n', '<leader>gb', gs.toggle_current_line_blame)

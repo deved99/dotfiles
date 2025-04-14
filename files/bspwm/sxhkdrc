@@ -10,6 +10,9 @@ super + Escape
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
+super + alt + e
+    ln -sf /home/davide/.screenlayout/emerg.sh /home/davide/.screenlayout/default.sh
+
 ##################
 # Basic launcher #
 ##################
@@ -64,9 +67,11 @@ XF86Audio{Prev,Play,Pause,Next}
 
 super + m
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
 XF86LaunchA
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+super + {Prior,Next}
+    dunstctl {history-pop,close}
 
 # Print
 Print

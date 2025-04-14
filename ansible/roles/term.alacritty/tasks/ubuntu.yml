@@ -18,7 +18,7 @@
     dest: "{{ BUILD_DIR }}/alacritty"
     repo: "https://github.com/alacritty/alacritty.git"
     # update: "{{ UPDATE }}"
-    version: "v0.14.0"
+    version: "v0.13.2"
 
 - name: Build
   ansible.builtin.command:

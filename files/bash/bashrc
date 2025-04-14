@@ -19,15 +19,10 @@ source "$SNIPPET_DIR/history.sh"
 source "$SNIPPET_DIR/aliases.sh"
 source "$SNIPPET_DIR/prompt.sh"
 # ends here
-# [[[[file:~/.dotfiles/files/bash/bash.org::*.bashrc][.bashrc]]][]]
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-  source "/usr/share/autojump/autojump.sh"
-fi
-# ends here
-# .bashrc:1 ends here
 
 export ANDROID_SDK_ROOT="$HOME/.android/sdk"
 export CHROME_EXECUTABLE="thorium-browser"
 
-eval "$(starship init bash)"
 eval "$(just --completions bash)"
+eval "$(starship init bash)"
+eval "$(zoxide init bash)"
