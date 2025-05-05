@@ -47,7 +47,8 @@
       :transition "slideright"
       :reveal "${song-json.playing}"
       (label 
-        :limit-width 60
+        :limit-width 30
+        :tooltip "${song-json.title}"
         :text " ${song-json.title}"))))
 
 ; Time

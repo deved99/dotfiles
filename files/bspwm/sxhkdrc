@@ -29,7 +29,7 @@ super + shift + Return
 
 # Browser
 super + b
-    thorium-browser
+    firefox
 
 # Menus
 super + @space
@@ -183,4 +183,4 @@ super + {Left,Down,Up,Right}
 # For fun and idiots
 #
 super + alt + s
-    feh --class "feh-fullscreen" ~/Pictures/please-stand-by.jpg
+    feh --class "feh-fullscreen" ~/Pictures/memes/please-stand-by.jpg
