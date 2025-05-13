@@ -29,7 +29,7 @@ super + shift + Return
 
 # Browser
 super + b
-    firefox
+    thorium-browser
 
 # Menus
 super + @space
