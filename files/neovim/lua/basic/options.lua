@@ -22,6 +22,7 @@ local options = {
     smartcase = true,
     -- misc
     clipboard = {"unnamedplus"},
+    splitright = true,
     wrap = false,
     signcolumn = "yes",
 }

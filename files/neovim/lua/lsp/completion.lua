@@ -1,5 +1,3 @@
-local coq_startup = "COQnow --shut-up"
-
 local config = function()
   -- Set up nvim-cmp.
   local cmp = require('cmp')
@@ -19,7 +17,6 @@ local config = function()
       { name = 'buffer' },
     })
   })
-
 end
 
 return {

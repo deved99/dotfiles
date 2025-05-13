@@ -11,10 +11,12 @@ local plugins = {
     require("filetypes.sxhkd"),
     require("filetypes.yuck"),
     -- Programming
+    require("lsp.copilot"),
     require("lsp.formatter"),
     require("lsp.git"),
     require("lsp.mason"),
     require("lsp.telescope"),
+    require("lsp.toggleterm"),
     require("lsp.treesitter"),
     require("lsp.trouble"),
     -- Language specific
